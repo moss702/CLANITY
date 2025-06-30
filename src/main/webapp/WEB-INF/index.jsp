@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
- <h3> 테스트 파일입니다</h3>
+<h2> 이것은 동작 테스트용 jsp 입니다</h2>
 </body>
 </html>
