@@ -9,6 +9,9 @@ import javax.sql.DataSource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class HikariCPUtil {
 	private static HikariDataSource dataSource;
 	static {
@@ -37,6 +40,7 @@ public class HikariCPUtil {
 		return dataSource;
 	}
 	public static void main(String[] args) {
-		System.out.println(dataSource);
+		log.info("{}", dataSource);
+		
 	}
 }
