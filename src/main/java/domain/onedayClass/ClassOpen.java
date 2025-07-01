@@ -16,9 +16,6 @@ public class ClassOpen {
 	private String end_time; 
 	private String max_participants;
 	private int status;// 나중에 enum으로 설정(7개)
-	
-	
-	
 	public ClassOpen(String open_id, String master_id, String schedule_date, String start_time, String end_time,
 			String max_participants, int status) {
 		super();
