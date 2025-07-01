@@ -1,91 +1,130 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
+
 <head>
-<%@ include file="../common/head.jsp"%>
-<style>
-.login-card {
-	max-width: 400px;
-	margin: auto;
-	margin-top: 100px;
-	border-radius: 1rem;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+	<%@ include file="../common/head.jsp" %>
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 60px auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
-.form-control::placeholder {
-	color: #999;
-}
+        .icon-input {
+            position: relative;
+        }
 
-.icon-input {
-	position: relative;
-}
+        .icon-input .fa-user,
+        .icon-input .lockicon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
 
-.icon-input i {
-	position: absolute;
-	left: 15px;
-	top: 50%;
-	transform: translateY(-50%);
-	color: #999;
-}
+        .icon-input .fa-eye {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
 
-.icon-input input {
-	padding-left: 2.5rem;
-}
+        .icon-input .fa-eye:hover {
+            cursor: pointer;
+        }
 
-.toggle-password {
-	position: absolute;
-	right: 15px;
-	top: 50%;
-	transform: translateY(-50%);
-	cursor: pointer;
-	color: #999;
-}
-</style>
+
+        .icon-input input {
+            padding-left: 2.5rem;
+        }
+
+        .login-btn {
+            width: 100%;
+            background-color: #e0e0e0;
+            border: none;
+            color: #333;
+        }
+
+        .login-btn:hover {
+            background-color: #ccc;
+        }
+
+        .small-link {
+            font-size: 0.9rem;
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+
+        .bottom-text {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .bottom-text a {
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .bottom-text a:hover {
+            text-decoration: underline;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+    </style>
 </head>
+
 <body>
-	<div class="card login-card p-4">
-		<h4 class="text-center mb-4">로그인</h4>
 
-		<div class="mb-3 icon-input">
-			<i class="fas fa-user"></i> <input type="email" class="form-control"
-				placeholder="이메일">
-		</div>
+    <div class="container p-0">
+        <div class="login-container">
+            <div class="text-center mb-4">
+                <h4>로그인</h4>
+            </div>
 
-		<div class="mb-3 icon-input position-relative">
-			<i class="fas fa-lock"></i> <input type="password"
-				class="form-control" id="password" placeholder="비밀번호"> <i
-				class="fas fa-eye toggle-password" onclick="togglePassword()"></i>
-		</div>
+            <form>
+                <div class="mb-3 icon-input">
+                    <i class="fa fa-user"></i>
+                    <input type="email" class="form-control" placeholder="이메일" required>
+                </div>
 
-		<button class="btn btn-secondary w-100 mb-2" disabled>로그인</button>
+                <div class="mb-3 icon-input">
+                    <i class="fa fa-lock lockicon"></i>
+                    <input type="password" class="form-control" placeholder="비밀번호" required>
+                    <i class="fa fa-eye pe-auto" id="togglePassword"></i>
+                </div>
 
-		<div class="d-flex justify-content-between">
-			<a href="#" class="small text-muted">비밀번호 재설정</a>
-		</div>
+                <button type="submit" class="btn login-btn">로그인</button>
 
-		<div class="text-center mt-3">
-			<span class="text-muted">아직 회원이 아니신가요? </span> <a href="#"
-				class="fw-bold text-dark">회원가입</a>
-		</div>
-	</div>
+                <div class="small-link">
+                    <a href="#">비밀번호 재설정</a>
+                </div>
 
-	<script src="https://kit.fontawesome.com/a2e0f1f0fc.js"
-		crossorigin="anonymous"></script>
-	<script>
-		function togglePassword() {
-			const pwd = document.getElementById('password');
-			const icon = document.querySelector('.toggle-password');
-			if (pwd.type === "password") {
-				pwd.type = "text";
-				icon.classList.remove("fa-eye");
-				icon.classList.add("fa-eye-slash");
-			} else {
-				pwd.type = "password";
-				icon.classList.remove("fa-eye-slash");
-				icon.classList.add("fa-eye");
-			}
-		}
-	</script>
+                <div class="bottom-text">
+                    아직 회원이 아니신가요? <a href="#">회원가입</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+
+        $(function () {
+            $("#togglePassword").on("click", function () {
+                const $passwordInput = $(this).siblings("input[type='password'], input[type='text']");
+
+                const currentType = $passwordInput.attr("type");
+                const newType = currentType === "password" ? "text" : "password";
+                $passwordInput.attr("type", newType);
+            });
+        });
+    </script>
 </body>
+
 </html>
