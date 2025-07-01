@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -92,12 +94,12 @@
             <form>
                 <div class="mb-3 icon-input">
                     <i class="fa fa-user"></i>
-                    <input type="email" class="form-control" placeholder="이메일" required>
+                    <input type="email" class="form-control" placeholder="이메일">
                 </div>
 
                 <div class="mb-3 icon-input">
                     <i class="fa fa-lock lockicon"></i>
-                    <input type="password" class="form-control" placeholder="비밀번호" required>
+                    <input type="password" class="form-control" placeholder="비밀번호">
                     <i class="fa fa-eye pe-auto" id="togglePassword"></i>
                 </div>
 

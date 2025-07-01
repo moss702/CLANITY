@@ -411,7 +411,7 @@
       <i class="fa-solid fa-bell fs-5"></i>
       <i class="fa-solid fa-circle-user fs-5"></i>
       <a class="text-dark text-decoration-none" href="#">+열기</a>
-      <a class="text-dark text-decoration-none" href="#">로그인</a>
+      <a class="text-dark text-decoration-none" href="member/login">로그인</a>
     </nav>
 
   </div>
