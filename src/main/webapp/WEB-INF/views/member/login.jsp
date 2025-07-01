@@ -110,7 +110,7 @@
                 </div>
 
                 <div class="bottom-text">
-                    아직 회원이 아니신가요? <a href="#">회원가입</a>
+                    아직 회원이 아니신가요? <a href="/member/register">회원가입</a>
                 </div>
             </form>
         </div>
