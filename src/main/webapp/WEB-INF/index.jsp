@@ -8,8 +8,8 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
+<%@ include file="footer.jsp" %>
 
-<h2> 이것은 동작 테스트용 jsp 입니다</h2>
 
 
 </body>

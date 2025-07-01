@@ -193,8 +193,6 @@
     background-color: #c9303e;
   }
   </style>
-</head>
-<body>
 
 
 </head>
@@ -423,17 +421,6 @@
 
 
 
-<main class="flex-fill"> 
-
-<p>메인</p>
-
-
-
-    </main>
-
-
-</body>
-</html>
 
 </body>
 </html>
