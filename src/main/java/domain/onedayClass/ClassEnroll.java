@@ -10,14 +10,13 @@ import lombok.Data;
 @Data
 public class ClassEnroll {
 // 나중에 시간같은 자동으로 부여되는 것들은 삭제하기
-	private String enrollId;
-	private String openId;
-	private String  memberId;
+	private Long enrollId;
+	private Long openId;
+	private Long  memberId;
 	private Date enrolledAt;
 	private int  status; // 나중에 enum으로 설정
 	
-	
-	public ClassEnroll(String enrollId, String openId, String memberId, Date enrolledAt, int status) {
+	public ClassEnroll(Long enrollId, Long openId, Long memberId, Date enrolledAt, int status) {
 		super();
 		this.enrollId = enrollId;
 		this.openId = openId;
@@ -25,6 +24,9 @@ public class ClassEnroll {
 		this.enrolledAt = enrolledAt;
 		this.status = status;
 	}
+	
+	
+	
 	
 	
 	

@@ -7,11 +7,18 @@ import lombok.Data;
 @Data
 public class SocialingJoin {
 	
-	private String join_id;
-	private String social_id;
-	private String member_id;
-	private String joined_at;
-	private String status;
+	private Long joinId;
+	private Long socialId;
+	private Long memberId;
+	private String joinedAt;
+	
+	public SocialingJoin(Long joinId, Long socialId, Long memberId, String joinedAt) {
+		super();
+		this.joinId = joinId;
+		this.socialId = socialId;
+		this.memberId = memberId;
+		this.joinedAt = joinedAt;
+	}
 	
 
 }
