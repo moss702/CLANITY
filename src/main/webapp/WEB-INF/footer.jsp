@@ -1,0 +1,72 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1; /* main이 남은 공간 채움 */
+    }
+  </style>
+</head>
+<body>
+
+
+<footer class="bg-light border-end mt-auto py-5">
+    <div class="container">
+      <div class="row text-muted small">
+        
+        <!-- 정보 -->
+        <div class="col-md-4 mb-4">
+          <h6 class="fw-semibold text-dark">클래니티 정보</h6>
+          <ul class="list-unstyled mt-3">
+            <li><a href="#" class="text-decoration-none text-dark">공지사항</a></li>
+            <li><a href="#" class="text-decoration-none text-dark">이벤트</a></li>
+            <li><a href="#" class="text-decoration-none text-dark">자주 묻는 질문</a></li>
+            <li><a href="#" class="text-decoration-none text-dark">제휴 및 입점 문의</a></li>
+            <li><a href="#" class="text-decoration-none text-dark">채용</a></li>
+          </ul>
+        </div>
+
+        <!-- 소셜 -->
+        <div class="col-md-4 mb-4">
+          <h6 class="fw-semibold text-dark">소셜 미디어</h6>
+          <ul class="list-unstyled mt-3">
+            <li><a href="#" class="text-decoration-none text-dark"><i class="fa-brands fa-instagram"></i></a></li>
+            <li><a href="#" class="text-decoration-none text-dark">네이버 블로그</a></li>
+          </ul>
+        </div>
+
+        <!-- 회사정보 -->
+        <div class="col-md-4">
+          <h6 class="fw-semibold text-dark">주식회사 클래니티</h6>
+          <p class="mt-3 mb-1">대표: 다모아 | 개인정보관리책임자: 다모아</p>
+          <p class="mb-1">사업자등록번호: 000-00-00000 | 통신판매: 제2025-서울구로-0622</p>
+          <p class="mb-1">이메일: clanity@clanity.kr | 대표번호: 000-0000-0000</p>
+          <p class="mb-1">주소: 서울 구로구 디지털로 306</p>
+          <p class="mb-3">고객센터: @카카오톡채널 | 운영시간: (월~일) 오전 10:00 ~ 오후 5:00</p>
+          <div class="d-flex gap-2">
+            <a href="#" class="text-decoration-none text-dark">이용약관</a> |
+            <a href="#" class="text-decoration-none text-dark">개인정보처리방침</a> |
+            <a href="#" class="text-decoration-none text-dark">사업자정보확인</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+
+</body>
+</html>
