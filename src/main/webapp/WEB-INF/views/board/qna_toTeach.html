@@ -1,91 +1,158 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>강사님께 문의하기</title>
+  <meta charset="UTF-8" />
+  <title>문의할 클래스 선택</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="qna_style.css">
-
   <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
 
-    .class-thumbnail {
+    .settings-wrapper {
+      display: flex;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 40px auto;
+    }
+
+    .category-menu {
+      width: 180px;
+    }
+
+    .pill-btn {
+      border-radius: 50rem;
+      background-color: #e9ecef;
+      padding: 0.5rem 1rem;
+      font-weight: 600;
+      border: none;
       cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .class-thumbnail:hover {
-      transform: scale(1.03);
-    }
-    .inquiry-box {
-      background: #fff;
-      border-radius: 0.75rem;
-      padding: 2rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      width: 100%;
     }
 
-    .form-section {
-      display: none;
-      margin-top: 2rem;
+    .pill-btn:hover {
+      background-color: #ced4da;
+    }
+
+    .class-card {
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .thumbnail-wrapper {
+      position: relative;
+      width: 160px;
+      height: 100px;
+      flex-shrink: 0;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .thumbnail-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .badge-status {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .class-info {
+      flex-grow: 1;
+    }
+
+    .class-info p {
+      margin-bottom: 0.4rem;
+      font-size: 14px;
+    }
+
+    .class-name {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      font-size: 16px;
+      cursor: pointer;
+      color: #000;
+    }
+
+    .class-name:hover {
+      text-decoration: underline;
+      color: #E63946;
+    }
+
+    .btn-inquire {
+      white-space: nowrap;
     }
   </style>
 </head>
 <body>
-<div class="container my-5">
-  <div class="row g-4">
-    <!-- 왼쪽 썸네일 리스트 -->
-    <div class="col-md-4">
-      <h5 class="fw-bold mb-3">🎨 관심있는 클래스</h5>
-      <div class="d-grid gap-3">
-        <div class="class-thumbnail border rounded p-2 bg-white" onclick="location.href='class_apply_1.html'">
-          <img src="https://placehold.co/300x180" class="img-fluid rounded mb-2" alt="클래스1 썸네일">
-          <div class="fw-semibold">수채화 원데이 클래스</div>
-        </div>
-        <div class="class-thumbnail border rounded p-2 bg-white" onclick="location.href='class_apply_2.html'">
-          <img src="https://placehold.co/300x180" class="img-fluid rounded mb-2" alt="클래스2 썸네일">
-          <div class="fw-semibold">나만의 마크라메 만들기</div>
-        </div>
-        <div class="class-thumbnail border rounded p-2 bg-white" onclick="location.href='class_apply_3.html'">
-          <img src="https://placehold.co/300x180" class="img-fluid rounded mb-2" alt="클래스3 썸네일">
-          <div class="fw-semibold">드로잉 입문 클래스</div>
-        </div>
-      </div>
+  <div class="settings-wrapper">
+    <!-- 좌측 사이드바 -->
+    <div class="category-menu">
+      <button class="pill-btn mb-2">문의하기</button>
+      <button class="pill-btn">문의 내역</button>
     </div>
 
-    <!-- 오른쪽 문의하기 -->
-    <div class="col-md-8">
-      <div class="inquiry-box">
-        <h5 class="fw-bold mb-3">📩 문의하기</h5>
-        <p class="text-muted">선택한 클래스에 대해 강사님께 직접 질문할 수 있어요.</p>
-        <button class="btn btn-danger" onclick="document.querySelector('.form-section').style.display='block'">강사님께 문의하기</button>
+    <!-- 우측 클래스 목록 -->
+  <div class="flex-grow-1">
+    <div class="section-title">
+      <h2>1:1 문의하기</h2>
+      <p>궁금한 점이 있다면 언제든 문의해주세요.</p>
+      <hr>
+    </div> 
+      <p>클래스 강사님께 문의하기</p>
 
-        <!-- 폼 영역 -->
-        <div class="form-section">
-          <hr>
-          <form>
-            <div class="mb-3">
-              <label class="form-label">이메일</label>
-              <input type="email" class="form-control" placeholder="example@clanity.com" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">문의 제목</label>
-              <input type="text" class="form-control" placeholder="문의 내용을 간단히 적어주세요" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">문의 내용</label>
-              <textarea class="form-control" rows="5" placeholder="자세한 내용을 입력해주세요" required></textarea>
-            </div>
-            <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" id="checkConfirm" required>
-              <label class="form-check-label" for="checkConfirm">
-                입력한 정보를 확인했습니다.
-              </label>
-            </div>
-            <button type="submit" class="btn btn-danger w-100">문의 보내기</button>
-          </form>
+      <!-- 클래스 카드 -->
+      <div class="class-card">
+        <!-- 썸네일 -->
+        <div class="thumbnail-wrapper" onclick="location.href='qna_write.html?classId=00001'">
+          <span class="badge bg-danger text-white badge-status">수강신청중</span>
+          <img src="https://placehold.co/160x100" alt="썸네일">
+        </div>
+
+        <!-- 정보 -->
+        <div class="class-info">
+          <div class="class-name" onclick="location.href='qna_write.html?classId=00001'">수채화 원데이 클래스</div>
+          <p><strong>클래스 번호:</strong> class-00001</p>
+          <p><strong>클래스 가격:</strong> 30,000원</p>
+        </div>
+
+        <!-- 버튼 -->
+        <div>
+          <button class="btn btn-outline-secondary btn-sm btn-inquire">강사님께 문의하기</button>
         </div>
       </div>
+
+      <!-- 또 하나 예시 -->
+      <div class="class-card">
+        <div class="thumbnail-wrapper" onclick="location.href='qna_write.html?classId=00002'">
+          <span class="badge bg-warning text-dark badge-status">오픈예정</span>
+          <img src="https://placehold.co/160x100" alt="썸네일">
+        </div>
+        <div class="class-info">
+          <div class="class-name" onclick="location.href='qna_write.html?classId=00002'">마크라메 만들기</div>
+          <p><strong>클래스 번호:</strong> class-00002</p>
+          <p><strong>클래스 가격:</strong> 40,000원</p>
+        </div>
+        <div>
+          <button class="btn btn-outline-secondary btn-sm btn-inquire">강사님께 문의하기</button>
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
 </body>
 </html>
