@@ -7,8 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file="header.jsp" %>
-<%@ include file="footer.jsp" %>
+
+<%@ include file="views/common/header.jsp" %>
+
+
+<main>
+예시
+
+</main>
+
+<%@ include file="views/common/footer.jsp" %>
 
 
 
