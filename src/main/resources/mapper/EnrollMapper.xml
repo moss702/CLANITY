@@ -1,0 +1,39 @@
+<mapper namespace="mapper.EnrollMapper">
+
+  <!-- 단일 조회 -->
+  <select id="selectOne" resultType="domain.onedayClass.ClassEnroll">
+    SELECT * 
+    FROM class_enroll 
+    WHERE enroll_id = #{enrollId}
+  </select>
+
+  <!-- (예시) 전체 목록 조회 -->
+  <select id="list" resultType="domain.onedayClass.ClassEnroll">
+    SELECT * 
+    FROM class_enroll 
+    ORDER BY enrolled_at DESC
+  </select>
+
+  <!-- 신청 등록 (resultType 제거) -->
+  <insert id="insert" parameterType="domain.onedayClass.ClassEnroll">
+    INSERT INTO class_enroll (
+      enroll_id, open_id, member_id, enrolled_at, status
+    ) VALUES (
+      #{enrollId}, #{openId}, #{memberId}, #{enrolledAt}, #{status}
+    )
+  </insert>
+
+  <!-- 상태 변경 (기존 상태 → 새로운 상태로 바꾸는 경우 예시) -->
+  <update id="updateStatus">
+    UPDATE class_enroll 
+    SET status = #{newStatus}
+    WHERE enroll_id = #{enrollId}
+  </update>
+
+  <!-- 삭제 (enroll_id 명확히 맞춤) -->
+  <delete id="delete">
+    DELETE FROM class_enroll 
+    WHERE enroll_id = #{enrollId}
+  </delete>
+
+</mapper>
