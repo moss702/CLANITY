@@ -24,4 +24,13 @@ public class MemberMapperTest {
 		memberMapper.insert(member);
 		log.info("{}",member);
 	}
+	
+	@Test
+	@DisplayName("단일 유저 출력 테스트")
+	public void selectMemberTest() {
+		String email = "2";
+		
+		Member member = memberMapper.findByEmail(email);
+		log.info("{}", member);
+	}
 }
