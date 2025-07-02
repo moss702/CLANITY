@@ -6,7 +6,7 @@
 <head>
   <%@ include file="../common/head.jsp" %>
   <title>자주 묻는 질문</title>
-  <link rel="stylesheet" href="qna_style.css">
+<link rel="stylesheet" href="${cp}/css/qna_style.css" />
 </head>
 
 <body>
@@ -25,7 +25,7 @@
             <h2 class="fw-bold mb-1">자주 묻는 질문</h2>
             <p class="text-muted mb-0">클래니티 고객들이 가장 많이 궁금해하는 질문을 확인하세요.</p>
           </div>
-          <button class="btn btn-outline-secondary btn-sm" onclick="location.href='/inquiry'">1:1 문의하기</button>
+          <button class="btn btn-outline-secondary btn-sm" onclick="location.href='/qna_main'">1:1 문의하기</button>
         </div>
       </div>
 
@@ -139,9 +139,9 @@
     const newCard = `
       <div class="card faq-card mb-3" data-category="${category}">
         <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#newFaq${timestamp}">
-          <div><strong class="text-danger">[${$('#faqCategory option:selected').text()}]</strong> ${question}</div>
+            <div><strong class="text-danger">[${selectedCategory}]</strong> ${question}</div>
           <small class="text-muted">방금전</small>
-        </div>
+        </div> 
         <div id="newFaq${timestamp}" class="collapse" data-bs-parent="#faqAccordion">
           <div class="faq-answer">
             <p>${answer}</p>
