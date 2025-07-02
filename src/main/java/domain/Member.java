@@ -18,7 +18,8 @@ import lombok.NoArgsConstructor;
 public class Member {
 	private Long memberId; //맴버 고유 번호
 	private String email;
-	private String String;
+	private String password;
+	private String nickname;
 	private String phone;
 	private Gender gender;
 	private String profileimage;
