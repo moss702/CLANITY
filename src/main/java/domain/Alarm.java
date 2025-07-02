@@ -1,5 +1,7 @@
 package domain;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +17,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Alias("alarm")
 public class Alarm {
 	private Long alarmId;       // 알림 고유 ID (PK)
 	private Long receiverId;    // 알림 수신자 (회원 ID)
@@ -27,23 +30,5 @@ public class Alarm {
 	private boolean isRead;     // 알림 읽음 여부 (true=읽음, false=안 읽음)
 	private String sentAt;      // 알림 발송 시각
 	private String readAt;      // 알림 읽은 시각 (읽지 않았으면 null)
-
-	// 알림 종류
-	public enum AlarmType {
-		NOTICE,     // 공지
-		EVENT,      // 이벤트
-		CLASS,      // 클래스
-		SOCIAL, 	// 소셜링
-		COMMENT,    // 댓글
-		INQUIRY     // 문의
-	}
-
-	// 알림 대상의 도메인 종류
-	public enum TargetType {
-		CLASS,      // 클래스
-		POST,       // 커뮤니티
-		SOCIALING,  // 소셜링
-		INQUIRY     // 문의게시판
-	}
 }
 

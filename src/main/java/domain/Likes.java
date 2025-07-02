@@ -1,5 +1,7 @@
 package domain;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +17,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Alias("likes")
 public class Likes {
 	private Long likeId;     // 좋아요 고유 ID
 	private Long boardId;    // 좋아요 누른 게시글 번호

@@ -1,5 +1,7 @@
 package domain;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +17,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Alias("reply")
 public class Reply {
 	private Long replyId;     // 댓글 고유 ID
 	private Long boardId;     // 어떤 게시글에 달린 댓글인지
