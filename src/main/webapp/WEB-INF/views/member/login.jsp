@@ -91,10 +91,10 @@
                 <h4>로그인</h4>
             </div>
 
-            <form>
+            <form class="login-form">
                 <div class="mb-3 icon-input">
                     <i class="fa fa-user"></i>
-                    <input type="email" class="form-control" placeholder="이메일">
+                    <input type="text" class="form-control" placeholder="이메일">
                 </div>
 
                 <div class="mb-3 icon-input">
@@ -110,7 +110,7 @@
                 </div>
 
                 <div class="bottom-text">
-                    아직 회원이 아니신가요? <a href="/member/register">회원가입</a>
+                    아직 회원이 아니신가요? <a href="${cp}/member/register">회원가입</a>
                 </div>
             </form>
         </div>
