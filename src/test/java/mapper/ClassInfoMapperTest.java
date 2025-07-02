@@ -17,7 +17,8 @@ public class ClassInfoMapperTest {
 				.description("테스트용").price(5000).duration(100).build();
 		log.info("{}", classInfo);
 		classInfoMapper.insert(classInfo);
-		log.info("{}", classInfo);
+
+	log.info("{}", classInfo);
 
 	}
 
