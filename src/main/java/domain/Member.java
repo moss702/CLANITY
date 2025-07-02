@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Alias("member")
 public class Member {
-	private Long memberId; //맴버 고유 번호
+//	private Long memberId; //맴버 고유 번호
 	private String email;
 	private String password;
 	private String nickname;

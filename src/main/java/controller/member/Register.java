@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import domain.Member;
 import lombok.extern.slf4j.Slf4j;
+import service.MemberService;
 import util.ParamUtil;
 
 @Slf4j
@@ -30,6 +31,12 @@ public class Register extends HttpServlet{
 		
 		log.info("이메일 값 : {}, 비밀번호 값 : {}", email, password);
 		
+		Member member  = Member.builder().email("email").password("password").build();
+		log.info("입력 받은 회원 정보: {}", member);
+		
+		new MemberService().register(member);
+		
+		resp.sendRedirect("../index");
 		//		Member member = ParamUtil.get(req, Member.class); // 파라미터 확인 후 살리기
 //		log.info("{}", member);
 	}

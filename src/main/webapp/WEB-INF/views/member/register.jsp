@@ -5,80 +5,7 @@
 
 <head>
 <%@ include file="../common/head.jsp"%>
-<style>
-.login-container {
-	max-width: 400px;
-	margin: 60px auto;
-	padding: 2rem;
-	background-color: #fff;
-	border-radius: 12px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.icon-input {
-	position: relative;
-}
-
-.icon-input .fa-user, .icon-input .lockicon {
-	position: absolute;
-	left: 10px;
-	top: 50%;
-	transform: translateY(-50%);
-	color: #999;
-}
-
-.icon-input .fa-eye {
-	position: absolute;
-	right: 15px;
-	top: 50%;
-	transform: translateY(-50%);
-	color: #999;
-}
-
-.icon-input .fa-eye:hover {
-	cursor: pointer;
-}
-
-.icon-input input {
-	padding-left: 2.5rem;
-}
-
-.login-btn {
-	width: 100%;
-	background-color: #e0e0e0;
-	border: none;
-	color: #333;
-}
-
-.login-btn:hover {
-	background-color: #ccc;
-}
-
-.small-link {
-	font-size: 0.9rem;
-	text-align: right;
-	margin-top: 0.5rem;
-}
-
-.bottom-text {
-	text-align: center;
-	margin-top: 1.5rem;
-	font-size: 0.9rem;
-}
-
-.bottom-text a {
-	font-weight: bold;
-	text-decoration: none;
-}
-
-.bottom-text a:hover {
-	text-decoration: underline;
-}
-
-body {
-	background-color: #f8f9fa;
-}
-</style>
+<link rel="stylesheet" href="${cp}/css/register.css">
 </head>
 
 <body>
@@ -87,13 +14,12 @@ body {
 				<h4>회원가입</h4>
 			</div>
 
-			<form class="join-form">
+			<form class="join-form" action="${cp}/member/register" method="post">
 				<div class="mb-3 icon-input">
 					<i class="fa fa-user"></i>
 					<input type="text" name="email" class="form-control" id="email"placeholder="이메일">
 				</div>
 				
-
 				<div class="mb-3 icon-input my-0">
 					<i class="fa fa-lock lockicon"></i> <input type="password"
 						class="form-control" name="password" id="password" placeholder="비밀번호"> <i
@@ -106,7 +32,6 @@ body {
 						class="form-control" name="pwck" id="pwck" placeholder="비밀번호 확인"> <i
 						class="fa fa-eye pe-auto" id="togglePassword"></i>
 				</div>
-				
 				<div class="form-check ">
 					<input class="form-check-input" type="checkbox" id="termsCheck">
 					<label class="form-check-label small" for="termsCheck"> <a href="#">CLANITY
