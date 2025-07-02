@@ -6,4 +6,8 @@
   	<insert id="insert">
   	insert into member(email, password) values (#{email}, #{password})
   	</insert>
+  	
+  	<select id="findByEmail" resultType="domain.Member">
+  	select * from member where email = #{email}
+  	</select>
   </mapper>

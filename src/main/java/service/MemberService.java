@@ -1,0 +1,46 @@
+package service;
+
+import org.apache.ibatis.session.SqlSession;
+
+import domain.Member;
+import lombok.extern.slf4j.Slf4j;
+import mapper.MemberMapper;
+import util.MybatisUtil;
+import util.PasswordEncoder;
+
+@Slf4j
+public class MemberService {
+	
+	public int register(Member member) {
+		try(SqlSession session = MybatisUtil.getSqlSession()){
+			MemberMapper mapper = session.getMapper(MemberMapper.class);
+			member.setPassword(PasswordEncoder.encode(member.getPassword()));
+			return mapper.insert(member);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public Member findByEmail(String email) {
+		try(SqlSession session = MybatisUtil.getSqlSession()){
+			MemberMapper mapper = session.getMapper(MemberMapper.class);
+			return mapper.findByEmail(email);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public boolean login(String email, String password) {
+		Member member = findByEmail(email);
+		if(member == null) {
+			return false;
+		}
+		return PasswordEncoder.matches(password, member.getPassword());
+	}
+
+	
+}
