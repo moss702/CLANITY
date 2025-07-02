@@ -1,3 +1,4 @@
+
 /* qna_ 페이지 관련 style.css */
 
     body {
@@ -5,15 +6,15 @@
       background-color: #f8f9fa;
     }
 
-    /* 전체 레이아웃 구성 */
+    /* 전체 레이아웃 구성 ========================  */
     .settings-wrapper {
       display: flex;
-      gap: 2rem;
+      gap: 40px;
       max-width: 1100px;
-      margin: 2rem auto;
+      margin: 40px auto;
     }
 
-    /* 좌측 사이드바 카테고리 */
+    /* 좌측 사이드바 카테고리 ========================  */
     .category-menu {
       width: 180px;
     }
@@ -22,7 +23,7 @@
       font-weight: bold;
     }
 
-    /* 버튼 */
+    /* 버튼 ========================  */
     .pill-btn {
       border-radius: 50rem;
       background-color: #e9ecef;
@@ -48,13 +49,17 @@
       font-weight: bold;
       font-size: 1rem;
     }
+    
+    .btn-inquire {
+      white-space: nowrap;
+    }
 
-    /* 우측 컨텐츠 구역 title */
+    /* 우측 컨텐츠 구역 title ========================  */
     .section-title {margin-bottom: 30px;}
     .section-title h2 {font-weight: bold; margin-bottom: 20px;}
     .section-title p {color: #6c757d; font-size: 17px;}
 
-    /* FAQ바로가기_문의전 자주묻는질문확인 박스 */
+    /* FAQ바로가기_문의전 자주묻는질문확인 박스 ========================  */
     .faq-box {
       display: block;
       padding: 1rem 1.25rem;
@@ -67,5 +72,58 @@
     .faq-box:hover {background-color: #fff0a1;}
     .faq-box strong {color: #e63946; font-size: 1rem; margin-right: 0.5rem;}
 
-    /* QnA form_box */
+	/* QnA toBusiness 문의할 클래스 선택 ========================  */
+    .class-card {
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      transition: box-shadow 0.2s ease;
+    }
+    .thumbnail-wrapper {
+      position: relative;
+      width: 160px;
+      height: 100px;
+      flex-shrink: 0;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .thumbnail-wrapper img {width: 100%; height: 100%; object-fit: cover;}
+    .badge-status {position: absolute; top: 0.5rem; left: 0.5rem; font-size: 0.75rem;}
+    .class-info {flex-grow: 1;}
+	.class-info p {margin-bottom: 0.4rem; font-size: 14px; }
+	.class-name {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      font-size: 16px;
+      cursor: pointer;
+      color: #000;
+    }
+    .class-name:hover { text-decoration: underline; color: #E63946;}
 
+    /* form_box ========================  */
+	.form-box {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
+    }
+
+    /* 문의내역 (질문, 답변) ========================  */
+    .inquiry-card {
+      background: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 0.75rem;
+      transition: box-shadow 0.2s ease;
+    }
+    .inquiry-card:hover {box-shadow: 0 0 0.5rem rgba(0,0,0,0.05);}
+    .card-header {background: #fff;cursor: pointer;}
+    .card-body {background-color: #fdfdfd;}
+    .answer-header {display: flex;align-items: center;gap: 0.5rem;margin-bottom: 0.5rem;}
+    .answer-header img {width: 32px;height: 32px;border-radius: 50%;}
+    .answer-buttons button {margin-right: 0.5rem;}

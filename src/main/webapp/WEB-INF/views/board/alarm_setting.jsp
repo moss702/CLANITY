@@ -1,134 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-  <meta charset="UTF-8">
+  <%@ include file="../common/head.jsp" %>
   <title>알림 설정</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
-
-    /* 전체 레이아웃 구성 */
-    .settings-wrapper {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .category-menu {
-      width: 180px;
-      font-weight: bold;
-    }
-
-    .pill-btn {
-      border-radius: 50rem;
-      background-color: #e9ecef;
-      padding: 0.5rem 1rem;
-      font-weight: 500;
-      border: none;
-      cursor: pointer;
-    }
-
-    .pill-btn:hover {
-      background-color: #ced4da;
-    }
-
-    .pill-btn:active {
-    background-color: #E63946;
-    font-weight: bold;
-    }
-
-    .sub-setting {
-      padding-left: 1rem;
-      padding-top: 0.5rem;
-    }
-
-    .rounded-box {
-      border: 1px solid #dee2e6;
-      border-radius: 1rem;
-      padding: 1rem 1.5rem;
-      background-color: white;
-      margin-bottom: 1rem;
-      box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.05);
-    }
-
-    /* 아코디언 화살표 */
-    .arrow {
-      display: inline-block;
-      width: 0;
-      height: 0;
-      margin-left: 8px;
-      vertical-align: middle;
-      border-top: 6px solid transparent;
-      border-bottom: 6px solid transparent;
-      border-left: 6px solid black;
-      transition: transform 0.3s ease;
-    }
-
-    .arrow.open {
-      transform: rotate(-90deg);
-    }
-
-    .form-switch .form-check-input {
-      width: 60px;
-      height: 30px;
-      border-radius: 30px;
-      background-color: #dee2e6;
-      border: 1px solid #ccc;
-      position: relative;
-      transition: all 0.3s ease;
-      appearance: none;
-    }
-
-    .form-switch .form-check-input::before {
-      content: "OFF";
-      position: absolute;
-      top: 4px;
-      right: 6px;
-      font-size: 12px;
-      color: white;
-      z-index: 2;
-    }
-
-    .form-switch .form-check-input::after {
-      content: "";
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 24px;
-      height: 24px;
-      background-color: white;
-      border-radius: 50%;
-      transition: all 0.3s ease;
-      z-index: 1;
-    }
-
-    .form-switch .form-check-input:checked {
-      background-color: #E63946;
-      border-color: #E63946;
-    }
-
-    .form-switch .form-check-input:checked::before {
-      content: "ON";
-      left: 10px;
-      right: auto;
-    }
-
-    .form-switch .form-check-input:checked::after {
-      left: 33px;
-    }
-
-    .alert-group {
-      cursor: pointer;
-    }
-    .alert-items {
-      cursor: default;
-    }
-
-  </style>
+  <link rel="stylesheet" href="alarm_style.css" />
 </head>
-<body class="p-4">
 
+<body class="p-4">
+<%@ include file="../common/header.jsp" %>
   <div class="settings-wrapper">
     <!-- 좌측 메뉴 -->
     <div class="category-menu">
@@ -202,7 +83,8 @@
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<%@ include file="../common/footer.jsp" %>
+
   <script>
     $(function () {
       // 모든 알람 켜기 토글
