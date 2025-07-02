@@ -1,104 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>문의할 클래스 선택</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <style>
-    body {
-      background-color: #f8f9fa;
-      font-family: 'Noto Sans KR', sans-serif;
-    }
-
-    .settings-wrapper {
-      display: flex;
-      gap: 2rem;
-      max-width: 1000px;
-      margin: 40px auto;
-    }
-
-    .category-menu {
-      width: 180px;
-    }
-
-    .pill-btn {
-      border-radius: 50rem;
-      background-color: #e9ecef;
-      padding: 0.5rem 1rem;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    .pill-btn:hover {
-      background-color: #ced4da;
-    }
-
-    .class-card {
-      background-color: #fff;
-      border: 1px solid #dee2e6;
-      border-radius: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      transition: box-shadow 0.2s ease;
-    }
-
-    .thumbnail-wrapper {
-      position: relative;
-      width: 160px;
-      height: 100px;
-      flex-shrink: 0;
-      border-radius: 0.5rem;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .thumbnail-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .badge-status {
-      position: absolute;
-      top: 0.5rem;
-      left: 0.5rem;
-      font-size: 0.75rem;
-    }
-
-    .class-info {
-      flex-grow: 1;
-    }
-
-    .class-info p {
-      margin-bottom: 0.4rem;
-      font-size: 14px;
-    }
-
-    .class-name {
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      font-size: 16px;
-      cursor: pointer;
-      color: #000;
-    }
-
-    .class-name:hover {
-      text-decoration: underline;
-      color: #E63946;
-    }
-
-    .btn-inquire {
-      white-space: nowrap;
-    }
-  </style>
+  <%@ include file="../common/head.jsp" %>
+  <title>강사님께 문의하기</title>
+  <link rel="stylesheet" href="qna_style.css">
 </head>
+
 <body>
+<%@ include file="../common/header.jsp" %>
+
   <div class="settings-wrapper">
     <!-- 좌측 사이드바 -->
     <div class="category-menu">
@@ -154,5 +66,7 @@
 
     </div>
   </div>
+  
+   <%@ include file="../common/footer.jsp" %>
 </body>
 </html>
