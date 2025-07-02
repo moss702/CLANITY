@@ -1,4 +1,8 @@
-<mapper namespace="mapper.EnrollMapper">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="mapper.EnrollMapper">
 
   <!-- 단일 조회 -->
   <select id="selectOne" resultType="domain.onedayClass.ClassEnroll">

@@ -19,6 +19,7 @@ public class ClassInfo {
 	private int price;
 	private Date createdAt;
 	
+	
 	public ClassInfo(Long classId, Long businessId, Long categoryId, String title, String description, int duration,
 			int price, Date createdAt) {
 		super();
@@ -31,8 +32,5 @@ public class ClassInfo {
 		this.price = price;
 		this.createdAt = createdAt;
 	}
-	
-	
-	
 	
 }
