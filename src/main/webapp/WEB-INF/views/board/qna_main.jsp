@@ -5,7 +5,7 @@
 
 <head>
   <%@ include file="../common/head.jsp" %>
-  <title>qna - 문의하기</title>
+  <title>문의하기</title>
   <link rel="stylesheet" href="qna_style.css">
 </head>
 

@@ -1,83 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>클래스 커뮤니티 홈</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Noto Sans KR', sans-serif;
-      background-color: #f8f9fa;
-    }
-    .community-sidebar {
-      background-color: #ffffff;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-    .community-header {
-      background-color: #fff;
-      border: 1px solid #dee2e6;
-      border-radius: 0.75rem;
-      overflow: hidden;
-      margin-bottom: 1.5rem;
-    }
-    .community-header img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-bottom: 1px solid #dee2e6;
-    }
-    .community-header-body {
-      padding: 1.5rem;
-      display: flex;
-      align-items: center;
-    }
-    .profile-thumbnail {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background-color: #dee2e6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      margin-right: 1rem;
-    }
-    .badge-status {
-      font-size: 0.75rem;
-    }
-    .class-card {
-      background-color: #fff;
-      border: 1px solid #dee2e6;
-      border-radius: 0.75rem;
-      padding: 1rem;
-      margin-bottom: 1rem;
-    }
-    .class-img-wrapper {
-      position: relative;
-    }
-    .status-badge-overlay {
-      position: absolute;
-      top: 0.5rem;
-      left: 0.5rem;
-      z-index: 1;
-    }
-    .section-title {
-      font-weight: bold;
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-    .btn-custom {
-      margin-right: 0.5rem;
-    }
-  </style>
+  <%@ include file="../common/head.jsp" %>
+  <title>알림 발송</title>
+  <link rel="stylesheet" href="qna_style.css" />
 </head>
+
 <body>
+<%@ include file="../common/header.jsp" %>
+
 <div class="container-fluid mt-4">
   <div class="row">
-    <!-- Sidebar -->
     <div class="col-md-3">
       <div class="community-sidebar">
         <h5>클래스 커뮤니티 홈(인포)</h5>
@@ -154,5 +89,7 @@
     </div>
   </div>
 </div>
+
+<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

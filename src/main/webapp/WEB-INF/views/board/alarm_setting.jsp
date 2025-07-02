@@ -5,7 +5,7 @@
 <head>
   <%@ include file="../common/head.jsp" %>
   <title>알림 설정</title>
-  <link rel="stylesheet" href="alarm_style.css" />
+  <link rel="stylesheet" href="qna_style.css" />
 </head>
 
 <body class="p-4">

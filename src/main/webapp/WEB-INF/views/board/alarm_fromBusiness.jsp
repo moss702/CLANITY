@@ -1,48 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>문의내역</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <%@ include file="../common/head.jsp" %>
+  <title>알림 발송</title>
   <link rel="stylesheet" href="qna_style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
-
-  <style>
-    .inquiry-card {
-      background: #fff;
-      border: 1px solid #dee2e6;
-      border-radius: 0.75rem;
-      transition: box-shadow 0.2s ease;
-    }
-    .inquiry-card:hover {
-      box-shadow: 0 0 0.5rem rgba(0,0,0,0.05);
-    }
-    .card-header {
-      background: #fff;
-      cursor: pointer;
-    }
-    .card-body {
-      background-color: #fdfdfd;
-    }
-    .answer-header {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-    .answer-header img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-    }
-    .answer-buttons button {
-      margin-right: 0.5rem;
-    }
-  </style>
 </head>
 
 <body>
+<%@ include file="../common/header.jsp" %>
+
   <div class="settings-wrapper">
     <!-- 좌측 메뉴 -->
     <div class="category-menu">
@@ -128,9 +96,12 @@
     </div>
   </div>
 </div>
+  </div>
+</div></div>
+
+<%@ include file="../common/footer.jsp" %>
+
  <!-- 스크립트 -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     $(function () {
       $('.answer-form').on('submit', function (e) {
@@ -250,5 +221,6 @@ document.getElementById('btn-schedule').addEventListener('click', () => {
 });
 
   </script>
+  
 </body>
 </html>
