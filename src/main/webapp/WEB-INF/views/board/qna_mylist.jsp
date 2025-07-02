@@ -4,7 +4,7 @@
 <html>
 <head>
   <%@ include file="../common/head.jsp" %>
-  <title>문의내역</title>
+  <title>내 문의내역</title>
   <link rel="stylesheet" href="qna_style.css" />
 </head>
 

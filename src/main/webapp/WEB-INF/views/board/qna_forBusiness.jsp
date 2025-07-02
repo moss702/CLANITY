@@ -3,13 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<head>
   <%@ include file="../common/head.jsp" %>
-  <title>qna_forBusiness</title>
+  <title>내게 온 문의함_forBusiness</title>
   <link rel="stylesheet" href="qna_style.css" />
 </head>
 
