@@ -141,7 +141,7 @@
         <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#newFaq${timestamp}">
             <div><strong class="text-danger">[${selectedCategory}]</strong> ${question}</div>
           <small class="text-muted">방금전</small>
-        </div>
+        </div> 
         <div id="newFaq${timestamp}" class="collapse" data-bs-parent="#faqAccordion">
           <div class="faq-answer">
             <p>${answer}</p>
