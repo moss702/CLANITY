@@ -107,7 +107,6 @@ body {
 						class="fa fa-eye pe-auto" id="togglePassword"></i>
 				</div>
 				
-
 				<div class="form-check ">
 					<input class="form-check-input" type="checkbox" id="termsCheck">
 					<label class="form-check-label small" for="termsCheck"> <a href="#">CLANITY

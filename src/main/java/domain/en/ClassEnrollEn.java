@@ -1,6 +1,6 @@
 package domain.en;
 
-public enum ClassEnroll {
+public enum ClassEnrollEn{
 	
 	ENROLLED,CANCELLED
 }

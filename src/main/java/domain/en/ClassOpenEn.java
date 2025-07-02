@@ -1,5 +1,5 @@
 package domain.en;
 
-public enum ClassOpen {
+public enum ClassOpenEn {
 	OPEN, CLOSED, CANCELLED
 }
