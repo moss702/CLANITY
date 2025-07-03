@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import mapper.ClassInfoMapper;
 
 @Slf4j
-public class ClassInfoService {
+public class ClassService {
 	// 전역으로 빼기
 	SqlSession session = MybatisUtil.getSqlSession();
 	
