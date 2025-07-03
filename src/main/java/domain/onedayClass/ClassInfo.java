@@ -9,7 +9,6 @@ import lombok.Data;
 @Builder
 @Data
 public class ClassInfo {
-// 나중에 시간같은 자동으로 부여되는 것들은 삭제하기
 	private Long classId;
 	private Long businessId;
 	private Long  categoryId;

@@ -9,14 +9,14 @@ import lombok.Data;
 @Builder
 @Data
 public class ClassOpen {
-	// 나중에 시간같은 자동으로 부여되는 것들은 삭제하기
+	
 	private Long openId;
 	private Long  masterId;
-	private String scheduleDate; // 표기용 String
+	private String scheduleDate; 
 	private String startTime;
 	private String endTime; 
 	private String maxParticipants;
-	private ClassOpenEn status; // 상태 기본 값 open
+	private ClassOpenEn status; 
 	
 	
 	public ClassOpen(Long openId, Long masterId, String scheduleDate, String startTime, String endTime,

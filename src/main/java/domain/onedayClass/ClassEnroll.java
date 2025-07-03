@@ -9,12 +9,12 @@ import lombok.Data;
 @Builder
 @Data
 public class ClassEnroll {
-// 나중에 시간같은 자동으로 부여되는 것들은 삭제하기
+
 	private Long enrollId;
 	private Long openId;
 	private Long  memberId;
 	private Date enrolledAt;
-	private boolean status; // enum 없애고 0일때 취소, 1일때 신청 완료 승인
+	private boolean status; 
 	
 	
 	public ClassEnroll(Long enrollId, Long openId, Long memberId, Date enrolledAt, boolean status) {
