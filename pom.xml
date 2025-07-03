@@ -95,6 +95,21 @@
     <artifactId>thumbnailator</artifactId>
     <version>0.4.20</version>
 </dependency>
+
+  <!-- Selenium Java 크롤링 추가 -->
+  <dependency>
+    <groupId>org.seleniumhq.selenium</groupId>
+    <artifactId>selenium-java</artifactId>
+    <version>4.20.0</version>
+  </dependency>
+
+  <!-- WebDriverManager: 드라이버 자동 관리용 (강력 추천) -->
+  <dependency>
+    <groupId>io.github.bonigarcia</groupId>
+    <artifactId>webdrivermanager</artifactId>
+    <version>5.7.0</version>
+  </dependency>
+
 	<!-- https://mvnrepository.com/artifact/jstl/jstl -->
 	<dependency>
 	    <groupId>jstl</groupId>
