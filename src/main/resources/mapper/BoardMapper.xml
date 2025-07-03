@@ -4,36 +4,94 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="mapper.BoardMapper">
+  	<resultMap type="board" id="b">
+		<id column="boardId" property="boardId"></id>		
+		<result column="categoryId" property="categoryId"></result>
+		<result column="memberId" property="memberId"></result>
+		<result column="groupId" property="groupId"></result>
+		<result column="depth" property="depth"></result>
+		<result column="title" property="title"></result>
+		<result column="content" property="content"></result>
+		<result column="visibleLevel" property="visibleLevel"></result>
+		<result column="isBlind" property="isBlind"></result>
+		<result column="likeCount" property="likeCount"></result>
+		<result column="commentCount" property="commentCount"></result>
+		<result column="viewCount" property="viewCount"></result>
+		<result column="createdAt" property="createdAt"></result>
+		<result column="updatedAt" property="updatedAt"></result>
+	</resultMap>
+	<sql id="criteria">
+	<where>
+		<trim prefixOverrides="AND | OR">
+			<if test="cno != null">
+				and cno = #{cno}
+			</if>
+			
+			<if test="types != null">
+				<foreach collection="types" item="t" open="and (" close=")" separator="or">
+					<choose>
+						<when test="t eq 'T'.toString()">
+							title like concat('%', #{keyword}, '%')
+						</when>
+						<when test="t eq 'C'.toString()">
+							content like concat('%', #{keyword}, '%')
+						</when>
+						<when test="t eq 'I'.toString()">
+							id like concat('%', #{keyword}, '%')
+						</when>
+					</choose>
+				</foreach>
+			</if>
+		</trim>
+	</where>
+</sql>
+
+
+<!-- 목록조회 -->
+	<select id="list" resultMap="b">
+		select * from board
+		WHERE category_id = #{categoryId}
+		order by board_id DESC
+	</select>
+
+<!-- 단일조회 -->
+	<select id="selectOne" resultMap="b">
+			select * from tbl_board where board_id = #{boardId}
+	</select>
 	
 <!-- 글 등록 -->
-	<insert id="insert">
-			insert into board (title, content, memberId, categoryId) values (#{title}, #{content}, #{memberId}, #{categoryId})
-		<selectKey keyProperty="boardId" resultType="long" order="AFTER">
-			select max(boardId) from board
-		</selectKey>
+	<insert id="insert" parameterType="Board">
+	  INSERT INTO board (category_id, member_id, title, content, visible_level,
+	    	is_blind, like_count, comment_count, view_count, created_at, updated_at ) 
+    	VALUES (
+		    #{categoryId}, #{memberId}, #{title}, #{content}, #{visibleLevel}, 
+		    0, 0, 0, 0, NOW(), NOW()
+	  )
 	</insert>
+	
 	
 <!-- 글 수정 -->
 	<update id="update">
 		update board set
 		title = #{title},
 		content = #{content},
-		updatedAt = now(),
-		viewCount = #{viewCount}
-		where boardId = #{boardId}
+		view_count = #{viewCount},
+		updated_at = now()
+		where board_id = #{boardId}
 	</update>
 	
 <!-- 글 삭제 -->
 	<delete id="delete">
 		delete from board
-		where boardId = #{boardId}
+		where board_id = #{boardId}
 	</delete>
 	
 <!-- 조회수 증가 -->
 	<update id="increaseCnt">
 		update board
-		set viewCount = viewCount + 1
-		where boardId = #{boardId}
+		set view_count = viewCount + 1
+		where board_id = #{boardId}
 	</update>
+
 
 </mapper>

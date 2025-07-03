@@ -20,9 +20,8 @@
           <ul class="list-unstyled mt-3">
             <li><a href="#" class="text-decoration-none text-dark">공지사항</a></li>
             <li><a href="#" class="text-decoration-none text-dark">이벤트</a></li>
-            <li><a href="${cp}/board/faq" class="text-decoration-none text-dark">자주 묻는 질문</a></li>
-            <li><a href="#" class="text-decoration-none text-dark">제휴 및 입점 문의</a></li>
-            <li><a href="#" class="text-decoration-none text-dark">채용</a></li>
+            <li><a href="${cp}/faq" class="text-decoration-none text-dark">자주 묻는 질문</a></li>
+            <li><a href="${cp}/qna" class="text-decoration-none text-dark">고객센터 문의하기</a></li>
           </ul>
         </div>
 

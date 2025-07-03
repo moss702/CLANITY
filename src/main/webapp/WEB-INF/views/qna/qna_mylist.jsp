@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
   <%@ include file="../common/head.jsp" %>
   <title>내 문의내역</title>
-  <link rel="stylesheet" href="qna_style.css" />
+  <link rel="stylesheet" href="${cp}/css/qna_style.css" />
 </head>
 
 <body>
@@ -29,7 +31,7 @@
       <p class="text-muted mb-0">작성한 문의를 확인하고 답변을 받아보세요.</p>
       <p class="text-muted mb-0">답변이 등록되기 전까지 수정, 삭제가 가능합니다.</p>
     </div>
-    <a href="qna_main.html" class="btn btn-danger btn-sm px-3">1:1 문의하기</a>
+    <a href="${cp}/qna" class="btn btn-danger btn-sm px-3">1:1 문의하기</a>
   </div>
 
   <!-- 상태 필터 탭 -->
@@ -119,16 +121,16 @@
         const nickname = '관리자';
 
         const answerHtml = `
-          <div class="answer-header">
-            <img src="${profileImgUrl}" alt="프로필" />
-            <strong>${nickname}</strong>
-          </div>
-          <p class="answer-text">${answer.replace(/\n/g, '<br>')}</p>
-          <div class="answer-buttons">
-            <button class="btn btn-outline-secondary btn-sm btn-edit">수정</button>
-            <button class="btn btn-outline-danger btn-sm btn-delete">삭제</button>
-          </div>
-        `;
+        	  <div class="answer-header">
+        	    <img src="${profileImgUrl}" alt="프로필" />
+        	    <strong>${nickname}</strong>
+        	  </div>
+        	  <p class="answer-text">\${answer.replace(/\n/g, '<br>')}</p> 
+        	  <div class="answer-buttons">
+        	    <button class="btn btn-outline-secondary btn-sm btn-edit">수정</button>
+        	    <button class="btn btn-outline-danger btn-sm btn-delete">삭제</button>
+        	  </div>
+        	`;
 
         $answerSection.html(answerHtml);
         const $header = $answerSection.closest('.card-body').siblings('.card-header');
@@ -161,7 +163,7 @@
         const profile = $section.find('.answer-header')[0].outerHTML;
         $section.html(`
           ${profile}
-          <p class="answer-text">${text.replace(/\n/g, '<br>')}</p>
+          <p class="answer-text">\${text.replace(/\n/g, '<br>')}</p>
           <div class="answer-buttons">
             <button class="btn btn-outline-secondary btn-sm btn-edit">수정</button>
             <button class="btn btn-outline-danger btn-sm btn-delete">삭제</button>
