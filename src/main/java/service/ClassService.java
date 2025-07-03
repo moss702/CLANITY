@@ -13,7 +13,7 @@ public class ClassService {
 	SqlSession session = MybatisUtil.getSqlSession();
 	
 	
-	// 일단 조회 단일 조회 등록 수정 삭제
+	// open으로 바꿔야하나 고민중
 
 	
 	// 등록
