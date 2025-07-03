@@ -10,4 +10,9 @@
   	<select id="findByEmail" resultType="domain.Member">
   	select * from member where email = #{email}
   	</select>
+  	
+  	<select id="findByAllmember">
+  	
+  	</select>
+  	
   </mapper>
