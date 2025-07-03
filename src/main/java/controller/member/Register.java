@@ -19,7 +19,6 @@ public class Register extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		log.info("doget 호출확인 겸  로그 호출 확인");
 		req.getRequestDispatcher("/WEB-INF/views/member/register.jsp").forward(req, resp);
 	}
 
@@ -36,7 +35,7 @@ public class Register extends HttpServlet{
 		
 		new MemberService().register(member);
 		
-		resp.sendRedirect("../index");
+		resp.sendRedirect(req.getContextPath() +"/index");
 		//		Member member = ParamUtil.get(req, Member.class); // 파라미터 확인 후 살리기
 //		log.info("{}", member);
 	}

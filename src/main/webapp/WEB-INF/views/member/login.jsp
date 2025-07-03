@@ -28,13 +28,13 @@
             color: #999;
         }
 
-        .icon-input .fa-eye {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
-        }
+        .icon-input .fa-eye, .icon-input .fa-eye-slash {
+			position: absolute;
+			right: 15px;
+			top: 50%;
+			transform: translateY(-50%);
+			color: #999;
+		}
 
         .icon-input .fa-eye:hover {
             cursor: pointer;
@@ -98,11 +98,12 @@
                 </div>
                 
 
-                <div class="mb-3 icon-input">
-                    <i class="fa fa-lock lockicon"></i>
-                    <input type="password" class="form-control" name="password" placeholder="비밀번호" value="maplemaster99@@">
-                    <i class="fa fa-eye pe-auto" id="togglePassword"></i>
-                </div>
+                <div class="mb-3 icon-input my-0">
+				<i class="fa fa-lock lockicon"></i> <input type="password"
+					class="form-control" name="password" id="password"
+					placeholder="비밀번호" value="maplemaster99@@">
+					<i class="fa fa-eye pe-auto toggle-password small"></i>
+			</div>
 
                 <button type="submit" class="btn login-btn">로그인</button>
 
@@ -119,13 +120,18 @@
     <script>
 
         $(function () {
-            $("#togglePassword").on("click", function () {
-                const $passwordInput = $(this).siblings("input[type='password'], input[type='text']");
-
-                const currentType = $passwordInput.attr("type");
-                const newType = currentType === "password" ? "text" : "password";
-                $passwordInput.attr("type", newType);
-            });
+        	$(".toggle-password")
+			.on(
+					"click",
+					function() {
+						const $input = $(this).siblings("input");
+						const type = $input.attr("type") === "password" ? "text"
+								: "password";
+						$input.attr("type", type);
+						$(this)
+								.toggleClass(
+										"fa-eye fa-eye-slash");
+					});
             
            	
         });

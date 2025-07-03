@@ -25,7 +25,7 @@ public class Member {
 	private String profileimage;
 	private MemberRole role;
 	private MemberStatus status;
-	private String grade;
+	private boolean emailVerfied;
 	private String createdAt;
 
 }
