@@ -36,7 +36,7 @@ public class Register extends HttpServlet{
 		
 		new MemberService().register(member);
 		
-		resp.sendRedirect("../index");
+		resp.sendRedirect(req.getContextPath() +"/index");
 		//		Member member = ParamUtil.get(req, Member.class); // 파라미터 확인 후 살리기
 //		log.info("{}", member);
 	}
