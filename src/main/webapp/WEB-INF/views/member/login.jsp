@@ -96,6 +96,7 @@
                     <i class="fa fa-user"></i>
                     <input type="text" class="form-control" placeholder="이메일">
                 </div>
+                
 
                 <div class="mb-3 icon-input">
                     <i class="fa fa-lock lockicon"></i>
@@ -125,7 +126,11 @@
                 const newType = currentType === "password" ? "text" : "password";
                 $passwordInput.attr("type", newType);
             });
+            
+           	
         });
+        
+        
     </script>
 </body>
 

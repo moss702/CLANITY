@@ -58,6 +58,14 @@
 	font-size: 0.9rem;
 }
 
+.join-form .valid-msg {
+	visibility: hidden
+}
+
+.join-form .valid-msg.active {
+	visibility: hidden
+}
+
 .bottom-text a {
 	font-weight: bold;
 	text-decoration: none;
