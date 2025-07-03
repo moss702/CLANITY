@@ -33,3 +33,5 @@ src/main/resources/secret/db.properties
 # 테스트 임시파일
 *.tmp
 *.bak
+
+.Server
