@@ -66,7 +66,7 @@
 	</header>
 
 	<!-- 검색 필터 박스 -->
-	<div class="container my-4 flex-grow-1 position-relative">
+	
 		<div id="searchFilterBox"
 			class="d-none bg-white border rounded shadow p-4 w-100 position-absolute start-50 translate-middle-x"
 			style="max-width: 1200px; top: 120px; z-index: 1050; color: #E63946;">
@@ -88,7 +88,7 @@
 						<i class="fa-solid fa-magnifying-glass text-danger"></i>
 					</button>
 				</div>
-			</div>
+			
 
 			<div class="row">
 				<div class="col-md-6">
