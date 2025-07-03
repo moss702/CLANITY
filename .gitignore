@@ -25,6 +25,8 @@ Thumbs.db
 secret/
 secret/*.properties
 src/main/resources/secret/db.properties
+src/main/resources/secret/mail.properties
+src/main/resources/secret/redis.properties
 # 개인 설정 (편집기, 히스토리 등)
 *.iml
 .idea/
