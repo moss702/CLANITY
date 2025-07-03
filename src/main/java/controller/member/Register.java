@@ -29,9 +29,9 @@ public class Register extends HttpServlet{
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		
-		log.info("이메일 값 : {}, 비밀번호 값 : {}", email, password);
+		log.info("가입시 입력한 이메일 값 : {},  가입시 입력한 비밀번호 값 : {}", email, password);
 		
-		Member member  = Member.builder().email("email").password("password").build();
+		Member member  = Member.builder().email(email).password(password).build();
 		log.info("입력 받은 회원 정보: {}", member);
 		
 		new MemberService().register(member);

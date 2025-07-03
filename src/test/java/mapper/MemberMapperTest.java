@@ -18,7 +18,7 @@ public class MemberMapperTest {
 	@Test
 	@DisplayName("유저 정보 기입 테스트")
 	public void singupTest() {
-		Member member = Member.builder().email("test2dsf@test.com").password("testpw").build();
+		Member member = Member.builder().email("2ys_2@naver.com").password("maplemaster99@@").build();
 		log.info("{}", member);
 		
 		memberMapper.insert(member);
@@ -28,7 +28,7 @@ public class MemberMapperTest {
 	@Test
 	@DisplayName("단일 유저 출력 테스트")
 	public void selectMemberTest() {
-		String email = "2";
+		String email = "email";
 		
 		Member member = memberMapper.findByEmail(email);
 		log.info("{}", member);

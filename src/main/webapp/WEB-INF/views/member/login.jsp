@@ -91,16 +91,16 @@
                 <h4>로그인</h4>
             </div>
 
-            <form class="login-form">
+            <form class="login-form" action="${cp}/member/login" method="post">
                 <div class="mb-3 icon-input">
                     <i class="fa fa-user"></i>
-                    <input type="text" class="form-control" placeholder="이메일">
+                    <input type="text" class="form-control" name="email" placeholder="이메일" value="testtest@naver.com">
                 </div>
                 
 
                 <div class="mb-3 icon-input">
                     <i class="fa fa-lock lockicon"></i>
-                    <input type="password" class="form-control" placeholder="비밀번호">
+                    <input type="password" class="form-control" name="password" placeholder="비밀번호" value="maplemaster99@@">
                     <i class="fa fa-eye pe-auto" id="togglePassword"></i>
                 </div>
 
