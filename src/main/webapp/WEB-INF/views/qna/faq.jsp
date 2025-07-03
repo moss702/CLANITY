@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -25,7 +27,7 @@
             <h2 class="fw-bold mb-1">자주 묻는 질문</h2>
             <p class="text-muted mb-0">클래니티 고객들이 가장 많이 궁금해하는 질문을 확인하세요.</p>
           </div>
-          <button class="btn btn-outline-secondary btn-sm" onclick="location.href='/qna_main'">1:1 문의하기</button>
+          <button class="btn btn-outline-secondary btn-sm" onclick="location.href='${cp}/qna'">1:1 문의하기</button>
         </div>
       </div>
 
@@ -44,53 +46,69 @@
         <button type="button" class="round-filter-btn filter-btn" data-filter="etc">기타</button>
       </div>
 
+
+
+
       <!-- 질문 추가 버튼 (관리자용) -->
       <div class="mb-3 text-end admin-only">
         <button class="btn btn-danger btn-sm" onclick="toggleFaqForm()">+ 질문 등록</button>
       </div>
 
       <!-- 등록 폼 -->
-      <div class="faq-form mb-4" id="faqForm">
-        <div class="mb-2">
-          <label class="form-label fw-semibold">카테고리 선택</label>
-          <select class="form-select" id="faqCategory">
-            <option value="class">클래스</option>
-            <option value="community">커뮤니티</option>
-            <option value="payment">결제 및 환불</option>
-            <option value="etc">기타</option>
-          </select>
-        </div>
-        <div class="mb-2">
-          <label class="form-label fw-semibold">질문</label>
-          <input type="text" class="form-control" id="faqQuestion" placeholder="질문 제목을 입력하세요">
-        </div>
-        <div class="mb-2">
-          <label class="form-label fw-semibold">답변</label>
-          <textarea class="form-control" id="faqAnswer" rows="3" placeholder="답변 내용을 입력하세요"></textarea>
-        </div>
-        <button class="btn btn-danger btn-sm" onclick="submitFaq()">등록하기</button>
-      </div>
+      <form action="${cp}/faq" method="post">
+	      <div class="faq-form mb-4" id="faqForm">
+	        <div class="mb-2">
+	          <label class="form-label fw-semibold">카테고리 선택</label>
+	          <select class="form-select" id="faqCategory">
+	            <option value="class">클래스</option>
+	            <option value="community">커뮤니티</option>
+	            <option value="payment">결제 및 환불</option>
+	            <option value="etc">기타</option>
+	          </select>
+	        </div>
+	        <div class="mb-2">
+	          <label class="form-label fw-semibold">질문</label>
+	          <input type="text" class="form-control" id="faqQuestion" name="title" placeholder="질문 제목을 입력하세요">
+	        </div>
+	        
+	        <div class="mb-2">
+	          <label class="form-label fw-semibold">답변</label>
+	          <textarea class="form-control" id="faqAnswer" name="content" rows="3" placeholder="답변 내용을 입력하세요"></textarea>
+	        </div>
+	       <button type="submit" class="btn btn-danger btn-sm">등록하기</button>
+	      </div>
+      </form>
 
+		${title}
+		
       <!-- FAQ 목록 -->
-      <div class="accordion" id="faqAccordion">
-        <div class="card faq-card mb-3" data-category="class">
-          <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#faq1">
-            <div><strong class="text-danger">[클래스]</strong> 재료는 직접 준비해야 하나요?</div>
-            <small class="text-muted">2025.06.22</small>
-          </div>
-          <div id="faq1" class="collapse" data-bs-parent="#faqAccordion">
-            <div class="faq-answer">
-              <p>아니요, 모든 수업 재료는 클래스에서 제공됩니다.</p>
-              <div class="faq-buttons d-flex gap-2 admin-only">
-                <button class="btn btn-outline-secondary btn-sm">수정</button>
-                <button class="btn btn-outline-danger btn-sm btn-delete">삭제</button>
-              </div>
-            </div>
+<div class="accordion" id="faqAccordion">
+  <c:forEach items="${faqList}" var="faq">
+    <div class="card faq-card mb-3" data-category="class">
+      <div class="card-header d-flex justify-content-between align-items-center"
+           data-bs-toggle="collapse"
+           data-bs-target="#faq${faq.boardId}">
+        <div>
+          <strong class="text-danger">[클래스]</strong> ${faq.title}
+        </div>
+        <small class="text-muted">
+          <fmt:formatDate value="${faq.createdAt}" pattern="yyyy.MM.dd" />
+        </small>
+      </div>
+
+      <div id="faq${faq.boardId}" class="collapse" data-bs-parent="#faqAccordion">
+        <div class="faq-answer">
+          <p>${faq.content}</p>
+          <div class="faq-buttons d-flex gap-2 admin-only">
+            <button class="btn btn-outline-secondary btn-sm">수정</button>
+            <button class="btn btn-outline-danger btn-sm btn-delete">삭제</button>
           </div>
         </div>
-
-        <!-- 추가 항목은 동일한 구조 반복 -->
       </div>
+    </div>
+  </c:forEach>
+</div>
+
     </div>
   </div>
 </div>

@@ -23,8 +23,10 @@ public class Board {
 	private Long boardId; 				// 게시글 번호
 	private Long categoryId; 		    // 카테고리 번호
 	private Long memberId;			 	// 작성자 ID
+	
 	private Long groupId; 				// 답글기능 : 원본 게시글 그룹 번호
 	private int depth; 					// 답글기능 : 답글 단계
+	
 	private String title; 				// 게시글 제목
 	private String content; 			// 게시글 내용
 	private VisibleLevel visibleLevel;	// 열람등급제한

@@ -5,7 +5,7 @@
 <head>
   <%@ include file="../common/head.jsp" %>
   <title>강사님께 문의하기</title>
-  <link rel="stylesheet" href="qna_style.css">
+  <link rel="stylesheet" href="${cp}/css/qna_style.css">
 </head>
 
 <body>
@@ -44,23 +44,7 @@
 
         <!-- 버튼 -->
         <div>
-          <button class="btn btn-outline-secondary btn-sm btn-inquire">강사님께 문의하기</button>
-        </div>
-      </div>
-
-      <!-- 또 하나 예시 -->
-      <div class="class-card">
-        <div class="thumbnail-wrapper" onclick="location.href='qna_write.html?classId=00002'">
-          <span class="badge bg-warning text-dark badge-status">오픈예정</span>
-          <img src="https://placehold.co/160x100" alt="썸네일">
-        </div>
-        <div class="class-info">
-          <div class="class-name" onclick="location.href='qna_write.html?classId=00002'">마크라메 만들기</div>
-          <p><strong>클래스 번호:</strong> class-00002</p>
-          <p><strong>클래스 가격:</strong> 40,000원</p>
-        </div>
-        <div>
-          <button class="btn btn-outline-secondary btn-sm btn-inquire">강사님께 문의하기</button>
+          <a href="${cp}/qna?mode=toBusiness&className=아크릴클래스&classId=1023" class="btn btn-outline-secondary btn-sm btn-inquire">이 클래스로 문의하기</a>
         </div>
       </div>
 

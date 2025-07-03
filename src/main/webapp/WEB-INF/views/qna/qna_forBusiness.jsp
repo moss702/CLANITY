@@ -5,7 +5,7 @@
 <head>
   <%@ include file="../common/head.jsp" %>
   <title>내게 온 문의함_forBusiness</title>
-  <link rel="stylesheet" href="qna_style.css" />
+  <link rel="stylesheet" href="${cp}/css/qna_style.css" />
 </head>
 
 <body>

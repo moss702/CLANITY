@@ -1,7 +1,6 @@
 package controller.board;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,37 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.Board;
-import domain.dto.Criteria;
-import domain.dto.PageDto;
 import domain.en.VisibleLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import service.BoardService;
 
-@Data
-@Setter
-@Getter
-@WebServlet("/faq")
-public class Faq extends HttpServlet{
+@WebServlet("/qna")
+public class Qna extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	    BoardService service = new BoardService();
-	    Criteria cri = new Criteria();
-	    cri.setCategoryId(1);
-	    
-	    List<Board> faqList = service.list(cri); // cri.setCategoryId(1) 되어 있어야 함
-	    req.setAttribute("faqList", faqList);
-		
-		req.getRequestDispatcher("/WEB-INF/views/qna/faq.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/qna/qna_main.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		System.out.println("FAQ 등록확인");
+		System.out.println("문의 등록확인");
 		
 		req.setCharacterEncoding("UTF-8");
 
@@ -48,16 +31,16 @@ public class Faq extends HttpServlet{
 	    String content = req.getParameter("content");
 
 	    Board board = new Board();
-	    board.setCategoryId(1L); // FAQ 고정 test
+	    board.setCategoryId(2L); // FAQ 고정 test
 	    board.setMemberId(9999L);   // 관리자 ID 임시
 	    board.setTitle(title);
 	    board.setContent(content);
-	    board.setVisibleLevel(VisibleLevel.ALL);
+	    board.setVisibleLevel(VisibleLevel.ALL);    // 이거 나중에 제한걸기.. 본인이 쓴건 본인한테만 보이게.
 
 	    BoardService service = new BoardService();
 	    service.write(board);
 
-	   resp.sendRedirect(req.getContextPath() + "/faq"); // 목록으로 리다이렉트 * 새로고침
+	   resp.sendRedirect(req.getContextPath() + "/qna_mylist"); // 내 문의내역으로 리다이렉트 * 새로고침
 	}
 	
 	
