@@ -14,20 +14,16 @@ public class ClassEnroll {
 	private Long openId;
 	private Long  memberId;
 	private Date enrolledAt;
-	private int  status; // 나중에 enum으로 설정
+	private boolean status; // enum 없애고 0일때 취소, 1일때 신청 완료 승인
 	
-	public ClassEnroll(Long enrollId, Long openId, Long memberId, Date enrolledAt, int status) {
-		super();
+	
+	public ClassEnroll(Long enrollId, Long openId, Long memberId, Date enrolledAt, boolean status) {
 		this.enrollId = enrollId;
 		this.openId = openId;
 		this.memberId = memberId;
 		this.enrolledAt = enrolledAt;
 		this.status = status;
 	}
-	
-	
-	
-	
-	
+		
 	
 }

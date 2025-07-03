@@ -1,8 +1,18 @@
 package mapper;
 
+import java.util.List;
+
+import domain.onedayClass.ClassOpen;
+
 public interface ClassOpenMapper {
-	
-	// 클래스 개설 매퍼 
-	// 나중에 xml 생성하기
+
+	// 클래스 정보
+
+	// 모든 클래스 정보 조회
+	List<ClassOpen> list();
+
+	// 클래스 단일 정보 조회
+	ClassOpen selectOne(Long openId);
+
 
 }

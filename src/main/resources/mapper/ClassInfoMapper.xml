@@ -7,16 +7,18 @@
 	<!-- 클래스 목록 조회 -->
 
 	<select id="list" resultType="domain.onedayClass.ClassInfo">
-		select class_id, business_id , category_id, title,
-		description, duration,
-		price, created_at
+		select 
+			class_id, business_id , category_id, title,
+			description, duration,
+			price, created_at
 		from class order by #{classId}
 	</select>
 
 	<!-- 클래스 단일 정보 조회 -->
 	<select id="selectOne" resultType="domain.onedayClass.ClassInfo">
-		select class_id, business_id , category_id, title, description, duration,
-		price, created_at
+		select 
+			class_id, business_id , category_id, title, description, duration,
+			price, created_at
 		from class where
 		business_id = #{businessId} order by #{classId}
 	</select>
@@ -25,24 +27,24 @@
 	<insert id="insert" >
 
 		INSERT INTO class (
-		class_id,
-		business_id,
-		category_id,
-		title,
-		description,
-		duration,
-		price,
-		created_at
+			class_id,
+			business_id,
+			category_id,
+			title,
+			description,
+			duration,
+			price,
+			created_at
 		)
 		VALUES (
-		#{classId},
-		#{businessId},
-		#{categoryId},
-		#{title} ,
-		#{description},
-		#{duration},
-		#{price},
-		#{createdAt}
+			#{classId},
+			#{businessId},
+			#{categoryId},
+			#{title} ,
+			#{description},
+			#{duration},
+			#{price},
+			#{createdAt}
 		)
 
 	</insert>
@@ -52,13 +54,14 @@
 	<update id="update">
 		UPDATE class
 		SET
-		category_id = #{categoryId},
-		title = #{title},
-		description = #{description},
-		duration = #{duration},
-		price = #{price},
-		created_at = #{createdAt}
-		WHERE class_id = #{classId}
+			category_id = #{categoryId},
+			title = #{title},
+			description = #{description},
+			duration = #{duration},
+			price = #{price},
+			created_at = #{createdAt}
+		WHERE
+		 class_id = #{classId}
 	</update>
 
 	<!-- 클래스 삭제 -->
