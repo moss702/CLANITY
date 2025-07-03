@@ -18,7 +18,8 @@
 <c:if test="${not empty member}">
 	<h1>로그인 테스트, 로그인 되었습니다</h1>
 	<span> ${member.email} 님 환영합니다</span>
-	<a href="member/logout">로그아웃</a>
+	<a href="${cp}member/logout">로그아웃</a>
+	<a href="${cp}/mypage">마이페이지</a>
 </c:if>
 </main>
 

@@ -56,8 +56,10 @@
 				<i class="fa-solid fa-list fs-5"></i> <i
 					class="fa-solid fa-heart fs-5"></i> <i
 					class="fa-solid fa-bell fs-5"></i> <i
-					class="fa-solid fa-circle-user fs-5"></i> <a
-					class="text-dark text-decoration-none" href="#">열기</a> <a
+					class="fa-solid fa-circle-user fs-5"></i> 
+					<a
+					class="text-dark text-decoration-none" href="${cp}/openClass/open">열기</a> 
+					<a
 					class="text-dark text-decoration-none" href="${cp}/member/login">로그인</a>
 			</nav>
 		</div>

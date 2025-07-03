@@ -6,9 +6,10 @@
 <%@ include file="../common/head.jsp" %>
 </head>
 <body>
-<main class="d-flex vh-100 overflow-hidden">
+<%@ include file="../common/header.jsp" %>
+<main class="d-flex" style="min-height: 100vh;">
   <!-- 왼쪽 고정 사이드바 -->
-  <aside class="bg-light border-end p-3" style="width: 250px; position: fixed; top: 0; left: 0; height: 100vh; z-index: 1000;">
+   <aside class="bg-light border-end p-3" style="width: 250px;">
     <!-- 프로필 -->
     <div class="text-center mb-4">
       <img src="https://via.placeholder.com/60" class="rounded-circle mb-2" alt="프로필">
@@ -47,12 +48,12 @@
       <li class="nav-item"><a class="nav-link" href="#">헬프센터</a></li>
       <li class="nav-item"><a class="nav-link" href="#">문의하기</a></li>
       <li class="nav-item"><a class="nav-link" href="#">설정</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">로그아웃</a></li>
+      <li class="nav-item"><a class="nav-link" href="${cp}/member/logout">로그아웃</a></li>
     </ul>
   </aside>
 
   <!-- 오른쪽 콘텐츠 영역 -->
-  <div class="flex-grow-1 ms-auto" style="margin-left: 250px; overflow-y: auto; height: 100vh; padding: 2rem;">
+   <div class="flex-grow-1 px-4 py-4">
     <h4 class="mb-3">다양한 클래스 구독으로 만나보세요</h4>
     <p class="text-muted">나에게 맞는 클래스를 추천받을 수 있어요.</p>
 
@@ -71,6 +72,7 @@
       <p>- 설정하신 지역에 따라, 서비스에서 지원하는 결제 수단이 다를 수 있습니다.</p>
     </div>
   </div>
+	  
 </main>
 </body>
 </html>

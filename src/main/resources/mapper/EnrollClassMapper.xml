@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 파일: EnrollClassMapper.xml -->
+<mapper namespace="mapper.EnrollClassMapper">
+
+  <insert id="insert">
+		INSERT INTO class_enroll (
+			enroll_id,
+			open_id,
+			member_id,
+			status,
+			enrolled_at
+		) 
+		VALUES (
+			#{enrollId},
+			#{openId},
+			#{memberId},
+			#{status},
+			#{enrolledAt}
+		)
+	</insert>
+
+	<!-- 신청 단일 조회 -->
+	<select id="selectOne" resultType="domain.onedayClass.ClassEnroll">
+		SELECT enroll_id,
+			open_id,
+			member_id,
+			status,
+			enrolled_at
+			FROM class_enroll
+		WHERE enroll_id = #{enrollId}
+	</select>
+
+	<!-- 전체 신청 목록 -->
+	<select id="list" resultType="domain.onedayClass.ClassEnroll">
+		SELECT enroll_id,
+			open_id,
+			member_id,
+			status,
+			enrolled_at
+			FROM class_enroll
+		ORDER BY enrolled_at DESC
+	</select>
+
+	<!-- 신청 상태 변경 -->
+	<update id="update">
+		UPDATE
+		 	class_enroll
+		SET 
+			status = #{status}
+		WHERE
+		 enroll_id = #{enrollId}
+	</update>
+
+	<!-- 신청 내역 삭제 -->
+	<delete id="delete">
+		DELETE FROM class_enroll
+		WHERE 
+		enroll_id = #{enrollId}
+	</delete>
+
+</mapper>

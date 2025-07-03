@@ -15,16 +15,17 @@ import org.eclipse.jdt.internal.compiler.batch.Main;
 
 import domain.onedayClass.ClassInfo;
 import lombok.extern.slf4j.Slf4j;
+import service.ClassService;
 import util.HikariCPUtil;
 
 @Slf4j
-@WebServlet("/class/classInfo")
+@WebServlet("/openClass/open")
 public class OnedayClass extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//  세션 체크 (나중에 정보등록 jsp 만들기)
-		req.getRequestDispatcher("/WEB-INF/views/class/classInfo.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/openClass/open.jsp").forward(req, resp);
 		log.info("{}", HikariCPUtil.getDataSource());
 	}
 
@@ -50,11 +51,14 @@ public class OnedayClass extends HttpServlet {
 				 .description(description)
 				 .price(price)
 				 .duration(duration)
+				 .createdAt(createdAt)
 				 .build();
 		 log.info("{}", classInfo);
 		 
 //			// 나중에 서비스 호출 해야됨
-			 	 
+		  ClassService service = new ClassService();
+		    service.register(classInfo);
+			 	
 	}
 
 }
