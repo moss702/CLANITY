@@ -78,35 +78,48 @@
 	       <button type="submit" class="btn btn-danger btn-sm">등록하기</button>
 	      </div>
       </form>
-
-		${title}
-		
+      
+      
       <!-- FAQ 목록 -->
 <div class="accordion" id="faqAccordion">
-  <c:forEach items="${faqList}" var="faq">
-    <div class="card faq-card mb-3" data-category="class">
-      <div class="card-header d-flex justify-content-between align-items-center"
-           data-bs-toggle="collapse"
-           data-bs-target="#faq${faq.boardId}">
-        <div>
-          <strong class="text-danger">[클래스]</strong> ${faq.title}
-        </div>
+<c:forEach items="${faqList}" var="faq" varStatus="status">
+  <div class="card faq-card mb-3">
+    <div class="card-header">
+      <button class="btn w-100 text-start d-flex justify-content-between align-items-center fw-semibold"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#faq${status.index}"
+              aria-expanded="false"
+              aria-controls="faq${status.index}"
+              style="background: none; border: none; padding: 0;">
+        <div><strong class="text-danger">[FAQ]</strong> ${faq.title}</div>
         <small class="text-muted">
-          <fmt:formatDate value="${faq.createdAt}" pattern="yyyy.MM.dd" />
+	    <fmt:formatDate value="${faq.createdAt}" pattern="yyyy.MM.dd"/>
         </small>
-      </div>
+      </button>
+    </div>
 
-      <div id="faq${faq.boardId}" class="collapse" data-bs-parent="#faqAccordion">
-        <div class="faq-answer">
-          <p>${faq.content}</p>
-          <div class="faq-buttons d-flex gap-2 admin-only">
-            <button class="btn btn-outline-secondary btn-sm">수정</button>
-            <button class="btn btn-outline-danger btn-sm btn-delete">삭제</button>
-          </div>
+    <div id="faq${status.index}" class="collapse"
+         data-bs-parent="#faqAccordion"
+         aria-labelledby="faq${status.index}">
+      <div class="faq-answer p-3">
+        <p>${faq.content}</p>
+        <div class="faq-buttons d-flex gap-2 admin-only mt-2">
+        
+        <form method="get" action="${cp}/faq">
+		  <input type="hidden" name="id" value="${faq.boardId}" />
+		  <button type="submit" class="btn btn-outline-secondary btn-sm">수정</button>
+		</form>
+		<form method="post" action="${cp}/faq" onsubmit="return confirm('삭제할까요?')">
+		  <input type="hidden" name="id" value="${faq.boardId}" />
+		  <input type="hidden" name="mode" value="delete" />
+		  <button class="btn btn-outline-danger btn-sm">삭제</button>
+		</form>
         </div>
       </div>
     </div>
-  </c:forEach>
+  </div>
+</c:forEach>
 </div>
 
     </div>

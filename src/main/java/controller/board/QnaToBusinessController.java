@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @WebServlet("/qna/toBusiness")
-public class QnaToBusiness extends HttpServlet{
+public class QnaToBusinessController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

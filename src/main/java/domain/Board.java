@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Date;
+
 import org.apache.ibatis.type.Alias;
 
 import domain.en.VisibleLevel;
@@ -34,6 +36,6 @@ public class Board {
 	private int likeCount; 				// 좋아요 수
 	private int commentCount; 			// 댓글 수
 	private int viewCount; 				// 조회 수
-	private String createdAt; 			// 작성일시
-	private String updatedAt; 			// 수정일시
+	private Date createdAt; 			// 작성일시
+	private Date updatedAt; 			// 수정일시
 }

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @WebServlet("/qna/mylist")
-public class QnaMylist extends HttpServlet{
+public class QnaMylistController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
