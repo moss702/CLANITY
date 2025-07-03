@@ -11,18 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@WebServlet("/mypage")
-public class Profile extends HttpServlet{
-
-	@Override
+@WebServlet("/mypage/edit")
+public class ProfileEdit extends HttpServlet{@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/mypage/mypage.jsp").forward(req, resp);
+	req.getRequestDispatcher("/WEB-INF/views/mypage/mypageedit.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
+		super.doPost(req, resp);
 	}
 	
 	
+
 }

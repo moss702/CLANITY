@@ -11,8 +11,4 @@
   	select * from member where email = #{email}
   	</select>
   	
-  	<select id="findByAllmember">
-  	
-  	</select>
-  	
   </mapper>

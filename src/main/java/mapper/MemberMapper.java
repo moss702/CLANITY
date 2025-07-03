@@ -14,4 +14,7 @@ public interface MemberMapper {
 	int insert(Member member); //member의 회원가입
 	
 	int delete(Long memberId);
+	
+	
+	
 }
