@@ -46,7 +46,6 @@ public class SeleniumBasicCrawl {
                     System.out.println("🔗 " + href);
                     System.out.println("📌 " + title);
                     
-                    
                             onedayClassMapper.insert(new OnedayClass(title, href));
                 }
 
