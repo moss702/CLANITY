@@ -5,7 +5,7 @@
 <head>
   <%@ include file="../common/head.jsp" %>
   <title>커뮤니티 메인 페이지</title>
-<link rel="stylesheet" href="${cp}/css/qna_style.css">
+  <link rel="stylesheet" href="${cp}/css/qna_style.css"/>
 </head>
 
 <body>
@@ -14,37 +14,37 @@
 <div class="container-fluid mt-4">
   <div class="row">
     <div class="col-md-3">
-		<div class="community-sidebar">
-		  <a href="#" class="fw-bold d-block text-dark text-decoration-none mb-2 fs-5">클래스 커뮤니티 이름</a>
-		  <hr class="my-3">
-		
-		  <div class="d-grid gap-1 mb-4">
-		    <button class="category-list-btn">카테고리: 클래스 후기</button>
-		    <button class="category-list-btn">카테고리: 강사가 개설한 게시판</button>
-		  </div>
-		
-		  <button class="btn btn-danger w-100">커뮤니티 관리</button>
-		</div>
-
+		<%@ include file="../community/community_sidebar.jsp" %>
     </div>
 
     <!-- Main Content -->
     <div class="col-md-9 mb-5">
-      <!-- 상단 배너 -->
-      <div class="community-header">
-        <img src="https://placehold.co/800x180/eee/888?text=community+banner+welcome" alt="배너 이미지">
-        <div class="community-header-body">
-          <div class="profile-thumbnail">사진</div>
-          <div>
-            <h4 class="mb-1">클래스 커뮤니티 제목</h4>
-            <p class="mb-2 small text-muted">강사 닉네임(이름) | 멤버 수 | 게시글 수 | 후기 수</p>
-            <div>
-              <button class="btn btn-outline-success btn-sm btn-custom">커뮤니티 가입하기</button>
-              <button class="btn btn-outline-primary btn-sm">강사님께 문의하기</button>
-            </div>
-          </div>
-        </div>
+  <!-- 상단 배너 -->
+  <div class="community-header">
+    <img src="https://placehold.co/800x180/eee/888?text=community+banner+welcome" alt="배너 이미지">
+    
+    <div class="community-header-body d-flex justify-content-between align-items-center px-4 py-3">
+      
+      <!-- 사진 -->
+      <div class="profile-thumbnail me-3">사진</div>
+
+      <!-- 제목 + 정보 -->
+      <div class="flex-grow-1">
+        <h4 class="mb-1">클래스 커뮤니티 제목</h4>
+        <p class="mb-0 small text-muted">강사 닉네임(이름) | 멤버 수 | 게시글 수 | 후기 수</p>
       </div>
+
+		<!-- 버튼 2개 -->
+		<div class="d-flex flex-column align-items-end gap-2 ms-3 text-nowrap">
+		  <button class="btn btn-outline-success btn-sm text-center">
+		    커뮤니티<br>가입하기
+		  </button>
+		  <button class="btn btn-outline-primary btn-sm text-center">
+		    강사님께<br>문의하기
+		  </button>
+		</div>
+	</div>
+</div>
 
       <!-- 클래스 목록 섹션 -->
       <div>
