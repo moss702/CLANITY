@@ -5,40 +5,18 @@
 <head>
   <%@ include file="../common/head.jsp" %>
   <title>커뮤니티_Feed형태</title>
-  <link rel="stylesheet" href="qna_style.css" />
+  <link rel="stylesheet" href="${cp}/css/qna_style.css" />
 </head>
 <body>
 <%@ include file="../common/header.jsp" %>
 <div class="container-fluid mt-4">
   <div class="row">
-    <div class="col-md-3 mb-3">
-      <div class="community-sidebar">
-        <h5>클래스 커뮤니티 홈(인포)</h5>
-        <hr>
-        <a href="#">카테고리 : 클래스 후기</a>
-        <a href="#">카테고리 : 강사가 개설한 게시판</a>
-        
-       <!--  강사 또는 모임장 권한이 있을때만 visible -->
-        <button class="btn btn-danger w-100">커뮤니티 관리</button>
-
-      </div>
-    </div>
-<div class="container-fluid mt-4">
-  <div class="row">
-    <!-- Sidebar -->
-    <div class="col-md-3 mb-3">
-      <div class="community-sidebar">
-        <h5>클래스 커뮤니티 홈</h5>
-        <hr>
-        <p>카테고리 : 클래스 후기</p>
-        <p>카테고리 : 강사가 개설한 게시판</p>
-        <button class="btn btn-danger w-100">커뮤니티 관리</button>
-      </div>
+    <div class="col-md-3">
+		<%@ include file="../community/community_sidebar.jsp" %>
     </div>
 
-    <!-- Main -->
+    <!-- Main Content -->
     <div class="col-md-9">
-
 
        <!-- 게시글 목록 (우측 메인) -->
       <div class="col-md-9">
