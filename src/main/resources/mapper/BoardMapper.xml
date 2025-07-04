@@ -5,26 +5,26 @@
   
 <mapper namespace="mapper.BoardMapper">
   	<resultMap type="board" id="b">
-		<id column="boardId" property="boardId"></id>		
-		<result column="categoryId" property="categoryId"></result>
-		<result column="memberId" property="memberId"></result>
-		<result column="groupId" property="groupId"></result>
+		<id column="board_id" property="boardId"></id>		
+		<result column="category_id" property="categoryId"></result>
+		<result column="member_id" property="memberId"></result>
+		<result column="group_id" property="groupId"></result>
 		<result column="depth" property="depth"></result>
 		<result column="title" property="title"></result>
 		<result column="content" property="content"></result>
-		<result column="visibleLevel" property="visibleLevel"></result>
+		<result column="visible_level" property="visibleLevel"></result>
 		<result column="isBlind" property="isBlind"></result>
-		<result column="likeCount" property="likeCount"></result>
-		<result column="commentCount" property="commentCount"></result>
-		<result column="viewCount" property="viewCount"></result>
-		<result column="createdAt" property="createdAt"></result>
-		<result column="updatedAt" property="updatedAt"></result>
+		<result column="like_count" property="likeCount"></result>
+		<result column="comment_count" property="commentCount"></result>
+		<result column="view_count" property="viewCount"></result>
+		<result column="created_at" property="createdAt"></result>
+		<result column="updated_at" property="updatedAt"></result>
 	</resultMap>
 	<sql id="criteria">
 	<where>
 		<trim prefixOverrides="AND | OR">
-			<if test="cno != null">
-				and cno = #{cno}
+			<if test="categoryId != null">
+				and category_id = #{categoryId}
 			</if>
 			
 			<if test="types != null">
@@ -56,7 +56,7 @@
 
 <!-- 단일조회 -->
 	<select id="selectOne" resultMap="b">
-			select * from tbl_board where board_id = #{boardId}
+			select * from board where board_id = #{boardId}
 	</select>
 	
 <!-- 글 등록 -->

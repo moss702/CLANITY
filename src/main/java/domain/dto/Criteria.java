@@ -19,12 +19,12 @@ public class Criteria { //페이징 처리 + 검색 조건 전달
 
 	private int page = 1;			// 현재 페이지 번호 (기본값 1)
 	private int amount = 10;		// 한 페이지당 게시글 수 (기본값 10)
-	private int categoryId = 1;		// 카테고리 번호
+	private Long categoryId = 1L;		// 카테고리 번호
 	private String type = "";		// 검색조건 (Title, Content)
 	private String keyword = "";	// 검색어
 	
 	// 페이지, 게시글 개수, 카테고리 번호로 Cri 재설정
-	public Criteria(int page, int amount, int categoryId) {
+	public Criteria(int page, int amount, Long categoryId) {
 		this.page = page;
 		this.amount = amount;
 		this.categoryId = categoryId;
@@ -47,7 +47,7 @@ public class Criteria { //페이징 처리 + 검색 조건 전달
 	public static Criteria init(HttpServletRequest req) {
 		Criteria cri = new Criteria();
 		try {
-			cri.categoryId = Integer.parseInt(req.getParameter("categoryId"));
+			cri.categoryId = Long.parseLong(req.getParameter("categoryId"));
 			cri.page = Integer.parseInt(req.getParameter("page"));
 			cri.amount = Integer.parseInt(req.getParameter("amount"));
 			cri.type = req.getParameter("type");
