@@ -24,7 +24,7 @@ public class OnedayClass extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//  세션 체크 (나중에 정보등록 jsp 만들기)
+		// 세션 체크 (나중에 정보등록 jsp 만들기)
 		req.getRequestDispatcher("/WEB-INF/views/openClass/open.jsp").forward(req, resp);
 		log.info("{}", HikariCPUtil.getDataSource());
 	}
@@ -57,8 +57,8 @@ public class OnedayClass extends HttpServlet {
 		 
 //			// 나중에 서비스 호출 해야됨
 		  ClassService service = new ClassService();
-		    service.register(classInfo);
-			 	
+		  service.register(classInfo);
+		    
+	
 	}
-
 }

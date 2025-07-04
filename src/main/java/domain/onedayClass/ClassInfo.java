@@ -9,6 +9,7 @@ import lombok.Data;
 @Builder
 @Data
 public class ClassInfo {
+	// 이게 나중에 클래스 등록에 쓰이는 
 	private Long classId;
 	private Long businessId;
 	private Long  categoryId;

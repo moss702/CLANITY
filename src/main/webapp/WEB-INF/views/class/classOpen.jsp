@@ -10,7 +10,7 @@
 
     <h2>클래스 신청</h2>
 
-    <form action="${pageContext.request.contextPath}/enroll/class" method="post" class="mt-4">
+    <form action="${cp}/enroll/class" method="post" class="mt-4">
         <div class="mb-3">
             <label class="form-label">신청 ID (테스트용)</label>
             <input type="text" name="enrollId" class="form-control" value="<%= System.currentTimeMillis() %>" readonly>
