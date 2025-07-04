@@ -4,30 +4,35 @@
 <html>
 <head>
   <%@ include file="../common/head.jsp" %>
-  <title>알림 발송</title>
-  <link rel="stylesheet" href="qna_style.css" />
+  <title>커뮤니티 메인 페이지</title>
+<link rel="stylesheet" href="${cp}/css/qna_style.css">
 </head>
 
 <body>
 <%@ include file="../common/header.jsp" %>
-
+<main>
 <div class="container-fluid mt-4">
   <div class="row">
     <div class="col-md-3">
-      <div class="community-sidebar">
-        <h5>클래스 커뮤니티 홈(인포)</h5>
-        <hr>
-        <p>카테고리 : 클래스 후기</p>
-        <p>카테고리 : 강사가 개설한 게시판</p>
-        <button class="btn btn-danger w-100">커뮤니티 관리</button>
-      </div>
+		<div class="community-sidebar">
+		  <a href="#" class="fw-bold d-block text-dark text-decoration-none mb-2 fs-5">클래스 커뮤니티 이름</a>
+		  <hr class="my-3">
+		
+		  <div class="d-grid gap-1 mb-4">
+		    <button class="category-list-btn">카테고리: 클래스 후기</button>
+		    <button class="category-list-btn">카테고리: 강사가 개설한 게시판</button>
+		  </div>
+		
+		  <button class="btn btn-danger w-100">커뮤니티 관리</button>
+		</div>
+
     </div>
 
     <!-- Main Content -->
-    <div class="col-md-9">
+    <div class="col-md-9 mb-5">
       <!-- 상단 배너 -->
       <div class="community-header">
-        <img src="https://placehold.co/800x180/eee/888?text=커뮤니티+배너" alt="배너 이미지">
+        <img src="https://placehold.co/800x180/eee/888?text=community+banner+welcome" alt="배너 이미지">
         <div class="community-header-body">
           <div class="profile-thumbnail">사진</div>
           <div>
@@ -53,9 +58,9 @@
           </div>
         </div>
 
-        <div class="row">
+                <div class="row">
           <div class="col-md-4">
-            <div class="class-card">
+            <div class="community-class-card">
               <div class="class-img-wrapper">
                 <span class="badge bg-danger status-badge-overlay">진행중</span>
                 <img src="https://placehold.co/300x200" alt="썸네일" class="img-fluid rounded mb-2">
@@ -65,7 +70,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="class-card">
+            <div class="community-class-card">
               <div class="class-img-wrapper">
                 <span class="badge bg-success status-badge-overlay">오픈예정</span>
                 <img src="https://placehold.co/300x200" alt="썸네일" class="img-fluid rounded mb-2">
@@ -75,7 +80,7 @@
             </div>
           </div>
           <div class="col-md-4">
-            <div class="class-card">
+            <div class="community-class-card">
               <div class="class-img-wrapper">
                 <span class="badge bg-secondary status-badge-overlay">마감</span>
                 <img src="https://placehold.co/300x200" alt="썸네일" class="img-fluid rounded mb-2">
@@ -86,10 +91,11 @@
           </div>
         </div>
       </div>
-    </div>
+
+ 	</div>
   </div>
 </div>
-
+</main>
 <%@ include file="../common/footer.jsp" %>
 </body>
 </html>

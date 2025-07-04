@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+   <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -54,36 +55,39 @@
         <button class="btn btn-danger btn-sm" onclick="toggleFaqForm()">+ 질문 등록</button>
       </div>
 
+      <div id="faqFormAnchor"></div>
       <!-- 등록 폼 -->
-      <form action="${cp}/faq" method="post">
-	      <div class="faq-form mb-4" id="faqForm">
+      <form id="faqForm" class="faq-form" action="${cp}/faq" method="post">
+        <input type="hidden" id="faqId" name="id" value="${faq.boardId}"/> <!-- 수정용정보 -->
+		 <input type="hidden" id="faqMode" name="mode" value="write" />
+
 	        <div class="mb-2">
 	          <label class="form-label fw-semibold">카테고리 선택</label>
-	          <select class="form-select" id="faqCategory">
-	            <option value="class">클래스</option>
-	            <option value="community">커뮤니티</option>
-	            <option value="payment">결제 및 환불</option>
-	            <option value="etc">기타</option>
-	          </select>
+				<select class="form-select" id="faqCategory">
+				  <option value="class">클래스</option>
+				  <option value="community">커뮤니티</option>
+				  <option value="payment">결제 및 환불</option>
+				  <option value="etc">기타</option>
+				</select>
 	        </div>
 	        <div class="mb-2">
 	          <label class="form-label fw-semibold">질문</label>
-	          <input type="text" class="form-control" id="faqQuestion" name="title" placeholder="질문 제목을 입력하세요">
+	          <input type="text" class="form-control" id="faqQuestion" name="title" placeholder="질문 제목을 입력하세요" >
 	        </div>
 	        
 	        <div class="mb-2">
 	          <label class="form-label fw-semibold">답변</label>
 	          <textarea class="form-control" id="faqAnswer" name="content" rows="3" placeholder="답변 내용을 입력하세요"></textarea>
 	        </div>
-	       <button type="submit" class="btn btn-danger btn-sm">등록하기</button>
-	      </div>
+	        
+  			<button type="submit" class="btn btn-danger btn-sm">등록하기</button>
       </form>
       
       
       <!-- FAQ 목록 -->
 <div class="accordion" id="faqAccordion">
 <c:forEach items="${faqList}" var="faq" varStatus="status">
-  <div class="card faq-card mb-3">
+  <div class="card faq-card mt-3 mb-3">
     <div class="card-header">
       <button class="btn w-100 text-start d-flex justify-content-between align-items-center fw-semibold"
               type="button"
@@ -92,7 +96,7 @@
               aria-expanded="false"
               aria-controls="faq${status.index}"
               style="background: none; border: none; padding: 0;">
-        <div><strong class="text-danger">[FAQ]</strong> ${faq.title}</div>
+        <div><strong class="text-danger">[${faqCategory}]</strong> ${faq.title}</div>
         <small class="text-muted">
 	    <fmt:formatDate value="${faq.createdAt}" pattern="yyyy.MM.dd"/>
         </small>
@@ -103,13 +107,22 @@
          data-bs-parent="#faqAccordion"
          aria-labelledby="faq${status.index}">
       <div class="faq-answer p-3">
-        <p>${faq.content}</p>
+        <p>${faq.content.replaceAll("\\n", "<br/>")}</p>
         <div class="faq-buttons d-flex gap-2 admin-only mt-2">
         
-        <form method="get" action="${cp}/faq">
-		  <input type="hidden" name="id" value="${faq.boardId}" />
-		  <button type="submit" class="btn btn-outline-secondary btn-sm">수정</button>
-		</form>
+        
+      <!-- 질문 수정 버튼 누르면 다시 입력폼 보임! -->
+      <div class="mb-3 text-end admin-only">
+		<button
+		  class="btn btn-outline-secondary btn-sm btn-edit"
+		  data-id="${faq.boardId}"
+		  data-title="${fn:escapeXml(faq.title)}"
+		  data-content="${fn:escapeXml(faq.content)}"
+		  data-index="${status.index}" >
+		  수정하기
+		</button>
+      </div>
+		
 		<form method="post" action="${cp}/faq" onsubmit="return confirm('삭제할까요?')">
 		  <input type="hidden" name="id" value="${faq.boardId}" />
 		  <input type="hidden" name="mode" value="delete" />
@@ -121,7 +134,6 @@
   </div>
 </c:forEach>
 </div>
-
     </div>
   </div>
 </div>
@@ -133,15 +145,18 @@
   if (isAdmin) $('.admin-only').show();
 
   $('.filter-btn').on('click', function () {
-    const filter = $(this).data('filter');
-    $('.filter-btn').removeClass('active');
-    $(this).addClass('active');
-    $('.faq-card').each(function () {
-      const category = $(this).data('category');
-      $(this).toggle(filter === 'all' || category === filter);
-    });
-  });
-
+	  const filter = $(this).data('filter'); // ex) 'class', 'community'
+	  $('.filter-btn').removeClass('active');
+	  $(this).addClass('active');
+	  
+	  $('.faq-card').each(function () {
+	    const category = $(this).data('category');
+	    $(this).toggle(filter === 'all' || category === filter);
+	  });
+	  
+	  //$("#faqCategory").val($(this).text());
+	});
+	
   $('#faqSearchBtn').on('click', function () {
     const keyword = $('#faqSearchInput').val().toLowerCase();
     $('.faq-card').each(function () {
@@ -149,6 +164,7 @@
       $(this).toggle(text.includes(keyword));
     });
   });
+  
 
   $(document).on('click', '.btn-delete', function () {
     if (confirm('정말 삭제하시겠습니까?')) {
@@ -157,25 +173,35 @@
   });
 
   function toggleFaqForm() {
-    $('#faqForm').slideToggle();
+	  
+	  const faqForm = $('#faqForm');
+
+	  $('#faqForm').detach().insertAfter('#faqFormAnchor');
+
+	  faqForm.slideToggle();
+
+	  $('#faqId').val('');
+	  $('#faqMode').val('write');
+	  $('#faqQuestion').val('');
+	  $('#faqAnswer').val('');
+	  
   }
 
   function submitFaq() {
     const category = $('#faqCategory').val();
+    const categoryText = $('#faqCategory option:selected').text();
     const question = $('#faqQuestion').val().trim();
     const answer = $('#faqAnswer').val().trim();
     if (!question || !answer) return alert('질문과 답변을 모두 입력하세요.');
-
     const timestamp = Date.now();
     const newCard = `
-      <div class="card faq-card mb-3" data-category="${category}">
-        <div class="card-header d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#newFaq${timestamp}">
-            <div><strong class="text-danger">[${selectedCategory}]</strong> ${question}</div>
+    	  <div class="card faq-card mb-3" data-category="${category}">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div><strong class="text-danger">[${categoryText}]</strong> ${question}</div>
           <small class="text-muted">방금전</small>
-        </div> 
-        <div id="newFaq${timestamp}" class="collapse" data-bs-parent="#faqAccordion">
-          <div class="faq-answer">
-            <p>${answer}</p>
+        </div>
+        <div class="faq-answer p-3">
+          <p>${answer}</p>
             <div class="faq-buttons d-flex gap-2 admin-only">
               <button class="btn btn-outline-secondary btn-sm">수정</button>
               <button class="btn btn-outline-danger btn-sm btn-delete">삭제</button>
@@ -189,6 +215,31 @@
     $('#faqQuestion').val('');
     $('#faqAnswer').val('');
   }
+  
+  function editFaq(id, title, content, index) {
+	  $('#faqId').val(id);
+	  $('#faqMode').val('modify');
+	  $('#faqQuestion').val(title);
+	  $('#faqAnswer').val(content);
+
+	  const targetCard = $('#faq' + index).closest('.faq-card');
+	  if (targetCard.length > 0) {
+	    $('#faqForm').hide(); // reset
+	    $('#faqForm').detach().appendTo(targetCard);
+	    $('#faqForm').slideDown();
+	  }
+	
+  }
+  
+  $(document).on('click', '.btn-edit', function () {
+	  const id = $(this).data('id');
+	  const title = $(this).data('title');
+	  const content = $(this).data('content');
+	  const index = $(this).data('index');
+
+	  editFaq(id, title, content, index);
+	});
+	  
 </script>
 
 </body>

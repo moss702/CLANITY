@@ -71,7 +71,7 @@
 	
 	
 <!-- 글 수정 -->
-	<update id="update">
+	<update id="update" parameterType="domain.Board">
 		update board set
 		title = #{title},
 		content = #{content},
