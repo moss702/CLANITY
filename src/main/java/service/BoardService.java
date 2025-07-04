@@ -62,6 +62,20 @@ public class BoardService {
             session.close();
         }
     }
+    
+	public void modify(Board board) {
+	   	SqlSession session = MybatisUtil.getSqlSession(false);
+		try {
+	        BoardMapper mapper = session.getMapper(BoardMapper.class);
+	        mapper.update(board);
+	        session.commit();
+	    } catch (Exception e) {
+	    	session.rollback(); 
+	        e.printStackTrace();
+	    } finally {
+	    	session.close();
+	    }
+    }
 
     public long getCount(Criteria cri) {
         try (SqlSession session = MybatisUtil.getSqlSession()) {
