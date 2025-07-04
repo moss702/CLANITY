@@ -30,7 +30,7 @@ public class SendEmailVerify extends HttpServlet{
         // 임시 고정 UUID (추후 UUID.randomUUID().toString()으로 교체)
         String uuid = UUID.randomUUID().toString();
         
-        RedisUtil.setWithExpire(email, uuid, 600);
+        RedisUtil.setWithExpire("email_verify:" + uuid, email, 600);
         
         
         boolean success = emailService.sendVerificationEmail(email, uuid);

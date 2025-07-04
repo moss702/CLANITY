@@ -28,9 +28,18 @@ public class MemberMapperTest {
 	@Test
 	@DisplayName("단일 유저 출력 테스트")
 	public void selectMemberTest() {
-		String email = "email";
+		String email = "tiger2ys98@gmail.com";
 		
 		Member member = memberMapper.findByEmail(email);
 		log.info("{}", member);
+	}
+	
+	@Test
+	@DisplayName("유저 인증 정보 출력 테스트")
+	public void updateMemberEmailVerified() {
+		String email = "testtest@naver.com";
+		
+		memberMapper.updateEmailverified(email);
+		Member member = memberMapper.findByEmail(email);
 	}
 }

@@ -16,16 +16,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Alias("member")
 public class Member {
-//	private Long memberId; //맴버 고유 번호
+	private Long memberId; //맴버 고유 번호
 	private String email;
 	private String password;
 	private String nickname;
 	private String phone;
 	private Gender gender;
-	private String profileimage;
+	private String profileImage;
 	private MemberRole role;
 	private MemberStatus status;
-	private boolean emailVerfied;
+	private boolean emailVerified;
 	private String createdAt;
 
 }

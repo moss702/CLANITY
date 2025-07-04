@@ -20,30 +20,31 @@ public class CheckEmailVerify extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		MemberService memberService = new MemberService();
+		
 		String token = req.getParameter("token");
-
+		
 		if (token == null || token.isEmpty()) {
-			resp.sendRedirect(req.getContentType() + "/index");
+			resp.sendRedirect(req.getContextPath() + "/index");
 			// 유효하지 않거나 만료됨
 			return;
 		}
 
-		String redisKey = "email_verify:" + token;
-		String memberKey = RedisUtil.get(redisKey);
+		String memberEmail= RedisUtil.get("email_verify:" + token);
 
-		if (memberKey == null) { //
-			resp.sendRedirect(req.getContentType() + "/indx");
+		if (memberEmail == null) { //
+			resp.sendRedirect(req.getContextPath() + "/index");
 			return;
 		}
 
-		// db 업데이트
+		// db 업데이트 및 성공 여부 출력
 
-//		boolean updated = MemberService.updateEmailVerified(null);
+		boolean updated = memberService.updateEmailVerified(memberEmail);
 
-		// 키 재사용 가능성 차단
-		RedisUtil.delete(redisKey);
+		// 토큰 재사용 가능성 차단
+		RedisUtil.delete(token);
 
-		if (true) {
+		if (updated) {
 			resp.sendRedirect(req.getContextPath() + "/index.jsp");
 		} else {
 			resp.sendRedirect(req.getContextPath() + "/error/verifyFailed.jsp");
