@@ -1,5 +1,7 @@
 package service;
 
+import java.util.UUID;
+
 import org.apache.ibatis.session.SqlSession;
 
 import domain.Member;

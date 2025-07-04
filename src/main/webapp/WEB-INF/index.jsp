@@ -22,6 +22,7 @@
 	<a href="${cp}/member/logout">로그아웃</a>
 	<a href="${cp}/mypage">마이페이지</a>
 	<h3>${member}</h3>
+	<a href="${cp}/admin"> 관리자 페이지</a>
 </c:if>
 </main>
 
