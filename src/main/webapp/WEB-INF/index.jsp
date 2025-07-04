@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%@ include file="views/common/head.jsp"%>
 </head>
 <body>
 
@@ -18,7 +19,7 @@
 <c:if test="${not empty member}">
 	<h1>로그인 테스트, 로그인 되었습니다</h1>
 	<span> ${member.email} 님 환영합니다</span>
-	<a href="${cp}member/logout">로그아웃</a>
+	<a href="${cp}/member/logout">로그아웃</a>
 	<a href="${cp}/mypage">마이페이지</a>
 	<h3>${member}</h3>
 </c:if>
@@ -26,7 +27,18 @@
 
 <%@ include file="views/common/footer.jsp" %>
 
+<script>
+  $(function() {
+    const params = new URLSearchParams(window.location.search);
+    const msg = params.get("msg");
 
+    if (msg === "success") {
+      alert("✅ 이메일 인증에 성공했습니다.");
+    } else if (msg === "fail") {
+      alert("❌ 유효하지 않거나 만료된 토큰입니다.");
+    }
+  });
+</script>
 
 </body>
 </html>

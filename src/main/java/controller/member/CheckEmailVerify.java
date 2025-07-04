@@ -25,7 +25,7 @@ public class CheckEmailVerify extends HttpServlet {
 		String token = req.getParameter("token");
 		
 		if (token == null || token.isEmpty()) {
-			resp.sendRedirect(req.getContextPath() + "/index");
+			resp.sendRedirect(req.getContextPath() + "/index?msg=fail");
 			// 유효하지 않거나 만료됨
 			return;
 		}
@@ -45,9 +45,9 @@ public class CheckEmailVerify extends HttpServlet {
 		RedisUtil.delete(token);
 
 		if (updated) {
-			resp.sendRedirect(req.getContextPath() + "/index.jsp");
+			resp.sendRedirect(req.getContextPath() + "/index?msg=success");
 		} else {
-			resp.sendRedirect(req.getContextPath() + "/error/verifyFailed.jsp");
+			resp.sendRedirect(req.getContextPath() + "/index?msg=fail");
 		}
 
 	}
