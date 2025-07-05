@@ -31,8 +31,6 @@ public class SeleniumBasicCrawl {
 //            String classId = url.substring(url.lastIndexOf("/") + 1);
 //            System.out.println("🆔 Class ID: " + classId);
 //            
-//            String categoryId = "0";
-//            String businessId = "0";
 ////            String createdAt = Date.valueOf(LocalDate.now()).toString();
 //            String title = getTextSafe(driver, wait, "h1.MuiTypography-root.MuiTypography-h1.css-16a85so");
 //            System.out.println("📌 Title: " + title);
@@ -42,8 +40,8 @@ public class SeleniumBasicCrawl {
 //                    .stream().map(e -> e.getAttribute("src")).distinct().collect(Collectors.toList());
 //            detailImages.forEach(System.out::println);
 //            
-//            List<String> categories =  wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(".class_category, .class_subcategory")))
-//            		.stream().map(e -> e.getText().toString()).distinct().toList();
+//            List<String> categories =  wait.until(ExpectedConditiodns.presenceOfAllElementsLocatedBy(By.cssSelector(".class_category, .class_subcategory")))
+//            		.stream().map(e -> e.getText().toString()).distidnct().toList();
 //            categories.forEach(System.out::println);
 //            MuiTypography-root MuiTypography-body1 css-1ut0yge
   
@@ -89,7 +87,7 @@ public class SeleniumBasicCrawl {
             		
 
             
-//            String region = getTextSafe(driver, wait, "div[class*=class_location]");
+//            String region = getTextSafe(driver, wait, ".main > div > div > div:first-of-type > div:first-of-type > div:nth-of-type(7) > div > p:first-of-type");
 //            System.out.println("📍 Region: " + region);
 //            
             
