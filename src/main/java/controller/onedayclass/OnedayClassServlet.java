@@ -21,14 +21,13 @@ import service.ClassService;
 import util.HikariCPUtil;
 
 @Slf4j
-@Builder
-@WebServlet("/openClass/open")
+@WebServlet("/openClassRegister/open")
 public class OnedayClassServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//  세션 체크 (나중에 정보등록 jsp 만들기)
-		req.getRequestDispatcher("/WEB-INF/views/openClass/open.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/openClassRegister/open.jsp").forward(req, resp);
 		log.info("{}", HikariCPUtil.getDataSource());
 	}
 

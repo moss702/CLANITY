@@ -18,7 +18,7 @@ public class select {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 
 		try {
-			String url = "https://mochaclass.com/class/68626305a76ad32f78f850c6";
+			String url = "https://mochaclass.com/class/637f1b076cb8e10d7646be88";
 			System.out.println("🌐 URL: " + url);
 			driver.get(url);
 
@@ -108,8 +108,8 @@ public class select {
 			System.out.println("Region: " + region);
 			System.out.println("Difficulty: " + difficulty);
 			detailImages.forEach(System.out::println);
-			System.out.println("💰 content(클래스 소개): " + description);
-			System.out.println("💰 content2(이런 분들이 들으면 좋아요): " + description2);
+			System.out.println("💰 description(클래스 소개): " + description);
+			System.out.println("💰 description(이런 분들이 들으면 좋아요): " + description2);
 			System.out.println("💰 content3(커리큘럼): " + curriculum);
 			System.out.println(" name(강사 이름): " + host_name);
 			System.out.println(" host_introduction(강사 소개): " + host_introduction);

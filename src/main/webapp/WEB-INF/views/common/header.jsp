@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<c:set var="cp" value="${pageContext.request.contextPath}" />
+
+	
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,12 +23,12 @@
 		<div
 			class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
 			<div class="flex-shrink-0">
-				<a href="${pageContext.request.contextPath}/categoryMain"
+				<a href="${cp}/categoryMain"
 					class="text-decoration-none fw-bold fs-2 text-danger">CLANITY</a>
 			</div>
 			<nav class="d-flex gap-3 align-items-center flex-shrink-0">
-				<a class="text-dark text-decoration-none fw-semibold" href="#">클래스</a>
-				<a class="text-dark text-decoration-none fw-semibold" href="#">소셜링</a>
+				<a class="text-dark text-decoration-none fw-semibold" href="${cp}/mainClassPage">클래스</a>
+				<a class="text-dark text-decoration-none fw-semibold" href="${cp}/categoryMain">소셜링</a>
 				<div class="dropdown">
 					<a href="#"
 						class="text-dark text-decoration-none fw-semibold dropdown-toggle"
@@ -32,6 +36,7 @@
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="#">전체</a></li>
 						<li><a class="dropdown-item" href="#">클래스</a></li>
+						<!-- 나중에 소셜링 -->
 						<li><a class="dropdown-item" href="#">소셜링</a></li>
 					</ul>
 				</div>
@@ -58,7 +63,7 @@
 					class="fa-solid fa-bell fs-5"></i> <i
 					class="fa-solid fa-circle-user fs-5"></i> 
 					<a
-					class="text-dark text-decoration-none" href="${cp}/openClass/open">열기</a> 
+					class="text-dark text-decoration-none" href="${cp}/openClassRegister/open">열기</a> 
 					<a
 					class="text-dark text-decoration-none" href="${cp}/member/login">로그인</a>
 			</nav>

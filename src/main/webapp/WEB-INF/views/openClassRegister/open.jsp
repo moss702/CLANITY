@@ -3,11 +3,10 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>클래스 등록</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+ <%@ include file="../common/head.jsp"%>
 </head>
 <body>
+<%@ include file="../common/header.jsp"%>
   <div class="container py-5" style="max-width: 700px;">
     <h3 class="mb-4 text-danger fw-bold">원데이 클래스 등록</h3>
     <form action="${cp}/openClass/open"method="post">
@@ -44,6 +43,7 @@
       </div>
     </form>
   </div>
+  <%@ include file="../common/footer.jsp" %>
 </body>
 </html>
     

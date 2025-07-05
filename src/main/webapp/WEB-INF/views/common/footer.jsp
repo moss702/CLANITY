@@ -43,9 +43,9 @@
           <p class="mb-1">주소: 서울 구로구 디지털로 306</p>
           <p class="mb-3">고객센터: @카카오톡채널 | 운영시간: (월~일) 오전 10:00 ~ 오후 5:00</p>
           <div class="d-flex gap-2">
-            <a href="#" class="text-decoration-none text-dark">이용약관</a> |
-            <a href="#" class="text-decoration-none text-dark">개인정보처리방침</a> |
-            <a href="#" class="text-decoration-none text-dark">사업자정보확인</a>
+            <a href="${cp}/provision/termsOfUse" class="text-decoration-none text-dark">이용약관</a> |
+            <a href="${cp}/provision/termsPersonal" class="text-decoration-none text-dark">개인정보처리방침</a> |
+            <a href="${cp}/provision/information" class="text-decoration-none text-dark">사업자정보확인</a>
           </div>
         </div>
 
