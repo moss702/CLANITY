@@ -18,7 +18,7 @@ public class EnrollClassService {
 	// 일단 클래스 신청 조회 단일 조회 등록 수정 삭제
 
 	
-	// 등록
+	// 신청 등록
 	public void register(ClassEnroll enroll) {
 		try {
 			EnrollClassMapper mapper = session.getMapper(EnrollClassMapper.class);
