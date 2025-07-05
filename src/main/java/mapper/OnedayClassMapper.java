@@ -6,27 +6,27 @@ import org.apache.ibatis.annotations.Update;
 import domain.onedayClass.OnedayClass;
 
 public interface OnedayClassMapper {
-	
+
 	@Insert("INSERT INTO class (title, url) VALUES (#{title}, #{url})")
 	void insert(OnedayClass onedayClass);
-	
-////	@Update
-//	UPDATE class
-//	SET 
-//		class_id = #{categoryId}
-//		business_id = #{business_id},
-//		category_id = #{category_id},
-//		description = #{description},
-//		duration = #{duration},
-//		created_at = #{created_at},
-//		instructor_name = #{instructor_name},
-//		review_count = #{categoryId},
-//		difficulty = #{review_count},
-//		detail_images = #{detail_images},
-//		thumbnail_image = #{thumbnail_image},
-//		address = #{address},
-//		region = #{region},
-//		price = #{price},
-//	wHERE class_id = = #{categoryId};
-////	void update(OnedayClass onedayClass);
+
+	@Update("""
+			UPDATE class SET
+			  description = #{description},
+			  duration = #{duration},
+			  instructor_name = #{instructorName},
+			  difficulty = #{difficulty},
+			  detail_images = #{detailImages},
+			  thumbnail_image = #{thumbnailImage},
+			  address = #{address},
+			  region = #{region},
+			  price = #{price},
+			  discount_price = #{discountPrice},
+			  curriculum = #{curriculum},
+			  host_introduction = #{hostIntroduction},
+			  instructor_image_url = #{instructorImageUrl}
+			WHERE url = #{url}
+			""")
+	void update(OnedayClass onedayClass);
+
 }
