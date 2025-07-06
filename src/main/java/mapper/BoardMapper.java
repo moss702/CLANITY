@@ -20,6 +20,7 @@ public interface BoardMapper {
 	void updateGrpMyself(Board board);		// 답글 그룹번호 재설정
 	void updateSeqIncrease(Board parent);	// 답글 순서 재설정
 	void insertChild(Board board);			// 답글 등록됨
+	List<Board> selectQnaListByMember(Long memberId);	// QnA용 내 문의내역
 
 	//	int selectMaxSeq(Board parent);			// 답글 작성 위치 확인
 	

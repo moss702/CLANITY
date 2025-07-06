@@ -13,6 +13,7 @@
 </head>
 
 <body>
+<c:set var="loginMember" value="${sessionScope.member}" />
 <%@ include file="../common/header.jsp" %>
 <div class="settings-wrapper">
   <div class="category-menu">
@@ -51,9 +52,11 @@
 
 
       <!-- 질문 추가 버튼 (관리자용) -->
-      <div class="mb-3 text-end admin-only">
-        <button class="btn btn-danger btn-sm" onclick="toggleFaqForm()">+ 질문 등록</button>
-      </div>
+	<c:if test="${loginMember != null and loginMember.role == 'ADMIN'}">
+	  <div class="mb-3 text-end">
+	    <button class="btn btn-danger btn-sm" onclick="toggleFaqForm()">+ 질문 등록</button>
+	  </div>
+	</c:if>
 
       <div id="faqFormAnchor"></div>
       <!-- 등록 폼 -->
@@ -108,41 +111,38 @@
          aria-labelledby="faq${status.index}">
       <div class="faq-answer p-3">
         <p>${faq.content.replaceAll("\\n", "<br/>")}</p>
-        <div class="faq-buttons d-flex gap-2 admin-only mt-2">
-        
-        
-      <!-- 질문 수정 버튼 누르면 다시 입력폼 보임! -->
-      <div class="mb-3 text-end admin-only">
-		<button
-		  class="btn btn-outline-secondary btn-sm btn-edit"
-		  data-id="${faq.boardId}"
-		  data-title="${fn:escapeXml(faq.title)}"
-		  data-content="${fn:escapeXml(faq.content)}"
-		  data-index="${status.index}" >
-		  수정하기
-		</button>
-      </div>
-		
-		<form method="post" action="${cp}/faq" onsubmit="return confirm('삭제할까요?')">
-		  <input type="hidden" name="id" value="${faq.boardId}" />
-		  <input type="hidden" name="mode" value="delete" />
-		  <button class="btn btn-outline-danger btn-sm">삭제</button>
-		</form>
-        </div>
-      </div>
-    </div>
+            
+<c:if test="${loginMember != null and loginMember.role == 'ADMIN'}">
+  <div class="faq-buttons d-flex gap-2 mt-2">
+    <!-- 수정 버튼 -->
+    <button
+      class="btn btn-outline-secondary btn-sm btn-edit"
+      data-id="${faq.boardId}"
+      data-title="${fn:escapeXml(faq.title)}"
+      data-content="${fn:escapeXml(faq.content)}"
+      data-index="${status.index}">
+      수정하기
+    </button>
+
+    <!-- 삭제 버튼 -->
+    <form method="post" action="${cp}/faq" onsubmit="return confirm('삭제할까요?')">
+      <input type="hidden" name="id" value="${faq.boardId}" />
+      <input type="hidden" name="mode" value="delete" />
+      <button class="btn btn-outline-danger btn-sm">삭제</button>
+    </form>
+  </div>
+</c:if>
   </div>
 </c:forEach>
 </div>
-    </div>
-  </div>
+</div>
+        
 </div>
 
  <%@ include file="../common/footer.jsp" %>
 
 <script>
-  const isAdmin = true;
-  if (isAdmin) $('.admin-only').show();
+
 
   $('.filter-btn').on('click', function () {
 	  const filter = $(this).data('filter'); // ex) 'class', 'community'

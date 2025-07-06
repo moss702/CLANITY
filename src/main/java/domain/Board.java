@@ -13,9 +13,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
 @Builder
 @Data
 @NoArgsConstructor
@@ -24,7 +21,7 @@ import lombok.ToString;
 public class Board {
 	private Long boardId; 				// 게시글 번호
 	private Long categoryId; 		    // 카테고리 번호
-	private Long memberId;			 	// 작성자 ID
+	private Long memberId;			 	// 로그인한 유저, 작성자 ID
 	
 	private Long groupId; 				// 답글기능 : 원본 게시글 그룹 번호
 	private int depth; 					// 답글기능 : 답글 단계
@@ -38,4 +35,6 @@ public class Board {
 	private int viewCount; 				// 조회 수
 	private Date createdAt; 			// 작성일시
 	private Date updatedAt; 			// 수정일시
+
+	private Long receiverId;			// 문의기능 : 수신자 ID
 }

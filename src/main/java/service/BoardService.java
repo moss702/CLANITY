@@ -86,4 +86,14 @@ public class BoardService {
         }
         return 0;
     }
+    
+    
+    // qna mylist * 내문의내역
+    public List<Board> findQnaListByMember(Long memberId) {
+        try (SqlSession session = MybatisUtil.getSqlSession()) {
+            BoardMapper mapper = session.getMapper(BoardMapper.class);
+            return mapper.selectQnaListByMember(memberId); // board.category_id = 2 필터 포함
+        }
+    }
+
 }
