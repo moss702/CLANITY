@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.AttachLinkMapper">
+	
+<!-- 첨부파일 등록 -->
+  <insert id="insert" parameterType="attachLink">
+    INSERT INTO attach_link (attach_id, target_type, target_id)
+    VALUES (#{attachId}, #{targetType}, #{targetId})
+  </insert>
+
+</mapper>
