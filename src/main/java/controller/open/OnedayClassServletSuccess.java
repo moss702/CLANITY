@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import domain.onedayClass.ClassInfo;
 import lombok.extern.slf4j.Slf4j;
-import service.ClassService;
 import util.HikariCPUtil;
 
 @Slf4j
