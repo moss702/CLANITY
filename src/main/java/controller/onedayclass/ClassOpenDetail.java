@@ -46,9 +46,7 @@ public class ClassOpenDetail extends HttpServlet {
 		
 //		 // 객체 생성 //참고용 Board 
 
-		 ClassOpen classOpen  = ClassOpen.builder().openId(openId).masterId(masterId).scheduleDate(scheduleDate).startTime(startTime).endTime(endTime).maxParticipants(maxParticipants).status(ClassOpenEn.valueOf(statusParam.toUpperCase())) .build();
 	 
-		 log.info("{}", classOpen);
 		 
 //			// 나중에 서비스 호출 해야됨
 			 	 

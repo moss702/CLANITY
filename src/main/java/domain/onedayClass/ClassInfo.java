@@ -9,28 +9,28 @@ import lombok.Data;
 @Builder
 @Data
 public class ClassInfo {
-	// 이게 나중에 클래스 등록에 쓰이는 
-	private Long classId;
-	private Long businessId;
-	private Long  categoryId;
-	private String  title;
-	private String  description;
-	private int  duration;
-	private int price;
-	private Date createdAt;
-	
-	
-	public ClassInfo(Long classId, Long businessId, Long categoryId, String title, String description, int duration,
-			int price, Date createdAt) {
-		super();
-		this.classId = classId;
-		this.businessId = businessId;
-		this.categoryId = categoryId;
-		this.title = title;
-		this.description = description;
-		this.duration = duration;
-		this.price = price;
-		this.createdAt = createdAt;
-	}
+	// 이게 나중에 클래스 등록
+	 private Long classId;
+	    private Long businessId;
+	    private Long categoryId;
+	    private String title;
+	    private String description;
+	    private String description2;
+	    private int duration;
+	    private Date createdAt;
+	    private int price;
+	    private String url;
+	    private int discount;
+	    private int discountPrice;
+	    private String instructorName;
+	    private String difficulty;
+	    private String curriculum;
+	    private String hostIntroduction;
+	    private String thumbnailImages;
+	    private String detailImages;
+	    private String instructorImageUrl;
+	    private String address;
+	    private String region;
+	    private String classType;
 	
 }

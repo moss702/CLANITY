@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -255,17 +256,15 @@ table th, table td {
 					<div id="optionSummary" class="mt-3 text-muted small">✔ 재료 포함
 						/ ✔ 다과 제공</div>
 
-					<!-- 버튼 -->
-					<div class="d-grid gap-2 mt-3">
-						<button class="btn btn-outline-secondary">위시리스트</button>
-						<button class="btn btn-outline-secondary">문의하기</button>
-						<a href="${pageContext.request.contextPath}/classPaymentMainPage" class="text-decoration-none text-dark"><button class="btn btn-danger text-white fw-bold">클래스
-							결제하기</button></a>
-					</div>
-				</div>
-			</div>
-		</div>
-
+					<form
+						action="${cp}/enroll/classDetailedPage"
+						method="post">
+						<input type="hidden" name="openId" value="${classOpen.openId}" />
+						<input type="hidden" name="memberId" value="1" />
+						<!-- 로그인 연동 시 세션에서 가져오도록 수정 -->
+						<button type="submit"
+							class="btn btn-danger text-white fw-bold w-100">클래스 결제하기</button>
+					</form>
 	</main>
 	<!-- 푸터 -->
 

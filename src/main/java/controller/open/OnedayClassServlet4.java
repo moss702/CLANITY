@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import domain.onedayClass.ClassInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -22,41 +22,32 @@ public class OnedayClassServlet4 extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//  세션 체크 (나중에 정보등록 jsp 만들기)
+		// 세션 체크 (나중에 정보등록 jsp 만들기)
 		req.getRequestDispatcher("/WEB-INF/views/openClassRegister/open4.jsp").forward(req, resp);
 		log.info("{}", HikariCPUtil.getDataSource());
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		// 한글 깨짐 방지
+		req.setCharacterEncoding("UTF-8");
+
 		// 파라미터 수집
+		String instructorName = req.getParameter("instructorName");
+		String hostIntroduction = req.getParameter("hostIntroduction");
+		String instructorImageUrl = req.getParameter("instructorImageUrl");
 		
-		 Long  classId = Long.parseLong(req.getParameter("classId"));
-		 Long  businessId = Long.parseLong(req.getParameter("businessId"));
-		 Long  categoryId = Long.parseLong(req.getParameter("categoryId"));
-		 String title = req.getParameter("title");
-		 String description = req.getParameter("description");
-		 int duration = Integer.parseInt(req.getParameter("duration"));
-		 int price = Integer.parseInt(req.getParameter("price"));
-		 Date createdAt = Date.valueOf(LocalDate.now());
-		 
-//		 // 객체 생성 //참고용 Board 
-		 ClassInfo classInfo = ClassInfo.builder()
-				 .classId(classId)
-				 .businessId(businessId)
-				 .categoryId(categoryId)
-				 .title(title)
-				 .description(description)
-				 .price(price)
-				 .duration(duration)
-				 .createdAt(createdAt)
-				 .build();
-		 log.info("{}", classInfo);
-		 
-//			// 나중에 서비스 호출 해야됨
-		  ClassService service = new ClassService();
-		    service.register(classInfo);
-			 	
+
+//					// 값 저장 나중에 오픈 2, 3, 4 이런식으로 사용
+		HttpSession session = req.getSession();
+		session.setAttribute("instructorName", instructorName);
+		session.setAttribute("hostIntroduction", hostIntroduction);
+		session.setAttribute("instructorImageUrl", instructorImageUrl);
+		
+		// 다음 페이지 이동
+		req.getRequestDispatcher("/WEB-INF/views/openClassRegister/open5.jsp").forward(req, resp);
+
 	}
 
 }
