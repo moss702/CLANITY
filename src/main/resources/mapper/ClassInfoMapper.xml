@@ -68,5 +68,12 @@
 	<delete id="delete">
 	DELETE FROM class WHERE class_id = #{classId}
 	</delete>
+	
+	<!-- 업데이트에 필요한 정보 -->
+	<select id="selectAllUrls" resultType="ClassInfo">
+ 	 SELECT class_id, title, url FROM class
+	</select>
+	
+	
 
 </mapper>

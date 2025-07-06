@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.*;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class select {
+public class Select {
 	public static void main(String[] args) {
 		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
@@ -32,7 +32,11 @@ public class select {
 			// 클래스 제목
 			String title = getTextSafe(driver, wait, "h1.MuiTypography-root.MuiTypography-h1.css-16a85so");
 			System.out.println("📌 Title: " + title);
-			String thumbnailImage = getAttrSafe(driver, wait, "div.slick-list .slick-track div img", "src");
+			 List<String> thumbnailImages = wait
+		                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+		                        By.cssSelector("div.slick-list .slick-track div img")))
+		                .stream().map(e -> e.getAttribute("src"))
+		                .distinct().collect(Collectors.toList());
 //	
 //	         //1) 상세 이미지 링크 주소
 			List<String> detailImage = wait
@@ -87,9 +91,9 @@ public class select {
 			String curriculum = getTextSafe(driver, wait, "#topleft > div:nth-of-type(5) > div > div:nth-of-type(2)"); // 텍스트
 																														// 내용
 			// 강사이름 , 
-			String host_name = getTextSafe(driver, wait,
+			String introductionName = getTextSafe(driver, wait,
 					"#topleft > div:nth-of-type(6) > div > div:nth-of-type(2) p:nth-of-type(2)"); // 텍스트 내용 추출
-			String host_introduction = getTextSafe(driver, wait,
+			String hostIntroduction = getTextSafe(driver, wait,
 					"#topleft > div:nth-of-type(6) > div > div:nth-of-type(3)"); // 텍스트 내용 추출
 			List<String> instructorImageUrl = wait.until(ExpectedConditions
 					.presenceOfAllElementsLocatedBy(By.cssSelector("#topleft > div:nth-of-type(6) > div img") 
@@ -107,12 +111,12 @@ public class select {
 			System.out.println(" Duration: " + duration);
 			System.out.println("Region: " + region);
 			System.out.println("Difficulty: " + difficulty);
-			detailImages.forEach(System.out::println);
+			thumbnailImages.forEach(System.out::println);
 			System.out.println("💰 description(클래스 소개): " + description);
 			System.out.println("💰 description(이런 분들이 들으면 좋아요): " + description2);
 			System.out.println("💰 content3(커리큘럼): " + curriculum);
-			System.out.println(" name(강사 이름): " + host_name);
-			System.out.println(" host_introduction(강사 소개): " + host_introduction);
+			System.out.println(" name(강사 이름): " + introductionName);
+			System.out.println(" host_introduction(강사 소개): " + hostIntroduction);
 			System.out.println(" 강사 이미지 링크" + instructorImageUrl);
 			System.out.println("💰 address: " + address);
 
