@@ -22,7 +22,7 @@ import util.HikariCPUtil;
 @Slf4j
 @WebServlet("/class/classOpen")
 public class ClassOpenDetail extends HttpServlet {
-
+// 나중에 지울 테스트용
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//  세션 체크

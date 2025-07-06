@@ -65,7 +65,7 @@
 					class="fa-solid fa-bell fs-5"></i> <i
 					class="fa-solid fa-circle-user fs-5"></i> <a
 					class="text-dark text-decoration-none"
-					href="${cp}/openClassRegister/open">열기</a> <a
+					href="${cp}/openClassRegister/open1">열기</a> <a
 					class="text-dark text-decoration-none" href="${cp}/member/login">로그인</a>
 			</nav>
 			<!-- 검색 필터 박스 -->
