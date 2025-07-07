@@ -26,7 +26,8 @@ public class Admin extends HttpServlet{
 			req.getRequestDispatcher("/WEB-INF/views/admin/admin.jsp").forward(req, resp);
 		}
 		else {
-			AlertUtil.alert("접근 권한이 없습니다", "/index", req, resp);
+//			AlertUtil.alert("접근 권한이 없습니다", "/index", req, resp);
+			AlertUtil.redirectAlert("접근권한이 없습니다","/index","red",req,resp);
 			return;
 		}
 		
