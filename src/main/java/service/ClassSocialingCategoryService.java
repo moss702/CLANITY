@@ -12,7 +12,7 @@ import mapper.ClassSocialingCategoryMapper;
 import util.MybatisUtil;
 
 @Slf4j
-public class ClassSocialingCategorySevice {
+public class ClassSocialingCategoryService {
 	// 리스트 조회
 	public List<ClassSocialingCategory> listCategory() {
 		try (SqlSession session = MybatisUtil.getSqlSession()) {

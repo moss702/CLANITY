@@ -2,10 +2,11 @@ package domain.onedayClass;
 
 import java.sql.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-
+@AllArgsConstructor
 @Builder
 @Data
 public class ClassInfo {
@@ -16,12 +17,12 @@ public class ClassInfo {
 	    private String title;
 	    private String description;
 	    private String description2;
-	    private int duration;
+	    private String duration;
 	    private Date createdAt;
-	    private int price;
+	    private String price;
 	    private String url;
-	    private int discount;
-	    private int discountPrice;
+	    private String discount;
+	    private String discountPrice;
 	    private String instructorName;
 	    private String difficulty;
 	    private String curriculum;
@@ -32,5 +33,11 @@ public class ClassInfo {
 	    private String address;
 	    private String region;
 	    private String classType;
+	    
+	    
+		public ClassInfo(Long businessId) {
+			super();
+			this.businessId = businessId;
+		}
 	
 }

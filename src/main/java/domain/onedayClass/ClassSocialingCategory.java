@@ -12,8 +12,8 @@ public class ClassSocialingCategory {
 	
 	private Long categoryId;
 	private boolean type;
-	private String parantCategoryType;
-	private String childCategoryType;
+	private String parentCategory;
+	private String childCategory;
 	
 
 	

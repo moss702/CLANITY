@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import util.MybatisUtil;
 
 @Slf4j
-public class ClassOpenTest {
+public class ClassSocialCategoryTest {
 
 	private ClassSocialingCategoryMapper mapper = MybatisUtil.getSqlSession().getMapper(ClassSocialingCategoryMapper.class);
 
@@ -33,11 +33,36 @@ public class ClassOpenTest {
 	@DisplayName("클래스 카테고리 조회")
 	public void classTest2() {
 		// setprettyPrinting : 줄바꿈
+		String json = new GsonBuilder().setPrettyPrinting().create().toJson(mapper.listRegion());
+		log.info(json);
+		
+		
+	}
+	
+
+//	private 
+	@Test
+	@DisplayName("클래스 카테고리 조회")
+	public void regionTest() {
+		// setprettyPrinting : 줄바꿈
+		String json = new GsonBuilder().setPrettyPrinting().create().toJson(mapper.listRegion());
+		log.info(json);
+		
+		
+	}
+	
+
+	@Test
+	@DisplayName("클래스 카테고리 조회")
+	public void regionTestJson() {
+		// setprettyPrinting : 줄바꿈
 		String json = new GsonBuilder().setPrettyPrinting().create().toJson(mapper.list());
 		log.info(json);
 		
 		
 	}
+	
+	
 
 
 }

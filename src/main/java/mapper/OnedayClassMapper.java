@@ -10,29 +10,19 @@ import domain.onedayClass.OnedayClass;
 public interface OnedayClassMapper {
 
 	@Insert("INSERT INTO class (title, url) VALUES (#{title}, #{url})")
-	void insert(OnedayClass onedayClass);
+	void insertMin(OnedayClass onedayClass);
 
 	List<OnedayClass> selectAllUrls();
 	
 	
-	@Update("""
-			UPDATE class SET
-			  description = #{description},
-			  description2 = #{description2},
-			  class_type = #{classType},
-			  duration = #{duration},
-			  instructor_name = #{instructorName},
-			  difficulty = #{difficulty},
-			  detail_images = #{detailImages},
-			  thumbnail_image = #{thumbnailImages},
-			  address = #{address},
-			  region = #{region},
-			  curriculum = #{curriculum},
-			  host_introduction = #{hostIntroduction},
-			  instructor_image_url = #{instructorImageUrl}
-			WHERE url = #{url}
-			""")
-	void update(OnedayClass onedayClass);
+//	@Insert("""
+//			INSERT INTO class 
+//			(title, description, description2, price, class_type,  duration,  instructor_name, difficulty, detail_images, thumbnail_image,address ,  region, curriculum,   host_introduction, instructor_image_url , url )
+//			values
+//			   (#{title}, #{description},#{description2}, #{price}, #{classType},
+//			   #{duration}, #{instructorName},#{difficulty}, #{detailImages}, #{thumbnailImages},#{address}, #{region},#{curriculum}, #{hostIntroduction}, #{instructorImageUrl}, #{url})
+//			""")
+//	void insertRegister(OnedayClass onedayClass);
 	
 	
 

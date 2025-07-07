@@ -13,5 +13,8 @@ public interface ClassSocialingCategoryMapper {
 	
 	@Select("select * from class_socialing_category csc where type = 0 order by category_id")
 	List<ClassSocialingCategory> list();
+	
+	@Select("select region, class_id  from class")
+	List<ClassSocialingCategory> listRegion();
 
 }

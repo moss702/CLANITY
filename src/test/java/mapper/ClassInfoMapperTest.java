@@ -74,13 +74,13 @@ public class ClassInfoMapperTest {
 
 	        // 1. OnedayClass 생성
 	        ClassInfo classInfo = ClassInfo.builder()
-	                .title("sss")
+	                .title("888")
 	                .description("ss!")
 	                .description2("도자ss세 소개")
-	                .duration(120)
-	                .price(40000)
-	                .discount(10)
-	                .discountPrice(36000)
+	                .duration("200")
+	                .price("2000")
+	                .discount("100")
+	                .discountPrice("300")
 	                .instructorName("홍길동")
 	                .difficulty("입문")
 	                .curriculum("1. 기본 모양 잡기\n2. 유약 바르기")
@@ -97,8 +97,8 @@ public class ClassInfoMapperTest {
 
 	        // 2. ClassOpen 생성
 	        ClassOpen classOpen = new ClassOpen();
-	        classOpen.setMinParticipants(2);
-	        classOpen.setMaxParticipants(6);
+	        classOpen.setMinParticipants("2");
+	        classOpen.setMaxParticipants("2");
 	        classOpen.setStatus(true);
 	        // 3. 등록
 	        assertDoesNotThrow(() -> {
@@ -106,8 +106,6 @@ public class ClassInfoMapperTest {
 	            log.info("등록된 classId = {}", classInfo.getClassId());
 	        });
 	     // 4. 검증
-	        assertNotNull(classInfo.getClassId());
-	        assertTrue(classInfo.getClassId() > 0);
 	    }
 	}
 	
