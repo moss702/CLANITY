@@ -3,6 +3,7 @@ package test;
 import domain.onedayClass.OnedayClass;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import mapper.OnedayClassMapper;
+import org.apache.ibatis.session.SqlSession;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.*;
@@ -22,10 +23,9 @@ public class SeleniumBasicCrawl {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
-        OnedayClassMapper mapper = MybatisUtil.getSqlSession().getMapper(OnedayClassMapper.class);
+        SqlSession session = MybatisUtil.getSqlSession(false); // 수동 커밋
+        OnedayClassMapper mapper = session.getMapper(OnedayClassMapper.class);
         List<OnedayClass> classList = mapper.selectAllUrls();
-        
- 
 
         for (OnedayClass onedayClass : classList) {
             try {
@@ -81,14 +81,17 @@ public class SeleniumBasicCrawl {
                 onedayClass.setDuration(120); // 예시 고정값
 
                 mapper.update(onedayClass);
+                session.commit(); // 명시적 커밋
                 System.out.println("✔ 업데이트 완료: " + onedayClass.getTitle());
 
             } catch (Exception e) {
+                session.rollback(); // 롤백 추가
                 System.out.println("✘ 오류 발생: " + onedayClass.getUrl());
                 e.printStackTrace();
             }
         }
 
+        session.close(); // 세션 종료
         driver.quit();
     }
 

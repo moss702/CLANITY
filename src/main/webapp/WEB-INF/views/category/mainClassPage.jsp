@@ -34,32 +34,7 @@
   </div>
 
   <!-- 카드 리스트 -->
-  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-    <% for(int i=0; i<8; i++) { %>
-    <div class="col">
-      <div class="card h-100 shadow-sm rounded-4">
-        <div class="position-relative">
-          <img src="https://placehold.co/200x120" class="card-img-top rounded-top-4" alt="썸네일">
-          <div class="position-absolute top-0 start-0 m-2 d-flex gap-1">
-            <span class="badge bg-danger rounded-pill">추천</span>
-            <span class="badge bg-warning text-dark rounded-pill">얼리버드</span>
-          </div>
-          <button class="btn position-absolute bottom-0 start-0 m-2 p-1 bg-white border-0 rounded-circle">
-            <i class="fa-regular fa-heart text-danger"></i>
-          </button>
-        </div>
-        <div class="card-body p-2">
-          <p class="text-muted mb-1 small">강남구 · 자기계발</p>
-          <h6 class="fw-semibold mb-1">📍스피치 수업 참가자 모집</h6>
-          <p class="text-muted small">🗣 발표, 토론, 면접 준비</p>
-          <p class="text-muted small">
-            <i class="fa-regular fa-calendar"></i> 25.7.5(토) 오후 5:00
-          </p>
-        </div>
-      </div>
-    </div>
-    <% } %>
-  </div>
+  
 </main>
 
 <%@ include file="../common/footer.jsp" %>

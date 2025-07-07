@@ -22,7 +22,7 @@ import util.HikariCPUtil;
 @Slf4j
 @WebServlet("/class/classOpen")
 public class ClassOpenDetail extends HttpServlet {
-
+// 나중에 지울 테스트용
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//  세션 체크
@@ -46,9 +46,7 @@ public class ClassOpenDetail extends HttpServlet {
 		
 //		 // 객체 생성 //참고용 Board 
 
-		 ClassOpen classOpen  = ClassOpen.builder().openId(openId).masterId(masterId).scheduleDate(scheduleDate).startTime(startTime).endTime(endTime).maxParticipants(maxParticipants).status(ClassOpenEn.valueOf(statusParam.toUpperCase())) .build();
 	 
-		 log.info("{}", classOpen);
 		 
 //			// 나중에 서비스 호출 해야됨
 			 	 

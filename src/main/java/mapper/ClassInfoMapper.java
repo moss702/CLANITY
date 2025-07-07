@@ -3,12 +3,15 @@ package mapper;
 import java.util.List;
 
 import domain.onedayClass.ClassInfo;
+import domain.onedayClass.ClassOpen;
+import domain.onedayClass.OnedayClass;
 
 public interface ClassInfoMapper {
 	// 클래스 정보 매퍼
 	//->  나중에 페이지 처리 알아보기
 	//추가 변경 삭제
 	void insert(ClassInfo classInfo);
+	void insertClassOpen(ClassOpen classOpen);
 	
 	void update(ClassInfo classInfo);
 	
@@ -16,6 +19,7 @@ public interface ClassInfoMapper {
 	
 	//클래스 조회, 단일 조회
 	List<ClassInfo> list();
+	List<OnedayClass> list2();
 	ClassInfo selectOne(Long classId);
 	
 //	// 생성시 자동 번호 + 나중에

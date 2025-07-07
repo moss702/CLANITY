@@ -1,6 +1,7 @@
-package controller.onedayclass;
+package controller.category;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,12 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/classDetailedPage")
-public class ClassDetailedPage extends HttpServlet{
+import domain.onedayClass.OnedayClass;
+import service.ClassService;
+
+@WebServlet("/category/cardlist")
+public class ClassCardPage extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		 req.getRequestDispatcher("/WEB-INF/views/class/classDetailedPage.jsp").forward(req, resp);
+		ClassService service = new ClassService();
+		
+		List <OnedayClass> list = service.card();
+		req.setAttribute("cardlist", list);
+		
+		req.getRequestDispatcher("/WEB-INF/views/category/cardlist.jsp").forward(req, resp);
 	}
 
 	@Override

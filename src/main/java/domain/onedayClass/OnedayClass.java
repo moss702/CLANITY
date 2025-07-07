@@ -2,9 +2,15 @@ package domain.onedayClass;
 
 import java.sql.Date;
 
+import controller.open.OnedayClassServletSuccess;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
 public class OnedayClass {
 
 	// 기본 필드
@@ -19,7 +25,7 @@ public class OnedayClass {
 	private int price;
 	private String url;
 
-	// 추가 
+	// 추가
 	private int discount;
 	private int discountPrice;
 
@@ -42,6 +48,13 @@ public class OnedayClass {
 	private String region;
 	private String classType;
 
+	// open 생성자
+
+	private Long openId;
+	private Date scheduleDate;
+	private String startTime;
+	private String endTime;
+
 	// 기본 생성자
 	public OnedayClass() {
 	}
@@ -53,29 +66,4 @@ public class OnedayClass {
 		this.url = url;
 	}
 
-	public OnedayClass(String description, String description2, int duration, Date createdAt, String instructorName,
-			String difficulty, String curriculum, String hostIntroduction, String thumbnailImages, String detailImages,
-			String instructorImageUrl, String address, String region, String classType) {
-		super();
-		this.description = description;
-		this.description2 = description2;
-		this.duration = duration;
-		this.createdAt = createdAt;
-		this.instructorName = instructorName;
-		this.difficulty = difficulty;
-		this.curriculum = curriculum;
-		this.hostIntroduction = hostIntroduction;
-		this.thumbnailImages = thumbnailImages;
-		this.detailImages = detailImages;
-		this.instructorImageUrl = instructorImageUrl;
-		this.address = address;
-		this.region = region;
-		this.classType = classType;
-	}
-	
-	
-
-	
-
-	
 }
