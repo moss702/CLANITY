@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import service.AttachLinkService;
 import service.AttachService;
 import service.BoardService;
+import service.UploadService;
 
 @WebServlet("/qna")
 @MultipartConfig
@@ -54,90 +55,50 @@ public class QnaController extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	   System.out.println("문의 등록확인");
-
-		String title = req.getParameter("title");
-		String content = req.getParameter("content");
-		String receiverIdStr = req.getParameter("receiverId");
-		Long receiverId = (receiverIdStr == null || receiverIdStr.isBlank()) ? null : Long.parseLong(receiverIdStr);
-		
-		//로그인 확인
-	    // 세션에서 member 객체 가져오기
+	    System.out.println("QNA doPost 진입!");
+	    
+	    // 작성자ID 및 로그인 여부 확인
 	    Member loginMember = (Member) req.getSession().getAttribute("member");
-
-	    // null 체크 후 loginId 세션에 저장
-	    if (loginMember != null) {
-	        req.getSession().setAttribute("loginId", loginMember.getMemberId());
-	    } else {
+	    if (loginMember == null) {
 	        resp.sendRedirect(req.getContextPath() + "/member/login");
 	        return;
 	    }
+	    log.info("loginMember: {}", loginMember);
+	    
+	    
+	    String inqType = req.getParameter("inqType");		   // 문의 타입
+	    String title = req.getParameter("title");			   // 문의 제목
+	    String content = req.getParameter("content");		   // 문의 내용
+	    String receiverIdStr = req.getParameter("receiverId"); // 문의 수신자 : 강사 ID
+	   
+	    // 문의 수신자가 비어있다면 null, 아니라면 강사ID long 타입으로 변환해서 receiverId에 넣기
+	    Long receiverId = (receiverIdStr == null || receiverIdStr.isBlank()) ? null : Long.parseLong(receiverIdStr);
+	    
+	    req.getSession().setAttribute("loginId", loginMember.getMemberId());
+	    Long loginId = loginMember.getMemberId();
 
-	    Long loginId = (Long) req.getSession().getAttribute("loginId");
-		
 	    Board board = new Board();
-	    board.setCategoryId(2L);    		// QnA(2) 고정
-	    board.setMemberId(loginId);			// 발신인 (로그인한 유저의 memberId)
-	    board.setReceiverId(receiverId);	// 수신인(강사Id or admin_only)
-	    board.setTitle(title);				// 문의제목
-	    board.setContent(content);			// 문의내용
-	    board.setVisibleLevel(VisibleLevel.ALL);    // * 열람 제한 필요.. 본인이 쓴건 본인한테만 보이게.
+	    board.setCategoryId(2L); 		 // QnA
+	    board.setMemberId(loginId);
+	    board.setReceiverId(receiverId);
+	    board.setTitle(title);
+	    board.setContent(content);
+	    board.setVisibleLevel(VisibleLevel.ALL);
 
-	    BoardService service = new BoardService(); 
+	    BoardService service = new BoardService();
 	    service.write(board);
-	    log.info("작성된 boardId: {}", board.getBoardId());
-		// 첨부파일 처리
-		Collection<Part> parts = req.getParts();
-		AttachService attachService = new AttachService();
-		AttachLinkService linkService = new AttachLinkService();
 
-		for (Part part : parts) {
-			if (part.getName().equals("files[]") && part.getSize() > 0) {
-				String fileName = part.getSubmittedFileName();
-				String contentType = part.getContentType();
-				long size = part.getSize();
-				String uuid = java.util.UUID.randomUUID().toString();
-				String ext = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf(".")) : "";
-				String saveName = uuid + ext;
-				boolean image = contentType.startsWith("image");
-
-				String path = new java.text.SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date());
-				String uploadDir = UploadFile.UPLOAD_PATH + "/" + path + "/";
-				new java.io.File(uploadDir).mkdirs();
-				part.write(uploadDir + saveName);
-
-				if (image) {
-					try {
-						net.coobird.thumbnailator.Thumbnails.of(new java.io.File(uploadDir + saveName))
-							.size(150, 150)
-							.toFile(uploadDir + "t_" + saveName);
-					} catch (Exception e) {
-						image = false;
-					}
-				}
-
-				Attach attach = Attach.builder()
-					.fileName(saveName)
-					.originalName(fileName)
-					.mimeType(contentType)
-					.image(image ? "Y" : "N")
-					.size(size)
-					.path(path)
-					.build();
-				attachService.save(attach);
-
-				AttachLink link = AttachLink.builder()
-					.attachId(attach.getAttachId())
-					.targetType("board")
-					.targetId(board.getBoardId())
-					.build();
-
-				linkService.save(link);
-			}
-		}
-
-		log.info("세션 로그인 ID: {}", loginId);
-		resp.sendRedirect(req.getContextPath() + "/qna/mylist");
+	    // 첨부파일 처리 : UploadService 호출 -> attachLink, attach에 저장됨
+	    try {   
+	        new UploadService().handleUpload(req, "board", board.getBoardId());
+	        								// 사용할 카테고리, 카테고리 id
+	    } catch (Exception e) {
+	        log.error("파일 업로드 중 오류 발생", e);
+	        req.setAttribute("error", "파일 업로드에 실패했습니다.");
+	        req.getRequestDispatcher("/WEB-INF/views/qna/qna_main.jsp").forward(req, resp);
+	        return;
+	    }
+	    log.info("문의 작성 완료! boardId: {}, memberId: {}", board.getBoardId(), loginId);
+	    resp.sendRedirect(req.getContextPath() + "/qna/mylist");
 	}
 }
-	

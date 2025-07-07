@@ -7,18 +7,18 @@ import util.MybatisUtil;
 
 public class AttachService {
 
-    public Attach selectOne(String uuid) {
-        try (SqlSession session = MybatisUtil.getSqlSession()) {
-            AttachMapper mapper = session.getMapper(AttachMapper.class);
-            return mapper.selectOne(uuid);
-        }
-    }
-
-    public Long save(Attach attach) {
+    public void save(Attach attach) {
         try (SqlSession session = MybatisUtil.getSqlSession()) {
             AttachMapper mapper = session.getMapper(AttachMapper.class);
             mapper.insert(attach);
-            return attach.getAttachId();
+            session.commit();
+        }
+    }
+
+    public Attach findById(Long attachId) {
+        try (SqlSession session = MybatisUtil.getSqlSession()) {
+            AttachMapper mapper = session.getMapper(AttachMapper.class);
+            return mapper.findById(attachId);
         }
     }
 }
