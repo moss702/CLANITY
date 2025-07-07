@@ -1,9 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script>
-alert('${msg}');
-location.href = '${url}';
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/views/common/head.jsp" %> <%-- Bootstrap, jQuery 포함되어야 함 --%>
+<body>
 <%
-	System.out.println(request.getAttribute("url"));
+  String toastMsg = (String) session.getAttribute("toastMsg");
+  String toastColor = (String) session.getAttribute("toastColor");
+  if (toastMsg != null) {
+    session.removeAttribute("toastMsg");
+    session.removeAttribute("toastColor");
 %>
-</script>
+  <script>
+    iziToast.show({
+      title: '알림',
+      message: '<%= toastMsg %>',
+      position: 'topCenter',
+      timeout: 3000,
+      color: '<%= toastColor != null ? toastColor : "blue" %>'
+    });
+  </script>
+<%
+  }
+%>
+</body>

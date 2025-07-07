@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import domain.Member;
 import lombok.extern.slf4j.Slf4j;
 import service.MemberService;
+import util.AlertUtil;
 import util.ParamUtil;
 
 @Slf4j
@@ -42,7 +43,7 @@ public class Login extends HttpServlet{
 			Member savedMember = (Member) session.getAttribute("loginMember");
 			log.info("세션에 저장된 회원 정보: {}", savedMember);
 			
-			resp.sendRedirect(req.getContextPath() +"/index");
+			AlertUtil.redirectAlert("로그인 성공하였습니다", "/index", "green", req, resp);
 		}else {
 			resp.sendRedirect("login?msg=login_fail");
 		}
