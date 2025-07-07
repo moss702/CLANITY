@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import domain.Member;
+import domain.en.MemberRole;
 import lombok.extern.slf4j.Slf4j;
 import service.MemberService;
 import util.AlertUtil;
@@ -21,6 +22,18 @@ public class Login extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Member member = (Member) req.getSession().getAttribute("member");
+		
+		if (member != null) {
+			AlertUtil.redirectAlert("잘못된 접근입니다. 이미 로그인 중입니다","/index","red",req,resp);
+			return;
+		}
+		else {
+			req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
+		}
+		
+		
+		
 		req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
 	}
 

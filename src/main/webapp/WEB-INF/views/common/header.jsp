@@ -65,8 +65,13 @@
 					class="fa-solid fa-bell fs-5"></i> <i
 					class="fa-solid fa-circle-user fs-5"></i> <a
 					class="text-dark text-decoration-none"
-					href="${cp}/openClassRegister/open1">열기</a> <a
-					class="text-dark text-decoration-none" href="${cp}/member/login">로그인</a>
+					href="${cp}/openClassRegister/open1">열기</a>
+					<c:if test="${empty member}">
+					<a class="text-dark text-decoration-none" href="${cp}/member/login">로그인</a>
+					</c:if>
+					<c:if test="${not empty member}">
+					<a class="text-dark text-decoration-none" href="${cp}/member/logout">로그아웃</a>
+					</c:if>
 			</nav>
 			<!-- 검색 필터 박스 -->
 			<form action="%{cp}/search" method="get">

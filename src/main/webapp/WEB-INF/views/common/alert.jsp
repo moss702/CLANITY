@@ -3,23 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/WEB-INF/views/common/head.jsp" %> <%-- Bootstrap, jQuery 포함되어야 함 --%>
 <body>
-<%
-  String toastMsg = (String) session.getAttribute("toastMsg");
-  String toastColor = (String) session.getAttribute("toastColor");
-  if (toastMsg != null) {
-    session.removeAttribute("toastMsg");
-    session.removeAttribute("toastColor");
-%>
-  <script>
+
+
+<script>
+  $(function () {
     iziToast.show({
       title: '알림',
-      message: '<%= toastMsg %>',
+      message: '${msg}',
       position: 'topCenter',
-      timeout: 3000,
-      color: '<%= toastColor != null ? toastColor : "blue" %>'
+      close: false,
+      timeout: false, // 수동 확인
+      color: 'red', // 다른 색상: red, green, yellow, etc.
+      buttons: [
+        ['<button>확인</button>', function (instance, toast) {
+          window.location.href = '${url}';
+        }]
+      ]
     });
-  </script>
-<%
-  }
-%>
+  });
+</script>
+
 </body>

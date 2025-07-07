@@ -54,5 +54,15 @@ public class MemberService {
 		return false;
 	}
 
+	public void modify(Member member) {
+		try (SqlSession session = MybatisUtil.getSqlSession()){
+			MemberMapper mapper = session.getMapper(MemberMapper.class);
+			mapper.updateOne(member);
+		}catch (Exception e) {
+			e.getStackTrace();
+		}
+		
+	}
+
 	
 }

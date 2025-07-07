@@ -27,18 +27,7 @@
 
 <%@ include file="views/common/footer.jsp" %>
 
-<script>
-  $(function() {
-    const params = new URLSearchParams(window.location.search);
-    const msg = params.get("msg");
 
-    if (msg === "success") {
-      alert("✅ 이메일 인증에 성공했습니다.");
-    } else if (msg === "fail") {
-      alert("❌ 유효하지 않거나 만료된 토큰입니다.");
-    }
-  });
-</script>
 
 
 </body>
