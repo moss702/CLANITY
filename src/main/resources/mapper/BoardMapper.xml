@@ -68,7 +68,7 @@
 </select>
 	
 <!-- 글 등록 -->
-	<insert id="insert" parameterType="board" useGeneratedKeys="true" keyProperty="boardId">
+	<insert id="insert" parameterType="board" keyProperty="boardId" useGeneratedKeys="true" >
 	  INSERT INTO board (category_id, member_id, title, content, visible_level,
 	    	is_blind, like_count, comment_count, view_count, created_at, updated_at ) 
     	VALUES (
@@ -79,7 +79,7 @@
 	
 	
 <!-- 글 수정 -->
-	<update id="updateOne" parameterType="board">
+	<update id="update" parameterType="board">
 		update board set
 		title = #{title},
 		content = #{content},

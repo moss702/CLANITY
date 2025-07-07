@@ -1,6 +1,8 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
@@ -13,12 +15,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Alias("board")
 public class Board {
+
+
 	private Long boardId; 				// 게시글 번호
 	private Long categoryId; 		    // 카테고리 번호
 	private Long memberId;			 	// 로그인한 유저, 작성자 ID
@@ -37,4 +40,8 @@ public class Board {
 	private Date updatedAt; 			// 수정일시
 
 	private Long receiverId;			// 문의기능 : 수신자 ID
+
+	private List<Attach> attachList;
+	public void setAttachList(List<Attach> list) { this.attachList = list; }
+	public List<Attach> getAttachList() { return this.attachList;}
 }

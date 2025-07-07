@@ -27,7 +27,7 @@ public class Attach {
     private String image;         // 이미지 여부 * char 타입 Y | N
     private Long size;			  // 파일 크기
     private Date uploadAt;		  // 업로드 시각
-    private String path;         // 파일 저장경로
+    private String path;          // 파일 저장경로
     
     
 	public Attach(Long attachId, String fileName, String originalName, String mimeType, String image, Long size) {

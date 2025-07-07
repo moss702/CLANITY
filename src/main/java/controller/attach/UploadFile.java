@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -25,52 +24,37 @@ import domain.AttachLink;
 import service.AttachLinkService;
 import service.AttachService;
 import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnailator;
 import net.coobird.thumbnailator.Thumbnails;
 
 @WebServlet("/upload")
-@MultipartConfig(location = "D:\\백업데이터\\semi_test_image",   // * 임시) 파일 저장경로
-	maxRequestSize = 50 * 1024 * 1024,    // 한번의 요청당 최대 파일 크기 
-	maxFileSize = 10 * 1024 * 1024,       // 파일 하나당 최대 크기
-	fileSizeThreshold = 1 * 1024 * 1024)  // 이 크기를 넘어가면 location위치에 buffer를 기록함
+@MultipartConfig(location = "d:/upload/tmp",   // * 임시) 물리 파일 저장경로
+	maxRequestSize = 50 * 1024 * 1024, 	 	   // 한번의 요청당 최대 파일 크기 
+	maxFileSize = 10 * 1024 * 1024,     	   // 파일 하나당 최대 크기
+	fileSizeThreshold = 1 * 1024 * 1024)  	   // 이 크기를 넘어가면 location위치에 buffer를 기록함
 @Slf4j
-public class UploadFile extends HttpServlet {
-	public final static String UPLOAD_PATH = "D:\\백업데이터\\semi_test_image";
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		String targetType = req.getParameter("targetType"); 			// 첨부파일 사용할 게시판의 타입 - ex)board, qna
-	    Long targetId = Long.parseLong(req.getParameter("targetId"));	// 해당 게시판의 pk - ex) boardId, qnaId
-		
-	    // 업로드 된 파일 처리
-        Collection<Part> parts = req.getParts();
-        List<Attach> attachs = new ArrayList<>();
-        
-		AttachService attachService = new AttachService();
-		AttachLinkService attachLinkService = new AttachLinkService();
-
-        for (Part part : parts) {
-        	if (part.getSize() == 0 || part.getName().equals("targetType") || part.getName().equals("targetId")) continue;
+public class UploadFile {
+	public final static String UPLOAD_PATH = "d:/upload/files";
+	
+	public static UploadResult save(Part part) throws Exception {
 
             // 파일 정보 추출
-            Long fileSize = part.getSize();				  // 파일 크기
-            String origin = part.getSubmittedFileName();  // 원본 파일명
-            String contentType = part.getContentType();   // MIME 타입
+            String originalName = part.getSubmittedFileName();  // 원본 파일명
+            String mimeType = part.getContentType();     	    // MIME 타입
+            Long size = part.getSize();					  	    // 파일 크기
 
             // 확장자 추출
             String ext = "";
-            int idx = origin.lastIndexOf(".");
-            if (idx >= 0) ext = origin.substring(idx);
+            int idx = originalName.lastIndexOf(".");
+            if (idx >= 0) ext = originalName.substring(idx);
 
             // 저장용 uuid (fileName) 파일명 생성
             String fileName = UUID.randomUUID().toString() + ext;
 
             // 이미지 여부 확인
-            boolean image = contentType != null && contentType.startsWith("image");
+            Boolean image = mimeType != null && mimeType.startsWith("image");
 
             // 날짜 기반 폴더 구조 생성
-            String path = genPath();
+        	String path = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
             String realPath = UPLOAD_PATH + "/" + path + "/";
             File fileDir = new File(realPath);
             if (!fileDir.exists()) fileDir.mkdirs();
@@ -89,33 +73,26 @@ public class UploadFile extends HttpServlet {
 					image = false;
 				}
 			}
-
-			Attach attach = Attach.builder()
-						.fileName(fileName)
-						.originalName(origin)
-						.mimeType(contentType)
-						.image(image ? "Y" : "N")
-						.size(fileSize)
-						.path(path)
-					.build();
-			attachService.save(attach); // attach_id 얻기
-
-			AttachLink link = AttachLink.builder()
-					.attachId(attach.getAttachId())
-					.targetType(targetType)
-					.targetId(targetId)
-				.build();
-			attachLinkService.save(link);
-
-			attachs.add(attach);
-        
+	        return new UploadResult( fileName, originalName, mimeType, image, size, path );
         }
-		//비동기로 할거니까 응답을 JSON으로 만들어준다
-		resp.setContentType("application/json; charset=utf-8");
-		resp.getWriter().print(new Gson().toJson(attachs));
+        
+    public record UploadResult(
+    		String fileName,
+    	    String originalName,
+    	    String mimeType,
+    	    Boolean image,
+    	    long size,
+    	    String path
+    	    ) {
+    	public Attach toAttach() {
+			return Attach.builder()
+		            .fileName(fileName)
+		            .originalName(originalName)
+		            .mimeType(mimeType)
+		            .image(image ? "Y" : "N")
+		            .size(size)
+		            .path(path)
+	            .build();
+        }
 	}
-	// 오늘 날짜 기준 폴더 경로 만들기
-	private String genPath() {
-        return new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-    }
 }

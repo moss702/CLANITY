@@ -432,7 +432,6 @@
     }
     .delete-btn {
       position: absolute;
-      top: 1rem;
       right: 1.25rem;
       font-size: 0.85rem;
       color: #aaa;
