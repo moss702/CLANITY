@@ -13,7 +13,7 @@ import util.AlertUtil;
 
 @Slf4j
 @WebServlet("/mypage")
-public class Profile extends HttpServlet{
+public class Mypage extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
