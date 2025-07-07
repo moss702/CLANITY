@@ -16,6 +16,10 @@ public class Profile extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if( req.getSession().getAttribute("member") == null) {
+			
+		}
+		
 		req.getRequestDispatcher("/WEB-INF/views/mypage/mypage.jsp").forward(req, resp);
 	}
 

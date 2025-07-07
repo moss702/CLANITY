@@ -12,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @WebServlet("/admin")
-public class Admin extends HttpServlet{@Override
+public class Admin extends HttpServlet{
+	
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	req.getRequestDispatcher("/WEB-INF/views/admin/admin.jsp").forward(req, resp);
 	}
