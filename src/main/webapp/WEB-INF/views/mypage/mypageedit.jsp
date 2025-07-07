@@ -30,7 +30,7 @@
 
   <!-- 오른쪽 중앙 정렬된 콘텐츠 영역 -->
   <div class="centered-form">
-    <form action="${cp}/member/update" method="post" class="profile-form">
+    <form action="${cp}/mypage/edit" method="post" class="profile-form">
       <!-- 프로필 이미지 -->
       <div class="text-center mb-4">
         <img src="https://placehold.co/80" class="rounded-circle" alt="프로필 이미지">
@@ -39,48 +39,60 @@
       <!-- 닉네임 -->
       <div class="mb-3">
         <label for="nickname" class="form-label">닉네임</label>
-        <input type="text" class="form-control" id="nickname" name="nickname" value="Classmate975830h">
+        <input type="text" class="form-control" id="nickname" name="nickname" value="${member.nickname}">
       </div>
 
       <!-- 휴대폰 번호 -->
       <div class="mb-3">
         <label for="phone" class="form-label">휴대폰 번호</label>
-        <input type="text" class="form-control" id="phone" name="phone" value="01054614223">
+        <input type="text" class="form-control" id="phone" name="phone" value="${member.phone}">
       </div>
 
       <!-- 성별 선택 -->
-      <div class="mb-3">
-        <label class="form-label">성별</label>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="gender" id="male" value="MALE">
-          <label class="form-check-label" for="male">남</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="gender" id="female" value="FEMALE">
-          <label class="form-check-label" for="female">여</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="gender" id="private" value="NONE" checked>
-          <label class="form-check-label" for="private">비공개</label>
-        </div>
-      </div>
+		<div class="mb-3">
+		  <label class="form-label">성별</label>
+		  <br>
+		  <div class="d-flex justify-content-center">
+		  <div class="form-check form-check-inline">
+		    <input class="form-check-input" type="radio" name="gender" id="male" value="MALE" <c:if test="${member.gender == 'MALE'}">checked</c:if>>
+		    <label class="form-check-label" for="male">남</label>
+		  </div>
+		  <div class="form-check form-check-inline">
+		    <input class="form-check-input" type="radio" name="gender" id="female" value="FEMALE" <c:if test="${member.gender == 'FEMALE'}">checked</c:if>>
+		    <label class="form-check-label" for="female">여</label>
+		  </div>
+		  <div class="form-check form-check-inline">
+		    <input class="form-check-input" type="radio" name="gender" id="unspecified" value="UNSPECIFIED"  <c:if test="${member.gender == 'UNSPECIFIED' or empty member.gender}">checked</c:if>>
+		    <label class="form-check-label" for="unspecified">비공개</label>
+		  </div>
+		  </div>
+		</div>
 
       <!-- 이메일 -->
       <div class="mb-3">
         <label for="email" class="form-label">이메일</label>
-        <input type="email" class="form-control" id="email" name="email" value="${member.email}" readonly>
+        <input type="email" class="form-control" id="email" name="email" value="${member.email}" disabled>
       </div>
 
       <!-- 사용자 인증 버튼 -->
       <div class="mb-3">
-        <label class="form-label d-block">사용자 인증</label>
-        <button type="button" class="btn btn-dark w-100" id="sendVerifyBtn">인증을 해주세요</button>
+        <label class="form-label d-block">이메일 인증</label>
+        <c:if test="${not member.emailVerified}">
+        <button type="button" class="btn btn-dark w-100" id="sendVerifyBtn">이메일 인증을 해주세요</button>
+        </c:if>
+        <c:if test="${member.emailVerified}">
+        <button type="button" class="btn btn-dark w-100" id="sendVerifyBtn" disabled>이메일 인증이 완료되었습니다</button>
+        </c:if>
       </div>
 
       <!-- 저장 버튼 -->
       <div class="mb-3">
-        <button type="submit" class="btn btn-secondary w-100" disabled>저장하기</button>
+        <button type="submit" class="btn btn-primary w-100" >저장하기</button>
       </div>
+      
+      <input type="hidden" name="memberId" value="${member.memberId}">	
+      <input type="hidden" name="memberId" value="${member.email}">	
+      
     </form>
   </div>
 </main>
@@ -103,5 +115,6 @@
     });
   });
 </script>
+<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

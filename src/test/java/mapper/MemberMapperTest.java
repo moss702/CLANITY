@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import domain.Member;
+import domain.en.Gender;
 import lombok.extern.slf4j.Slf4j;
 import util.MybatisUtil;
 
@@ -41,5 +42,20 @@ public class MemberMapperTest {
 		
 		memberMapper.updateEmailverified(email);
 		Member member = memberMapper.findByEmail(email);
+	}
+	
+	@Test
+	@DisplayName("단일 유저 정보 수정 테스트")
+	public void updateMember() {
+		String email = "testtest@naver.com";
+		Member member = memberMapper.findByEmail(email);
+		log.info("선택한 유저 정보 : {}", member);
+		
+		member.setNickname("modifinickname@naver.com");
+		member.setPhone("445711114");
+		member.setGender(Gender.FEMALE);
+		
+		memberMapper.updateOne(member);
+		log.info("수정된 정보 {}",member);
 	}
 }

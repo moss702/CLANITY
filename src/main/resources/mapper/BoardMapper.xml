@@ -79,7 +79,7 @@
 	
 	
 <!-- 글 수정 -->
-	<update id="update" parameterType="board">
+	<update id="updateOne" parameterType="board">
 		update board set
 		title = #{title},
 		content = #{content},

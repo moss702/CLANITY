@@ -16,5 +16,7 @@ public interface MemberMapper {
 	int delete(Long memberId);
 	
 	int updateEmailverified(String memberEmail);
+
+	void updateOne(Member member);
 	
 }

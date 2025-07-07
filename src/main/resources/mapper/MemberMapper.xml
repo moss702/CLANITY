@@ -17,18 +17,25 @@
 	    <result property="createdAt" column="created_at"/>
   	</resultMap>
   	
+  	<!-- 계정 생성 -->
   	<insert id="insert">
   	insert into member(email, password) values (#{email}, #{password})
   	</insert>
-  	
+  	<!-- 단일 조회 -->
   	<select id="findByEmail" resultMap="m">
   	select * from member where email = #{email}
   	</select>
-  	
+  	<!-- 이메일 인증 -->
   	<update id="updateEmailverified">
   	update member
   	set email_verified = '1'
   	where email = #{email}
+  	</update>
+  	
+  	<update id="updateOne">
+  	update member
+  	set nickname = #{nickname}, phone = #{phone}, gender = #{gender}
+  	where member_id = #{memberId}
   	</update>
   	
   </mapper>
