@@ -11,15 +11,11 @@ import lombok.Data;
 public class ClassSocialingCategory {
 	
 	private Long categoryId;
-	private String name;
+	private boolean type;
+	private String parantCategoryType;
+	private String childCategoryType;
 	
-	public ClassSocialingCategory(Long categoryId, String name) {
-		super();
-		this.categoryId = categoryId;
-		this.name = name;
-		
-	}
-	
+
 	
 	
 }

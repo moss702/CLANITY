@@ -1,0 +1,38 @@
+package mapper;
+
+import java.util.List;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import domain.onedayClass.ClassOpen;
+import lombok.extern.slf4j.Slf4j;
+import util.MybatisUtil;
+
+@Slf4j
+public class CategorySocialTest {
+
+	private ClassOpenMapper classOpenMapper = MybatisUtil.getSqlSession().getMapper(ClassOpenMapper.class);
+
+
+
+	@Test
+	@DisplayName("클래스 목록 조회")
+	public void classListTest() {
+
+		
+		List<ClassOpen> list = classOpenMapper.list();
+
+		list.forEach(c -> log.info("Class: {}", c));
+	}
+
+	@Test
+	@DisplayName("단일조회")
+	public void selectOneTest() {
+		Long openId = 222L;
+		ClassOpen classOpen = classOpenMapper.selectOne(openId);
+		log.info("{}", classOpen);	
+
+	}
+
+}

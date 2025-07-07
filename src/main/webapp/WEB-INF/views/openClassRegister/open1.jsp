@@ -29,7 +29,7 @@
 				</div>
 
 				<!-- 1차 카테고리 -->
-				<!-- <div class="mb-3">
+				<div class="mb-3">
 					<label for="category1" class="form-label fw-bold">1차 카테고리</label> <select
 						id="category1" name="category1" class="form-select" required>
 						<option value="">선택해주세요</option>
@@ -45,17 +45,17 @@
 						<option value="자기계발">자기계발</option>
 						<option value="로컬여행">로컬여행</option>
 					</select>
-				</div> -->
+				</div> 
 
 				<!-- 2차 카테고리 -->
-				<!-- <div class="mb-3">
+			 <div class="mb-3">
 					<label for="category2" class="form-label fw-bold">2차 카테고리</label> <select
 						id="category2" name="category2" class="form-select">
 						<option value="">1차를 먼저 선택하세요</option>
 					</select>
 				</div>
 
-				<input type="hidden" name="categoryId" id="categoryId"> -->
+				<input type="hidden" name="categoryId" id="categoryId"> 
 
 
 				<!-- 지역 + 주소 -->
@@ -101,6 +101,7 @@
 
 	<!-- SCRIPT -->
 	<script>
+	/*속성을 줘야지, 아이디와 일치하는 객체 배열  */
 	const categoryMap = {
 			  "전체": [],
 			  "핸드메이드": [
