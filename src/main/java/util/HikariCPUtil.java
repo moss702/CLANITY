@@ -33,6 +33,8 @@ public class HikariCPUtil {
 		config.setPassword(props.getProperty("jdbc.password"));
 		config.setDriverClassName(props.getProperty("jdbc.driver.classname"));
 		
+		config.setPoolName("MyHikariCp");
+		
 		dataSource = new HikariDataSource(config);
 	}
 	

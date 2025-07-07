@@ -31,10 +31,6 @@ public class Login extends HttpServlet{
 		else {
 			req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
 		}
-		
-		
-		
-		req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
 	}
 
 	@Override
