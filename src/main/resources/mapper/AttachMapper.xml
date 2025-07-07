@@ -20,6 +20,5 @@
     SELECT * FROM attach
     WHERE attach_id = #{attachId}
   </select>
-  
-  
 </mapper>
+

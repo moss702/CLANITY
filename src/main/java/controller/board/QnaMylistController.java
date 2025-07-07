@@ -1,7 +1,9 @@
 package controller.board;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import domain.Attach;
 import domain.Board;
 import domain.Member;
 import lombok.extern.slf4j.Slf4j;
@@ -27,14 +30,15 @@ public class QnaMylistController extends HttpServlet{
 	        return;
 	    }
 
-	    // 로그인 상태일경우 : loginId == memberId 문의내역을 가져온다.
+	    // 로그인 상태일 경우 
+	    // myQnaList : loginId == memberId 문의내역을 가져온다.
 	    Long loginId = loginMember.getMemberId();
 	    req.getSession().setAttribute("loginId", loginId);
-
+	    
 	    BoardService boardService = new BoardService();
 	    List<Board> myQnaList = boardService.findQnaListByMember(loginId);
 	    req.setAttribute("myQnaList", myQnaList);
-
+	    
 	    req.getRequestDispatcher("/WEB-INF/views/qna/qna_mylist.jsp").forward(req, resp);
 	}
 	

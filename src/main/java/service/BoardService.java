@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.SqlSession;
 
+import controller.attach.UploadFile;
 import domain.Attach;
 import domain.AttachLink;
 import domain.Board;
@@ -54,46 +55,36 @@ public class BoardService {
         }
     }
     
-    // 유틸을 따로 빼자니 삭제 항목이 다 달라서,
-    // 각 도메인마다 remove(bno) 메서드 필요! ㅠ.ㅠ)a
-    // 해당 부분 교체해서 사용 바랍니다.
+    // 유틸을 따로 빼자니 삭제 항목이 다 달라서, 각 도메인마다 remove(attachId) 메서드 사용합니다 ㅠ.ㅠ)a
+    // targetType(ex.CategoryType)와 targetId(ex.boardId) 부분 교체해서 사용 바랍니다.
     public void remove(Long boardId) {
-        SqlSession session = MybatisUtil.getSqlSession(false);
+    	AttachLinkService linkService = new AttachLinkService();  // 각 서비스에서 세션 열고 닫음
+    	AttachService attachService = new AttachService();
+    	UploadService uploadService = new UploadService();        // 서버에 저장된 물리파일 삭제
 
-        try {
-            BoardMapper boardMapper = session.getMapper(BoardMapper.class);
-            AttachLinkMapper linkMapper = session.getMapper(AttachLinkMapper.class);
-            AttachMapper attachMapper = session.getMapper(AttachMapper.class);
-            UploadService uploadService = new UploadService();
+    	// 1. AttachLink 조회 : 해당 boardId의 link 존재여부 확인해서 attachIds List 생성.
+    	List<AttachLink> links = linkService.findByTarget("board", boardId);
+    	List<Long> attachIds = links.stream()
+    	                            .map(AttachLink::getAttachId)
+    	                            .toList();
 
-            // 1. 해당 게시글의 attachLink 목록 조회
-            List<AttachLink> linkList = linkMapper.findByTarget("board", boardId);
-            List<Long> attachIds = linkList.stream()
-                                           .map(AttachLink::getAttachId)
-                                           .collect(Collectors.toList());
+    	// 2. AttachLink 삭제 
+    	linkService.deleteByTarget("board", boardId);
 
-            // 2. attachLink 삭제
-            linkMapper.deleteByTarget("board", boardId);
-
-            // 3. attach 테이블 + 서버 파일 삭제 (고아 파일 delete합니다.)
-            for (Long attachId : attachIds) {
-                Long refCount = linkMapper.countLinkAttachId(attachId);
-                if (refCount == 0) {
-                    Attach attach = attachMapper.findById(attachId);
-                    attachMapper.delete(attachId);
-                    uploadService.deleteFile(attach.getPath(), attach.getFileName(), attach.getOriginalName(), attach.getImage());
-                }
-            }
-            // 4. 게시글 삭제
-            boardMapper.delete(boardId);
-            session.commit();
-            
-        } catch (Exception e) {
-            session.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
+    	// 3. 고아파일 삭제 : 
+    	for (Long attachId : attachIds) {
+    	    int count = linkService.countLinkByAttachId(attachId);
+    	    if (count == 0) {
+    	        Attach attach = attachService.findById(attachId);              // attachId 조회
+    	        attachService.delete(attachId);                                // attachId 삭제
+    	        uploadService.deleteFile(									   // 물리파일 삭제
+    	            attach.getPath(),
+    	            attach.getFileName(),
+    	            attach.getFileName(),
+    	            attach.getImage()
+    	        );
+    	    }
+    	}
     }
     
     
@@ -131,9 +122,14 @@ public class BoardService {
 
             List<Board> qnaList = boardMapper.selectQnaListByMember(memberId);
 
+            // ✅ boardId 로그 찍기
+            for (Board board : qnaList) {
+                System.out.println("여기는 boardservice BoardId() = " + board.getBoardId());
+            }
+            
 //            for (Board board : qnaList) {
 //                // attach_link 테이블에서 연결된 attach_id 목록 가져오기
-//                List<Long> attachIds = attachLinkMapper.selectAttachlist("BOARD", board.getBoardId());
+//                //List<Long> attachIds = attachLinkMapper.selectAttachlist("BOARD", board.getBoardId());
 //
 //                if (!attachIds.isEmpty()) {
 //                    List<Attach> attaches = attachMapper.selectByIds(attachIds);
@@ -141,6 +137,7 @@ public class BoardService {
 //                }
 //            }
 
+            
             return qnaList;
         }
     }
