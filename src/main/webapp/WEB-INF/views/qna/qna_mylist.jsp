@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,10 +21,10 @@
       <button class="pill-btn w-100">문의 내역</button>
     </div>
 
+
     <!-- 우측 콘텐츠 -->
     <div class="flex-grow-1">
  <!-- 타이틀 영역 -->
-<!-- 문의내역.html (수강생용) -->
 <div class="container my-5" style="max-width: 1000px;">
   <!-- 타이틀 -->
   <div class="bg-white rounded shadow-sm p-4 mb-4 d-flex justify-content-between align-items-center">
@@ -50,55 +52,53 @@
 
   <!-- 문의 리스트 (예시 1개) -->
   <div class="accordion" id="inquiryAccordion">
-<!-- 답변대기 카드 -->
-<div class="card border-0 shadow-sm mb-3 inquiry-card" data-status="waiting">
-  <div class="card-header bg-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#inquiry1">
-    <div>
-      <span class="badge bg-danger me-2">답변대기</span>
-      <span class="text-muted">[고객센터]</span>
-      <span class="fw-semibold ms-2">환불 관련 문의</span>
-    </div>
-    <small class="text-muted">2025.06.23</small>
-  </div>
-  <div id="inquiry1" class="collapse" data-bs-parent="#inquiryAccordion">
-    <div class="card-body bg-white">
-      <p class="mb-3">환불 요청했는데 언제 처리되나요?</p>
-      <!-- 수정/삭제 버튼 -->
-      <div class="d-flex gap-2">
-        <button class="btn btn-outline-secondary btn-sm">수정</button>
-        <button class="btn btn-outline-danger btn-sm">삭제</button>
-      </div>
-    </div>
-  </div>
-</div>
+		<!-- 답변대기 카드 -->
+		<c:forEach var="qna" items="${myQnaList}">
+		  <div class="card border-0 shadow-sm mb-3 inquiry-card" data-status="${qna.commentCount == 0 ? 'waiting' : 'done'}">
+		    <div class="card-header bg-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#qna${qna.boardId}">
+		      <div>
+		        <span class="badge ${qna.commentCount == 0 ? 'bg-danger' : 'bg-secondary'} me-2">
+		          ${qna.commentCount == 0 ? '답변대기' : '답변완료'}
+		        </span>
+		        <span class="text-muted">
+		          [${qna.receiverId == null ? '고객센터' : '강사'}]
+		        </span>
+		        <span class="fw-semibold ms-2">${qna.title}</span>
+		      </div>
+		      <small class="text-muted">
+		        <fmt:formatDate value="${qna.createdAt}" pattern="yyyy.MM.dd" />
+		      </small>
+		    </div>
+		
+		    <div id="qna${qna.boardId}" class="collapse" data-bs-parent="#inquiryAccordion">
+		      <div class="card-body bg-white">
+		        <p class="mb-3">${qna.content}</p>
+		
+		        <c:if test="${qna.commentCount == 0}">
+		          <div class="d-flex gap-2">
+		            <a href="${cp}/qna/edit?boardId=${qna.boardId}" class="btn btn-outline-secondary btn-sm">수정</a>
+		            <a href="${cp}/qna/delete?boardId=${qna.boardId}" class="btn btn-outline-danger btn-sm">삭제</a>
+		          </div>
+		        </c:if>
+		
+		        <c:if test="${qna.commentCount > 0}">
+		          <hr>
+		          <div class="answer-section">
+		            <div class="d-flex align-items-center mb-2">
+		              <img src="https://i.pravatar.cc/32?u=${qna.receiverId}" class="rounded-circle me-2" />
+		              <strong>답변</strong>
+		            </div>
+		            <p class="mb-0">${qna.replyContent}</p> <%-- 추후 구현 --%>
+		          </div>
+		        </c:if>
+		      </div>
+		    </div>
+		  </div>
+		</c:forEach>
+	  </div>
+	  </div>
+	  </div>
 
-    <!-- 답변완료 카드 -->
-    <div class="card border-0 shadow-sm mb-3 inquiry-card" data-status="done">
-      <div class="card-header bg-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#inquiry2">
-        <div>
-          <span class="badge bg-secondary me-2">답변완료</span>
-          <span class="text-muted">[강사]</span>
-          <span class="fw-semibold ms-2">수업 준비물 질문</span>
-        </div>
-        <small class="text-muted">2025.06.20</small>
-      </div>
-      <div id="inquiry2" class="collapse" data-bs-parent="#inquiryAccordion">
-        <div class="card-body bg-white">
-          <p class="mb-2">재료를 따로 준비해야 하나요?</p>
-          <hr>
-          <div class="answer-section">
-            <div class="d-flex align-items-center mb-2">
-              <img src="https://i.pravatar.cc/32?u=admin" class="rounded-circle me-2" />
-              <strong>강사</strong>
-            </div>
-            <p class="mb-0">모든 재료는 현장에서 제공됩니다 :)</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 </div>
  <%@ include file="../common/footer.jsp" %>
 

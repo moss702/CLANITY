@@ -2,6 +2,7 @@ package domain;
 
 
 import java.io.File;
+import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
@@ -13,41 +14,39 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-@Getter
-@Setter
-@ToString
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Alias("attach")
 public class Attach {
-	private String uuid;	//첨부파일ID * 유니버셜유니크아이디
-	private String path;	//업로드 경로
-	private boolean image; //이미지
-	private String origin; //덮어쓰기방지
-	private Long bno;	//게시글번호
-	private Long rno;	//댓글번호
-	private int odr; //첨부파일 순서 * 인티저 기본값 null, 인트 기본값 0
-	private long size; //첨부파일의 크기
-
-	public Attach(String uuid, String path, boolean image, String origin, Long bno, int odr, long size) {
+    private Long attachId; 		  // PK - 첨부파일 ID
+    private String fileName;      // UUID 서버 저장 유니크 파일명
+    private String originalName;  // 원본 파일명
+    private String mimeType;	  // 파일 타입
+    private String image;         // 이미지 여부 * char 타입 Y | N
+    private Long size;			  // 파일 크기
+    private Date uploadAt;		  // 업로드 시각
+    private String path;         // 파일 저장경로
+    
+    
+	public Attach(Long attachId, String fileName, String originalName, String mimeType, String image, Long size) {
 		super();
-		this.uuid = uuid;
-		this.path = path;
+		this.attachId = attachId;
+		this.fileName = fileName;
+		this.originalName = originalName;
+		this.mimeType = mimeType;
 		this.image = image;
-		this.origin = origin;
-		this.bno = bno;
-		this.odr = odr;
 		this.size = size;
 	}
-	
+
+	// 실제 저장된 파일의 경로를 file 객체로 반환
 	public File toFile() {
-		return new File(UploadFile.UPLOAD_PATH + "/" + path, uuid);
+		return new File(UploadFile.UPLOAD_PATH + "/" + path, fileName);
 	}
 	
+	// attach 객체로 썸네일 생성
 	public Attach toThumb() {
-		return Attach.builder().bno(bno).image(image).uuid("t_" + uuid).path(path).origin(origin).odr(odr).size(size).build();
+		return Attach.builder().fileName("t_" + fileName).path(path).originalName(originalName).image(image).size(size).build();
 	}
 }
