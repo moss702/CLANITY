@@ -22,7 +22,4 @@ public class ProfileEdit extends HttpServlet{@Override
 		// TODO Auto-generated method stub
 		super.doPost(req, resp);
 	}
-	
-	
-
 }
