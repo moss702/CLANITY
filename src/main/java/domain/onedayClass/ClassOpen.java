@@ -6,7 +6,9 @@ import domain.en.ClassOpenEn;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+//@NoArgsConstructor
 @Builder
 @AllArgsConstructor
 @Data
@@ -33,6 +35,15 @@ public class ClassOpen {
 		this.maxParticipants = maxParticipants;
 	}
 	
+	public ClassOpen getClassOpen() {
+		return ClassOpen
+				.builder()
+				.maxParticipants("minParticipants")
+				.maxParticipants("maxParticipants")
+				.status(true)
+				.isAvailable(true)
+				.build();
+	}
 	
 
 }

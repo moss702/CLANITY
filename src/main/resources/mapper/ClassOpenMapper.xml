@@ -6,7 +6,7 @@
 
 
 	<!-- 클래스 추가 -->
-	<insert id="insertClassInfo" parameterType="domain.ClassInfo" 
+	<!-- <insert id="insertClassInfo" parameterType="domain.ClassInfo" 
 	        useGeneratedKeys="true" keyProperty="classId">
 	  INSERT INTO class (
 	    title, description, description2, duration, discount_price,
@@ -19,10 +19,10 @@
 	    #{thumbnailImages}, #{detailImages}, #{instructorImageUrl}, #{address}, #{region},
 	    #{classType}, #{createdAt}
 	  )
-</insert>
+</insert> -->
 
 	<!-- 오픈 정보 추가 (나중에 등록시 필요) -->
-	<insert id="insertClassOpen"
+	<!-- <insert id="insertClassOpen"
 		parameterType="domain.onedayClass.ClassOpen" useGeneratedKeys="true"
 		keyProperty="openId">
 		INSERT INTO class_open (
@@ -30,7 +30,7 @@
 		) VALUES (
 		#{classId}, #{minParticipants}, #{maxParticipants}, #{status}
 		)
-	</insert>
+	</insert> -->
 
 	<!-- 클래스 목록 조회 -->
 	<select id="list" resultType="domain.onedayClass.ClassOpen">

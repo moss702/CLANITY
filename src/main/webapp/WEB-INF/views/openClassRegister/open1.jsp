@@ -11,7 +11,7 @@
 <%@ include file="../common/header.jsp" %>
 
 <main class="container py-5">
-  <form id="frmClass1" action="${cp}/openClassRegister/successRegister" method="post" enctype="multipart/form-data">
+  <form id="frmClass1" action="${cp}/openClassRegister/open1" method="post" >
   <div class="row">
   
    
@@ -143,20 +143,20 @@
           <div class="card card-body">
             <label class="form-label fw-bold">1인 수강 금액</label>
             <div class="input-group mb-3">
-              <input type="number" class="form-control" name="price" placeholder="예: 30000">
-              <span class="input-group-text">원</span>
+              <input type="number" class="form-control" name="price" placeholder="">
+          
             </div>
 
             <label class="form-label fw-bold">할인 비율</label>
             <div class="input-group mb-3">
-              <input type="number" class="form-control" name="discount" placeholder="예: 10">
-              <span class="input-group-text">%</span>
+              <input type="number" class="form-control" name="discount" placeholder="">
+              
             </div>
 
             <label class="form-label fw-bold">할인가</label>
             <div class="input-group">
-              <input type="number" class="form-control" name="discountPrice" placeholder="자동 계산 or 직접 입력">
-              <span class="input-group-text">원</span>
+              <input type="number" class="form-control" name="discountPrice" placeholder="">
+            
             </div>
           </div>
         </div>

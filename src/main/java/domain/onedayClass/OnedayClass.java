@@ -8,10 +8,12 @@ import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+//@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
-@AllArgsConstructor
 public class OnedayClass {
 
 	// 기본 필드
@@ -55,6 +57,7 @@ public class OnedayClass {
 	private Date scheduleDate;
 	private String startTime;
 	private String endTime;
+	private boolean status;
 
 	// 기본 생성자
 	public OnedayClass() {

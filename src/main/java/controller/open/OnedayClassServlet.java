@@ -2,6 +2,7 @@ package controller.open;
 
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +14,6 @@ import domain.onedayClass.ClassInfo;
 import domain.onedayClass.ClassOpen;
 import domain.onedayClass.OnedayClass;
 import lombok.extern.slf4j.Slf4j;
-import mapper.ClassInfoMapper;
 import service.ClassService;
 import util.ParamUtil;
 
@@ -31,14 +31,19 @@ public class OnedayClassServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		ClassService classService = new ClassService();
-//		ClassInfo.setBusinessId(9999L); 
 		
 		 OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
-	      ClassInfo classInfo = onedayClass.getClassInfo();
-	      ClassOpen classOpen = onedayClass.getClassOpen();
-	      
-	     classService.register( classInfo, classOpen);
+		 ClassInfo classInfo = onedayClass.getClassInfo();
+		    ClassOpen classOpen = onedayClass.getClassOpen();
+		 
+	      classInfo.setCreatedAt(new Date(System.currentTimeMillis()));
+	      classInfo.setBusinessId(9999L); 
 	      log.info("클래스 아이디 수집:{}",classInfo.getClassId());
+	      classOpen.setStatus(true);
+	      log.info("제목: {}", classInfo.getTitle());
+	      log.info("카테고리 ID: {}", classInfo.getCategoryId());
+	     classService.register( classInfo, classOpen);
+	     log.info("클래스:{}, 클래스:{}", classInfo, classOpen );
 	      
 	      
 
@@ -47,7 +52,7 @@ public class OnedayClassServlet extends HttpServlet {
 		
 	      // 메인 페이지이동
 	      
-	      req.getRequestDispatcher("/WEB-INF/views/category/mainCategoryPage.jsp").forward(req, resp);
+	      req.getRequestDispatcher("/WEB-INF/views/category/categoryMain.jsp").forward(req, resp);
 	      
 	      
 	      
