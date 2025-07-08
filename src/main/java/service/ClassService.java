@@ -36,18 +36,18 @@ public class ClassService {
 //	}
 	
 	
-	public void register(ClassInfo classInfo, ClassOpen classOpen) {
+	public void register(OnedayClass onedayClass) {
 		SqlSession session = MybatisUtil.getSqlSession();
 		
 		try {
 			ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
-			// 1 classId
-			mapper.insertClassInfo(classInfo);
+			mapper.insertClassInfo(onedayClass);
 
+			// 1 classId 가져고오 나서
 			// 2 open Insert
-			classOpen.setClassId(classInfo.getClassId());
+			onedayClass.setMasterId(onedayClass.getClassId());
 
-			mapper.insertClassOpen(classOpen);
+			mapper.insertClassOpen(onedayClass);
 			session.commit();
 
 		} catch (Exception e) {

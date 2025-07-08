@@ -180,6 +180,7 @@
               <input type="number" class="form-control" name="maxParticipants" placeholder="예: 100명">
               <span class="input-group-text">명</span>
             </div>
+           
           </div>
         </div>
       </div>

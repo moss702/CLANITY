@@ -54,10 +54,15 @@ public class OnedayClass {
 	// open 생성자
 
 	private Long openId;
+	private Long masterId;
+	private String minParticipants;
+	private String maxParticipants;
+	private boolean isAvailable;
 	private Date scheduleDate;
 	private String startTime;
 	private String endTime;
 	private boolean status;
+	
 
 	// 기본 생성자
 	public OnedayClass() {
@@ -73,6 +78,7 @@ public class OnedayClass {
 	public ClassInfo getClassInfo() {
 		return ClassInfo.builder()
 				.title("title")
+				.businessId("businessId")
                 .description("description")
                 .description2("description2")
                 .duration("duration")

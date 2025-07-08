@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class ClassInfo {
 	// 이게 나중에 클래스 등록
 	 private Long classId;
-	    private Long businessId;
+	    private String businessId;
 	    private Long categoryId;
 	    private String title;
 	    private String description;
@@ -37,29 +37,29 @@ public class ClassInfo {
 	    private String classType;
 	    
 	    
-		public ClassInfo(Long businessId) {
+		public ClassInfo(String businessId) {
 			super();
 			this.businessId = businessId;
 		}
-		public ClassInfo getClassInfo() {
-			return ClassInfo.builder()
-					.title("title")
-	                .description("description")
-	                .description2("description2")
-	                .duration("duration")
-	                .discountPrice("discountPrice")
-	                .instructorName("instructorName")
-	                .difficulty("difficulty")
-	                .curriculum("curriculum")
-	                .hostIntroduction("hostIntroduction")
-	                .thumbnailImages("thumbnailImages")
-	                .detailImages("detailImages")
-	                .instructorImageUrl("instructorImageUrl")
-	                .address("address")
-	                .region("region")
-	                .classType("classType") // 원데이
-	                .createdAt(Date.valueOf(LocalDate.now()))
-					.build();
-		}
+//		public ClassInfo getClassInfo() {
+//			return ClassInfo.builder()
+//					.title("title")
+//	                .description("description")
+//	                .description2("description2")
+//	                .duration("duration")
+//	                .discountPrice("discountPrice")
+//	                .instructorName("instructorName")
+//	                .difficulty("difficulty")
+//	                .curriculum("curriculum")
+//	                .hostIntroduction("hostIntroduction")
+//	                .thumbnailImages("thumbnailImages")
+//	                .detailImages("detailImages")
+//	                .instructorImageUrl("instructorImageUrl")
+//	                .address("address")
+//	                .region("region")
+//	                .classType("classType") // 원데이
+//	                .createdAt(Date.valueOf(LocalDate.now()))
+//					.build();
+//		}
 		
 }

@@ -4,10 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.ClassInfoMapper">
 
-
+<!--나중에 조회할 때 사용 <resultMap type="insertClassInfo" id="c">
+<id column="classId" property="classId"/>
+<id column="classId" property="classId"/>
+	</resultMap> -->
 
 	<!-- 클래스 추가 -->
-	<insert id="insertClassInfo" parameterType="domain.onedayClass.ClassInfo" 
+	<insert id="insertClassInfo" parameterType="domain.onedayClass.OnedayClass" 
         useGeneratedKeys="true" keyProperty="classId">
   INSERT INTO class (
     business_id, category_id,
@@ -16,7 +19,7 @@
     instructor_name, difficulty, curriculum, host_introduction,
     thumbnail_image, detail_images, instructor_image_url, address, region, 
     class_type, created_at,
-    price, discount, url
+    price, discount
   ) VALUES (
     #{businessId}, #{categoryId},
     #{title}, #{description}, #{description2},
@@ -24,14 +27,14 @@
     #{instructorName}, #{difficulty}, #{curriculum}, #{hostIntroduction},
     #{thumbnailImages}, #{detailImages}, #{instructorImageUrl}, #{address}, #{region},
     #{classType}, #{createdAt},
-    #{price}, #{discount}, #{url}
+    #{price}, #{discount} 
   )
 </insert>
 
 
 	<!-- 오픈 정보 추가 (나중에 등록시 필요) 마스터가 클래스 아이디 -->
 	<insert id="insertClassOpen"
-		parameterType="domain.onedayClass.ClassOpen" useGeneratedKeys="true"
+		parameterType="domain.onedayClass.OnedayClass" useGeneratedKeys="true"
 		keyProperty="openId">
 		INSERT INTO class_open (
 		master_id, min_participants, max_participants, status
