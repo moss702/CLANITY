@@ -11,7 +11,7 @@ import util.MybatisUtil;
 import util.PasswordEncoder;
 
 @Slf4j
-public class MemberService {
+public class MemberService{
 	
 	public int register(Member member) {
 		try(SqlSession session = MybatisUtil.getSqlSession()){
