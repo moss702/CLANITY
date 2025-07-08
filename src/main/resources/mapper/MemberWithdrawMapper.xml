@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="mapper.MemberWithdrawMapper">
+  	<resultMap type ="memberwithdraw" id="mw">
+  		<id property="withdrawId" column="withdraw_id"/>
+  		<result property="memberId" column="member_id"/>
+  		<result property="emailMasked" column="email_masked"/>
+  		<result property="nicknameMasked" column="nickname_masked"/>
+  		<result property="reason" column="reason"/>
+  		<result property="withdrawAt" column="withdraw_at"/>
+  	</resultMap>
+  	
+  	<!-- 탈퇴요청 생성 -->
+  	<insert id="insert">
+  	insert into member_withdraw(member_id, email_masked,nickname_masked) values (#{memberId}, #{emailMasked}, #{nicknameMasked})
+  	</insert>
+  	
+  </mapper>
