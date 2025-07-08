@@ -59,8 +59,17 @@
 			select * from board where board_id = #{boardId}
 	</select>
 	
+<!-- QnA 내 문의내역 조회 -->
+<select id="selectQnaListByMember" resultMap="b">
+  SELECT * FROM board 
+  WHERE member_id = #{memberId}
+    AND category_id = 2
+  ORDER BY created_at DESC
+</select>
+
+	
 <!-- 글 등록 -->
-	<insert id="insert" parameterType="Board">
+	<insert id="insert" parameterType="board" keyProperty="boardId" useGeneratedKeys="true" >
 	  INSERT INTO board (category_id, member_id, title, content, visible_level,
 	    	is_blind, like_count, comment_count, view_count, created_at, updated_at ) 
     	VALUES (
@@ -71,7 +80,7 @@
 	
 	
 <!-- 글 수정 -->
-	<update id="update" parameterType="domain.Board">
+	<update id="update" parameterType="board">
 		update board set
 		title = #{title},
 		content = #{content},

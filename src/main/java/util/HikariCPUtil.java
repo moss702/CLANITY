@@ -33,7 +33,13 @@ public class HikariCPUtil {
 		config.setPassword(props.getProperty("jdbc.password"));
 		config.setDriverClassName(props.getProperty("jdbc.driver.classname"));
 		
-		dataSource = new HikariDataSource(config);
+		config.setMaximumPoolSize(10);
+		config.setMinimumIdle(3);
+		config.setIdleTimeout(30000);
+		config.setConnectionTimeout(30000);
+		config.setPoolName("MyHikariCp");
+		
+		dataSource = new HikariDataSource(config);	
 	}
 	
 	public static DataSource getDataSource() {

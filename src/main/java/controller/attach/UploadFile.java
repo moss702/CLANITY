@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -21,73 +20,48 @@ import javax.servlet.http.Part;
 import com.google.gson.Gson;
 
 import domain.Attach;
+import domain.AttachLink;
+import service.AttachLinkService;
+import service.AttachService;
 import lombok.extern.slf4j.Slf4j;
-import net.coobird.thumbnailator.Thumbnailator;
 import net.coobird.thumbnailator.Thumbnails;
 
 @WebServlet("/upload")
-@MultipartConfig(location = "d:/upload/tmp",
-	maxRequestSize = 50 * 1024 * 1024, //한번의 요청당 최대 파일 크기 
-	maxFileSize = 10 * 1024 * 1024, //파일 하나당 최대 크기
-	fileSizeThreshold = 1 * 1024 * 1024) // 이 크기를 넘어가면 location위치에 buffer를 기록함
+@MultipartConfig(location = "d:/upload/tmp",   // * 임시) 물리 파일 저장경로
+	maxRequestSize = 50 * 1024 * 1024, 	 	   // 한번의 요청당 최대 파일 크기 
+	maxFileSize = 10 * 1024 * 1024,     	   // 파일 하나당 최대 크기
+	fileSizeThreshold = 1 * 1024 * 1024)  	   // 이 크기를 넘어가면 location위치에 buffer를 기록함
 @Slf4j
-public class UploadFile extends HttpServlet {
+public class UploadFile {
 	public final static String UPLOAD_PATH = "d:/upload/files";
-	//전역함수로 올렷음. 다른곳에서 호출할때 UploadFile.UPLOAD_PATH 하면됨
+	
+	public static UploadResult save(Part part) throws Exception {
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/uploadForm.jsp").forward(req, resp);
-	}
+            // 파일 정보 추출
+            String originalName = part.getSubmittedFileName();  // 원본 파일명
+            String mimeType = part.getContentType();     	    // MIME 타입
+            Long size = part.getSize();					  	    // 파일 크기
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	//업로드된 파일 처리
-		Collection<Part> parts = req.getParts();
+            // 확장자 추출
+            String ext = "";
+            int idx = originalName.lastIndexOf(".");
+            if (idx >= 0) ext = originalName.substring(idx);
 
-		
-		//첨부파일 리스트 생성
-		List<Attach> attachs = new ArrayList<Attach>();
-		
-		int odr = 0;
-		
-		for(Part part : parts) {
-			if(part.getSize() == 0) {
-				continue; //무시하고 반복해라
-			}
-//			String name = part.getName();
-//			Collection<String> headers = part.getHeaderNames();
-//			String contentDisposition = part.getHeader("content-disposition");
-			Long fileSize = part.getSize();
-			String origin = part.getSubmittedFileName();
-			String contentType = part.getHeader("content-type");
-			
-			part.write(UPLOAD_PATH + "/" + origin);
-			
-			//ext 확장자 추출
-			int idx = origin.lastIndexOf("."); //못찾으면 -1 출력
-			String ext = "";
-			if (idx >= 0) { //확장자가 존재함
-				ext = origin.substring(idx);
-			}
-			
-			//UUID 생성
-			UUID uuid = UUID.randomUUID();
-			String fileName = uuid + ext;
-			
-			//이미지 여부 확인
-			boolean image = contentType.startsWith("image");
-			
-			String path = genPath();
-			
-			//날짜별 폴더 생성
-			String realPath = UPLOAD_PATH + "/" + path + "/";
-			File file = new File(realPath);
-			if(!file.exists()) {
-				file.mkdirs();
-			}
-//			log.info(realPath + fileName);
+            // 저장용 uuid (fileName) 파일명 생성
+            String fileName = UUID.randomUUID().toString() + ext;
+
+            // 이미지 여부 확인
+            Boolean image = mimeType != null && mimeType.startsWith("image");
+
+            // 날짜 기반 폴더 구조 생성
+        	String path = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
+            String realPath = UPLOAD_PATH + "/" + path + "/";
+            File fileDir = new File(realPath);
+            if (!fileDir.exists()) fileDir.mkdirs();
+
+            // 폴더에 파일 저장
 			part.write(realPath + fileName);
+			
 			//첨부파일이 이미지인 경우, 썸네일 생성
 			if(image) {
 				try {
@@ -99,28 +73,26 @@ public class UploadFile extends HttpServlet {
 					image = false;
 				}
 			}
-
-			log.info("{} :: {} :: {} :: {}", fileSize, origin, contentType, ext);
-			attachs.add(Attach.builder()
-					.uuid(fileName)
-					.origin(origin)
-					.image(image)
-					.path(path)
-					.odr(odr++)
-					.size(fileSize)
-				.build());
-		}
-//		resp.sendRedirect("upload");
-		//비동기로 할거니까 응답을 JSON으로 만들어준다
-		resp.setContentType("application/json; charset=utf-8");
-		resp.getWriter().print(new Gson().toJson(attachs));
+	        return new UploadResult( fileName, originalName, mimeType, image, size, path );
+        }
+        
+    public record UploadResult(
+    		String fileName,
+    	    String originalName,
+    	    String mimeType,
+    	    Boolean image,
+    	    long size,
+    	    String path
+    	    ) {
+    	public Attach toAttach() {
+			return Attach.builder()
+		            .fileName(fileName)
+		            .originalName(originalName)
+		            .mimeType(mimeType)
+		            .image(image ? "Y" : "N")
+		            .size(size)
+		            .path(path)
+	            .build();
+        }
 	}
-	
-//	private String genPath() {
-//		return new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-//	}
-	private String genPath() {
-		return new SimpleDateFormat("yyyy/MM/dd").format(new Date().getTime() - 1000 * 60 * 60 * 24);
-	}	
-	
 }

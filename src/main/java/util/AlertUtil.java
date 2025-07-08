@@ -23,4 +23,10 @@ public class AlertUtil {
 		log.info("{}", url);
 		alert(msg, url, req, resp);
 	}
+	
+	public static void redirectAlert(String msg, String url, String color, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.getSession().setAttribute("toastMsg", msg);
+        req.getSession().setAttribute("toastColor", color); // blue, red, green, yellow 사용 가능
+        resp.sendRedirect(req.getContextPath() + url);
+    }
 }

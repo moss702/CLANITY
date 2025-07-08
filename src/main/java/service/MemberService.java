@@ -11,7 +11,7 @@ import util.MybatisUtil;
 import util.PasswordEncoder;
 
 @Slf4j
-public class MemberService {
+public class MemberService{
 	
 	public int register(Member member) {
 		try(SqlSession session = MybatisUtil.getSqlSession()){
@@ -52,6 +52,16 @@ public class MemberService {
 			e.getStackTrace();
 		}
 		return false;
+	}
+
+	public void modify(Member member) {
+		try (SqlSession session = MybatisUtil.getSqlSession()){
+			MemberMapper mapper = session.getMapper(MemberMapper.class);
+			mapper.updateOne(member);
+		}catch (Exception e) {
+			e.getStackTrace();
+		}
+		
 	}
 
 	

@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import domain.Member;
+import domain.en.MemberRole;
 import lombok.extern.slf4j.Slf4j;
 import service.MemberService;
+import util.AlertUtil;
 import util.ParamUtil;
 
 @Slf4j
@@ -20,7 +22,15 @@ public class Login extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
+		Member member = (Member) req.getSession().getAttribute("member");
+		
+		if (member != null) {
+			AlertUtil.redirectAlert("잘못된 접근입니다. 이미 로그인 중입니다","/index","red",req,resp);
+			return;
+		}
+		else {
+			req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
+		}
 	}
 
 	@Override
@@ -35,14 +45,15 @@ public class Login extends HttpServlet{
 		log.info("{}",ret);
 		
 		if(ret) {
+			Member member = new MemberService().findByEmail(email);
 			HttpSession session = req.getSession();
 			session.setMaxInactiveInterval(60*30); //세션 유지 30분
-			session.setAttribute("member", new MemberService().findByEmail(email));
+			session.setAttribute("member", member);
+//			
+//			Member savedMember = (Member) session.getAttribute("loginMember");
+//			log.info("세션에 저장된 회원 정보: {}", savedMember);
 			
-			Member savedMember = (Member) session.getAttribute("loginMember");
-			log.info("세션에 저장된 회원 정보: {}", savedMember);
-			
-			resp.sendRedirect(req.getContextPath() +"/index");
+			AlertUtil.redirectAlert("로그인 성공하였습니다", "/index", "green", req, resp);
 		}else {
 			resp.sendRedirect("login?msg=login_fail");
 		}

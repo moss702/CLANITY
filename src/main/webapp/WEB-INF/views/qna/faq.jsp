@@ -13,12 +13,14 @@
 </head>
 
 <body>
+<c:set var="loginMember" value="${sessionScope.member}" />
 <%@ include file="../common/header.jsp" %>
 <div class="settings-wrapper">
   <div class="category-menu">
     <button class="pill-btn w-100">자주 묻는 질문</button>
   </div>
 
+</div>
   <div class="flex-grow-1">
     <div class="container my-5" style="max-width: 1000px;">
       <!-- 헤더와 버튼 -->
@@ -51,11 +53,13 @@
 
 
       <!-- 질문 추가 버튼 (관리자용) -->
-      <div class="mb-3 text-end admin-only">
-        <button class="btn btn-danger btn-sm" onclick="toggleFaqForm()">+ 질문 등록</button>
-      </div>
+	<c:if test="${loginMember != null and loginMember.role == 'ADMIN'}">
+	  <div class="mb-3 text-end">
+	    <button class="btn btn-danger btn-sm" onclick="toggleFaqForm()">+ 질문 등록</button>
+	  </div>
+	</c:if>
 
-      <div id="faqFormAnchor"></div>
+    <div id="faqFormAnchor"></div>
       <!-- 등록 폼 -->
       <form id="faqForm" class="faq-form" action="${cp}/faq" method="post">
         <input type="hidden" id="faqId" name="id" value="${faq.boardId}"/> <!-- 수정용정보 -->
@@ -86,63 +90,63 @@
       
       <!-- FAQ 목록 -->
 <div class="accordion" id="faqAccordion">
-<c:forEach items="${faqList}" var="faq" varStatus="status">
-  <div class="card faq-card mt-3 mb-3">
-    <div class="card-header">
-      <button class="btn w-100 text-start d-flex justify-content-between align-items-center fw-semibold"
+	<c:forEach items="${faqList}" var="faq" varStatus="status">
+  	  <div class="card faq-card mt-3 mb-3">
+   		 <div class="card-header">
+           <button class="btn w-100 text-start d-flex justify-content-between align-items-center fw-semibold"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#faq${status.index}"
               aria-expanded="false"
               aria-controls="faq${status.index}"
               style="background: none; border: none; padding: 0;">
-        <div><strong class="text-danger">[${faqCategory}]</strong> ${faq.title}</div>
-        <small class="text-muted">
-	    <fmt:formatDate value="${faq.createdAt}" pattern="yyyy.MM.dd"/>
-        </small>
-      </button>
-    </div>
+              <div><strong class="text-danger">[FAQ]</strong> ${faq.title}</div>
+              <small class="text-muted">
+	            <fmt:formatDate value="${faq.createdAt}" pattern="yyyy.MM.dd"/>
+              </small>
+           </button>
+         </div>
 
-    <div id="faq${status.index}" class="collapse"
-         data-bs-parent="#faqAccordion"
-         aria-labelledby="faq${status.index}">
-      <div class="faq-answer p-3">
-        <p>${faq.content.replaceAll("\\n", "<br/>")}</p>
-        <div class="faq-buttons d-flex gap-2 admin-only mt-2">
-        
-        
-      <!-- 질문 수정 버튼 누르면 다시 입력폼 보임! -->
-      <div class="mb-3 text-end admin-only">
-		<button
-		  class="btn btn-outline-secondary btn-sm btn-edit"
-		  data-id="${faq.boardId}"
-		  data-title="${fn:escapeXml(faq.title)}"
-		  data-content="${fn:escapeXml(faq.content)}"
-		  data-index="${status.index}" >
-		  수정하기
-		</button>
-      </div>
-		
-		<form method="post" action="${cp}/faq" onsubmit="return confirm('삭제할까요?')">
-		  <input type="hidden" name="id" value="${faq.boardId}" />
-		  <input type="hidden" name="mode" value="delete" />
-		  <button class="btn btn-outline-danger btn-sm">삭제</button>
-		</form>
-        </div>
-      </div>
-    </div>
-  </div>
-</c:forEach>
+   		 <div id="faq${status.index}" class="collapse"
+           data-bs-parent="#faqAccordion"
+           aria-labelledby="faq${status.index}">
+           <div class="faq-answer p-3">
+             <p>${faq.content.replaceAll("\\n", "<br/>")}</p>
+             
+             <c:if test="${loginMember != null and loginMember.role == 'ADMIN'}">
+               <div class="faq-buttons d-flex gap-2 mt-2">
+    			
+    			<!-- 수정 버튼 -->
+			    <button
+			      class="btn btn-outline-secondary btn-sm btn-edit"
+			      data-id="${faq.boardId}"
+			      data-title="${fn:escapeXml(faq.title)}"
+			      data-content="${fn:escapeXml(faq.content)}"
+			      data-index="${status.index}">
+			      수정하기
+			    </button>
+
+			    <!-- 삭제 버튼 -->
+			    <form method="post" action="${cp}/faq" onsubmit="return confirm('삭제할까요?')">
+			      <input type="hidden" name="id" value="${faq.boardId}" />
+			      <input type="hidden" name="mode" value="delete" />
+			      <button class="btn btn-outline-danger btn-sm">삭제</button>
+			    </form>
+  			  </div>
+			</c:if>
+  		  </div>
+       	</div>
+	   </div>
+     </c:forEach>
 </div>
-    </div>
-  </div>
+
+        
 </div>
 
  <%@ include file="../common/footer.jsp" %>
 
 <script>
-  const isAdmin = true;
-  if (isAdmin) $('.admin-only').show();
+
 
   $('.filter-btn').on('click', function () {
 	  const filter = $(this).data('filter'); // ex) 'class', 'community'

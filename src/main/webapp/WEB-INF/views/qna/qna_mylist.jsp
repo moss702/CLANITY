@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="cp" value="${pageContext.request.contextPath}" />
+<script>const cp = '<c:out value="${pageContext.request.contextPath}" />';</script>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +14,9 @@
   <link rel="stylesheet" href="${cp}/css/qna_style.css" />
 </head>
 
-<body>
+<body data-context-path="${pageContext.request.contextPath}">
+
+
 <%@ include file="../common/header.jsp" %>
 
   <div class="settings-wrapper">
@@ -19,10 +25,10 @@
       <button class="pill-btn w-100">문의 내역</button>
     </div>
 
+
     <!-- 우측 콘텐츠 -->
     <div class="flex-grow-1">
  <!-- 타이틀 영역 -->
-<!-- 문의내역.html (수강생용) -->
 <div class="container my-5" style="max-width: 1000px;">
   <!-- 타이틀 -->
   <div class="bg-white rounded shadow-sm p-4 mb-4 d-flex justify-content-between align-items-center">
@@ -48,164 +54,163 @@
     <button class="btn btn-outline-dark btn-sm rounded-pill px-3">강사</button>
   </div>
 
-  <!-- 문의 리스트 (예시 1개) -->
+  <!-- 문의 리스트 -->
   <div class="accordion" id="inquiryAccordion">
-<!-- 답변대기 카드 -->
-<div class="card border-0 shadow-sm mb-3 inquiry-card" data-status="waiting">
-  <div class="card-header bg-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#inquiry1">
-    <div>
-      <span class="badge bg-danger me-2">답변대기</span>
-      <span class="text-muted">[고객센터]</span>
-      <span class="fw-semibold ms-2">환불 관련 문의</span>
-    </div>
-    <small class="text-muted">2025.06.23</small>
-  </div>
-  <div id="inquiry1" class="collapse" data-bs-parent="#inquiryAccordion">
-    <div class="card-body bg-white">
-      <p class="mb-3">환불 요청했는데 언제 처리되나요?</p>
-      <!-- 수정/삭제 버튼 -->
-      <div class="d-flex gap-2">
-        <button class="btn btn-outline-secondary btn-sm">수정</button>
-        <button class="btn btn-outline-danger btn-sm">삭제</button>
-      </div>
-    </div>
-  </div>
-</div>
+		<c:forEach var="qna" items="${myQnaList}" varStatus="status">
+		  <div class="card border-0 shadow-sm mb-3 inquiry-card" data-status="${qna.commentCount == 0 ? 'waiting' : 'done'}">
+		
+		    <!-- 문의 제목 / 상태 / 날짜 -->
+		    <div class="card-header bg-white d-flex justify-content-between align-items-center"
+		         role="button"
+		         data-bs-toggle="collapse"
+		         data-bs-target="#qna${qna.boardId}"
+		         aria-expanded="false"
+		         aria-controls="qna${qna.boardId}">
+		      <div>
+		        <span class="badge ${qna.commentCount == 0 ? 'bg-danger' : 'bg-secondary'} me-2">
+		          ${qna.commentCount == 0 ? '답변대기' : '답변완료'}
+		        </span>
+		        <span class="text-muted">[${qna.receiverId == null ? '고객센터' : '강사'}]</span>
+		        <span class="fw-semibold ms-2">${qna.title}</span>
+		        <small class="text-muted">
+		          <fmt:formatDate value="${qna.createdAt}" pattern="yyyy.MM.dd"/>
+		        </small>
+		      </div>
+		    </div>
+		
+		    <!-- 문의 본문 + 첨부파일 + 답변/수정/삭제 -->
+		    <div id="qna${qna.boardId}" class="collapse" data-bs-parent="#inquiryAccordion">
+		      <div class="card-body bg-white">
+		        <!-- 문의 내용 -->
+		        <p class="mb-3">${qna.content.replaceAll("\\n", "<br/>")}</p>
+		
+		        <!-- ✅ 첨부파일 Ajax로 삽입될 자리 -->
+		        <div class="attach-area" data-board-id="${qna.boardId}">
+		        <p style="font-size:12px; color:#999;">boardId 디버깅: ${qna.boardId}</p>
+		        </div>
+		
+		        <!-- 답변이 없을 경우에만 수정/삭제 가능 -->
+		        <c:if test="${qna.commentCount == 0}">
+		          <div class="d-flex gap-2 mt-2">
+		            <!-- 수정 버튼 -->
+		            <button class="btn btn-outline-secondary btn-sm btn-edit"
+		                    data-id="${qna.boardId}"
+		                    data-title="${fn:escapeXml(qna.title)}"
+		                    data-content="${fn:escapeXml(qna.content)}"
+		                    data-index="${status.index}">
+		              수정
+		            </button>
+		
+		            <!-- 삭제 버튼 -->
+		            <form method="post" action="${cp}/qna" onsubmit="return confirm('삭제할까요?')">
+		              <input type="hidden" name="id" value="${qna.boardId}" />
+		              <input type="hidden" name="mode" value="delete" />
+		              <button class="btn btn-outline-danger btn-sm">삭제</button>
+		            </form>
+		          </div>
+		        </c:if>
+		
+		        <!-- 인라인 수정 폼 -->
+		        <div class="edit-form d-none mt-3">
+		          <form method="post" action="${cp}/qna/update" enctype="multipart/form-data">
+		            <input type="hidden" name="boardId" value="${qna.boardId}">
+		            <input type="text" name="title" class="form-control mb-2" placeholder="제목">
+		            <textarea name="content" class="form-control mb-2" placeholder="내용" rows="5"></textarea>
+		            <div class="d-flex gap-2">
+		              <button type="submit" class="btn btn-danger btn-sm">수정 완료</button>
+		              <button type="button" class="btn btn-secondary btn-sm cancel-edit-btn">취소</button>
+		            </div>
+		          </form>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</c:forEach>
+	  </div>
+	  </div>
+	  </div>
 
-    <!-- 답변완료 카드 -->
-    <div class="card border-0 shadow-sm mb-3 inquiry-card" data-status="done">
-      <div class="card-header bg-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#inquiry2">
-        <div>
-          <span class="badge bg-secondary me-2">답변완료</span>
-          <span class="text-muted">[강사]</span>
-          <span class="fw-semibold ms-2">수업 준비물 질문</span>
-        </div>
-        <small class="text-muted">2025.06.20</small>
-      </div>
-      <div id="inquiry2" class="collapse" data-bs-parent="#inquiryAccordion">
-        <div class="card-body bg-white">
-          <p class="mb-2">재료를 따로 준비해야 하나요?</p>
-          <hr>
-          <div class="answer-section">
-            <div class="d-flex align-items-center mb-2">
-              <img src="https://i.pravatar.cc/32?u=admin" class="rounded-circle me-2" />
-              <strong>강사</strong>
-            </div>
-            <p class="mb-0">모든 재료는 현장에서 제공됩니다 :)</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 </div>
  <%@ include file="../common/footer.jsp" %>
 
   <!-- 스크립트 -->
+ <script>
+ window.onload = function () {
+	  const cp = document.body.dataset.contextPath;
 
-  <script>
-    $(function () {
-      $('.answer-form').on('submit', function (e) {
-        e.preventDefault();
-        const $form = $(this);
-        const $answerSection = $form.closest('.answer-section');
-        const answer = $form.find('textarea').val().trim();
+	  document.querySelectorAll('.attach-area[data-board-id]').forEach(div => {
+	    const boardId = div.dataset.boardId;
+	    console.log("💡 boardId:", boardId);
+	    if (boardId) {
+	      fetch(`${cp}/qna/attachList?boardId=${boardId}`)
+	        .then(res => res.text())
+	        .then(html => {
+	          div.innerHTML = html;
+	        })
+	        .catch(err => console.error("첨부파일 로딩 실패", err));
+	    } else {
+	      console.warn("⚠️ boardId가 비어있어요!", div);
+	    }
+	  });
+	};
+  // 아코디언 클릭 이벤트
+  document.querySelectorAll('.inquiry-card').forEach(item => {
+    const header = item.querySelector('.card-header');
+    const collapseTarget = item.querySelector('.collapse');
 
-        if (!answer) {
-          alert('답변을 입력해주세요.');
-          return;
-        }
-
-        const profileImgUrl = 'https://i.pravatar.cc/32?u=admin';
-        const nickname = '관리자';
-
-        const answerHtml = `
-        	  <div class="answer-header">
-        	    <img src="${profileImgUrl}" alt="프로필" />
-        	    <strong>${nickname}</strong>
-        	  </div>
-        	  <p class="answer-text">\${answer.replace(/\n/g, '<br>')}</p> 
-        	  <div class="answer-buttons">
-        	    <button class="btn btn-outline-secondary btn-sm btn-edit">수정</button>
-        	    <button class="btn btn-outline-danger btn-sm btn-delete">삭제</button>
-        	  </div>
-        	`;
-
-        $answerSection.html(answerHtml);
-        const $header = $answerSection.closest('.card-body').siblings('.card-header');
-        $header.find('.text-primary').removeClass('text-primary').addClass('text-success').text('답변완료');
+    if (header && collapseTarget) {
+      header.addEventListener('click', function () {
+        const isShown = collapseTarget.classList.contains('show');
+        document.querySelectorAll('#inquiryAccordion .collapse.show').forEach(el => el.classList.remove('show'));
+        if (!isShown) collapseTarget.classList.add('show');
       });
+    }
+  });
 
-      $(document).on('click', '.btn-edit', function () {
-        const $section = $(this).closest('.answer-section');
-        const text = $section.find('.answer-text').html().replace(/<br>/g, '\n');
-        const profile = $section.find('.answer-header')[0].outerHTML;
-
-        $section.html(`
-          ${profile}
-          <form class="answer-edit-form">
-            <div class="mb-3"><textarea class="form-control" rows="3">${text}</textarea></div>
-            <button class="btn btn-danger btn-sm" type="submit">수정 완료</button>
-            <button class="btn btn-secondary btn-sm btn-cancel" type="button">취소</button>
-          </form>
-        `);
-      });
-
-      $(document).on('click', '.btn-cancel', () => location.reload());
-
-      $(document).on('submit', '.answer-edit-form', function (e) {
-        e.preventDefault();
-        const $form = $(this);
-        const $section = $form.closest('.answer-section');
-        const text = $form.find('textarea').val().trim();
-        if (!text) return alert('내용을 입력해주세요.');
-        const profile = $section.find('.answer-header')[0].outerHTML;
-        $section.html(`
-          ${profile}
-          <p class="answer-text">\${text.replace(/\n/g, '<br>')}</p>
-          <div class="answer-buttons">
-            <button class="btn btn-outline-secondary btn-sm btn-edit">수정</button>
-            <button class="btn btn-outline-danger btn-sm btn-delete">삭제</button>
-          </div>
-        `);
-      });
-
-      $(document).on('click', '.btn-delete', function () {
-        if (!confirm('정말 삭제할까요?')) return;
-        const $section = $(this).closest('.answer-section');
-        $section.html(`
-          <p class="text-muted"><strong>답변없음</strong></p>
-          <form class="answer-form">
-            <div class="mb-3">
-              <label class="form-label">답변 작성</label>
-              <textarea class="form-control" rows="3" placeholder="답변을 입력하세요"></textarea>
-            </div>
-            <button type="submit" class="btn btn-sm btn-danger">답변 등록</button>
-          </form>
-        `);
-        const $header = $section.closest('.card-body').siblings('.card-header');
-        $header.find('.text-success').removeClass('text-success').addClass('text-primary').text('답변대기');
+  // 필터 버튼 동작
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.inquiry-card').forEach(card => {
+        const status = card.dataset.status;
+        card.style.display = (filter === 'all' || status === filter) ? '' : 'none';
       });
     });
+  });
 
-    // 문의 상태 필터 기능
-    $('.filter-btn').on('click', function () {
-      const filter = $(this).data('filter');
-      $('.filter-btn').removeClass('active');
-      $(this).addClass('active');
+  // 수정 버튼
+  document.querySelectorAll('.btn-edit').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const boardId = this.dataset.id;
+      const cardBody = this.closest('.card-body');
+      const form = cardBody.querySelector('.edit-form');
+      const content = cardBody.querySelector('p.mb-3');
 
-      $('.inquiry-card').each(function () {
-        const status = $(this).data('status');
-        if (filter === 'all' || status === filter) {
-          $(this).show();
-        } else {
-          $(this).hide();
-        }
-      });
+      form.classList.remove('d-none');
+      content.style.display = 'none';
+
+      fetch(`${cp}/qna/update?boardId=${boardId}`)
+        .then(res => res.json())
+        .then(data => {
+          form.querySelector('input[name="title"]').value = data.title;
+          form.querySelector('textarea[name="content"]').value = data.content;
+        });
     });
+  });
 
-  </script>
+  // 수정 취소 버튼
+  document.querySelectorAll('.cancel-edit-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const form = this.closest('.edit-form');
+      const content = form.previousElementSibling;
+      form.classList.add('d-none');
+      content.style.display = '';
+    });
+  });
+});
+</script>
   
   
 </body>
