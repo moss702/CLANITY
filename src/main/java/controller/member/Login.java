@@ -47,10 +47,10 @@ public class Login extends HttpServlet{
 		if(ret) {
 			HttpSession session = req.getSession();
 			session.setMaxInactiveInterval(60*30); //세션 유지 30분
-			session.setAttribute("member", new MemberService().findByEmail(email));
-			
-			Member savedMember = (Member) session.getAttribute("loginMember");
-			log.info("세션에 저장된 회원 정보: {}", savedMember);
+			session.setAttribute("member", ret);
+//			
+//			Member savedMember = (Member) session.getAttribute("loginMember");
+//			log.info("세션에 저장된 회원 정보: {}", savedMember);
 			
 			AlertUtil.redirectAlert("로그인 성공하였습니다", "/index", "green", req, resp);
 		}else {
