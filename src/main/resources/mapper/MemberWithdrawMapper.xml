@@ -17,4 +17,11 @@
   	insert into member_withdraw(member_id, email_masked,nickname_masked) values (#{memberId}, #{emailMasked}, #{nicknameMasked})
   	</insert>
   	
+  	<select id="list" resultMap="mw">
+  		<![CDATA[
+  		SELECT * FROM member_withdraw
+    	WHERE withdraw_at <= DATE_SUB(NOW(), INTERVAL 10 DAY)
+    	]]>
+  	</select>
+  	
   </mapper>

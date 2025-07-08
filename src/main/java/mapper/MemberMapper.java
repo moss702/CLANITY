@@ -19,5 +19,5 @@ public interface MemberMapper {
 
 	void updateOne(Member member);
 	
-	
+	void updateWithdraw(Member member);
 }

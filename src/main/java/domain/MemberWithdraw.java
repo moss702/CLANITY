@@ -20,5 +20,5 @@ public class MemberWithdraw {
     private String emailMasked;
     private String nicknameMasked;
     private String reason;
-    private LocalDateTime withdrawAt;
+    private String withdrawAt;
 }

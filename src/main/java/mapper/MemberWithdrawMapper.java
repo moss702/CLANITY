@@ -9,7 +9,7 @@ public interface MemberWithdrawMapper {
 
 	int insert(MemberWithdraw request);
 	
-
+	List<MemberWithdraw> list();
 
 	
 	

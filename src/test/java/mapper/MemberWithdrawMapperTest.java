@@ -2,6 +2,7 @@ package mapper;
 
 
 import java.lang.module.ModuleDescriptor.Builder;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,5 +31,11 @@ public class MemberWithdrawMapperTest {
 		
 		memberWithdrawMapper.insert(request);
 		log.info("{}", request);
+	}
+	
+	@Test
+	@DisplayName("탈퇴자 예정자 목록 출력 테스트")
+	public void listTest() {
+		log.info("{}",memberWithdrawMapper.list());
 	}
 }
