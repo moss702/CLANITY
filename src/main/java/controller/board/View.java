@@ -20,13 +20,13 @@ public class View extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		if(req.getParameter("bno") == null) {
+		if(req.getParameter("boardId") == null) {
 			AlertUtil.alert("잘못된 접근입니다", "/board/list", req, resp);
 			return;
 		}
 		
 		BoardService service = new BoardService();
-		Board board = service.findBy(Long.parseLong(req.getParameter("bno")));
+		Board board = service.findBy(Long.parseLong(req.getParameter("boardId")));
 
 		Criteria cri = Criteria.init(req);
 		req.setAttribute("cri", cri);

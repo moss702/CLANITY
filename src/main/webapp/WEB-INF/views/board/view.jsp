@@ -36,15 +36,15 @@
                 <span class="px-2 border-end border-1">잡담</span>
                 <span class="px-2">${board.title}</span> 
                 <div class="float-end small me-3">
-                    <span class="text-muted"><i class="fa-solid fa-eye"></i> ${board.cnt}</span>
-                    <span class="text-muted"><i class="fa-regular fa-comment-dots"></i> ${board.replyCnt}</span>
+                    <span class="text-muted"><i class="fa-solid fa-eye"></i> ${board.viewCount}</span>
+                    <span class="text-muted"><i class="fa-regular fa-comment-dots"></i> ${board.commentCount}</span>
                 </div>
             </div>
             
             <div class="p-0 py-2 bg-light small border-top border-2 border-muted">
-                <span class="px-2">${board.id}</span>
+                <span class="px-2">${board.memberId}</span>
                 <a href="#" class="text-muted small">board.html</a>
-                <span class="float-end text-muted small me-3">${board.regdate}</span>
+                <span class="float-end text-muted small me-3">${board.createdAt}</span>
             </div>
             
             <div class="small p-0 py-5 ps-1 border-bottom border-1 border-muted">
@@ -53,9 +53,9 @@
             
             <div class="ps-0 pe-0">
                 <a href="list?${cri.qs2}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-list-ul"></i> 목록</a>
-                <a href="modify?bno=${board.bno}&${cri.qs2}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i> 수정</a>
-                <a href="remove?bno=${board.bno}&${cri.qs2}" class="btn btn-danger btn-sm"  onclick="return confirm('삭제하시겠습니까?')"><i class="fa-regular fa-trash-can"></i> 삭제</a>
-               	<a href="write?${cri.qs2}&bno=${board.bno}" class="btn btn-dark btn-sm">
+                <a href="modify?boardId=${board.boardId}&${cri.qs2}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square"></i> 수정</a>
+                <a href="remove?boardId=${board.boardId}&${cri.qs2}" class="btn btn-danger btn-sm" onclick="return confirm('삭제하시겠습니까?')"><i class="fa-regular fa-trash-can"></i> 삭제</a>
+               	<a href="write?${cri.qs2}&boardId=${board.boardId}" class="btn btn-dark btn-sm">
                		<i class="fa-solid fa-reply " style= "transform:rotate(180deg)"></i> 
                		답글쓰기</a>
                	
@@ -64,7 +64,7 @@
                     <button class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-clipboard"></i> 스크랩</button>
                 </div>
             </div>
-            <%-- ${board.attachs} 첨부파일이 없는데도 목록을 띄운다면!! 무슨 값이 있길래? 로그 찍어봐! --%>
+
 <!-- 첨부파일 유무 -->
         <c:if test="${fn:length(board.attachs) > 0}"> 
 			<div class="d-grid my-2 attach-area">
@@ -146,7 +146,7 @@
 	            </div>
 	            <div class="mb-3">
 	                <label for="writer" class="form-label"><i class="fa-solid fa-user text-primary"></i> Writer</label>
-	                <input type="text" class="form-control" id="writer" placeholder="Enter writer" name="writer" value="${member.id}" disabled="disabled">
+	                <input type="text" class="form-control" id="writer" placeholder="Enter writer" name="writer" value="${board.memberId}" disabled="disabled">
 	            </div>
 	        </form>
 	    </div>
@@ -168,7 +168,7 @@
     const dayForm = 'YYYY-MM-DD HH:mm:ss';
     
         $(function() {
-        	const bno = '${board.bno}';
+        	const bno = '${board.boardId}';
             const url = '${cp}' + '/reply/';
             const modal = new bootstrap.Modal($("#reviewModal").get(0),{});
             

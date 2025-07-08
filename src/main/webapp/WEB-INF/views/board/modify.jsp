@@ -8,6 +8,7 @@
 <%@ include file="../common/head.jsp" %>
 </head>
 <body>
+
     <div class="container p-0">
         <main>
             <form method="post" action="modify" id="modifyForm">
@@ -35,8 +36,8 @@
                         <button class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-pen"></i>  글 수정</button>
                     </div>
                 </div>
-                <input type="hidden" name="id" value="${member.id}" />
-                <input type="hidden" name="bno" value="${board.bno}" />
+                <input type="hidden" name="id" value="${member.memberId}" />
+                <input type="hidden" name="boardId" value="${board.boardId}" />
                 <input type="hidden" name="categoryId" value="${cri.categoryId}" />
                 <input type="hidden" name="page" value="${cri.page}" />
                 <input type="hidden" name="amount" value="${cri.amount}" />
@@ -70,7 +71,7 @@
 						<div class="my-2 col-12 col-sm-4 col-lg-2" 
 							data-uuid="${a.uuid}">
 							<div class="my-2 bg-primary" style="height: 150px; background-size: cover; 
-								background-image:url('/pbl/display?uuid=t_${a.uuid}&path=${a.path}')">
+								background-image:url('${s3url}${a.path}/t_${a.uuid}')">
 								<i class="fa-solid fa-xmark float-end text-danger m-2"></i>
 							</div>
 						</div>

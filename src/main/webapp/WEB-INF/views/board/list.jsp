@@ -49,7 +49,7 @@
 			    </div>
             </div>   
             
-             
+             <jsp:include page="list_template/list.jsp" />
    		<c:forEach items="${cate}" var="c">
    			<c:if test="${c.categoryId == pageDto.cri.categoryId}">
    			<c:choose>

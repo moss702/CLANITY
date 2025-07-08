@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 import service.BoardService;
 import util.AlertUtil;
 
-@Builder
 @Slf4j
 @WebServlet("/board/modify")
 public class Modify extends HttpServlet{
@@ -32,20 +31,20 @@ public class Modify extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Criteria cri = Criteria.init(req);
 		
-		if(req.getParameter("bno") == null) {
+		if(req.getParameter("boardId") == null) {
 			AlertUtil.alert("잘못된 접근입니다", "/board/list", req, resp);
 			return;
 		}
-		Long bno = Long.valueOf(req.getParameter("bno"));
+		Long boardId = Long.valueOf(req.getParameter("boardId"));
 		//============= 세션 체크
 		//session 내의 member attr 조회 후 null일 경우 *비로그인 상태로 접근
 		if(req.getSession().getAttribute("member") == null) {
-			AlertUtil.alert("로그인 후 글 작성해주세요", "/member/login?bno=" + bno + "&" + cri.getQs2(), req, resp, true);
+			AlertUtil.alert("로그인 후 글 작성해주세요", "/member/login?boardId=" + boardId + "&" + cri.getQs2(), req, resp, true);
 			return;
 		}
 		
 		BoardService service = new BoardService();
-		Board board = service.findBy(Long.parseLong(req.getParameter("bno")));
+		Board board = service.findBy(Long.parseLong(req.getParameter("boardId")));
 		req.setAttribute("cri", cri);
 		req.setAttribute("board", board);
 		req.getRequestDispatcher("/WEB-INF/views/board/modify.jsp").forward(req, resp);	
@@ -66,7 +65,7 @@ public class Modify extends HttpServlet{
 //		String id = req.getParameter("id");
 //		Integer cno = Integer.valueOf(req.getParameter("cno"));
 		Long categoryId = cri.getCategoryId();
-		Long bno = Long.valueOf(req.getParameter("bno"));
+		Long boardId = Long.valueOf(req.getParameter("boardId"));
 		
 		
 		String encodedStr = req.getParameter("encodedStr");
@@ -75,7 +74,7 @@ public class Modify extends HttpServlet{
 		List<Attach> list = new Gson().fromJson(encodedStr, type);
 		log.info("리스트 {}", list);
 		
-		Board board = Board.builder().attachs(list).title(title).content(content).categoryId(categoryId).boardId(bno).build();
+		Board board = Board.builder().attachs(list).title(title).content(content).categoryId(categoryId).boardId(boardId).build();
 		log.info("{}", board);
 		
 		// 서비스 호출
@@ -83,7 +82,7 @@ public class Modify extends HttpServlet{
 		log.info("{}", cri);
 		
 		// 리디렉션
-		AlertUtil.alert("글이 수정되었습니다", "/board/view?bno=" + bno + "&" + cri.getQs2(), req, resp);
+		AlertUtil.alert("글이 수정되었습니다", "/board/view?boardId=" + boardId + "&" + cri.getQs2(), req, resp);
 	}
 
 }
