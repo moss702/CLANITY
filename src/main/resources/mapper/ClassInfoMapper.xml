@@ -9,49 +9,68 @@
 <id column="classId" property="classId"/>
 	</resultMap> -->
 
-	<!-- 클래스 추가 -->
-	<insert id="insertClassInfo" parameterType="domain.onedayClass.OnedayClass" 
-        useGeneratedKeys="true" keyProperty="classId">
-  INSERT INTO class (
-    business_id, category_id,
-    title, description, description2,
-    duration, discount_price,
-    instructor_name, difficulty, curriculum, host_introduction,
-    thumbnail_image, detail_images, instructor_image_url, address, region, 
-    class_type, created_at,
-    price, discount
-  ) VALUES (
-    #{businessId}, #{categoryId},
-    #{title}, #{description}, #{description2},
-    #{duration}, #{discountPrice},
-    #{instructorName}, #{difficulty}, #{curriculum}, #{hostIntroduction},
-    #{thumbnailImages}, #{detailImages}, #{instructorImageUrl}, #{address}, #{region},
-    #{classType}, #{createdAt},
-    #{price}, #{discount} 
+<!-- 클래스 추가 -->
+<insert id="insertClassInfo" parameterType="domain.onedayClass.OnedayClass"  useGeneratedKeys="true" keyProperty="classId">
+ INSERT INTO class (
+   business_id, category_id,
+   title, description, description2,
+   duration, discount_price,
+   instructor_name, difficulty, curriculum, host_introduction,
+   thumbnail_image, detail_images, instructor_image_url, address, region, 
+   class_type, created_at, 
+   price, discount
+ ) 
+ VALUES (
+   #{businessId}, #{categoryId},
+   #{title}, #{description}, #{description2},
+   #{duration}, #{discountPrice},
+   #{instructorName}, #{difficulty}, #{curriculum}, #{hostIntroduction},
+   #{thumbnailImages}, #{detailImages}, #{instructorImageUrl}, #{address}, #{region},
+   #{classType}, #{createdAt},
+   #{price}, #{discount} 
   )
 </insert>
+<!-- 오픈 정보 추가 (나중에 등록시 필요) 마스터가 클래스 아이디라 생각하고 비지니스 아이디 없으면 추가 불가(확인하기) -->
+<insert id="insertClassOpen" parameterType="domain.onedayClass.OnedayClass" useGeneratedKeys="true" keyProperty="openId">
+INSERT INTO class_open (
+	master_id, min_participants, max_participants, status
+) 
+VALUES (
+	#{masterId}, #{minParticipants}, #{maxParticipants}, #{status}
+)
+</insert>
+
+<!-- 클래스 정보 조회 -->
+
+<select id="listClass" parameterType="long" resultType="domain.onedayClass.OnedayClass">
+	SELECT * from class 
+</select>
+
+<!-- 클래스 카테고리별 단일 조회 -->
+
+<select id="listOnedayClass" parameterType="long" resultType="domain.onedayClass.OnedayClass">
+
+SELECT * from class where category_id = #{categoryId}
+
+</select>
+<!-- 클래스 카테고리 별 정보 조회 조인 필요? -->
+
+<select id="listClassInfoOne" parameterType="long" resultType="domain.onedayClass.OnedayClass">
+
+SELECT * from class where category_id = #{categoryId}
+
+</select>
 
 
-	<!-- 오픈 정보 추가 (나중에 등록시 필요) 마스터가 클래스 아이디 -->
-	<insert id="insertClassOpen"
-		parameterType="domain.onedayClass.OnedayClass" useGeneratedKeys="true"
-		keyProperty="openId">
-		INSERT INTO class_open (
-		master_id, min_participants, max_participants, status
-		) VALUES (
-		#{masterId}, #{minParticipants}, #{maxParticipants}, #{status}
-		)
-	</insert>
+<!-- 클래스 정보 변경 -->
 
-	<!-- 클래스 정보 변경 -->
 
-	
-	<!-- 클래스 삭제 -->
-	<delete id="delete">
-		DELETE FROM class WHERE class_id = #{classId}
-	</delete>
+<!-- 클래스 삭제 -->
+<delete id="delete">
+	DELETE FROM class WHERE class_id = #{classId}
+</delete>
 
-	<!-- 업데이트에 필요한 정보 -->
+<!-- 업데이트에 필요한 정보 -->
 	<select id="selectAllUrls" resultType="ClassInfo">
 		SELECT class_id, title,
 		url FROM class
