@@ -1,6 +1,7 @@
 package domain.onedayClass;
 
 
+import java.lang.reflect.Member;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -23,7 +24,7 @@ public class OnedayClass {
 	private String title;
 	private String description;
 	private String description2;
-	private int duration;
+	private String duration;
 	private Date createdAt;
 	private int price;
 	private String url;
@@ -74,6 +75,11 @@ public class OnedayClass {
 		this.title = title;
 		this.url = url;
 	}
+	public OnedayClass(Long categoryId) {
+		this.categoryId = categoryId;
+		
+	}
+	
 	
 	public ClassInfo getClassInfo() {
 		return ClassInfo.builder()

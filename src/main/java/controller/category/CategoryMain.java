@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import domain.onedayClass.OnedayClass;
 import service.ClassService;
+import util.ParamUtil;
 
 @WebServlet("/categoryMain")
 public class CategoryMain extends HttpServlet  {
@@ -19,9 +20,11 @@ public class CategoryMain extends HttpServlet  {
 		
 		ClassService service = new ClassService();
 
-		List<OnedayClass> list = service.card();
-		req.setAttribute("cardlist", list);
-//	
+		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
+
+		List<OnedayClass> cards = service.cardInfo(onedayClass);
+
+		req.setAttribute("cards", cards);
 		 req.getRequestDispatcher("/WEB-INF/views/category/categoryMain.jsp").forward(req, resp);
 	}
 

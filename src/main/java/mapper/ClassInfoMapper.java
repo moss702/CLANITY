@@ -9,23 +9,37 @@ import domain.onedayClass.OnedayClass;
 public interface ClassInfoMapper {
 	// 클래스 정보 매퍼
 	//->  나중에 페이지 처리 알아보기
-	//추가 변경 삭제
+	
+	//추가
+
 	void insertClassInfo(OnedayClass onedayClass);
 	void insertClassOpen(OnedayClass onedayClass);
 	
-	void update(ClassInfo classInfo);
+	//클래스 정보 수정 - 나중에 클래스 아이디 기준으로 수정
+	void update(OnedayClass onedayClass);
 	
+	// 클래스 삭제 나중에 클래스 아이디 기준으로 삭제 가 되어야 함
 	void delete(Long classId);
 	
-	//클래스 조회, 단일 조회
-	List<ClassInfo> list();
-	List<OnedayClass> list2();
-	ClassInfo selectOne(Long classId);
+	//클래스 단일 선택
+	
+	OnedayClass selectOneCategoryId(Long categoryId);
+	
+	// 클래스 전체 조회(클래스 정보 전부 가져올때 필요)
+	List<OnedayClass> listClass();
+	
+	
+	// 클래스 카테고리 별 단일 리스트 조회
+	List<OnedayClass> listClassInfoOne(Long categoryId);
+	
+	
+	// 정보 수정 관련해서 
+	List<OnedayClass> listOnedayClass();
+	
 	
 //	// 생성시 자동 번호 + 나중에
 //	void increseCnt(Long classId);
 	
-//	클래스 강사 조회 나중에 넣기(멤버쪽인지 내쪽인지를 모르겠)
 	
 
 }
