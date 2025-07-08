@@ -62,7 +62,7 @@
             <select id="category2" class="form-select">
               <option value="">1차를 먼저 선택하세요</option>
             </select>
-            <input type="hidden" name="categoryId" id="categoryId">
+            <!-- <input type="hidden" name="categoryId" id="categoryId"> -->
           </div>
 
           <!-- 요일 -->

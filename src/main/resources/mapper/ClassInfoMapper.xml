@@ -4,95 +4,48 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.ClassInfoMapper">
 
-	<select id="list2" resultType="domain.onedayClass.OnedayClass">
-		SELECT
-		class_id, business_id,
-		category_id, title, description, description2,
-		duration, created_at,
-		instructor_name, difficulty, detail_images,
-		thumbnail_image, address,
-		region, price, url, class_type, discount,
-		discount_price, curriculum,
-		host_introduction, instructor_image_url
-		from class order by #{classId}
-	</select>
+<!--나중에 조회할 때 사용 <resultMap type="insertClassInfo" id="c">
+<id column="classId" property="classId"/>
+<id column="classId" property="classId"/>
+	</resultMap> -->
+
+	<!-- 클래스 추가 -->
+	<insert id="insertClassInfo" parameterType="domain.onedayClass.OnedayClass" 
+        useGeneratedKeys="true" keyProperty="classId">
+  INSERT INTO class (
+    business_id, category_id,
+    title, description, description2,
+    duration, discount_price,
+    instructor_name, difficulty, curriculum, host_introduction,
+    thumbnail_image, detail_images, instructor_image_url, address, region, 
+    class_type, created_at,
+    price, discount
+  ) VALUES (
+    #{businessId}, #{categoryId},
+    #{title}, #{description}, #{description2},
+    #{duration}, #{discountPrice},
+    #{instructorName}, #{difficulty}, #{curriculum}, #{hostIntroduction},
+    #{thumbnailImages}, #{detailImages}, #{instructorImageUrl}, #{address}, #{region},
+    #{classType}, #{createdAt},
+    #{price}, #{discount} 
+  )
+</insert>
 
 
-	<!-- 클래스 정보 추가 -->
-	<insert id="insert" parameterType="domain.onedayClass.ClassInfo"
-    useGeneratedKeys="true" keyProperty="classId">
-
-		INSERT INTO class (
-		
-		title, description,
-		description2, duration, price, url,
-		discount,
-		discount_price,
-		instructor_name, difficulty, curriculum,
-		host_introduction,
-		thumbnail_image, detail_images,
-		instructor_image_url, address, region,
-		class_type
-		) VALUES (
-		 #{title}, #{description},
-		#{description2}, #{duration},
-		#{price},
-		#{url},
-		#{discount},
-		#{discountPrice}, #{instructorName},
-		#{difficulty}, #{curriculum},
-		#{hostIntroduction},
-		#{thumbnailImages},
-		#{detailImages},
-		#{instructorImageUrl}, #{address}, #{region},
-		#{classType}
-		)
-
-	</insert>
-
-	<!-- 오픈 정보 추가 (나중에 등록시 필요) -->
+	<!-- 오픈 정보 추가 (나중에 등록시 필요) 마스터가 클래스 아이디 -->
 	<insert id="insertClassOpen"
-		parameterType="domain.onedayClass.ClassOpen" useGeneratedKeys="true"
+		parameterType="domain.onedayClass.OnedayClass" useGeneratedKeys="true"
 		keyProperty="openId">
 		INSERT INTO class_open (
-		class_id, min_participants, max_participants, status
+		master_id, min_participants, max_participants, status
 		) VALUES (
-		#{classId}, #{minParticipants}, #{maxParticipants}, #{status}
+		#{masterId}, #{minParticipants}, #{maxParticipants}, #{status}
 		)
 	</insert>
 
 	<!-- 클래스 정보 변경 -->
 
-	<update id="update" parameterType="domain.onedayClass.ClassInfo">
-		UPDATE class
-		SET
-		business_id = #{businessId},
-		category_id = #{categoryId},
-		title =
-		#{title},
-		description = #{description},
-		description2 = #{description2},
-		duration = #{duration},
-		created_at = #{createdAt},
-		price = #{price},
-		url
-		= #{url},
-		discount = #{discount},
-		discount_price = #{discountPrice},
-		instructor_name = #{instructorName},
-		difficulty = #{difficulty},
-		curriculum = #{curriculum},
-		host_introduction = #{hostIntroduction},
-		thumbnail_image = #{thumbnailImages},
-		detail_images = #{detailImages},
-		instructor_image_url = #{instructorImageUrl},
-		address = #{address},
-		region = #{region},
-		class_type = #{classType}
-		WHERE
-		class_id = #{classId}
-	</update>
-
+	
 	<!-- 클래스 삭제 -->
 	<delete id="delete">
 		DELETE FROM class WHERE class_id = #{classId}
