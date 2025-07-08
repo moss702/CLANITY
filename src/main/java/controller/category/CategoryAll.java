@@ -20,13 +20,13 @@ public class CategoryAll extends HttpServlet  {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //		 AlertUtil.alert("잘못된 접근입니다","CLANITY/categoryMain", req, resp);
 		
-		ClassService service = new ClassService();
-		
-		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
-	
-		List<OnedayClass> cards = service.cardInfo(onedayClass);
-		
-		req.setAttribute("cards", cards);
+//		ClassService service = new ClassService();
+//		
+//		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
+//	
+//		List<OnedayClass> cards = service.cardInfo(onedayClass);
+//		
+//		req.setAttribute("cards", cards);
 		
 		// 불러오기
 		req.getRequestDispatcher("/WEB-INF/views/category/categoryAll.jsp").forward(req, resp);

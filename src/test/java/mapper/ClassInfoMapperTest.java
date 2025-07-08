@@ -23,24 +23,24 @@ public class ClassInfoMapperTest {
     
 // json 리스너 관련 테스트
 
-    @Test
-    @DisplayName("클래스 지역 조회 (JSON 출력)")
-    public void classTest2() {
-        String json = new GsonBuilder()
-            .setPrettyPrinting()
-            .create()
-            .toJson(mapper.listRegion());
-        log.info(json);
-    }
-    @Test
-    @DisplayName("클래스 지역 조회")
-    public void regionTest() {
-        String json = new GsonBuilder()
-            .setPrettyPrinting()
-            .create()
-            .toJson(mapper.listRegion());
-        log.info(json);
-    }
+//    @Test
+//    @DisplayName("클래스 지역 조회 (JSON 출력)")
+//    public void classTest2() {
+//        String json = new GsonBuilder()
+//            .setPrettyPrinting()
+//            .create()
+//            .toJson(mapper.listRegion());
+//        log.info(json);
+//    }
+//    @Test
+//    @DisplayName("클래스 지역 조회")
+//    public void regionTest() {
+//        String json = new GsonBuilder()
+//            .setPrettyPrinting()
+//            .create()
+//            .toJson(mapper.listRegion());
+//        log.info(json);
+//    }
 
     @Test
     @DisplayName("클래스 카테고리 전체 조회 (JSON)")
@@ -64,8 +64,6 @@ public class ClassInfoMapperTest {
     	@Test
     	@DisplayName("클래스 전체 목록 조회")
     	public void classListTest() {
-
-    		
     		List<OnedayClass> list = classInfoMapper.listClass();
 
     		list.forEach(c -> log.info("Class: {}", c));
@@ -75,9 +73,8 @@ public class ClassInfoMapperTest {
     	@DisplayName("클래스에서 카테고리  단일조회")
     	public void selectOneTest() {
     		Long categoryId = 1004L;
-    		OnedayClass onedayClass =  classInfoMapper.selectOneCategoryId(categoryId);
-//    		OnedayClass onedayClass = (OnedayClass) classInfoMapper.selectOneCatrgoryId();
-    		log.info("{}", onedayClass);	
+    		List<OnedayClass> list = classInfoMapper.listOnedayClass(categoryId);
+    		list.forEach(c -> log.info("Class: {}", c));
 
     	}
 

@@ -18,14 +18,14 @@ public class ClassMainPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 카드 리스트 불러오기
-		ClassService service = new ClassService();
-
-		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
-
-		List<OnedayClass> cards = service.cardInfo(onedayClass);
-
-		req.setAttribute("cards", cards);
+//		// 카드 리스트 불러오기
+//		ClassService service = new ClassService();
+//
+//		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
+//
+//		List<OnedayClass> cards = service.cardInfo(onedayClass);
+//
+//		req.setAttribute("cards", cards);
 
 		req.getRequestDispatcher("/WEB-INF/views/category/mainClassPage.jsp").forward(req, resp);
 	}

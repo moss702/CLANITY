@@ -17,7 +17,7 @@
    duration, discount_price,
    instructor_name, difficulty, curriculum, host_introduction,
    thumbnail_image, detail_images, instructor_image_url, address, region, 
-   class_type, created_at,
+   class_type, created_at, 
    price, discount
  ) 
  VALUES (
@@ -48,7 +48,7 @@ VALUES (
 
 <!-- 클래스 카테고리별 단일 조회 -->
 
-<select id="selectOneCatrgoryId" parameterType="long" resultType="domain.onedayClass.OnedayClass">
+<select id="listOnedayClass" parameterType="long" resultType="domain.onedayClass.OnedayClass">
 
 SELECT * from class where category_id = #{categoryId}
 

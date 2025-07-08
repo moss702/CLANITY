@@ -34,7 +34,7 @@ public interface ClassInfoMapper {
 	
 	
 	// 정보 수정 관련해서 
-	List<OnedayClass> listOnedayClass();
+	List<OnedayClass> listOnedayClass(Long categoryId);
 	
 	
 //	// 생성시 자동 번호 + 나중에
