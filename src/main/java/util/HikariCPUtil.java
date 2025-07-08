@@ -39,7 +39,7 @@ public class HikariCPUtil {
 		config.setConnectionTimeout(30000);
 		config.setPoolName("MyHikariCp");
 		
-		dataSource = new HikariDataSource(config);
+		dataSource = new HikariDataSource(config);	
 	}
 	
 	public static DataSource getDataSource() {
