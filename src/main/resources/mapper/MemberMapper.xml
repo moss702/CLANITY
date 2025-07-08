@@ -31,11 +31,22 @@
   	set email_verified = '1'
   	where email = #{email}
   	</update>
-  	
+  	<!-- 정보 수정 -->
   	<update id="updateOne">
   	update member
   	set nickname = #{nickname}, phone = #{phone}, gender = #{gender}
   	where member_id = #{memberId}
+  	</update>
+  	
+  	<!-- 탈퇴후 정보 삭제 (소프트 delete -->
+  	<update id="updateWithdraw">
+  	update member
+  	set email = #{email},
+        nickname = #{nickname},
+        phone = NULL,
+        gender = #{gender},
+        status = #{status}
+    where member_id = #{memberId}
   	</update>
   	
   </mapper>
