@@ -1,8 +1,9 @@
 package controller.open;
 
+
 import java.io.IOException;
 import java.sql.Date;
-import java.time.LocalDate;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,11 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import domain.Member;
+import domain.en.MemberRole;
 import domain.onedayClass.ClassInfo;
+import domain.onedayClass.ClassOpen;
 import domain.onedayClass.OnedayClass;
 import lombok.extern.slf4j.Slf4j;
 import service.ClassService;
-import util.HikariCPUtil;
+import util.ParamUtil;
 
 @Slf4j
 @WebServlet("/openClassRegister/open1")
@@ -22,44 +26,55 @@ public class OnedayClassServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//  세션 체크 (나중에 정보등록 jsp 만들기)
+		//  불러오기
 		req.getRequestDispatcher("/WEB-INF/views/openClassRegister/open1.jsp").forward(req, resp);
-		log.info("{}", HikariCPUtil.getDataSource());
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+		// 세션 체크 먼저 하고 
 		
-		// 한글 깨짐 방지
-		req.setCharacterEncoding("UTF-8");
+		Object obj = req.getSession().getAttribute("member");
+		if(obj == null || !(obj instanceof Member)) {
+			log.info("{멤버 상태}", obj);
+			// 비로그인상태
+			
+			return;
+		}
+		Member member = (Member) obj;
+		if(member.getRole() == MemberRole.MEMBER) {
+			// 평회원 사유
+			
+			return;
+		}
+//		
+		// 등록
 		
+		ClassService classService = new ClassService();
 		
-		// 파라미터 수집
-		 String title = req.getParameter("title");
-		 String classType = req.getParameter("classType");
-		 String region = req.getParameter("region");
-		 String address = req.getParameter("address");
-		 String categoryIdStr = req.getParameter("categoryId");
-		 Long categoryId = null;
-		 try {
-		     categoryId = Long.parseLong(categoryIdStr);
-		 } catch (NumberFormatException e) {
-		     log.error("Invalid categoryId: {}", categoryIdStr);
-		     // 처리 로직 (예: 오류 페이지로 포워딩)
-		 }
-
-		 
-//	// 값 저장 나중에 오픈 2, 3, 4 이런식으로 사용
-		HttpSession session = req.getSession();	 
-		session.setAttribute("title", title);
-		session.setAttribute("classType", classType);
-		session.setAttribute("region", region);
-		session.setAttribute("address", address);
-		session.setAttribute("categoryId", categoryId);
+		 OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
+		 onedayClass.setBusinessId(member.getMemberId());
+	
+		// 3. 그 후 insert 진행
+		  
+	      log.info("클래스 아이디 수집:{}",onedayClass.getClassId());
+	      onedayClass.setStatus(true);
+	      
+	      log.info("제목: {}", onedayClass.getTitle());
+	      
+	      log.info("카테고리 ID: {}", onedayClass.getCategoryId());
+//	      등록
+	      
+	     classService.register(onedayClass);
+	     log.info("클래스:{}", onedayClass);
+	      
 		
-		// 다음 페이지 이동
-		req.getRequestDispatcher("/WEB-INF/views/openClassRegister/open2.jsp").forward(req, resp);
-		
+	      // 메인 페이지이동
+	      
+	      req.getRequestDispatcher("/WEB-INF/views/category/categoryMain.jsp").forward(req, resp);
+	      
+	
 
 	}
 

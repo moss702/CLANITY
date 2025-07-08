@@ -10,8 +10,8 @@ public interface ClassInfoMapper {
 	// 클래스 정보 매퍼
 	//->  나중에 페이지 처리 알아보기
 	//추가 변경 삭제
-	void insert(ClassInfo classInfo);
-	void insertClassOpen(ClassOpen classOpen);
+	void insertClassInfo(OnedayClass onedayClass);
+	void insertClassOpen(OnedayClass onedayClass);
 	
 	void update(ClassInfo classInfo);
 	

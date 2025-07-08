@@ -10,28 +10,49 @@ import util.MybatisUtil;
 import lombok.extern.slf4j.Slf4j;
 import mapper.ClassCardMapper;
 import mapper.ClassInfoMapper;
+import mapper.OnedayClassMapper;
 
 @Slf4j
 public class ClassService {
 
 	// 등록
-	public void register(ClassInfo classInfo, ClassOpen classOpen) {
+
+//	public void register22(OnedayClass onedayClass) {
+//		SqlSession session = MybatisUtil.getSqlSession();
+//		// try-with-resources: 사용 후 자동으로 세션 닫힘
+//		try {
+//			OnedayClassMapper mapper = session.getMapper(OnedayClassMapper.class);
+//			// 1 classId
+//			mapper.insertRegister(onedayClass);
+//
+//			session.commit();
+//
+//		} catch (Exception e) {
+//			log.error("클래스 등록 실패", e);
+//			throw new RuntimeException("클래스 등록 중 오류 발생", e); // 서블릿에서 감지 가능
+//		} finally {
+//			session.close();
+//		}
+//	}
+	
+	
+	public void register(OnedayClass onedayClass) {
 		SqlSession session = MybatisUtil.getSqlSession();
-		// try-with-resources: 사용 후 자동으로 세션 닫힘
+		
 		try {
 			ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
-			// 1 classId
-			mapper.insert(classInfo);
+			mapper.insertClassInfo(onedayClass);
 
+			// 1 classId 가져고오 나서
 			// 2 open Insert
-			classOpen.setClassId(classInfo.getClassId());
+			onedayClass.setMasterId(onedayClass.getClassId());
 
-			mapper.insertClassOpen(classOpen);
+			mapper.insertClassOpen(onedayClass);
 			session.commit();
 
 		} catch (Exception e) {
 			log.error("클래스 등록 실패", e);
-			throw new RuntimeException("클래스 등록 중 오류 발생", e); // 서블릿에서 감지 가능
+			
 		} finally {
 			session.close();
 		}
