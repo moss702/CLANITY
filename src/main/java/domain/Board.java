@@ -19,6 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Alias("board")
+@Builder
 public class Board {
 
 
@@ -41,7 +42,5 @@ public class Board {
 
 	private Long receiverId;			// 문의기능 : 수신자 ID
 
-	private List<Attach> attachList;
-	public void setAttachList(List<Attach> list) { this.attachList = list; }
-	public List<Attach> getAttachList() { return this.attachList;}
+	private List<Attach> attachs;
 }

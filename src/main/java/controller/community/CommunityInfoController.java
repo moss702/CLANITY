@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.board.FaqController;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

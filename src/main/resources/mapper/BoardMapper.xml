@@ -52,11 +52,30 @@
 		select * from board
 		WHERE category_id = #{categoryId}
 		order by board_id DESC
-	</select>
-
+	</select> 
+	
+<!-- 목록조회
+	<select id="list" resultMap="b">
+	select board_id, title, content, member_id, created_at, updated_at, view_count, category_id, 
+		(select count(*) from reply r where r.board_id = b.board_id) replyCnt,
+		(select count(*) from attach a WHERE  a.board_id = b.board_id) attachCnt,
+		(select uuid from attach a WHERE a.board_id = b.board_id and image = 1 order by odr limit 1) uuid,
+		(select path from attach a WHERE a.board_id = b.board_id and image = 1 order BY odr limit 1) path,
+		group_id, depth
+	from board b
+	<include refid="criteria"></include>
+		order by group_id desc
+		limit #{amount} offset #{offset}
+	</select>  -->
+	
 <!-- 단일조회 -->
 	<select id="selectOne" resultMap="b">
-			select * from board where board_id = #{boardId}
+			select *, (select count(*) from reply r where r.board_id = b.board_id) replyCnt
+			from board b
+			left join attach_link al on b.board_id = al.lno and link_type = 'BOARD'
+			left join attach a using(uuid)
+			where board_id = #{boardId}
+			order by odr
 	</select>
 	
 <!-- QnA 내 문의내역 조회 -->
@@ -68,7 +87,7 @@
 </select>
 
 	
-<!-- 글 등록 -->
+<!-- 글 등록 
 	<insert id="insert" parameterType="board" keyProperty="boardId" useGeneratedKeys="true" >
 	  INSERT INTO board (category_id, member_id, title, content, visible_level,
 	    	is_blind, like_count, comment_count, view_count, created_at, updated_at ) 
@@ -76,7 +95,15 @@
 		    #{categoryId}, #{memberId}, #{title}, #{content}, #{visibleLevel}, 
 		    0, 0, 0, 0, NOW(), NOW()
 	  )
-	</insert>
+	</insert> -->
+	
+<!-- 글 등록 -->
+	<insert id="insert">
+			insert into board (category_id, member_id, title, content) values (#{categoryId}, #{memberId}, #{title}, #{content})
+		<selectKey keyProperty="boardId" resultType="long" order="AFTER">
+			select max(board_id) from board
+		</selectKey>
+	</insert> 
 	
 	
 <!-- 글 수정 -->
@@ -101,6 +128,11 @@
 		set view_count = viewCount + 1
 		where board_id = #{boardId}
 	</update>
-
+	
+<!-- 게시글 갯수 -->
+	<select id="getCount" resultType="long">
+			select count(*) from board
+	<include refid="criteria"></include>
+	</select>
 
 </mapper>

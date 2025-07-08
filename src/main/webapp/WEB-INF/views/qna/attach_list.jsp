@@ -11,11 +11,10 @@
 	        <li class="mb-1">
 	          <c:choose>
 	            <c:when test="${file.image == 'Y'}">
-	              <img src="/display?path=${file.path}&fileName=t_${file.fileName}" style="max-width: 150px;" />
+	              <img src="${cp}/display?no=${file.attachId}" style="max-width: 150px;" />
 	            </c:when>
 	            <c:otherwise>
 	              <a href="/download?fileName=${file.fileName}&origin=${file.originalName}&path=${file.path}">
-	                ${file.originalName}
 	              </a>
 	            </c:otherwise>
 	          </c:choose>

@@ -1,4 +1,4 @@
-package controller.board;
+package controller.qna;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -31,13 +31,13 @@ public class QnaMylistController extends HttpServlet{
 	    }
 
 	    // 로그인 상태일 경우 
-	    // myQnaList : loginId == memberId 문의내역을 가져온다.
+	    // qnaList : loginId == memberId 문의내역을 가져온다.
 	    Long loginId = loginMember.getMemberId();
 	    req.getSession().setAttribute("loginId", loginId);
 	    
 	    BoardService boardService = new BoardService();
-	    List<Board> myQnaList = boardService.findQnaListByMember(loginId);
-	    req.setAttribute("myQnaList", myQnaList);
+	    List<Board> qnaList = boardService.findQnaListByMember(loginId);
+	    req.setAttribute("qnaList", qnaList);
 	    
 	    req.getRequestDispatcher("/WEB-INF/views/qna/qna_mylist.jsp").forward(req, resp);
 	}
