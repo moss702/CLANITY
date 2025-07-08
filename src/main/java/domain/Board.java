@@ -19,6 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Alias("board")
+@Builder
 public class Board {
 
 
@@ -36,12 +37,10 @@ public class Board {
 	private int likeCount; 				// 좋아요 수
 	private int commentCount; 			// 댓글 수
 	private int viewCount; 				// 조회 수
-	private Date createdAt; 			// 작성일시
-	private Date updatedAt; 			// 수정일시
+	private String createdAt; 			// 작성일시
+	private String updatedAt; 			// 수정일시
 
 	private Long receiverId;			// 문의기능 : 수신자 ID
-
-	private List<Attach> attachList;
-	public void setAttachList(List<Attach> list) { this.attachList = list; }
-	public List<Attach> getAttachList() { return this.attachList;}
+	private int attachCnt;
+	private List<Attach> attachs;
 }

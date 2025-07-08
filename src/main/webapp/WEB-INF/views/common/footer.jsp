@@ -30,7 +30,7 @@
           <h6 class="fw-semibold text-dark">소셜 미디어</h6>
           <ul class="list-unstyled mt-3">
             <li><a href="#" class="text-decoration-none text-dark"><i class="fa-brands fa-instagram"></i></a></li>
-            <li><a href="#" class="text-decoration-none text-dark">네이버 블로그</a></li>
+            <li><a href="${cp}/board/write" class="text-decoration-none text-dark">네이버 블로그</a></li>
           </ul>
         </div>
 
