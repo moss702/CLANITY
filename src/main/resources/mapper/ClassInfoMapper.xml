@@ -29,14 +29,14 @@
 </insert>
 
 
-	<!-- 오픈 정보 추가 (나중에 등록시 필요) -->
+	<!-- 오픈 정보 추가 (나중에 등록시 필요) 마스터가 클래스 아이디 -->
 	<insert id="insertClassOpen"
 		parameterType="domain.onedayClass.ClassOpen" useGeneratedKeys="true"
 		keyProperty="openId">
 		INSERT INTO class_open (
-		class_id, min_participants, max_participants, status
+		master_id, min_participants, max_participants, status
 		) VALUES (
-		#{classId}, #{minParticipants}, #{maxParticipants}, #{status}
+		#{masterId}, #{minParticipants}, #{maxParticipants}, #{status}
 		)
 	</insert>
 
