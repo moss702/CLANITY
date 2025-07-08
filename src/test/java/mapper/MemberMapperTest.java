@@ -58,4 +58,12 @@ public class MemberMapperTest {
 		memberMapper.updateOne(member);
 		log.info("수정된 정보 {}",member);
 	}
+	
+	@Test
+	@DisplayName("유저 정보 softdelete update 테스트")
+	public void updateWithdraw() {
+		Member member = memberMapper.findById(1005L);
+		
+		
+	}
 }
