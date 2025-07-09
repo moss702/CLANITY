@@ -68,8 +68,8 @@
 					<div class="d-flex justify-content-between align-items-center">
 						<div class="text-danger fw-bold">${c.discount}%</div>
 						<div>
-							<span class="text-muted text-decoration-line-through me-2 small">${c.price}원</span>
 							<span class="fw-bold" style="color: #E63946;">${c.discountPrice}원</span>
+							<span class="text-muted text-decoration-line-through me-2 small">${c.price}원</span>
 						</div>
 					</div>
 				</div>

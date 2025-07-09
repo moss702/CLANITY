@@ -28,7 +28,7 @@ public class CategoryAll extends HttpServlet  {
 		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
 	
 
-		Criteria cri = Criteria.init(req);
+		Criteria cri = Criteria.initList(req);
 		log.info("{}", cri);
 	
 

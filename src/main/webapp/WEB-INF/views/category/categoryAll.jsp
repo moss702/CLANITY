@@ -99,9 +99,8 @@
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="text-danger fw-bold">${c.discount}%</div>
 								<div>
-									<span
-										class="text-muted text-decoration-line-through me-2 small">${c.price}원</span>
 									<span class="fw-bold" style="color: #E63946;">${c.discountPrice}원</span>
+									<span class="text-muted text-decoration-line-through me-2 small">${c.price}원</span>
 								</div>
 							</div>
 						</div>
@@ -109,41 +108,62 @@
 				</div>
 
 			</c:forEach>
-			<div class="container">
-			<div class="d-flex justify-content-center mt-4">
 				<!-- 페이지 번호 -->
-				<ul class="pagination  pt-4">
-					<c:if test="${pageDto.doubleLeft}">
-						<li class="page-item"><a class="page-link"
-							href="list?page=1&${pageDto.cri.qs}"><i
-								class="fa-solid fa-angles-left"></i></a></li>
-					</c:if>
-
-					<c:if test="${pageDto.left}">
-						<li class="page-item"><a class="page-link"
-							href="list?page=${pageDto.start-1}&${pageDto.cri.qs}"><i
-								class="fa-solid fa-angle-left"></i></a></li>
-					</c:if>
-
-					<c:forEach begin="${pageDto.start}" end="${pageDto.end}" var="i">
-						<li class="page-item ${pageDto.cri.page == i ? 'active' : ''}"><a
-							class="page-link" href="list?page=${i}&${pageDto.cri.qs}">${i}</a></li>
-					</c:forEach>
-
-					<c:if test="${pageDto.right}">
-						<li class="page-item"><a class="page-link"
-							href="list?page=${pageDto.end+1}&${pageDto.cri.qs}"><i
-								class="fa-solid fa-angle-right"></i></a></li>
-					</c:if>
-
-					<c:if test="${pageDto.doubleRight}">
-						<li class="page-item"><a class="page-link"
-							href="list?page=${pageDto.realEnd}&${pageDto.cri.qs}"><i
-								class="fa-solid fa-angles-right"></i></a></li>
-					</c:if>
-				</ul>
-			</div>
-			</div>
+			<div class="container">
+		  <div class="d-flex justify-content-center mt-4">
+		    <ul class="pagination pt-4">
+		    
+		      <c:if test="${pageDto.doubleLeft}">
+		        <li class="page-item">
+		          <a class="page-link border border-light text-danger"
+		              href="${cp}/categoryAll?page=1&${pageDto.cri.qs3}">
+		            <i class="fa-solid fa-angles-left"></i>
+		          </a>
+		        </li>
+		      </c:if>
+		
+		      <c:if test="${pageDto.left}">
+		        <li class="page-item">
+		          <a class="page-link border border-light text-danger"
+		            href="${cp}/categoryAll?page=${pageDto.start - 1}&${pageDto.cri.qs3}">
+		            <i class="fa-solid fa-angle-left"></i>
+		          </a>
+		        </li>
+		      </c:if>
+		
+		      <c:forEach begin="${pageDto.start}" end="${pageDto.end}" var="i">
+		        <li class="page-item ${pageDto.cri.page == i ? 'active' : ''}">
+		          <a class="page-link border border-light
+		            ${pageDto.cri.page == i ? 'bg-danger text-white' : 'text-danger'}"
+		            href="${cp}/categoryAll?page=${i}&${pageDto.cri.qs3}">
+		            ${i}
+		          </a>
+		        </li>
+		      </c:forEach>
+		
+		      <c:if test="${pageDto.right}">
+		        <li class="page-item">
+		          <a class="page-link border border-light text-danger"
+		              href="${cp}/categoryAll?page=${pageDto.end + 1}&${pageDto.cri.qs3}">
+		            <i class="fa-solid fa-angle-right"></i>
+		          </a>
+		        </li>
+		      </c:if>
+		
+		      <c:if test="${pageDto.doubleRight}">
+		        <li class="page-item">
+		          <a class="page-link border border-light text-danger"
+		            href="${cp}/categoryAll?page=${pageDto.realEnd}&${pageDto.cri.qs3}">
+		            <i class="fa-solid fa-angles-right"></i>
+		          </a>
+		        </li>
+		      </c:if>
+		      
+		    </ul>
+		  </div>
+		</div>
+				<p>현재 페이지: ${pageDto.cri.page}</p>
+			
 		</div>
 		</div>
 	</div>
