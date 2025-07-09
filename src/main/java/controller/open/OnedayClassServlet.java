@@ -74,7 +74,7 @@ public class OnedayClassServlet extends HttpServlet {
 		log.info("classId: {}, url: {}", onedayClass.getClassId(), onedayClass.getUrl());
 
 //	      등록 후에 url 등록은 (이거 enroll 쪽에 jsp있음)
-		 String url =  "/classDetailedPage?classId=" + onedayClass.getClassId() + "&openId=" + onedayClass.getOpenId();
+		 String url = "/classDetailedPage?classId=" + onedayClass.getClassId() + "&openId=" + onedayClass.getOpenId();
 		 onedayClass.setUrl(url);
 		 classService.updateUrlLink(onedayClass);
 

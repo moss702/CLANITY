@@ -18,10 +18,9 @@ public class DetailPageClass extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 카드 리스트 불러오기
 		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
-		 onedayClass.setClassId(onedayClass.getClassId());
-		onedayClass.setClassId(onedayClass.getOpenId());
+		req.setAttribute("onedayClass", onedayClass);
 
-		req.getRequestDispatcher(req.getContextPath()  + "/WEB-INF/views/enroll/classDetailedPage.jsp").forward(req, resp);
+		req.getRequestDispatcher( "/WEB-INF/views/enroll/classDetailedPage.jsp").forward(req, resp);
 	}
 
 	@Override
