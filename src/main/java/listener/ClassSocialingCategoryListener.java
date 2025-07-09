@@ -44,7 +44,7 @@ public class ClassSocialingCategoryListener implements ServletContextListener {
 		log.info("ClassSocialingCategory 초기화 완료");
 		log.info("[Listener] 리스트 사이즈: {}, JSON 길이: {} bytes", list.size(), json.length());
 	}
-
+	
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		log.info("[Listener] contextDestroyed() 호출 - 종료 정리 작업 시작");

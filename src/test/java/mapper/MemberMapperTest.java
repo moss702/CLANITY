@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import domain.Member;
 import domain.en.Gender;
+import domain.en.MemberRole;
+import domain.en.MemberStatus;
 import lombok.extern.slf4j.Slf4j;
 import util.MybatisUtil;
 
@@ -51,9 +53,12 @@ public class MemberMapperTest {
 		Member member = memberMapper.findByEmail(email);
 		log.info("선택한 유저 정보 : {}", member);
 		
-		member.setNickname("샘플데이터");
-//		member.setPhone("445711114");
-//		member.setGender(Gender.FEMALE);
+		member.setNickname("sampleuser");
+//		member.setPhone("01012345678");
+//		member.setGender(Gender.MALE);
+//		member.setStatus(MemberStatus.SUSPENDED);
+		member.setPassword("$2a$10$ZSaNRMqZeLlo1zJtlbRrf.ixpnEtxPrZeGgmPU.Z6ZYoPaZPUiV2i");
+//		member.setRole(MemberRole.ADMIN);
 		memberMapper.update(member);
 		log.info("수정된 정보 {}",member);
 	}
