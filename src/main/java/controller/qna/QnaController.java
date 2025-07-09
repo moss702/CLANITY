@@ -1,4 +1,4 @@
-package controller.board;
+package controller.qna;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -19,10 +19,7 @@ import domain.Board;
 import domain.Member;
 import domain.en.VisibleLevel;
 import lombok.extern.slf4j.Slf4j;
-import service.AttachLinkService;
-import service.AttachService;
 import service.BoardService;
-import service.UploadService;
 
 @WebServlet("/qna")
 @MultipartConfig
@@ -46,8 +43,8 @@ public class QnaController extends HttpServlet{
 	    BoardService boardService = new BoardService();
 	    Long loginId = (Long) req.getSession().getAttribute("loginId");
 	    
-	    List<Board> myQnaList = boardService.findQnaListByMember(loginId);  // 카테고리 ID = 2(QnA)
-	    req.setAttribute("myQnaList", myQnaList);
+	    List<Board> qnaList = boardService.findQnaListByMember(loginId);  // 카테고리 ID = 2(QnA)
+	    req.setAttribute("qnaList", qnaList);
 
 	    req.getRequestDispatcher("/WEB-INF/views/qna/qna_main.jsp").forward(req, resp);
 	}
@@ -89,15 +86,15 @@ public class QnaController extends HttpServlet{
 	    service.write(board);
 
 	    // 첨부파일 처리 : UploadService 호출 -> attachLink, attach에 저장됨
-	    try {   
-	        new UploadService().handleUpload(req, "board", board.getBoardId());
-	        								// 사용할 카테고리, 카테고리 id
-	    } catch (Exception e) {
-	        log.error("파일 업로드 중 오류 발생", e);
-	        req.setAttribute("error", "파일 업로드에 실패했습니다.");
-	        req.getRequestDispatcher("/WEB-INF/views/qna/qna_main.jsp").forward(req, resp);
-	        return;
-	    }
+//	    try {   
+//	        new UploadService().handleUpload(req, "board", board.getBoardId());
+//	        								// 사용할 카테고리, 카테고리 id
+//	    } catch (Exception e) {
+//	        log.error("파일 업로드 중 오류 발생", e);
+//	        req.setAttribute("error", "파일 업로드에 실패했습니다.");
+//	        req.getRequestDispatcher("/WEB-INF/views/qna/qna_main.jsp").forward(req, resp);
+//	        return;
+//	    }
 	    log.info("문의 작성 완료! boardId: {}, memberId: {}", board.getBoardId(), loginId);
 	    resp.sendRedirect(req.getContextPath() + "/qna/mylist");
 	}

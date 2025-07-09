@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="cp" value="${pageContext.request.contextPath}" />
-<script>const cp = '<c:out value="${pageContext.request.contextPath}" />';</script>
 
 <!DOCTYPE html>
 <html>
@@ -56,7 +54,7 @@
 
   <!-- 문의 리스트 -->
   <div class="accordion" id="inquiryAccordion">
-		<c:forEach var="qna" items="${myQnaList}" varStatus="status">
+		<c:forEach var="qna" items="${qnaList}" varStatus="status">
 		  <div class="card border-0 shadow-sm mb-3 inquiry-card" data-status="${qna.commentCount == 0 ? 'waiting' : 'done'}">
 		
 		    <!-- 문의 제목 / 상태 / 날짜 -->
@@ -86,7 +84,7 @@
 		
 		        <!-- ✅ 첨부파일 Ajax로 삽입될 자리 -->
 		        <div class="attach-area" data-board-id="${qna.boardId}">
-		        <p style="font-size:12px; color:#999;">boardId 디버깅: ${qna.boardId}</p>
+		        <p>boardId 디버깅: ${qna.boardId}</p>
 		        </div>
 		
 		        <!-- 답변이 없을 경우에만 수정/삭제 가능 -->
@@ -142,7 +140,7 @@
 	    const boardId = div.dataset.boardId;
 	    console.log("💡 boardId:", boardId);
 	    if (boardId) {
-	      fetch(`${cp}/qna/attachList?boardId=${boardId}`)
+	      fetch(`${cp}/attachList?boardId=${boardId}`)
 	        .then(res => res.text())
 	        .then(html => {
 	          div.innerHTML = html;
@@ -207,8 +205,8 @@
       const content = form.previousElementSibling;
       form.classList.add('d-none');
       content.style.display = '';
-    });
-  });
+      })
+  
 });
 </script>
   

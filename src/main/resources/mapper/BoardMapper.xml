@@ -13,13 +13,28 @@
 		<result column="title" property="title"></result>
 		<result column="content" property="content"></result>
 		<result column="visible_level" property="visibleLevel"></result>
-		<result column="isBlind" property="isBlind"></result>
+		<result column="is_blind" property="isBlind"></result>
 		<result column="like_count" property="likeCount"></result>
 		<result column="comment_count" property="commentCount"></result>
 		<result column="view_count" property="viewCount"></result>
 		<result column="created_at" property="createdAt"></result>
 		<result column="updated_at" property="updatedAt"></result>
+		<result column="receiver_id" property="receiverId"></result>
+		<result column="attachCnt" property="attachCnt"></result>
+		<result column="replyCnt" property="commentCount"></result>
+		
+		<collection property="attachs" ofType="attach">
+			<result column="uuid" property="uuid" />
+			<result column="origin" property="origin" />
+			<result column="mime_type" property="mimeType" />
+			<result column="image" property="image" />
+			<result column="size" property="size" />
+			<result column="path" property="path" />
+			<result column="odr" property="odr" />
+		</collection>
 	</resultMap>
+	
+	
 	<sql id="criteria">
 	<where>
 		<trim prefixOverrides="AND | OR">
@@ -47,16 +62,29 @@
 </sql>
 
 
+	
 <!-- 목록조회 -->
 	<select id="list" resultMap="b">
-		select * from board
-		WHERE category_id = #{categoryId}
-		order by board_id DESC
-	</select>
-
+	select board_id, title, content, member_id, created_at, updated_at, view_count, category_id, 
+		(select count(*) from reply r where r.board_id = b.board_id) replyCnt,
+		(select count(*) from attach_link a WHERE lno = b.board_id and link_type='BOARD') attachCnt,
+		(select uuid from attach natural join attach_link WHERE lno = board_id and image = 1 order by odr limit 1) uuid,
+		(select path from attach natural join attach_link WHERE lno = board_id and image = 1 order by odr limit 1) path,
+		group_id, depth
+	from board b
+	<include refid="criteria" />
+		order by board_id desc
+		limit #{amount} offset #{offset}
+	</select>  
+	
 <!-- 단일조회 -->
 	<select id="selectOne" resultMap="b">
-			select * from board where board_id = #{boardId}
+			select *, (select count(*) from reply r where r.board_id = b.board_id) replyCnt
+			from board b
+			left join attach_link al on b.board_id = al.lno and link_type = 'BOARD'
+			left join attach a using(uuid)
+			where board_id = #{boardId}
+			order by odr
 	</select>
 	
 <!-- QnA 내 문의내역 조회 -->
@@ -68,7 +96,7 @@
 </select>
 
 	
-<!-- 글 등록 -->
+<!-- 글 등록 
 	<insert id="insert" parameterType="board" keyProperty="boardId" useGeneratedKeys="true" >
 	  INSERT INTO board (category_id, member_id, title, content, visible_level,
 	    	is_blind, like_count, comment_count, view_count, created_at, updated_at ) 
@@ -76,7 +104,15 @@
 		    #{categoryId}, #{memberId}, #{title}, #{content}, #{visibleLevel}, 
 		    0, 0, 0, 0, NOW(), NOW()
 	  )
-	</insert>
+	</insert> -->
+	
+<!-- 글 등록 -->
+	<insert id="insert">
+			insert into board (category_id, member_id, title, content) values (#{categoryId}, #{memberId}, #{title}, #{content})
+		<selectKey keyProperty="boardId" resultType="long" order="AFTER">
+			select max(board_id) from board
+		</selectKey>
+	</insert> 
 	
 	
 <!-- 글 수정 -->
@@ -98,9 +134,14 @@
 <!-- 조회수 증가 -->
 	<update id="increaseCnt">
 		update board
-		set view_count = viewCount + 1
+		set view_count = view_count + 1
 		where board_id = #{boardId}
 	</update>
-
+	
+<!-- 게시글 갯수 -->
+	<select id="getCount" resultType="long">
+			select count(*) from board
+	<include refid="criteria"></include>
+	</select>
 
 </mapper>
