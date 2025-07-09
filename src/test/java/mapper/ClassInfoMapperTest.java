@@ -55,11 +55,11 @@ public class ClassInfoMapperTest {
     // 클래스 리스트 목록 조회 테스트 (일단 전체 조회 먼저 하고) 카테고리 별 목록 조회
     
     ClassInfoMapper classInfoMapper = MybatisUtil.getSqlSession().getMapper(ClassInfoMapper.class);
-    @Test
-    @DisplayName("클래스 카테고리 조회")
-    public void classTest() {
-        mapper.list().forEach(c -> log.info("Category: {}", c));
-    }
+//    @Test
+//    @DisplayName("클래스 카테고리 조회")
+//    public void classTest() {
+//        mapper.list().forEach(c -> log.info("Category: {}", c));
+//    }
     
     	@Test
     	@DisplayName("클래스 전체 목록 조회")

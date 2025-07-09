@@ -21,17 +21,51 @@
   	<insert id="insert">
   	insert into member(email, password) values (#{email}, #{password})
   	</insert>
+  	
   	<!-- 단일 조회 -->
   	<select id="findByEmail" resultMap="m">
   	select * from member where email = #{email}
   	</select>
+  	
+  	<select id="findById" resultMap="m">
+  	select * from member where member_id = #{memberId}
+  	</select>
+  	
   	<!-- 이메일 인증 -->
   	<update id="updateEmailverified">
   	update member
   	set email_verified = '1'
   	where email = #{email}
   	</update>
+  	
   	<!-- 정보 수정 -->
+  	
+  	<update id="update" parameterType="member">
+  	update member
+  	<set>
+  		<if test="password != null and password != ''">
+  		password = #{password},
+  		</if>
+  		<if test="nickname != null and nickname != ''">
+  		nickname = #{nickname},
+  		</if>
+  		<if test="phone != null and phone != ''">
+  		phone = #{phone},
+  		</if>
+  		<if test="gender != null and gender != ''">
+  		gender = #{gender},
+  		</if>
+  		<if test="role != null and role != ''">
+  		role = #{role},
+  		</if>
+  		<if test="status != null and status != ''">
+  		status = #{status},
+  		</if>
+  	</set>
+  	where member_id = #{}
+  	</update>
+  	
+  	
   	<update id="updateOne">
   	update member
   	set nickname = #{nickname}, phone = #{phone}, gender = #{gender}
