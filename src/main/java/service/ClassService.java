@@ -34,6 +34,22 @@ public class ClassService {
 			session.close();
 		}
 	}
+//	url 추가
+public void updateUrlLink(OnedayClass onedayClass) {
+	SqlSession session = MybatisUtil.getSqlSession();
+
+	try {
+		ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
+		mapper.updateUrl(onedayClass);
+		session.commit();
+
+	} catch (Exception e) {
+		log.error(" url  등록 실패", e);
+
+	} finally {
+		session.close();
+	}
+}
 
 	// 카드 필요한 정보
 	public List<OnedayClass> cardInfo(Criteria cri) {

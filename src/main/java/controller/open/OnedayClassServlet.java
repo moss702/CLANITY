@@ -12,12 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import domain.Member;
+import domain.dto.Criteria;
 import domain.en.MemberRole;
 import domain.onedayClass.ClassInfo;
 import domain.onedayClass.ClassOpen;
 import domain.onedayClass.OnedayClass;
 import lombok.extern.slf4j.Slf4j;
 import service.ClassService;
+import util.AlertUtil;
 import util.ParamUtil;
 
 @Slf4j
@@ -48,9 +50,9 @@ public class OnedayClassServlet extends HttpServlet {
 			
 			return;
 		}
-//		
-		// 등록
-		
+//		글번호나 qetQs사용시 필요 이거 어떻게 사용할지 보기
+		Criteria cri = Criteria.initUrl(req);
+		// 서비스 등록
 		ClassService classService = new ClassService();
 		
 		 OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
@@ -69,12 +71,24 @@ public class OnedayClassServlet extends HttpServlet {
 	     classService.register(onedayClass);
 	     log.info("클래스:{}", onedayClass);
 
-//	      등록 후에 url 등록은 리디렉션으로 진행하기(디테일 페이지로 가게하기)
-//		req.get
+		log.info("classId: {}, url: {}", onedayClass.getClassId(), onedayClass.getUrl());
+
+//	      등록 후에 url 등록은 (이거 enroll 쪽에 jsp있음)
+		 String url =  "/classDetailedPage?classId=" + onedayClass.getClassId() + "&openId=" + onedayClass.getOpenId();
+		 onedayClass.setUrl(url);
+		 classService.updateUrlLink(onedayClass);
+
+		 log.info("URl : {}", url );
+//		 추가하기
+		AlertUtil.alert("클래스 개설 신청이 완료되었습니다.", url , req, resp);
+
+
+
+
 		
 	      // 메인 페이지이동
 	      
-	      req.getRequestDispatcher("/WEB-INF/views/category/categoryMain.jsp").forward(req, resp);
+//	      req.getRequestDispatcher("/WEB-INF/views/category/categoryMain.jsp").forward(req, resp);
 	      
 	
 

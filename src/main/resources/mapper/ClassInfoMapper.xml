@@ -31,6 +31,7 @@
 		#{price}, #{discount}
 		)
 	</insert>
+
 	<!-- 오픈 정보 추가 (나중에 등록시 필요) 마스터가 클래스 아이디라 생각하고 비지니스 아이디 없으면 추가 불가(확인하기) -->
 	<insert id="insertClassOpen"
 		parameterType="domain.onedayClass.OnedayClass" useGeneratedKeys="true"
@@ -42,6 +43,10 @@
 		#{masterId}, #{minParticipants}, #{maxParticipants}, #{status}
 		)
 	</insert>
+<!--	url 정보 업데이트로 추가-->
+	<update id="updateUrl" parameterType="domain.onedayClass.OnedayClass">
+	update class set url = #{url} where class_id = #{classId}
+	</update>
 
 	<!-- 클래스 정보 조회 -->
 <!-- 

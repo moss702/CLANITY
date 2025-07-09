@@ -21,7 +21,9 @@ public class Criteria { // 페이징 처리 + 검색 조건 전달
 	private String type = ""; // 검색조건 (Title, Content)
 	private String keyword = ""; // 검색어
 	
-//	추가 해서 바꾸기
+//	추가하기(클래스아이디랑 오픈 아이디)
+	private Long classId;
+	private Long openId;
 
 
 
@@ -73,6 +75,8 @@ public class Criteria { // 페이징 처리 + 검색 조건 전달
 		}
 		return cri;
 	}
+
+
 	// 검색어 쿼리스트링으로 url에 담아서 가져가기
 	public String getQs() {
 		String[] strs = { "categoryId=" + categoryId, "amount=" + amount, "type=" + type, "keyword=" + keyword };
@@ -86,11 +90,29 @@ public class Criteria { // 페이징 처리 + 검색 조건 전달
 		return getQs() + "&page=" + page;
 	}
 
-	// 임시로 만들어 두었습니다!
+	// 카테고리 목록에 필요한 QS임시로 만들어 두었습니다!
 	public String getQs3() {
 		String[] strs = { "amount=" + amount, "type=" + type, "keyword=" + keyword };
 
 		String str = String.join("&", strs);
 		return str;
+	}
+	// 상세페이지 아이디 조회 QS임시로 만들어 두었습니다! (나중에 수정 예정)
+	public String getQsClass() {
+		String[] strs = { "classId=" + classId,  "openId=" + openId };
+
+		String str = String.join("&", strs);
+		return str;
+	}
+	//  클래스 상세 페이지 url
+	public static Criteria initUrl(HttpServletRequest req) {
+		Criteria cri = new Criteria();
+		try {
+			cri.classId =  Long.parseLong(req.getParameter("classId"));
+			cri.openId =  Long.parseLong(req.getParameter("openId"));
+
+		} catch (Exception e) {
+		}
+		return cri;
 	}
 }

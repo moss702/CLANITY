@@ -32,7 +32,7 @@ public class PageList extends HttpServlet {
 		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
 
 		Criteria cri = Criteria.init(req);
-		log.info("{}", cri);
+//		log.info("{}", cri);
 //		리스트가 필요한가?
 	
 //		List<OnedayClass> cards = service.cardInfo(onedayClass);

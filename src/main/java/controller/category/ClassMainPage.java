@@ -38,11 +38,11 @@ public class ClassMainPage extends HttpServlet {
 //		
 //		req.setAttribute("cards", cards);
 		req.getRequestDispatcher("/WEB-INF/views/category/mainClassPage.jsp").forward(req, resp);
-		log.info("pageDto: {}", new PageDto(cri, service.getCount(cri)));
-
-		log.info("Criteria: {}", cri);
-		log.info("Total count: {}", service.getCount(cri));
-		log.info("Cards.size: {}", service.cardInfo(cri).size());
+//		log.info("pageDto: {}", new PageDto(cri, service.getCount(cri)));
+//
+//		log.info("Criteria: {}", cri);
+//		log.info("Total count: {}", service.getCount(cri));
+//		log.info("Cards.size: {}", service.cardInfo(cri).size());
 
 	}
 

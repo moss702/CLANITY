@@ -23,7 +23,7 @@ public class ClassInfoMapperTest {
             .setPrettyPrinting()
             .create()
             .toJson(mapper.listRegion());
-        log.info(json);
+//        log.info(json);
     }
 //    @Test
 //    @DisplayName("클래스 지역 조회")

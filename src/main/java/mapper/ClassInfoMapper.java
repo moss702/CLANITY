@@ -21,7 +21,11 @@ public interface ClassInfoMapper {
 	
 	// 클래스 삭제 나중에 클래스 아이디 기준으로 삭제 가 되어야 함
 	void delete(Long classId);
-	
+
+//	url업데이트
+	void updateUrl(OnedayClass onedayClass);
+
+
 	//클래스 단일 선택
 	
 	OnedayClass selectOneCategoryId(Long categoryId);

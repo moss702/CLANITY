@@ -29,7 +29,7 @@ public class CategoryAll extends HttpServlet  {
 	
 
 		Criteria cri = Criteria.initList(req);
-		log.info("{}", cri);
+//		log.info("{}", cri);
 	
 
 		// 페이지 불러오기 및 카드 불러오기		
