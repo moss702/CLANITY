@@ -20,13 +20,12 @@ public class Criteria { // 페이징 처리 + 검색 조건 전달
 	private Long categoryId = 1L; // 카테고리 번호
 	private String type = ""; // 검색조건 (Title, Content)
 	private String keyword = ""; // 검색어
+	
+//	추가 해서 바꾸기
 
 
-	private int page = 1;			// 현재 페이지 번호 (기본값 1)
-	private int amount = 10;		// 한 페이지당 게시글 수 (기본값 10)
-	private Long categoryId = 2L;		// 카테고리 번호
-	private String type = "";		// 검색조건 (Title, Content)
-	private String keyword = "";	// 검색어
+
+
 	
 	// 페이지, 게시글 개수, 카테고리 번호로 Cri 재설정
 	public Criteria(int page, int amount, Long categoryId) {
@@ -74,7 +73,6 @@ public class Criteria { // 페이징 처리 + 검색 조건 전달
 		}
 		return cri;
 	}
-
 	// 검색어 쿼리스트링으로 url에 담아서 가져가기
 	public String getQs() {
 		String[] strs = { "categoryId=" + categoryId, "amount=" + amount, "type=" + type, "keyword=" + keyword };

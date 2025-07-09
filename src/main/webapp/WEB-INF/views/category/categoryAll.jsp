@@ -22,9 +22,9 @@
 		<h6 class="fw-bold mb-3">카테고리 전체</h6>
 		<ul class="list-group list-group-flush">
 			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">컨셉파티</a></li>
+				class="text-decoration-none text-dark">전체</a></li>
 			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">홈파티</a></li>
+				class="text-decoration-none text-dark">핸드메이드</a></li>
 			<li class="list-group-item ps-0 border-0"><a href="#"
 				class="text-decoration-none text-dark">내향인파티</a></li>
 			<li class="list-group-item ps-0 border-0"><a href="#"
