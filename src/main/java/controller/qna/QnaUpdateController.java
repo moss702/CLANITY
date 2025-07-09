@@ -1,4 +1,4 @@
-package controller.board;
+package controller.qna;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import domain.Attach;
 import domain.Board;
-import service.AttachLinkService;
-import service.AttachService;
 import service.BoardService;
 
 @WebServlet("/qna/update")

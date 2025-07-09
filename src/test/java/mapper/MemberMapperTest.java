@@ -47,15 +47,22 @@ public class MemberMapperTest {
 	@Test
 	@DisplayName("단일 유저 정보 수정 테스트")
 	public void updateMember() {
-		String email = "testtest@naver.com";
+		String email = "user1006@example.com";
 		Member member = memberMapper.findByEmail(email);
 		log.info("선택한 유저 정보 : {}", member);
 		
-		member.setNickname("modifinickname@naver.com");
-		member.setPhone("445711114");
-		member.setGender(Gender.FEMALE);
-		
-		memberMapper.updateOne(member);
+		member.setNickname("샘플데이터");
+//		member.setPhone("445711114");
+//		member.setGender(Gender.FEMALE);
+		memberMapper.update(member);
 		log.info("수정된 정보 {}",member);
+	}
+	
+	@Test
+	@DisplayName("유저 정보 softdelete update 테스트")
+	public void updateWithdraw() {
+		Member member = memberMapper.findById(1005L);
+		log.info("선택한 유저 정보 : {}", member);
+		
 	}
 }

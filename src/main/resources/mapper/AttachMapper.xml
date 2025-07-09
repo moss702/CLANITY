@@ -6,19 +6,19 @@
 
   <!-- attach DB 저장 -->
   <insert id="insert" useGeneratedKeys="true" keyProperty="attachId">
-	INSERT INTO attach (file_name, original_name, mime_type, image, size, path) 
-    VALUES (#{fileName}, #{originalName}, #{mimeType}, #{image}, #{size}, #{path})
+	INSERT INTO attach (uuid, origin, mime_type, image, size, path) 
+    VALUES (#{uuid}, #{origin}, #{mimeType}, #{image}, #{size}, #{path})
   </insert>
   
   <!-- 삭제 : attach link 삭제시 연결된 link_id가 없는 attach 데이터도 삭제 -->
   <delete id="delete">
-    DELETE FROM attach WHERE attach_id = #{attachId}
+    DELETE FROM attach WHERE uuid = #{uuid}
   </delete>
 
   <!-- 첨부파일 단일 조회 -->
   <select id="findById" resultType="attach">
     SELECT * FROM attach
-    WHERE attach_id = #{attachId}
+    WHERE uuid = #{uuid}
   </select>
 </mapper>
 
