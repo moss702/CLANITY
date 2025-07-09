@@ -73,7 +73,6 @@ public class Criteria { // 페이징 처리 + 검색 조건 전달
 		}
 		return cri;
 	}
-
 	// 검색어 쿼리스트링으로 url에 담아서 가져가기
 	public String getQs() {
 		String[] strs = { "categoryId=" + categoryId, "amount=" + amount, "type=" + type, "keyword=" + keyword };
