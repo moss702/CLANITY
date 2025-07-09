@@ -52,17 +52,17 @@
   		<if test="phone != null and phone != ''">
   		phone = #{phone},
   		</if>
-  		<if test="gender != null and gender != ''">
+  		<if test="gender != null">
   		gender = #{gender},
   		</if>
-  		<if test="role != null and role != ''">
+  		<if test="role != null">
   		role = #{role},
   		</if>
-  		<if test="status != null and status != ''">
+  		<if test="status != null">
   		status = #{status},
   		</if>
   	</set>
-  	where member_id = #{}
+  	where member_id = #{memberId}
   	</update>
   	
   	

@@ -37,6 +37,7 @@ public class HikariCPUtil {
 		config.setMinimumIdle(3);
 		config.setIdleTimeout(30000);
 		config.setConnectionTimeout(30000);
+		config.setLeakDetectionThreshold(15000);//미반납 경고
 		config.setPoolName("MyHikariCp");
 		
 		dataSource = new HikariDataSource(config);	
