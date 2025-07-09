@@ -51,15 +51,43 @@ public void updateUrlLink(OnedayClass onedayClass) {
 	}
 }
 
-	// 카드 필요한 정보
-	public List<OnedayClass> cardInfo(Criteria cri) {
-		try (SqlSession session = MybatisUtil.getSqlSession()) {
+	// 상세페이지 필요한 정보
+	public OnedayClass detailPageInfo(Long classId, Long openId) {
+		SqlSession session = MybatisUtil.getSqlSession();
+		try  {
 			ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
-			return mapper.listClass(cri);
+			return  mapper.listClassDetailPage(classId, openId);
+			
+		} catch (Exception e) {
+			log.error(" 상세페이지 조회 실패", e);
+			return null;
+		} finally {
+			session.close();
 		}
 
 	}
 
+	// 클래스 카테고리 별 정리 (카테고리 아이디별정리)
+//	// 카드 필요한 정보
+//	public List<OnedayClass> cardInfo(Criteria cri) {
+//		try (SqlSession session = MybatisUtil.getSqlSession()) {
+//			ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
+//			return mapper.cardInfo(cri);
+//		}
+//
+//	}
+	
+	
+	// 클래스 카테고리 별 정리 (카테고리 아이디별정리)
+	public List<OnedayClass> classList(Criteria cri) {
+		try (SqlSession session = MybatisUtil.getSqlSession()) {
+			ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
+			return mapper.listClass(cri);
+		  } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    return null;
+		}
 	// 카드 카테고리 별 정리 (카테고리 아이디별정리)
 	public List<OnedayClass> cardByCategory(Long categoryId) {
 		try (SqlSession session = MybatisUtil.getSqlSession()) {
@@ -70,7 +98,7 @@ public void updateUrlLink(OnedayClass onedayClass) {
 		}
 		return null;
 	}
-//	이거 필요?
+//	이거 필요함 페이지 네이션에 필요 (카테고리 목록 조회나 클래스 목록 조회에 필요함)
 	public long getCount(Criteria cri) {
 		try (SqlSession session = MybatisUtil.getSqlSession()) {
 			ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
@@ -81,5 +109,7 @@ public void updateUrlLink(OnedayClass onedayClass) {
 		return 0;
 		
 	}
+	//
+	
 	
 }	

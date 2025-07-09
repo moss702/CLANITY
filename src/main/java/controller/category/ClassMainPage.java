@@ -33,7 +33,7 @@ public class ClassMainPage extends HttpServlet {
 //		log.info("{}", cri);
 //		
 		req.setAttribute("pageDto", new PageDto(cri, service.getCount(cri)));
-		req.setAttribute("cards", service.cardInfo(cri));
+		req.setAttribute("cards", service.classList(cri));
 
 //		
 //		req.setAttribute("cards", cards);
