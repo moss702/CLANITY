@@ -57,6 +57,8 @@
 		<div class="row row-cols-1 row-cols-md-4 g-4">
 			<c:forEach items="${cards}" var="c">
 				<div class="col">
+				<a href="${c.url}" class="text-decoration-none text-dark w-100 h-100"
+				style="display: block;">
 					<div class="card h-100 border border-2 rounded-4 shadow-sm mx-auto" style="width: 250px; border-color: #E63946;">
 						<!-- 이미지 영역 -->
 						<div class="position-relative">
@@ -105,6 +107,7 @@
 							</div>
 						</div>
 					</div>
+					</a>
 				</div>
 
 			</c:forEach>

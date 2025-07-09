@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Criteria { // 페이징 처리 + 검색 조건 전달
 //페이지 숫자
 	private int page = 1; // 현재 페이지 번호 (기본값 1)
-	private int amount = 12; // 한 페이지당 게시글 수 (기본값 10)
+	private int amount = 20; // 한 페이지당 게시글 수 (기본값 10)
 	private Long categoryId = 1L; // 카테고리 번호
 	private String type = ""; // 검색조건 (Title, Content)
 	private String keyword = ""; // 검색어
