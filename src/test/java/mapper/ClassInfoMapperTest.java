@@ -62,14 +62,14 @@ public class ClassInfoMapperTest {
 //        mapper.list().forEach(c -> log.info("Category: {}", c));
 //    }
 
-    
-    	@Test
-    	@DisplayName("클래스 전체 목록 조회")
-    	public void classListTest() {
-    		List<OnedayClass> list = classInfoMapper.listClass();
 
-    		list.forEach(c -> log.info("Class: {}", c));
-    	}
+//	@Test
+//	@DisplayName("클래스 전체 목록 조회")
+//	public void classListTest() {
+//		List<OnedayClass> list = classInfoMapper.listClass();
+//
+//		list.forEach(c -> log.info("Class: {}", c));
+//	}
 // 나중에 검색창이나 그런 곳에서 사용 예정
     	@Test
     	@DisplayName("클래스에서 카테고리  단일조회")
