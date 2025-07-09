@@ -22,7 +22,7 @@ public class Criteria { // 페이징 처리 + 검색 조건 전달
 	private String keyword = ""; // 검색어
 	
 //	추가 해서 바꾸기
-//	private Long
+
 
 
 
