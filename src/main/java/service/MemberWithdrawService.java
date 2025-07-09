@@ -49,7 +49,7 @@ public class MemberWithdrawService{
 			
 			member.setEmail(PasswordEncoder.encode(member.getEmail()));
 			member.setNickname("탈퇴한 사용자입니다");
-			member.setPhone(null);
+			member.setPhone("000-0000-0000");
 			member.setStatus(MemberStatus.DEACTIVATED);
 			member.setGender(Gender.UNSPECIFIED);
 			

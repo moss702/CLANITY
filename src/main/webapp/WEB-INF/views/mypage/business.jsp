@@ -3,10 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <%@ include file="../common/head.jsp"%>
 </head>
 <body>
-<p> 사업자 메인 페이지 -> 생성된 클래스 확인 가능</p>
+<%@ include file="../common/header.jsp"%>
+    <main class="d-flex" style="min-height: 100vh;">
+        <%@ include file="./mypageSidebar.jsp"%>
+    </main>
 </body>
 </html>
