@@ -118,7 +118,6 @@ body {
 		<div
 			class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
 			<c:forEach var="c" items="${cards}">
-				<jsp:include page="cardTmp.jsp" />
 			</c:forEach>
 		</div>
 	</main>

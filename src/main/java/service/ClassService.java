@@ -3,6 +3,8 @@ package service;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+
+import domain.dto.Criteria;
 import domain.onedayClass.OnedayClass;
 import util.MybatisUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -34,14 +36,11 @@ public class ClassService {
 	}
 
 	// 카드 필요한 정보
-	public List<OnedayClass> cardInfo(OnedayClass onedayClass) {
+	public List<OnedayClass> cardInfo(Criteria cri) {
 		try (SqlSession session = MybatisUtil.getSqlSession()) {
 			ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
-			return mapper.listClass();
-		} catch (Exception e) {
-			e.printStackTrace();
+			return mapper.listClass(cri);
 		}
-		return null;
 	}
 
 	// 카드 카테고리 별 정리 (카테고리 아이디별정리)
@@ -53,6 +52,17 @@ public class ClassService {
 			e.printStackTrace();
 		}
 		return null;
-
 	}
-}
+//	이거 필요?
+	public long getCount(Criteria cri) {
+		try (SqlSession session = MybatisUtil.getSqlSession()) {
+			ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
+			return mapper.getCount(cri);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+		
+	}
+	
+}	
