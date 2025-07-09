@@ -37,13 +37,9 @@ public class Login extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
-		
-		log.info("email :{}, password : {}",email, password);
-		
+
 		boolean ret = new MemberService().login(email, password);
-		
-		log.info("{}",ret);
-		
+
 		if(ret) {
 			Member member = new MemberService().findByEmail(email);
 			HttpSession session = req.getSession();

@@ -56,7 +56,7 @@ public class EmailService {
         	Message message = new MimeMessage(session);
         	message.setFrom(new InternetAddress(senderEmail));
         	message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-        	message.setSubject("CLANITY 이메일 인증 요청 test2");
+        	message.setSubject("CLANITY 이메일 인증 요청");
         	
         	String verifyUrl = "http://localhost:8080/CLANITY/member/verify?token=" + uuid;
         	String content = "아래 링크를 클릭하여 이메일 인증을 완료해주세요:\n" + verifyUrl;

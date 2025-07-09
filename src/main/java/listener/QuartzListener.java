@@ -23,14 +23,12 @@ public class QuartzListener implements ServletContextListener{
 					.withIdentity("withdrawCleanupJob", "member")
 					.build();
 		} catch (SchedulerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		// TODO Auto-generated method stub
 		ServletContextListener.super.contextInitialized(sce);
 	}
 

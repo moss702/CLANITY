@@ -32,7 +32,6 @@ public class Register extends HttpServlet{
 //		log.info("가입시 입력한 이메일 값 : {},  가입시 입력한 비밀번호 값 : {}", email, password);
 		
 		Member member  = Member.builder().email(email).password(password).build();
-		log.info("입력 받은 회원 정보: {}", member);
 		
 		if( new MemberService().register(member) == 0) {
 			AlertUtil.alert("회원가입에 실패했습니다.", "/index", req, resp);
