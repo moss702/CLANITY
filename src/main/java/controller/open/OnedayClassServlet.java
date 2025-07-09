@@ -64,11 +64,13 @@ public class OnedayClassServlet extends HttpServlet {
 	      log.info("제목: {}", onedayClass.getTitle());
 	      
 	      log.info("카테고리 ID: {}", onedayClass.getCategoryId());
+
 //	      등록
-	      
 	     classService.register(onedayClass);
 	     log.info("클래스:{}", onedayClass);
-	      
+
+//	      등록 후에 url 등록은 리디렉션으로 진행하기(디테일 페이지로 가게하기)
+//		req.get
 		
 	      // 메인 페이지이동
 	      

@@ -41,6 +41,7 @@ public class ClassService {
 			ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
 			return mapper.listClass(cri);
 		}
+
 	}
 
 	// 카드 카테고리 별 정리 (카테고리 아이디별정리)
