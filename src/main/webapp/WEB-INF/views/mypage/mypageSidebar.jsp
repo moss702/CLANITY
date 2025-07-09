@@ -37,6 +37,8 @@
 	<li class="nav-item"><a class="nav-link" href="#">공지사항</a></li>	
     <li class="nav-item"><a class="nav-link" href="#">문의하기</a></li>
     <li class="nav-item"><a class="nav-link" href="${cp}/mypage/application">사업자신청</a></li>
+    <li class="nav-item"><a class="nav-link" href="${cp}/mypage/business">클래스관리</a></li>
+
     <li class="nav-item"><a class="nav-link" href="${cp}/mypage/deactivate">탈퇴 요청</a></li>
     <li class="nav-item"><a class="nav-link" href="${cp}/member/logout">로그아웃</a></li>
   </ul>
