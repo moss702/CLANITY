@@ -18,8 +18,4 @@ public interface MemberMapper {
 	int update(Member member);
 	
 	int updateEmailverified(String memberEmail);
-
-	void updateOne(Member member);
-	
-	void updateWithdraw(Member member);
 }

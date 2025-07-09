@@ -108,7 +108,7 @@ public class MemberService{
         SqlSession session = MybatisUtil.getSqlSession();
         try {
             MemberMapper mapper = session.getMapper(MemberMapper.class);
-            mapper.updateOne(member);
+            mapper.update(member);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
