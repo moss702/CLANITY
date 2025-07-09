@@ -29,7 +29,7 @@ public class MypageDeactivate extends HttpServlet{
 		
 		Member member = (Member) req.getSession().getAttribute("member");
 		
-		log.info("가져온 세션의 member 객체 :{}",member);
+		log.info("탈퇴를 위해 가져온 member 객체 :{}",member);
 		
 		MemberWithdraw request = MemberWithdraw.builder()
 				.memberId(member.getMemberId())
@@ -37,7 +37,7 @@ public class MypageDeactivate extends HttpServlet{
 				.nicknameMasked(member.getNickname())
 				.build();
 		
-		log.info("만들어지는 객체{}",request);
+		log.info("탈퇴를 위해 만들어지는 객체{}",request);
 		 if(new MemberWithdrawService().withdrawRuest(request) == 0) {
 			 AlertUtil.redirectAlert("오류가 발생했습니다. 다시 시도해주세요", "/mypage/deactivate", "red", req, resp);
 		 } else {
