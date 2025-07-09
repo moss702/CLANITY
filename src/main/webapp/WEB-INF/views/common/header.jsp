@@ -21,7 +21,7 @@
 				<a class="text-dark text-decoration-none fw-semibold"
 					href="${cp}/mainClassPage">클래스</a> <a
 					class="text-dark text-decoration-none fw-semibold"
-					href="${cp}/categoryMain">소셜링</a>
+					href="${cp}/categoryAll">소셜링</a>
 				<div class="dropdown">
 					<a href="#"
 						class="text-dark text-decoration-none fw-semibold dropdown-toggle"
