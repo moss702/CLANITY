@@ -102,7 +102,8 @@
               style="background: none; border: none; padding: 0;">
               <div><strong class="text-danger">[FAQ]</strong> ${faq.title}</div>
               <small class="text-muted">
-	            <fmt:formatDate value="${faq.createdAt}" pattern="yyyy.MM.dd"/>
+            		<fmt:parseDate value="${faq.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
+             		<fmt:formatDate value="${parsedDate}" pattern="yy.MM.dd"/>
               </small>
            </button>
          </div>

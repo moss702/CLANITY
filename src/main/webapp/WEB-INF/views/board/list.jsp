@@ -48,19 +48,16 @@
                 	<a href="write?${pageDto.cri.qs2}" class="btn btn-dark btn-sm  float-end"><i class="fa-solid fa-pen-fancy"></i> 글쓰기</a>
 			    </div>
             </div>   
-            
-             <jsp:include page="list_template/list.jsp" />
+     
+       <jsp:include page="list_template/list.jsp" />
    		<c:forEach items="${cate}" var="c">
    			<c:if test="${c.categoryId == pageDto.cri.categoryId}">
    			<c:choose>
-   				<c:when test="${c.getCViewType() == 'GALLERY'}">
-   					<jsp:include page="list_template/gallery.jsp" />
+   				<c:when test="${c.categoryId() == 1L">
+		            <jsp:include page="../qna/faq.jsp" />
    				</c:when>
-   				<c:when test="${c.getCViewType() == 'LIST'}">
-		            <jsp:include page="list_template/list.jsp" />
-   				</c:when>
-   				<c:when test="${c.getCViewType() == 'FEED'}">
-   					
+   				<c:when test="${c.categoryId() == 2L">
+		            <jsp:include page="../qna/qna_mylist.jsp" />
    				</c:when>
    			</c:choose>
    			</c:if>

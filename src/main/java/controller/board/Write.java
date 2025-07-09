@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 
 import domain.Attach;
 import domain.Board;
+import domain.Member;
 import domain.dto.Criteria;
 import lombok.extern.slf4j.Slf4j;
 import service.BoardService;
@@ -48,7 +49,7 @@ public class Write extends HttpServlet{
 			AlertUtil.alert("로그인 후 글 작성해주세요", "/member/login?" + cri.getQs2(), req, resp, true);
 			return;
 		}
-		
+    	
 
 		// 첨부파일 내용 수집
 		String encodedStr = req.getParameter("encodedStr"); //현재 문자열

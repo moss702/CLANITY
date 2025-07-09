@@ -209,6 +209,7 @@
 		if(!confirm('수정하시겠습니까?')){
 			return;
 		}
+		
 		const data = [];
 		$(".attach-list li").each(function(){
 			//console.log({...this.dataset});
