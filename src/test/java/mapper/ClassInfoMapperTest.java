@@ -20,7 +20,7 @@ public class ClassInfoMapperTest {
 
     private ClassSocialingCategoryMapper mapper = MybatisUtil.getSqlSession().getMapper(ClassSocialingCategoryMapper.class);
 
-     
+
 // json 리스너 관련 테스트
 
 //    @Test
