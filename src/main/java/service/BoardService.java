@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import domain.AttachLink;
 import domain.Board;
+import domain.Member;
 import domain.dto.Criteria;
 import lombok.extern.slf4j.Slf4j;
 import mapper.AttachLinkMapper;
@@ -19,7 +20,6 @@ public class BoardService {
         try (SqlSession session = MybatisUtil.getSqlSession()) {
             BoardMapper mapper = session.getMapper(BoardMapper.class);
             List<Board> list = mapper.list(cri);
-            long cnt = mapper.getCount(cri);
             return list;
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,6 +41,7 @@ public class BoardService {
     
 
     public void write(Board board) {
+
     	SqlSession session = MybatisUtil.getSqlSession(false);
     	try {
             BoardMapper mapper = session.getMapper(BoardMapper.class);
@@ -89,17 +90,35 @@ public class BoardService {
 	   	SqlSession session = MybatisUtil.getSqlSession(false);
 		try {
 	        BoardMapper mapper = session.getMapper(BoardMapper.class);
-	        mapper.update(board);
 	        
 	        AttachMapper attachMapper = session.getMapper(AttachMapper.class);
-	        // 기존 첨부파일의 메타데이터 제거
-//	        attachMapper.deleteByBno(board.getBoardId());
+	        AttachLinkMapper attachLinkMapper = session.getMapper(AttachLinkMapper.class);
+//            attachLinkMapper.list(AttachLink.builder().linkType("board").lno(board.getBoardId()).build())
+//            .stream() // 현재 갖고있는 첨부파일 list 가져오기
+//            .peek(attachLinkMapper::)
+//            .map(AttachLink::getUuid)
+//            .forEach(attachMapper::delete);
+
+	        // 기존 첨부파일의 메타데이터 제거	        
+            attachLinkMapper.list(AttachLink.builder().linkType("board").lno(board.getBoardId()).build())
+            // 했는데 안끝내고 스트림!!
+            .stream()
+            .peek(attachLinkMapper::delete) // 스트림 안에서 al 삭제 * long
+            .map(AttachLink::getUuid) 		// uuid stream으로 변환 * 스트링
+            .forEach(attachMapper::delete);
+            
 	        
-	        // 새로 첨부파일 메타데이터 등록
-	        board.getAttachs().forEach(a -> {
-//	        	a.setBno(board.getBoardId());
-	        	attachMapper.insert(a);
-	        });
+            // 삭제? 지우고 다시 등록하기
+            board.getAttachs().stream()
+        	.peek(attachMapper::insert)
+        	.map(a -> AttachLink.builder()
+        			.uuid(a.getUuid())
+        			.linkType("board")
+        			.lno(board.getBoardId()).build())
+        	.forEach(attachLinkMapper::insert);
+            
+            // 게시글 내용수정
+            mapper.update(board);
 	        session.commit();
 	    } catch (Exception e) { //중간에 문제 있으면 롤백
 	    	session.rollback(); 
@@ -138,24 +157,21 @@ public class BoardService {
         }
     }
 
-	
-	
-	
-	
-	
-	
-	
-    public void remove(Long bno) {
+    public void remove(Long boardId) {
 	   	SqlSession session = MybatisUtil.getSqlSession(false);
 		try {
 			BoardMapper mapper = session.getMapper(BoardMapper.class);
-            AttachMapper attachMapper = session.getMapper(AttachMapper.class);
-//            ReplyMapper replyMapper = session.getMapper(ReplyMapper.class);
 
-//            replyMapper.deleteByBno(bno);
-//            attachMapper.deleteByBno(bno);
-            mapper.delete(bno);
-            
+			AttachMapper attachMapper = session.getMapper(AttachMapper.class);
+            AttachLinkMapper attachLinkMapper = session.getMapper(AttachLinkMapper.class);
+            // 보드아이디로 엮인 어테치링크 찾아서 리스트로 가져온다. * 이게 어태치링크매퍼의 list 호출..
+            attachLinkMapper.list(AttachLink.builder().linkType("board").lno(boardId).build())
+            // 했는데 안끝내고 스트림!!
+            .stream()
+            .peek(attachLinkMapper::delete) // 스트림 안에서 al 삭제 * long
+            .map(AttachLink::getUuid) 		// uuid stream으로 변환 * 스트링
+            .forEach(attachMapper::delete);
+            mapper.delete(boardId);
             session.commit();
 	    } catch (Exception e) { //중간에 문제 있으면 롤백
 	    	session.rollback();
@@ -164,7 +180,6 @@ public class BoardService {
 	    	session.close();
 	    }
     }
-
     
     public long getCount(Criteria cri) {
         try (SqlSession session = MybatisUtil.getSqlSession()) {

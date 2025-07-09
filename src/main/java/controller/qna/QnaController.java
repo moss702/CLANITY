@@ -63,7 +63,7 @@ public class QnaController extends HttpServlet{
 	    log.info("loginMember: {}", loginMember);
 	    
 	    
-	    String inqType = req.getParameter("inqType");		   // 문의 타입
+	    String inqType = req.getParameter("typeSelect");		   // 문의 타입
 	    String title = req.getParameter("title");			   // 문의 제목
 	    String content = req.getParameter("content");		   // 문의 내용
 	    String receiverIdStr = req.getParameter("receiverId"); // 문의 수신자 : 강사 ID
@@ -86,15 +86,15 @@ public class QnaController extends HttpServlet{
 	    service.write(board);
 
 	    // 첨부파일 처리 : UploadService 호출 -> attachLink, attach에 저장됨
-//	    try {   
-//	        new UploadService().handleUpload(req, "board", board.getBoardId());
-//	        								// 사용할 카테고리, 카테고리 id
-//	    } catch (Exception e) {
-//	        log.error("파일 업로드 중 오류 발생", e);
-//	        req.setAttribute("error", "파일 업로드에 실패했습니다.");
-//	        req.getRequestDispatcher("/WEB-INF/views/qna/qna_main.jsp").forward(req, resp);
-//	        return;
-//	    }
+	    try {   
+	       // new UploadService().handleUpload(req, "board", board.getBoardId());
+	        								// 사용할 카테고리, 카테고리 id
+	    } catch (Exception e) {
+	        log.error("파일 업로드 중 오류 발생", e);
+	        req.setAttribute("error", "파일 업로드에 실패했습니다.");
+	        req.getRequestDispatcher("/WEB-INF/views/qna/qna_main.jsp").forward(req, resp);
+	        return;
+	    }
 	    log.info("문의 작성 완료! boardId: {}, memberId: {}", board.getBoardId(), loginId);
 	    resp.sendRedirect(req.getContextPath() + "/qna/mylist");
 	}

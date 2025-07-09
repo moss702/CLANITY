@@ -22,7 +22,7 @@
                <div class="col-1 small">조회수</div>
            </div>
        </a>
-       ${boards}
+      
        <c:forEach items="${boards}" var="board">
        
        <a href="view?boardId=${board.boardId}&${pageDto.cri.qs2}" class="list-group-item list-group-item-action">

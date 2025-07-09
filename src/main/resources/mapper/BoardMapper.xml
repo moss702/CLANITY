@@ -120,8 +120,8 @@
 		update board set
 		title = #{title},
 		content = #{content},
-		view_count = #{viewCount},
-		updated_at = now()
+		updated_at = now(),
+		category_id = #{categoryId}
 		where board_id = #{boardId}
 	</update>
 	
@@ -129,6 +129,8 @@
 	<delete id="delete">
 		delete from board
 		where board_id = #{boardId}
+		
+		
 	</delete>
 	
 <!-- 조회수 증가 -->
@@ -137,7 +139,6 @@
 		set view_count = view_count + 1
 		where board_id = #{boardId}
 	</update>
-	
 <!-- 게시글 갯수 -->
 	<select id="getCount" resultType="long">
 			select count(*) from board

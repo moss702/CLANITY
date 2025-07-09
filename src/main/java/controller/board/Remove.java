@@ -19,13 +19,13 @@ public class Remove extends HttpServlet{
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		if(req.getParameter("bno") == null) {
+		if(req.getParameter("boardId") == null) {
 			AlertUtil.alert("잘못된 접근입니다", "/board/list", req, resp);
 			return;
 		}
 		
 		BoardService service = new BoardService();
-		service.remove(Long.parseLong(req.getParameter("bno")));
+		service.remove(Long.parseLong(req.getParameter("boardId")));
 
 		Criteria cri = Criteria.init(req);
 		
