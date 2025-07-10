@@ -6,77 +6,12 @@
 <html>
 <head>
 <%@ include file="../common/head.jsp" %>
-	<link rel="stylesheet" href="${cp}/css/qna_style.css"/>
 </head>
 <body>
-	<%@ include file="../common/header.jsp" %>
-	<div class="settings-wrapper container">
-	<div class="category-menu">
-		<c:forEach items="${boardCategories}" var="cat">
-			<c:if test="${cat.type == 'LIST'}">
-				<a class="btn pill-btn w-100 my-3" href="${cp}/board/list?categoryId=${cat.categoryId}">${cat.name}</a>
-			</c:if>
-		</c:forEach>
-	</div>
 
-	<%-- 문의 하기 시작 --%>
-	<div class="flex-grow-1">
-		<div class="section-title">
-			<h2>1:1 문의하기
-			</h2>
-			<p>궁금한 점이 있다면 언제든 문의해주세요.</p>
-		</div>
-
-		<div class="form-box">
-			<form method="post" action="write">
-				<!-- 문의 유형 -->
-				<div class="mb-3">
-					<label for="typeSelect" class="form-label fw-semibold">문의 유형</label>
-					<select class="form-select" id="typeSelect" required="">
-						<option selected="" disabled="">문의 유형 선택</option>
-						<option>결제/환불</option>
-						<option>클래스 정보</option>
-						<option>회원/계정</option>
-						<option>기타</option>
-					</select>
-				</div>
-
-				<!-- 제목 -->
-				<div class="mb-3">
-					<label for="titleInput" class="form-label fw-semibold">문의 제목</label>
-					<input type="text" name="title" class="form-control" id="titleInput" placeholder="예) 환불 요청 관련 문의드립니다." required="">
-				</div>
-
-				<!-- 내용 -->
-				<div class="mb-3">
-					<label for="contentTextarea" class="form-label fw-semibold">문의 내용</label>
-					<textarea class="form-control" name="content" id="contentTextarea" rows="5" placeholder="내용을 자세히 작성해주세요." required=""></textarea>
-				</div>
-
-				<!-- 첨부파일 -->
-				<div class="mb-4">
-					<label for="fileInput" class="form-label fw-semibold">첨부파일</label>
-					<input type="file" class="form-control" id="fileInput">
-					<div class="form-text">첨부파일은 최대 10MB까지 업로드 가능합니다.</div>
-				</div>
-
-				<!-- 전송 버튼 -->
-				<div class="d-grid">
-					<button type="submit" class="btn btn-danger fw-bold">문의 전송하기</button>
-				</div>
-				<input type="hidden" name="memberId" value="${member.memberId}">
-				<input type="hidden" name="categoryId" value="${cri.categoryId}">
-				<input type="hidden" name="page" value="1" />
-				<input type="hidden" name="amount" value="${cri.amount}" />
-				<input type="hidden" name="encodedStr" value="">
-			</form>
-		</div>
-	</div>
-	<%-- 문의 하기 종료 --%>
-</div>
-    <%--<div class="container p-0">
+    <div class="container p-0">
         <main>
-            <form method="post" id="writeForm" action="write">
+            <form method="post" action="modify" id="modifyForm">
                 <div class="small border-bottom border-3 border-secondary p-0 pb-2">
                 	<a href="#" class="small">
 	                	<span class="text-primary">
@@ -90,42 +25,64 @@
                 	</a>
                	</div>
                 <div class="small p-0 py-2">
-                    <input placeholder="글 제목 입력" class="form-control" name="title" id="title">
+                    <input placeholder="글 제목 입력" class="form-control" name="title" id="title" value="${board.title}">
                 </div>
                 <div class="p-0 py-2 ps-1 border-top border-1 border-muted">
-                    <textarea name="content" id="editor1" class="form-control resize-none"></textarea>
+                    <textarea name="content" id="editor1" class="form-control resize-none">${board.content}</textarea>
                 </div>
-               
-				<div class="d-grid my-2 attach-area">
-					<div class="small my-1 border-bottom border-1 border-muted p-0 pb-2"><i class="fa-solid fa-paperclip"></i> 첨부파일</div>
-					<label class="btn btn-info">파일 첨부<input type="file" multiple class="d-none" id="f1"></label>
-					<ul class="list-group my-2 attach-list">
-					</ul>  
-					<div class="row justify-content-around w-75 mx-auto attach-thumb">
-					</div> 
-				</div>
-                
-                <div class="my-2">
-                    <button class="btn btn-secondary btn-sm"><i class="fa-solid fa-list-ul"></i> 목록</button>
+                <div>
+                    <a href="${cp}/board/list?${cri.qs2}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-list-ul"></i> 목록</a>
                     <div class="float-end">
-                        <button class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-pen"></i>  글 등록</button>
+                        <button class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-pen"></i>  글 수정</button>
                     </div>
                 </div>
                 <input type="hidden" name="id" value="${member.memberId}" />
+                <input type="hidden" name="boardId" value="${board.boardId}" />
                 <input type="hidden" name="categoryId" value="${cri.categoryId}" />
-                <input type="hidden" name="page" value="1" />
+                <input type="hidden" name="page" value="${cri.page}" />
                 <input type="hidden" name="amount" value="${cri.amount}" />
+                <input type="hidden" name="type" value="${cri.type}" />
+                <input type="hidden" name="keyword" value="${cri.keyword}" />
                 <input type="hidden" name="encodedStr" value="">
-                <c:if test="${not empty param.bno}">
-                	<input type="hidden" name="bno" value="${param.bno}" />
-                </c:if>
             </form>
+            
+<!-- 첨부파일 유무 -->
+			<div class="d-grid my-2 attach-area">
+				<div class="small my-1 border-bottom border-1 border-muted p-0 pb-2"><i class="fa-solid fa-paperclip"></i> 첨부파일</div>
+				<label class="btn btn-info">파일 첨부<input type="file" multiple="" class="d-none" id="f1"></label>
+				<ul class="list-group my-2 attach-list">
+					<c:forEach items="${board.attachs}" var="a">
+					<li class="list-group-item d-flex align-items-center justify-content-between" 
+						data-uuid="${a.uuid}" 
+						data-origin="${a.origin}"
+						data-image="${a.image}"
+						data-path="${a.path}"
+						data-size="${a.size}"
+						data-odr="${a.odr}">
+						<a href="/pbl/download?uuid=${a.uuid}&origin=${a.origin}&path=${a.path}">${a.origin}</a>
+						<i class="fa-solid fa-xmark float-end text-danger"></i>
+					</li>
+					</c:forEach>
+				</ul>  
+<!-- 첨부파일 유무 + 이미지 여부 -->				
+				<div class="row justify-content-around w-75 mx-auto attach-thumb">
+					<c:forEach items="${board.attachs}" var="a">
+					<c:if test="${a.image}">
+						<div class="my-2 col-12 col-sm-4 col-lg-2" 
+							data-uuid="${a.uuid}">
+							<div class="my-2 bg-primary" style="height: 150px; background-size: cover; 
+								background-image:url('${s3url}${a.path}/t_${a.uuid}')">
+								<i class="fa-solid fa-xmark float-end text-danger m-2"></i>
+							</div>
+						</div>
+    				</c:if>
+					</c:forEach>
+				</div> 
+			</div>
+			
         </main>
-    </div>--%>
-
-
-	<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
-        
+    </div>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
     <script>
         $(function() {
             CKEDITOR.replace('editor1', {
@@ -133,10 +90,7 @@
             });
         });        
     </script>
-    
-
-    
-	<script>
+   	<script>
 	$(function() {
 		$(".attach-list").sortable();
 		//return true / false
@@ -176,7 +130,20 @@
  			event.preventDefault();
 			const formData = new FormData();
 		
-			const files = this.files; //여기서 this는 input
+			const files = this.files; //여기서 this는 input type
+			
+			const data = []; // 기존 파일목록이 들어갈 곳
+			$(".attach-list li").each(function(){
+				//console.log({...this.dataset});
+				data.push({...this.dataset});
+			});
+			
+			console.log('기존', data);
+			console.log('신규', [...files]);
+			
+			const mixedFiles = [...data.map(d => { return {name:d.origin, size:d.size/1} }), ...files];
+			console.log(mixedFiles);
+
 			for(let i = 0; i < files.length; i++){
 				formData.append("f1", files[i]);
 			}
@@ -186,7 +153,7 @@
 			const formData = new FormData(this);
 			const files = this.f1.files; */
 
-			const valid = validateFiles([...files]);
+			const valid = validateFiles(mixedFiles);
 			/* console.log(formData, valid); */
 			if(!valid) {
 				return;
@@ -203,7 +170,7 @@
 				success : function(data){
 					console.log(data);
 					
-					//확인용
+					//확인용 * 비동기처리를 한 이후에 보여져야 할 동적 데이터
 					let str = "";
 					let thumbStr = "";
 					for(let a of data){
@@ -213,8 +180,8 @@
 							data-origin="\${a.origin}"
 							data-image="\${a.image}"
 							data-path="\${a.path}"
-							data-odr="\${a.odr}"
 							data-size="\${a.size}"
+							data-odr="\${a.odr}"
 						>
 							<a href="${cp}/download?uuid=\${a.uuid}&origin=\${a.origin}&path=\${a.path}">\${a.origin}</a>
 							<i class="fa-solid fa-xmark float-end text-danger"></i>
@@ -232,31 +199,30 @@
 								</div>`
 						}
 					}
-					console.log(thumbStr);
-					$(".attach-list").html(str);
-					$(".attach-thumb").html(thumbStr);
-					
+					$(".attach-list").append(str);
+					$(".attach-thumb").append(thumbStr);
 				}
-			});
-
+			})
 		})
-		$("#writeForm").submit(function(){
-			event.preventDefault();
-			const data = [];
-			$(".attach-list li").each(function() {
-				data.push({...this.dataset});
-			});
-			console.log(JSON.stringify(data));
-			data.forEach((item, idx) => item.odr = idx);
-			// attbut에 있던 속성들을 다시 덮어쓰기
-			
-			$("[name='encodedStr']").val(JSON.stringify(data));
-			this.submit();
-		})
+	$('#modifyForm').submit(function(){
+		event.preventDefault();
+		if(!confirm('수정하시겠습니까?')){
+			return;
+		}
+		
+		const data = [];
+		$(".attach-list li").each(function(){
+			//console.log({...this.dataset});
+			data.push({...this.dataset});
+		});
+		console.log(JSON.stringify(data));
+		data.forEach((item, idx) => item.odr = idx);
+		$("[name='encodedStr']").val(JSON.stringify(data));
+		this.submit();
 	})
+})
 	</script>
-
-
+    
 <%@ include file="../common/footer.jsp" %>
 </body>
 </html>

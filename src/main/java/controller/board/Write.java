@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -55,6 +56,9 @@ public class Write extends HttpServlet{
 		String encodedStr = req.getParameter("encodedStr"); //현재 문자열
 		Type type = new TypeToken<List<Attach>>() {}.getType(); 
 		List<Attach> list = new Gson().fromJson(encodedStr, type);
+		if(list == null) {
+			list = new ArrayList<Attach>();
+		}
 		log.info("{}", list);
 		
 		// 파라미터 수집
@@ -68,6 +72,6 @@ public class Write extends HttpServlet{
 		new BoardService().write(board);
 		
 		// 리디렉션 (board / list)
-		AlertUtil.alert("글이 등록되었습니다", "/board/list?categoryId=&" + cri.getCategoryId() + "&amount=" + cri.getAmount(), req, resp);
+		AlertUtil.alert("글이 등록되었습니다", "/board/list?categoryId=" + cri.getCategoryId() + "&amount=" + cri.getAmount(), req, resp);
 	}
 }
