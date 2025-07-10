@@ -335,29 +335,30 @@ body {
 					lastEmailChecked = value;
 
 					// AJAX 요청
-				<%--	$.ajax({--%>
-				<%--		url: '${cp}/member/check-email', // URL은 실제 경로에 맞게 수정--%>
-				<%--		type: 'POST',--%>
-				<%--		data: { email: value },--%>
-				<%--		dataType: 'json',--%>
-				<%--		success: function (res) {--%>
-				<%--			if (res.available) {--%>
-				<%--				$input.removeClass('input-invalid').addClass('input-valid');--%>
-				<%--				$msg.text("사용 가능한 이메일입니다.")--%>
-				<%--						.removeClass("invalid").addClass("valid active");--%>
-				<%--			} else {--%>
-				<%--				$input.removeClass('input-valid').addClass('input-invalid');--%>
-				<%--				$msg.text("이미 사용 중인 이메일입니다.")--%>
-				<%--						.removeClass("valid").addClass("invalid active");--%>
-				<%--			}--%>
-				<%--		},--%>
-				<%--		error: function () {--%>
-				<%--			$input.removeClass('input-valid').addClass('input-invalid');--%>
-				<%--			$msg.text("이메일 확인 중 오류가 발생했습니다.")--%>
-				<%--					.removeClass("valid").addClass("invalid active");--%>
-				<%--		}--%>
-				<%--	});--%>
-				<%--}, 600); // 600ms 디바운스--%>
+					$.ajax({
+						url: '${cp}/member/check-email', // URL은 실제 경로에 맞게 수정
+						type: 'POST',
+						contentType: 'application/json',
+						data: JSON.stringify({ email: value }),
+						dataType: 'json',
+						success: function (res) {
+							if (res.available) {
+								$input.removeClass('input-invalid').addClass('input-valid');
+								$msg.text("사용 가능한 이메일입니다.")
+										.removeClass("invalid").addClass("valid active");
+							} else {
+								$input.removeClass('input-valid').addClass('input-invalid');
+								$msg.text("이미 사용 중인 이메일입니다.")
+										.removeClass("valid").addClass("invalid active");
+							}
+						},
+						error: function () {
+							$input.removeClass('input-valid').addClass('input-invalid');
+							$msg.text("이메일 확인 중 오류가 발생했습니다.")
+									.removeClass("valid").addClass("invalid active");
+						}
+					});
+				}, 600); // 600ms 디바운스
 			});
 
 
