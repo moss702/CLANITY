@@ -74,55 +74,6 @@
 	</div>
 	<%-- 문의 하기 종료 --%>
 </div>
-    <%--<div class="container p-0">
-        <main>
-            <form method="post" id="writeForm" action="write">
-                <div class="small border-bottom border-3 border-secondary p-0 pb-2">
-                	<a href="#" class="small">
-	                	<span class="text-primary">
-	                		<c:forEach items="${cate}" var="c">
-	                			<c:if test="${c.categoryId == cri.categoryId}">
-	                				${c.cname}
-	                			</c:if>
-	                		</c:forEach>
-	                	</span> 
-                		카테고리
-                	</a>
-               	</div>
-                <div class="small p-0 py-2">
-                    <input placeholder="글 제목 입력" class="form-control" name="title" id="title">
-                </div>
-                <div class="p-0 py-2 ps-1 border-top border-1 border-muted">
-                    <textarea name="content" id="editor1" class="form-control resize-none"></textarea>
-                </div>
-               
-				<div class="d-grid my-2 attach-area">
-					<div class="small my-1 border-bottom border-1 border-muted p-0 pb-2"><i class="fa-solid fa-paperclip"></i> 첨부파일</div>
-					<label class="btn btn-info">파일 첨부<input type="file" multiple class="d-none" id="f1"></label>
-					<ul class="list-group my-2 attach-list">
-					</ul>  
-					<div class="row justify-content-around w-75 mx-auto attach-thumb">
-					</div> 
-				</div>
-                
-                <div class="my-2">
-                    <button class="btn btn-secondary btn-sm"><i class="fa-solid fa-list-ul"></i> 목록</button>
-                    <div class="float-end">
-                        <button class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-pen"></i>  글 등록</button>
-                    </div>
-                </div>
-                <input type="hidden" name="id" value="${member.memberId}" />
-                <input type="hidden" name="categoryId" value="${cri.categoryId}" />
-                <input type="hidden" name="page" value="1" />
-                <input type="hidden" name="amount" value="${cri.amount}" />
-                <input type="hidden" name="encodedStr" value="">
-                <c:if test="${not empty param.bno}">
-                	<input type="hidden" name="bno" value="${param.bno}" />
-                </c:if>
-            </form>
-        </main>
-    </div>--%>
-
 
 	<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
         
@@ -133,9 +84,7 @@
             });
         });        
     </script>
-    
 
-    
 	<script>
 	$(function() {
 		$(".attach-list").sortable();
