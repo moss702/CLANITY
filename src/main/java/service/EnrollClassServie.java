@@ -38,6 +38,26 @@ public class EnrollClassServie {
 			session.close();
 		}
 	}
+	public void enrollList(Long enrollId) {
+		SqlSession session = MybatisUtil.getSqlSession();
+
+		try {
+			EnrollClassMapper mapper = session.getMapper(EnrollClassMapper.class);
+			OnedayClass onedayClass = new OnedayClass();
+			onedayClass.setMasterId(onedayClass.getClassId());
+			onedayClass.setMasterId(onedayClass.getOpenId());
+			onedayClass.setMasterId(onedayClass.getMemberId());
+
+			mapper.listEnroll(enrollId);
+			session.commit();
+
+		} catch (Exception e) {
+			log.error("클래스 신청 조회 실패", e);
+
+		} finally {
+			session.close();
+		}
+	}
 
 	
 	

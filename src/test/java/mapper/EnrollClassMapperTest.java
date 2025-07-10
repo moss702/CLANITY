@@ -52,7 +52,7 @@ public class EnrollClassMapperTest {
 				.memberId(memberId)
 			
 				.build();
-		log.info("{}", onedayClass);
+//		log.info("{}", onedayClass);
 		enrollClassMapper.insertEnroll(onedayClass);
 //	@Test
 //	@DisplayName("등록삭제 테스트")
@@ -90,7 +90,23 @@ public class EnrollClassMapperTest {
 //				enrollClassMapper.selectOne(enrollID);
 //		log.info("{}", classInfo);
 //		
-
+//		@Test
+//		   @DisplayName("목록 조회")
+//		   public void enrollListTest() {
+//		      Long openId = 10020L;
+//		      List<OnedayClass> list = enrollClassMapper.listEnroll(openId);
+//
+//		      list.forEach(c -> log.info("Class: {}", c));
+//		   }
+//
+//		   @Test
+//		   @DisplayName("단일조회")
+//		   public void selectOneTest() {
+//		      Long enrollID = 10061L;
+//		      Long openId = 10020L;
+//		      Long memberId = 1L;
+//		   enrollClassMapper.enrollListOne(enrollID,openId, memberId );
+//		      log.info("{}", enrollID);
 	}
 
 }

@@ -9,7 +9,7 @@
 				class="text-decoration-none fw-bold fs-2 text-danger">CLANITY</a>
 		</div>
 		<nav class="d-flex gap-3 align-items-center flex-shrink-0">
-			<a class="text-dark text-decoration-none fw-semibold" href="${cp}/categoryAll">클래스</a>
+			<a class="text-dark text-decoration-none fw-semibold " href="${cp}/categoryAll">클래스</a>
 			<a class="text-dark text-decoration-none fw-semibold" href="${cp}/categoryAll">커뮤니티</a>
 			
 		</nav>
@@ -33,7 +33,7 @@
 				class="fa-solid fa-heart fs-5"></i> <i class="fa-solid fa-bell fs-5"></i>
 			<i class="fa-solid fa-circle-user fs-5"></i> <a
 				class="text-dark text-decoration-none"
-				href="${cp}/openClassRegister/open1">열기</a>
+				href="${cp}/openClassRegister/open">열기</a>
 			<c:if test="${empty member}">
 				<a class="text-dark text-decoration-none" href="${cp}/member/login">로그인</a>
 			</c:if>

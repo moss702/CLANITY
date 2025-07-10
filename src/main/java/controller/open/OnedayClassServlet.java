@@ -19,20 +19,19 @@ import util.AlertUtil;
 import util.ParamUtil;
 
 @Slf4j
-@WebServlet("/openClassRegister/open1")
+@WebServlet("/openClassRegister/open")
 public class OnedayClassServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//  불러오기
-		req.getRequestDispatcher("/WEB-INF/views/openClassRegister/open1.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/openClassRegister/open.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 		// 세션 체크 먼저 하고 
-		
 		Object obj = req.getSession().getAttribute("member");
 		if(obj == null || !(obj instanceof Member)) {
 			log.info("{멤버 상태}", obj);
@@ -76,15 +75,6 @@ public class OnedayClassServlet extends HttpServlet {
 //		 log.info("URl : {}", url );
 //		 추가하기
 		AlertUtil.alert("클래스 개설 신청이 완료되었습니다.", url , req, resp);
-
-
-
-
-		
-	      
-	      
-	
-
 	}
 
 }

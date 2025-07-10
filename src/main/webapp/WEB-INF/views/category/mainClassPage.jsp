@@ -35,7 +35,7 @@
 		</div>
 
 		<!-- 필터 버튼 -->
-		<div class="mb-4 d-flex flex-wrap gap-2">
+		<!-- <div class="mb-4 d-flex flex-wrap gap-2">
 			<button class="btn btn-outline-danger rounded-pill">
 				날짜 <i class="fa-solid fa-caret-down ms-1"></i>
 			</button>
@@ -54,7 +54,7 @@
 			<button class="btn btn-outline-danger rounded-pill">
 				유형 <i class="fa-solid fa-caret-down ms-1"></i>
 			</button>
-		</div>
+		</div> -->
 
 	
 	</main>

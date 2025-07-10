@@ -53,7 +53,7 @@
 		#{instructorImageUrl},
 		#{address}, #{region},
 		#{classType},
-		#{createdAt},
+		now(),
 		#{price}, #{discount}
 		)
 	</insert>
@@ -63,14 +63,29 @@
 		parameterType="domain.onedayClass.OnedayClass" useGeneratedKeys="true"
 		keyProperty="openId">
 		INSERT INTO class_open (
-		master_id, min_participants,
-		max_participants, status
-		)
-		VALUES (
-		#{masterId}, #{minParticipants},
-		#{maxParticipants}, #{status}
-		)
-	</insert>
+		master_id,
+		schedule_date,
+		start_time,
+		end_time,
+		min_participants,
+		max_participants,
+		status,
+		price,
+		is_available
+	)
+	VALUES (
+		#{masterId},
+		#{scheduleDate},
+		#{startTime},
+		#{endTime},
+		#{minParticipants},
+		#{maxParticipants},
+		#{status},
+		#{price},
+		#{isAvailable}
+	)
+</insert>
+
 	<!-- url 정보 업데이트로 추가 -->
 	<update id="updateUrl"
 		parameterType="domain.onedayClass.OnedayClass">
@@ -83,12 +98,16 @@
 
 	<select id="listClass" resultMap="OnedayClassMap">
 		SELECT
-		class_id, business_id, category_id, title, thumbnail_image, c.price,
-		discount_price, region, open_id
+		class_id, business_id,
+		category_id, title, thumbnail_image, c.price,
+		discount_price, region,
+		open_id
 		FROM class c
-		left join (select max(open_id) open_id, master_id from class_open group by
+		left join (select max(open_id) open_id, master_id
+		from class_open group by
 		master_id) o on c.class_id = o.master_id
-		ORDER BY class_id DESC
+		ORDER
+		BY class_id DESC
 		LIMIT #{amount}
 		OFFSET #{offset}
 	</select>
@@ -96,8 +115,13 @@
 
 	<select id="listClassInfoOne" parameterType="long"
 		resultType="domain.onedayClass.OnedayClass">
-
-		SELECT * from class where category_id = #{categoryId}
+		   c.class_id, c.title, c.description, c.price
+    FROM
+        class c
+    JOIN
+        class_category_map ccm ON c.class_id = ccm.class_id
+    WHERE
+        ccm.category_id = #{categoryId}
 
 	</select>
 
@@ -140,16 +164,21 @@
 		LIMIT #{amount}
 		OFFSET #{offset}
 	</select>
-<!-- 신청 상세 정보 에 필요한거 -->
+	<!-- 신청 상세 정보 에 필요한거 -->
 	<select id="listClassDetailPage" resultMap="OnedayClassMap"
 		resultType="domain.onedayClass.OnedayClass">
-		SELECT c.class_id, c.business_id, c.category_id, c.title, c.description,
+		SELECT c.class_id, c.business_id, c.category_id, c.title,
+		c.description,
 		c.duration, c.curriculum,
-		c.price, c.discount_price, c.thumbnail_image, c.address,
-		o.open_id, o.min_participants, o.max_participants, o.status
+		c.price, c.discount_price,
+		c.thumbnail_image, c.address,
+		o.open_id, o.min_participants,
+		o.max_participants, o.status
 		FROM class c
-		JOIN class_open o ON c.class_id = o.master_id
-		WHERE c.class_id = #{classId} AND o.open_id = #{openId}
+		JOIN class_open o ON
+		c.class_id = o.master_id
+		WHERE c.class_id = #{classId} AND o.open_id =
+		#{openId}
 	</select>
 
 

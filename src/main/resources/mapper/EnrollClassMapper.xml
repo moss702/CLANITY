@@ -7,7 +7,8 @@
 <mapper namespace="mapper.EnrollClassMapper">
 	<!-- 신청 인서트 클래스 아이디랑 오픈아이디 같아야 가능하게 -->
 	<insert id="insertEnroll" parameterType="map">
-		INSERT INTO class_enroll (
+		INSERT INTO class_enroll
+		(
 		open_id,
 		member_id,
 		enrolled_at,
@@ -19,33 +20,35 @@
 		now(),
 		#{status}
 		FROM class_open o
-		JOIN class c ON c.class_id = o.master_id
+		JOIN class c ON c.class_id =
+		o.master_id
 		WHERE c.class_id = #{classId}
 		AND o.open_id = #{openId}
+		
 
 	</insert>
 
 	<!-- 신청 단일 조회 -->
-	<select id="selectOne"
-		resultType="domain.onedayClass.ClassEnroll">
-		SELECT enroll_id,
+	<select id="enrollListOne" parameterType="long" resultType="domain.onedayClass.OnedayClass">
+		SELECT
+		enroll_id,
 		open_id,
 		member_id,
-		status,
-		enrolled_at
-		FROM
-		class_enroll
+		enrolled_at,
+		status
+		FROM class_enroll
 		WHERE enroll_id = #{enrollId}
 	</select>
 
 	<!-- 전체 신청 목록 -->
-	<select id="list" resultType="domain.onedayClass.ClassEnroll">
+	<select id="listEnroll" resultType="domain.onedayClass.OnedayClass" >
 		SELECT enroll_id,
 		open_id,
 		member_id,
-		status,
-		enrolled_at
+		enrolled_at,
+		status
 		FROM class_enroll
+		 WHERE open_id = #{openId}
 		ORDER BY enrolled_at DESC
 	</select>
 
