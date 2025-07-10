@@ -38,4 +38,11 @@ public class MemberWithdrawMapperTest {
 	public void listTest() {
 		log.info("{}",memberWithdrawMapper.list());
 	}
+	
+	@Test
+	@DisplayName("탈퇴자 목록에서 유저 출력 테스트")
+	public void selectTest() {
+		String email = "$2a$10$Nrf372jG8J8XzILA211.2.9F6xbwlSbcnKUu7vNeG3yeI7aGsw/Ba";
+		log.info("{}",memberWithdrawMapper.selectByEmail(email));
+	}
 }

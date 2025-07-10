@@ -11,6 +11,6 @@ public interface MemberWithdrawMapper {
 	
 	List<MemberWithdraw> list();
 
-	
+	MemberWithdraw selectByEmail(String email);
 	
 }
