@@ -29,8 +29,6 @@ public class Register extends HttpServlet{
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		
-//		log.info("가입시 입력한 이메일 값 : {},  가입시 입력한 비밀번호 값 : {}", email, password);
-		
 		Member member  = Member.builder().email(email).password(password).build();
 		
 		if( new MemberService().register(member) == 0) {
@@ -38,10 +36,6 @@ public class Register extends HttpServlet{
 		} else {
 			AlertUtil.alert("회원가입을 축하합니다. 로그인후 사용해주세요", "/index", req, resp);
 		};
-		
-//		resp.sendRedirect(req.getContextPath() +"/index");
-		//		Member member = ParamUtil.get(req, Member.class); // 파라미터 확인 후 살리기
-//		log.info("{}", member);
 	}
 
 }

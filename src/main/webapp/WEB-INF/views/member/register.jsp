@@ -158,7 +158,7 @@ body {
 
 			<div class="mb-2 icon-input">
 				<i class="fa fa-user"></i> <input type="text" name="email"
-					class="form-control" id="email" placeholder="이메일">
+					class="form-control input-valid" id="email" placeholder="이메일">
 			</div>
 			<div class="small text-center text-muted valid-msg mb-3">올바른 형식의
 				이메일을 입력해주세요</div>
@@ -351,11 +351,13 @@ body {
 								$msg.text("이미 사용 중인 이메일입니다.")
 										.removeClass("valid").addClass("invalid active");
 							}
+							submitButtonState();
 						},
 						error: function () {
 							$input.removeClass('input-valid').addClass('input-invalid');
 							$msg.text("이메일 확인 중 오류가 발생했습니다.")
 									.removeClass("valid").addClass("invalid active");
+							submitButtonState();
 						}
 					});
 				}, 600); // 600ms 디바운스
@@ -367,7 +369,8 @@ body {
 			// 체크박스에 따라 가입 버튼 활성/비활성
 			function submitButtonState() {
 				const allChecked = $('.agree-check').length === $('.agree-check:checked').length;
-				$('#submitBtn').prop('disabled', !allChecked);
+				const allInputsValid = $('.join-form input').length === $('.join-form input.input-valid').length;
+				$('#submitBtn').prop('disabled', !(allChecked && allInputsValid));
 			}
 			$('.agree-check').on('change', submitButtonState);
 			submitButtonState(); // 초기 실행
