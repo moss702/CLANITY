@@ -30,7 +30,7 @@ public class EnrollClassMapperTest {
 		log.info("{}", classEnroll);
 		enrollClassMapper.insert(classEnroll);
 
-		log.info("{}", classEnroll);
+//		log.info("{}", classEnroll);
 
 		
 	}

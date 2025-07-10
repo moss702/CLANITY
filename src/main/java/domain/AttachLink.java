@@ -15,6 +15,6 @@ import lombok.NoArgsConstructor;
 public class AttachLink { // attach 관계 테이블
     private String uuid;		// PK :  (자동증가)
     private String linkType;	// 첨부파일 사용하는 타입 - ex)board, qna, mypage
-    private Long lno;		// 해당 테이블의 pk - ex) boardId, qnaId
+    private Long lno;		    // 해당 테이블의 pk - ex) boardId, qnaId
     private String regdate;
 }

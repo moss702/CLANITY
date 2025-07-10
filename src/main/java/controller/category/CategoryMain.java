@@ -26,11 +26,11 @@ ClassService service = new ClassService();
 		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
 	
 		Criteria cri = Criteria.init(req);
-		log.info("{}", cri);
+//		log.info("{}", cri);
 	
 		// 페이지 불러오기 및 카드 불러오기		
 		req.setAttribute("pageDto", new PageDto(cri, service.getCount(cri)));
-		req.setAttribute("cards", service.cardInfo(cri));
+		req.setAttribute("cards", service.classList(cri));
 		log.info("pageDto: {}", new PageDto(cri, service.getCount(cri)));
 		 req.getRequestDispatcher("/WEB-INF/views/category/categoryMain.jsp").forward(req, resp);
 	}

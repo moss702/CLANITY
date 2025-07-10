@@ -39,10 +39,6 @@ public class ClassSocialingCategoryListener implements ServletContextListener {
 		sc.setAttribute("csc", list);
 		//json 변환형
 		sc.setAttribute("cscJson", json);
-		
-		
-		log.info("ClassSocialingCategory 초기화 완료");
-		log.info("[Listener] 리스트 사이즈: {}, JSON 길이: {} bytes", list.size(), json.length());
 	}
 	
 	@Override

@@ -8,7 +8,7 @@
 
 <head>
 	<%@ include file="../common/head.jsp" %>
-	<title>자주 묻는 질문</title>
+	<title>고객센터</title>
 	<link rel="stylesheet" href="${cp}/css/qna_style.css"/>
 </head>
 
@@ -40,7 +40,7 @@
 		<div class="top-group">
 			<div>
 				<h2 class="fw-bold mb-1">${c.name}</h2>
-				<p class="text-muted mb-0">클래니티 고객들이 가장 많이 궁금해하는 질문을 확인하세요.</p>
+				<p class="text-muted mb-0">${c.desc}</p>
 			</div>
 		</div>
 	</div>
@@ -69,7 +69,7 @@
 	<div id="faqFormAnchor"></div>
 	<!-- 등록 폼 -->
 	<form id="faqForm" class="faq-form" action="${cp}/board/write" method="post">
-		<input type="hidden" id="faqId" name="id" value="${faq.boardId}"/> <!-- 수정용정보 -->
+		<input type="hidden" id="faqId" name="id" value="${b.boardId}"/> <!-- 수정용정보 -->
 		<input type="hidden" id="faqMode" name="mode" value="write"/>
 
 		<div class="mb-2">
@@ -91,7 +91,8 @@
 			<textarea class="form-control" id="faqAnswer" name="content" rows="3"
 					  placeholder="답변 내용을 입력하세요"></textarea>
 		</div>
-
+		<input type="hidden" name="memberId" value="${member.memberId}"/>
+		<input type="hidden" name="categoryId" value="1"/>
 		<button type="submit" class="btn btn-danger btn-sm">등록하기</button>
 	</form>
 
@@ -127,16 +128,16 @@
 								<!-- 수정 버튼 -->
 								<button
 										class="btn btn-outline-secondary btn-sm btn-edit"
-										data-id="${faq.boardId}"
-										data-title="${fn:escapeXml(faq.title)}"
-										data-content="${fn:escapeXml(faq.content)}"
+										data-id="${b.boardId}"
+										data-title="${fn:escapeXml(b.title)}"
+										data-content="${fn:escapeXml(b.content)}"
 										data-index="${status.index}">
 									수정하기
 								</button>
 
 								<!-- 삭제 버튼 -->
-								<form method="post" action="${cp}/faq" onsubmit="return confirm('삭제할까요?')">
-									<input type="hidden" name="id" value="${faq.boardId}"/>
+								<form method="post" action="${cp}/board/remove" onsubmit="return confirm('삭제할까요?')">
+									<input type="hidden" name="boardId" value="${b.boardId}"/>
 									<input type="hidden" name="mode" value="delete"/>
 									<button class="btn btn-outline-danger btn-sm">삭제</button>
 								</form>
@@ -150,6 +151,8 @@
 	</div>
 	</c:if>
 	<%-- FAQ 끝 --%>
+
+
 	<c:if test="${c.categoryId == 2}">
 	<%-- 문의 하기 시작 --%>
 	<%--<div class="flex-grow-1">
@@ -246,10 +249,26 @@
 							<div class="card-body bg-white">
 								<p class="mb-3">${b.content.replaceAll("\\n", "<br/>")}</p>
 
+
+
 								<!-- 수정/삭제 버튼 -->
 								<div class="d-flex gap-2">
-									<button class="btn btn-outline-secondary btn-sm">수정</button>
-									<button class="btn btn-outline-danger btn-sm">삭제</button>
+									<!-- 수정 버튼 -->
+									<a href="${cp}/board/modify?boardId=${b.boardId}&${pageDto.cri.qs2}"
+											class="btn btn-outline-secondary btn-sm btn-edit"
+											data-id="${b.boardId}"
+											data-title="${fn:escapeXml(b.title)}"
+											data-content="${fn:escapeXml(b.content)}"
+											data-index="${status.index}">
+										수정하기
+									</a>
+
+									<!-- 삭제 버튼 -->
+									<form method="post" action="${cp}/board/remove">
+										<input type="hidden" name="boardId" value="${b.boardId}"/>
+										<input type="hidden" name="mode" value="delete"/>
+										<button class="btn btn-outline-danger btn-sm">삭제</button>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -324,7 +343,7 @@
 
                     $(document).on('click', '.btn-edit', function () {
                         const $section = $(this).closest('.answer-section');
-                        const text = $section.find('.answer-text').html().replace(/<br>/g, '\n');
+                        const text = $section.find('.answer-text').text().replace(/\n/g, '<br>');
                         const profile = $section.find('.answer-header')[0].outerHTML;
 
                         $section.html(`
@@ -438,10 +457,12 @@
 
             faqForm.slideToggle();
 
-            $('#faqId').val('');
+            $('#faqId').val('boardId');
             $('#faqMode').val('write');
             $('#faqQuestion').val('');
             $('#faqAnswer').val('');
+
+            $('#faqForm').attr("action", "${cp}/board/write").find("button[type='submit']").text('등록하기');
 
         }
 
@@ -475,6 +496,7 @@
         }
 
         function editFaq(id, title, content, index) {
+            console.log(id);
             $('#faqId').val(id);
             $('#faqMode').val('modify');
             $('#faqQuestion').val(title);
@@ -485,8 +507,8 @@
                 $('#faqForm').hide(); // reset
                 $('#faqForm').detach().appendTo(targetCard);
                 $('#faqForm').slideDown();
+                $("#faqForm").attr("action", `${cp}/board/modify?boardId=\${id}&${pageDto.cri.qs2}`).find("button[type='submit']").text('수정하기')
             }
-
         }
 
         $(document).on('click', '.btn-edit', function () {

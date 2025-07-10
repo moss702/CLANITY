@@ -63,7 +63,7 @@ public class FaqController extends HttpServlet {
         }
 
         if ("delete".equals(mode)) {
-            Long boardId = Long.parseLong(req.getParameter("id"));
+            Long boardId = Long.parseLong(req.getParameter("boardId"));
             service.remove(boardId);
             resp.sendRedirect(req.getContextPath() + "/faq");
             return;
@@ -72,7 +72,7 @@ public class FaqController extends HttpServlet {
         if ("modify".equals(mode)) {
             String title = req.getParameter("title");
             String content = req.getParameter("content");
-            Long boardId = Long.parseLong(req.getParameter("id"));
+            Long boardId = Long.parseLong(req.getParameter("boardId"));
 
             Board board = new Board();
             board.setBoardId(boardId);

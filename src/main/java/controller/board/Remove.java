@@ -17,7 +17,7 @@ import util.AlertUtil;
 @WebServlet("/board/remove")
 public class Remove extends HttpServlet{
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		if(req.getParameter("boardId") == null) {
 			AlertUtil.alert("잘못된 접근입니다", "/board/list", req, resp);

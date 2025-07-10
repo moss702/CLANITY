@@ -36,7 +36,7 @@
             결제 정보를 모두 확인했습니다.
           </label>
         </div>
-          <a href="${pageContext.request.contextPath}/sucessPayment" class="text-decoration-none text-dark">
+          <a href="${cp}/sucessPayment" class="text-decoration-none text-dark">
         <div class="text-white text-center fw-bold py-2 rounded-3" style="background-color: #E63946;">
           30,000원 결제
         </div></a>

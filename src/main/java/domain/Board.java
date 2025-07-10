@@ -41,6 +41,8 @@ public class Board {
 	private String updatedAt; 			// 수정일시
 
 	private Long receiverId;			// 문의기능 : 수신자 ID
-	private int attachCnt;
-	private List<Attach> attachs;
+	private int attachCnt;				// 첨부파일 개수
+
+	@Builder.Default
+	private List<Attach> attachs = new ArrayList<>();
 }

@@ -3,6 +3,7 @@ package controller.board;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -70,8 +71,9 @@ public class Modify extends HttpServlet{
 		
 		String encodedStr = req.getParameter("encodedStr");
 
-		Type type = new TypeToken<List<Attach>>() {}.getType(); 
+		Type type = new TypeToken<List<Attach>>() {}.getType();
 		List<Attach> list = new Gson().fromJson(encodedStr, type);
+		if(list == null) list = new ArrayList<>();
 		log.info("리스트 {}", list);
 		
 		Board board = Board.builder().attachs(list).title(title).content(content).categoryId(categoryId).boardId(boardId).build();
@@ -82,6 +84,10 @@ public class Modify extends HttpServlet{
 		log.info("{}", cri);
 		
 		// 리디렉션
+		if(categoryId == 1) {
+			AlertUtil.alert("글이 수정되었습니다", "/board/list?" + cri.getQs2(), req, resp);
+			return;
+		}
 		AlertUtil.alert("글이 수정되었습니다", "/board/view?boardId=" + boardId + "&" + cri.getQs2(), req, resp);
 	}
 

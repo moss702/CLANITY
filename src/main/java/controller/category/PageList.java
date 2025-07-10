@@ -32,14 +32,14 @@ public class PageList extends HttpServlet {
 		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
 
 		Criteria cri = Criteria.init(req);
-		log.info("{}", cri);
+//		log.info("{}", cri);
 //		리스트가 필요한가?
 	
-//		List<OnedayClass> cards = service.cardInfo(onedayClass);
+//		List<OnedayClass> cards = service.cardByCategory(onedayClass);
 
 		// 페이지 불러오기 및 카드 불러오기		
 		req.setAttribute("pageDto", new PageDto(cri, service.getCount(cri)));
-		req.setAttribute("cards", service.cardInfo(cri));
+		req.setAttribute("cards", service.classList(cri));
 //		
 		log.info("pageDto: {}", new PageDto(cri, service.getCount(cri)));
 		req.getRequestDispatcher("/WEB-INF/views/class/categoryList.jsp").forward(req, resp);

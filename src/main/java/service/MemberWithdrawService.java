@@ -62,6 +62,26 @@ public class MemberWithdrawService{
 			session.close();
 		}
 	}
+
+	public boolean existsWithdrawByEmail(String email) {
+		SqlSession session = MybatisUtil.getSqlSession();
+		try {
+			MemberWithdrawMapper mapper = session.getMapper(MemberWithdrawMapper.class);
+			List<MemberWithdraw> list = mapper.list();
+			for (MemberWithdraw mw : list) {
+				if (PasswordEncoder.matches(email, mw.getEmailMasked())) {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return false;
+	}
+
+
 	
 	
 //	memberWithdrawMapper.list()

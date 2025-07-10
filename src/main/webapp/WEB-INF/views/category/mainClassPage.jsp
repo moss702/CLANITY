@@ -56,20 +56,11 @@
 			</button>
 		</div>
 
-
-			<!-- 카드 리스트 -->
-			<c:forEach var="c" items="${cards}">
-			</c:forEach>
-
 	
 	</main>
-	<!-- 페이지 번호 -->
-	<p>pageDto: ${pageDto}</p>
-	<p>pageDto.total: ${pageDto.total}</p>
-	<p>cards.size: ${fn:length(cards)}</p>
+
 	<%@ include file="../common/footer.jsp"%>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
