@@ -29,7 +29,7 @@
         <div class="bg-white border rounded-3 p-4 mb-4">
           <h5 class="fw-bold mb-3">연락처 입력 <span class="text-muted small">(문자/이메일 알림 발송)</span></h5>
           <p class="mb-2 small text-muted">계정 ID (알림 메일이 발송됩니다)</p>
-          <p class="mb-2">ssr0116@naver.com</p>
+          <p class="mb-2">ssr@naver.com</p>
           <p class="mb-2 small text-muted">이름</p>
           <p class="mb-2">사랑</p>
           <p class="mb-2 small text-muted">전화번호</p>

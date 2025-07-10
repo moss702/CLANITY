@@ -124,8 +124,7 @@
 						<img id="preview" src="https://placehold.co/200x200"
 							class="image-preview me-3" alt="강사 사진 미리보기"> 
 					</div>
-					<input type="file" class="form-control" name="instructorImageUrl2"
-						accept="image/*" onchange="previewImage(event)">
+
 				</div>
 
             <label class="form-label fw-bold">강사 소개</label>
