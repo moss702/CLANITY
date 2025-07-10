@@ -23,5 +23,10 @@
     	WHERE withdraw_at <= DATE_SUB(NOW(), INTERVAL 10 DAY)
     	]]>
   	</select>
+
+	<select id="selectByEmail" resultMap="mw">
+		SELECT * FROM member_withdraw
+		where email_masked = #{emailMasked};
+	</select>
   	
   </mapper>
