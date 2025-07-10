@@ -11,6 +11,7 @@
 		<nav class="d-flex gap-3 align-items-center flex-shrink-0">
 			<a class="text-dark text-decoration-none fw-semibold" href="${cp}/categoryAll">클래스</a>
 			<a class="text-dark text-decoration-none fw-semibold" href="${cp}/categoryAll">커뮤니티</a>
+			
 		</nav>
 		<form action="/search" method="GET" class="flex-grow-1"
 			style="max-width: 600px; min-width: 200px;">
@@ -69,7 +70,7 @@
 					</div>
 
 
-				<!-- 	<div class="row">
+					<div class="row">
 						<div class="col-md-6">
 							<div class="mb-3">
 								<label class="form-label fw-semibold">지역</label> <select
@@ -84,10 +85,10 @@
 									<option>대전</option>
 									<option>세종</option>
 									<option>기타</option>
-									지역 값 보내기
+									<!--지역 값 보내기 -->
 								</select> <input type="hidden" name="region" id="dayInput">
 							</div>
-							1차 카테고리
+							<!-- 1차 카테고리 -->
 							<div class="mb-3">
 								<label for="category1" class="form-label fw-bold">1차
 									카테고리</label> <select id="category1" name="category1"
@@ -107,7 +108,7 @@
 								</select>
 							</div>
 
-							2차 카테고리
+							<!-- 2차 카테고리 -->
 							<div class="mb-3">
 								<label for="category2" class="form-label fw-bold">2차
 									카테고리</label> <select id="category2" name="category2"
@@ -116,7 +117,7 @@
 								</select>
 							</div>
 
-							<input type="hidden" name="categoryId" id="categoryId">
+							<!-- <input type="hidden" name="categoryId" id="categoryId"> -->
 							<div class="mb-3">
 								<label class="form-label fw-semibold">요일</label>
 								<div class="d-flex gap-2 flex-wrap">
@@ -124,7 +125,7 @@
 									<button type="button" class="btn btn-light toggle-btn">토요일</button>
 									<button type="button" class="btn btn-light toggle-btn">일요일</button>
 								</div>
-								요일 값 보내기
+								<!--요일 값 보내기 -->
 								<input type="hidden" name="day" id="dayInput">
 							</div>
 							<div class="mb-3">
@@ -134,7 +135,7 @@
 									<button type="button" class="btn btn-light toggle-btn">중급</button>
 									<button type="button" class="btn btn-light toggle-btn">고급</button>
 								</div>
-								난이도 보내기
+								<!--난이도 보내기 -->
 								<input type="hidden" name="difficulty" id="dayInput">
 							</div>
 						</div>
@@ -168,7 +169,7 @@
 								</div>
 							</div>
 						</div>
-					</div> -->
+					</div>
 
 					<div class="mt-4 d-flex justify-content-end gap-3">
 
