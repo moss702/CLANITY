@@ -6,75 +6,10 @@
 <html>
 <head>
 <%@ include file="../common/head.jsp" %>
-	<link rel="stylesheet" href="${cp}/css/qna_style.css"/>
 </head>
 <body>
-	<%@ include file="../common/header.jsp" %>
-	<div class="settings-wrapper container">
-	<div class="category-menu">
-		<c:forEach items="${boardCategories}" var="cat">
-			<c:if test="${cat.type == 'LIST'}">
-				<a class="btn pill-btn w-100 my-3" href="${cp}/board/list?categoryId=${cat.categoryId}">${cat.name}</a>
-			</c:if>
-		</c:forEach>
-	</div>
 
-	<%-- 문의 하기 시작 --%>
-	<div class="flex-grow-1">
-		<div class="section-title">
-			<h2>1:1 문의하기
-			</h2>
-			<p>궁금한 점이 있다면 언제든 문의해주세요.</p>
-		</div>
-
-		<div class="form-box">
-			<form method="post" action="write">
-				<!-- 문의 유형 -->
-				<div class="mb-3">
-					<label for="typeSelect" class="form-label fw-semibold">문의 유형</label>
-					<select class="form-select" id="typeSelect" required="">
-						<option selected="" disabled="">문의 유형 선택</option>
-						<option>결제/환불</option>
-						<option>클래스 정보</option>
-						<option>회원/계정</option>
-						<option>기타</option>
-					</select>
-				</div>
-
-				<!-- 제목 -->
-				<div class="mb-3">
-					<label for="titleInput" class="form-label fw-semibold">문의 제목</label>
-					<input type="text" name="title" class="form-control" id="titleInput" placeholder="예) 환불 요청 관련 문의드립니다." required="">
-				</div>
-
-				<!-- 내용 -->
-				<div class="mb-3">
-					<label for="contentTextarea" class="form-label fw-semibold">문의 내용</label>
-					<textarea class="form-control" name="content" id="contentTextarea" rows="5" placeholder="내용을 자세히 작성해주세요." required=""></textarea>
-				</div>
-
-				<!-- 첨부파일 -->
-				<div class="mb-4">
-					<label for="fileInput" class="form-label fw-semibold">첨부파일</label>
-					<input type="file" class="form-control" id="fileInput">
-					<div class="form-text">첨부파일은 최대 10MB까지 업로드 가능합니다.</div>
-				</div>
-
-				<!-- 전송 버튼 -->
-				<div class="d-grid">
-					<button type="submit" class="btn btn-danger fw-bold">문의 전송하기</button>
-				</div>
-				<input type="hidden" name="memberId" value="${member.memberId}">
-				<input type="hidden" name="categoryId" value="${cri.categoryId}">
-				<input type="hidden" name="page" value="1" />
-				<input type="hidden" name="amount" value="${cri.amount}" />
-				<input type="hidden" name="encodedStr" value="">
-			</form>
-		</div>
-	</div>
-	<%-- 문의 하기 종료 --%>
-</div>
-    <%--<div class="container p-0">
+    <div class="container p-0">
         <main>
             <form method="post" id="writeForm" action="write">
                 <div class="small border-bottom border-3 border-secondary p-0 pb-2">
@@ -121,8 +56,7 @@
                 </c:if>
             </form>
         </main>
-    </div>--%>
-
+    </div>
 
 	<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
         
