@@ -5,11 +5,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import domain.onedayClass.ClassEnroll;
+import domain.onedayClass.OnedayClass;
 
 public interface EnrollClassMapper {
 	
 	// 신청 등록 추가
-	void insert(ClassEnroll classEnroll);
+	void insertEnroll(OnedayClass onedayClass);
 	
 	// 모든 등록 신청자 조회
 	List<ClassEnroll> list (Long openId) ;

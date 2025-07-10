@@ -15,7 +15,7 @@ public class ClassEnroll {
 	private Long  memberId;
 	private Date enrolledAt;
 	private boolean status; 
-	
+	  private Long classId;
 	
 	public ClassEnroll(Long enrollId, Long openId, Long memberId, Date enrolledAt, boolean status) {
 		this.enrollId = enrollId;
@@ -24,6 +24,17 @@ public class ClassEnroll {
 		this.enrolledAt = enrolledAt;
 		this.status = status;
 	}
+
+	public ClassEnroll(Long enrollId, Long openId, Long memberId, Date enrolledAt, boolean status, Long classId) {
+		super();
+		this.enrollId = enrollId;
+		this.openId = openId;
+		this.memberId = memberId;
+		this.enrolledAt = enrolledAt;
+		this.status = status;
+		this.classId = classId;
+	}
+	
 		
 	
 }

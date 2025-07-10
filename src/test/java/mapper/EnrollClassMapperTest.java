@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import domain.onedayClass.ClassEnroll;
 import domain.onedayClass.ClassInfo;
+import domain.onedayClass.OnedayClass;
 import lombok.extern.slf4j.Slf4j;
 import util.MybatisUtil;
 
@@ -17,18 +18,23 @@ import util.MybatisUtil;
 public class EnrollClassMapperTest {
 
 	private EnrollClassMapper enrollClassMapper = MybatisUtil.getSqlSession().getMapper(EnrollClassMapper.class);
+	
 
 	@Test
 	public void insertTest() {
-		ClassEnroll classEnroll = ClassEnroll.builder()
-				.enrollId(8029L)
-				.openId(9999L)
-				.memberId(9999L)
-				.status(false)
+		Long openId = 10020L;
+		Long  classId= 13090L;
+		Long memberId = 1L;
+		OnedayClass onedayClass = OnedayClass.builder()
+				
+				.openId(openId)
+				.classId(classId)
+				.memberId(memberId)
+				.status(true)
 				.enrolledAt(Date.valueOf(LocalDate.now())) 
 				.build();
-		log.info("{}", classEnroll);
-		enrollClassMapper.insert(classEnroll);
+		log.info("{}", onedayClass);
+		enrollClassMapper.insertEnroll(onedayClass);
 
 //		log.info("{}", classEnroll);
 

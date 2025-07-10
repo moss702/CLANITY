@@ -60,25 +60,25 @@ public class OnedayClassServlet extends HttpServlet {
 	
 		// 3. 그 후 insert 진행
 		  
-	      log.info("클래스 아이디 수집:{}",onedayClass.getClassId());
+//	      log.info("클래스 아이디 수집:{}",onedayClass.getClassId());
 	      onedayClass.setStatus(true);
 	      
-	      log.info("제목: {}", onedayClass.getTitle());
+//	      log.info("제목: {}", onedayClass.getTitle());
 	      
-	      log.info("카테고리 ID: {}", onedayClass.getCategoryId());
+//	      log.info("카테고리 ID: {}", onedayClass.getCategoryId());
 
 //	      등록
 	     classService.register(onedayClass);
-	     log.info("클래스:{}", onedayClass);
+//	     log.info("클래스:{}", onedayClass);
 
-		log.info("classId: {}, url: {}", onedayClass.getClassId(), onedayClass.getUrl());
+//		log.info("classId: {}, url: {}", onedayClass.getClassId(), onedayClass.getUrl());
 
 //	      등록 후에 url 등록은 (이거 enroll 쪽에 jsp있음)
 		 String url = "/classDetailedPage?classId=" + onedayClass.getClassId() + "&openId=" + onedayClass.getOpenId();
 		 onedayClass.setUrl(url);
 		 classService.updateUrlLink(onedayClass);
 
-		 log.info("URl : {}", url );
+//		 log.info("URl : {}", url );
 //		 추가하기
 		AlertUtil.alert("클래스 개설 신청이 완료되었습니다.", url , req, resp);
 

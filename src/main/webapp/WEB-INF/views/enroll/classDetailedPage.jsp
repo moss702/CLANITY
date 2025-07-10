@@ -137,16 +137,11 @@
           <span class="text-muted small ms-1">나중에 인원수 체크</span>
           <input type="number" class="form-control w-50 mb-2" value="1" min="1" id="quantityInput">
         </div>
-
-        <form action="${cp}/enroll/classDetailedPage" method="post">
+       
+        <form action="${cp}/classEnrollPage" method="get">
           <input type="hidden" name="classId" value="${detailInfo.classId}" />
           <input type="hidden" name="openId" value="${detailInfo.openId}" />
-          <input type="hidden" name="memberId" value="${loginMember.memberId}" />
-          <input type="hidden" name="price" value="${detailInfo.price}" />
-          <input type="hidden" name="discountPrice" value="${detailInfo.discountPrice}" />
-          <input type="hidden" name="selectedDate" value="${selectedDate}" />
-          <input type="hidden" name="selectedTime" value="${selectedTime}" />
-          <input type="hidden" name="quantity" value="1" id="formQuantity">
+          <input type="hidden" name="memberId" value="${member.memberId}" />
           <button type="submit" class="btn btn-danger w-100">클래스 결제하기</button>
         </form>
       </div>
