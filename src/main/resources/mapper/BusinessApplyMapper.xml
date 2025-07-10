@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.BusinessApplyMapper">
+    <resultMap  type="businessapply" id="ba">
+        <id property="applyId" column="apply_id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="email" column="email"/>
+        <result property="nickname" column="nickname"/>
+        <result property="reqtime" column="reqtime"/>
+        <result property="status" column="status"/>
+        <result property="adminId" column="admin_id"/>
+        <result property="applytime" column="applytime"/>
+    </resultMap>
+    
+    <!--  사업자 신청  -->
+    <insert id="insert">
+        insert into businessapply(member_id,email, nickname) values (#{memberId}, #{email}, #{nickname})
+    </insert>
+
+    <!-- 전체조회  -->
+    <select id="list" resultMap="ba">
+    select * from businessapply
+    </select>
+
+    <!-- 대기중조회 -->
+    <select id="listPending" resultMap="ba">
+    SELECT * FROM businessapply
+    WHERE status = 'PENDING'
+    </select>
+
+    <!--  단일조회 -->
+    <select id="findById" resultMap="ba">
+    select * from businessapply where apply_id = #{applyId}
+    </select>
+
+    <select id="findByEmail" resultMap="ba">
+    select * from businessapply where email = #{email}
+    </select>
+
+    <!--  단일 수정(권한 부여시 사용될 예정)  -->
+    <update id="update">
+    UPDATE businessapply
+    SET
+    status = #{status},
+    admin_id = #{adminId},
+    applytime = NOW()
+    WHERE apply_id = #{applyId}
+    </update>
+</mapper>
