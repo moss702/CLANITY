@@ -1,5 +1,6 @@
 package controller.category;
 
+import domain.dto.Criteria;
 import domain.onedayClass.OnedayClass;
 import lombok.extern.slf4j.Slf4j;
 import service.ClassService;
@@ -20,15 +21,15 @@ public class DetailPageClass extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 카드 리스트 불러오기
 		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
-//		Long classId = onedayClass.getClassId()
-//		req.setAttribute("onedayClass", onedayClass);
-		Long classId= onedayClass.getClassId();
+		Long classId = onedayClass.getClassId();
+		req.setAttribute("onedayClass", onedayClass);
+//		Long classId= onedayClass.getClassId();
 		Long openId= onedayClass.getOpenId();
-//		log.info("req.getParameter(classId): {}", req.getParameter("classId"));
-//		log.info("req.getParameter(openId): {}", req.getParameter("openId"));
+		log.info("req.getParameter(classId): {}", req.getParameter("classId"));
+		log.info("req.getParameter(openId): {}", req.getParameter("openId"));
 		ClassService service = new ClassService();
 		OnedayClass detailInfo = service.detailPageInfo(classId, openId);
-		
+//		
 		req.setAttribute("detailInfo", detailInfo);
 		
 

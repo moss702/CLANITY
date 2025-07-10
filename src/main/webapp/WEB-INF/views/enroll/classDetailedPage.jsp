@@ -47,17 +47,17 @@
     <div class="row g-4">
       <!-- 좌측 클래스 콘텐츠 -->
       <div class="col-lg-8">
-        <img src="${detailInfo.thumbnailImage}" class="img-fluid rounded w-100 mb-3" alt="클래스 대표 이미지">
+        <img src="${detailInfo.thumbnailImages}" class="img-fluid rounded w-100 mb-3" alt="클래스 대표 이미지">
 
-        <!-- 썸네일 리스트 (필요 시 반복문으로) -->
+        <!-- 썸네일 리스트 -->
         <div class="d-flex gap-2 overflow-auto mb-3">
-          <img src="https://placehold.co/100x100" class="img-thumbnail" alt="썸네일1">
-          <img src="https://placehold.co/100x100" class="img-thumbnail" alt="썸네일2">
-          <img src="https://placehold.co/100x100" class="img-thumbnail" alt="썸네일3">
+          <c:forEach var="img" items="${detailInfo.detailImages}">
+            <img src="${img}" class="img-thumbnail" style="width:100px;height:100px;object-fit:cover;" alt="상세 이미지">
+          </c:forEach>
         </div>
 
         <!-- 태그 -->
-        <div class="mb-3 d-flex flex-wrap gap-2" name="categoryId">
+        <div class="mb-3 d-flex flex-wrap gap-2">
           <span class="badge bg-warning-subtle text-dark">${detailInfo.categoryId}</span>
         </div>
 
@@ -135,7 +135,7 @@
           </div>
           <label class="form-label">인원 선택</label>
           <span class="text-muted small ms-1">나중에 인원수 체크</span>
-          <input type="number" class="form-control w-50 mb-2" value="1" min="1">
+          <input type="number" class="form-control w-50 mb-2" value="1" min="1" id="quantityInput">
         </div>
 
         <form action="${cp}/enroll/classDetailedPage" method="post">
@@ -146,7 +146,7 @@
           <input type="hidden" name="discountPrice" value="${detailInfo.discountPrice}" />
           <input type="hidden" name="selectedDate" value="${selectedDate}" />
           <input type="hidden" name="selectedTime" value="${selectedTime}" />
-          <input type="hidden" name="quantity" value="1" id="quantityInput" />
+          <input type="hidden" name="quantity" value="1" id="formQuantity">
           <button type="submit" class="btn btn-danger w-100">클래스 결제하기</button>
         </form>
       </div>
