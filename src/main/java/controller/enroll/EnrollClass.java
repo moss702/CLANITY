@@ -11,11 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.bouncycastle.cert.ocsp.Req;
 
 import domain.onedayClass.ClassEnroll;
-import lombok.Builder;
-import lombok.Data;
 
 @WebServlet("/enroll/classDetailedPage")
 public class EnrollClass extends HttpServlet {

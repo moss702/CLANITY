@@ -1,7 +1,6 @@
 package controller.category;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +12,6 @@ import domain.dto.Criteria;
 import domain.dto.PageDto;
 import domain.onedayClass.OnedayClass;
 import lombok.extern.slf4j.Slf4j;
-import service.BoardService;
 import service.ClassService;
 import util.ParamUtil;
 

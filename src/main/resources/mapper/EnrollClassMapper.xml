@@ -4,26 +4,26 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 파일: EnrollClassMapper.xml -->
-<mapper namespace="mapper.EnrollClassMapper"  >
-<!-- 신청 인서트 클래스 아이디랑 오픈아이디 같아야 가능하게-->
-<insert id="insertEnroll" parameterType="map">
-INSERT INTO class_enroll (
-  open_id,
-  member_id,
-  enrolled_at,
-  status
-)
-SELECT 
- #{openId},
-  #{memberId},            
- now(),        
- #{status}             
-FROM class_open o
-JOIN class c ON c.class_id = o.master_id
-WHERE c.class_id = #{classId}
-  AND o.open_id = #{openId}
+<mapper namespace="mapper.EnrollClassMapper">
+	<!-- 신청 인서트 클래스 아이디랑 오픈아이디 같아야 가능하게 -->
+	<insert id="insertEnroll" parameterType="map">
+		INSERT INTO class_enroll (
+		open_id,
+		member_id,
+		enrolled_at,
+		status
+		)
+		SELECT
+		#{openId},
+		#{memberId},
+		now(),
+		#{status}
+		FROM class_open o
+		JOIN class c ON c.class_id = o.master_id
+		WHERE c.class_id = #{classId}
+		AND o.open_id = #{openId}
 
-</insert>
+	</insert>
 
 	<!-- 신청 단일 조회 -->
 	<select id="selectOne"
@@ -33,7 +33,8 @@ WHERE c.class_id = #{classId}
 		member_id,
 		status,
 		enrolled_at
-		FROM class_enroll
+		FROM
+		class_enroll
 		WHERE enroll_id = #{enrollId}
 	</select>
 

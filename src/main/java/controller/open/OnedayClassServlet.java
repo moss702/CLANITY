@@ -2,20 +2,16 @@ package controller.open;
 
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import domain.Member;
 import domain.dto.Criteria;
 import domain.en.MemberRole;
-import domain.onedayClass.ClassInfo;
-import domain.onedayClass.ClassOpen;
 import domain.onedayClass.OnedayClass;
 import lombok.extern.slf4j.Slf4j;
 import service.ClassService;
@@ -41,13 +37,13 @@ public class OnedayClassServlet extends HttpServlet {
 		if(obj == null || !(obj instanceof Member)) {
 			log.info("{멤버 상태}", obj);
 			// 비로그인상태
-			
+			AlertUtil.redirectAlert("로그인 후 이용해 주세요","/index","red",req,resp);
 			return;
 		}
 		Member member = (Member) obj;
 		if(member.getRole() == MemberRole.MEMBER) {
 			// 평회원 사유
-			
+			AlertUtil.redirectAlert("비즈니스 회원 인증 후 이용해 주세요","/index","red",req,resp);
 			return;
 		}
 //		글번호나 qetQs사용시 필요 이거 어떻게 사용할지 보기
@@ -59,8 +55,7 @@ public class OnedayClassServlet extends HttpServlet {
 		 onedayClass.setBusinessId(member.getMemberId());
 	
 		// 3. 그 후 insert 진행
-		  
-//	      log.info("클래스 아이디 수집:{}",onedayClass.getClassId());
+		 // 상태 기본값 트루로 진행(이거 나중에 바꾸기)
 	      onedayClass.setStatus(true);
 	      
 //	      log.info("제목: {}", onedayClass.getTitle());
@@ -73,7 +68,7 @@ public class OnedayClassServlet extends HttpServlet {
 
 //		log.info("classId: {}, url: {}", onedayClass.getClassId(), onedayClass.getUrl());
 
-//	      등록 후에 url 등록은 (이거 enroll 쪽에 jsp있음)
+//	     등록 후에 url 등록은 (이거 enroll 쪽에 jsp있음)
 		 String url = "/classDetailedPage?classId=" + onedayClass.getClassId() + "&openId=" + onedayClass.getOpenId();
 		 onedayClass.setUrl(url);
 		 classService.updateUrlLink(onedayClass);
@@ -86,9 +81,7 @@ public class OnedayClassServlet extends HttpServlet {
 
 
 		
-	      // 메인 페이지이동
 	      
-//	      req.getRequestDispatcher("/WEB-INF/views/category/categoryMain.jsp").forward(req, resp);
 	      
 	
 

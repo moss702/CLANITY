@@ -51,8 +51,8 @@
 
         <!-- 썸네일 리스트 -->
         <div class="d-flex gap-2 overflow-auto mb-3">
-          <c:forEach var="img" items="${detailInfo.detailImages}">
-            <img src="${img}" class="img-thumbnail" style="width:100px;height:100px;object-fit:cover;" alt="상세 이미지">
+          <c:forEach  items="${detailInfo.detailImages}">
+            <img src="${detailInfo.detailImages}" class="img-thumbnail" style="width:100px;height:100px;object-fit:cover;" alt="상세 이미지">
           </c:forEach>
         </div>
 
@@ -138,7 +138,7 @@
           <input type="number" class="form-control w-50 mb-2" value="1" min="1" id="quantityInput">
         </div>
        
-        <form action="${cp}/classEnrollPage" method="get">
+        <form action="${cp}/classEnrollPage" method="post">
           <input type="hidden" name="classId" value="${detailInfo.classId}" />
           <input type="hidden" name="openId" value="${detailInfo.openId}" />
           <input type="hidden" name="memberId" value="${member.memberId}" />

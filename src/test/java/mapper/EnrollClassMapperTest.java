@@ -33,14 +33,27 @@ public class EnrollClassMapperTest {
 				.status(true)
 				.enrolledAt(Date.valueOf(LocalDate.now())) 
 				.build();
-		log.info("{}", onedayClass);
+//		log.info("{}", onedayClass);
 		enrollClassMapper.insertEnroll(onedayClass);
 
 //		log.info("{}", classEnroll);
 
 		
 	}
-
+	@Test
+	public void insertTest2() {
+		Long openId = 10020L;
+		Long  classId= 13090L;
+		Long memberId = 1L;
+		OnedayClass onedayClass = OnedayClass.builder()
+				
+				.openId(openId)
+				.classId(classId)
+				.memberId(memberId)
+			
+				.build();
+		log.info("{}", onedayClass);
+		enrollClassMapper.insertEnroll(onedayClass);
 //	@Test
 //	@DisplayName("등록삭제 테스트")
 //	public void deleteTest() {
@@ -78,6 +91,6 @@ public class EnrollClassMapperTest {
 //		log.info("{}", classInfo);
 //		
 
-//	}
+	}
 
 }
