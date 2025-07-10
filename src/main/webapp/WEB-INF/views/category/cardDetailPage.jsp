@@ -13,7 +13,7 @@
 <body>
 	<c:forEach items="${cards}" var="c">
 		<div class="col">
-			<a href="${c.url}" class="text-decoration-none text-dark w-100 h-100"
+			<a href="${cp}/classDetailedPage?classId=${c.classId}&openId=${c.openId}"  class="text-decoration-none text-dark w-100 h-100"
 				style="display: block;">
 				<div class="card h-100 w-100 border border-2 rounded-4 shadow-sm"
 					style="border-color: #E63946; cursor: pointer;">
