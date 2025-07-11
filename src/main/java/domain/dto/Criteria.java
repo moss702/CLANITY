@@ -92,7 +92,7 @@ public class Criteria { // 페이징 처리 + 검색 조건 전달
 
 	// 카테고리 목록에 필요한 QS임시로 만들어 두었습니다!
 	public String getQs3() {
-		String[] strs = { "amount=" + amount, "type=" + type, "keyword=" + keyword };
+		String[] strs = { "amount=" + amount };
 
 		String str = String.join("&", strs);
 		return str;
