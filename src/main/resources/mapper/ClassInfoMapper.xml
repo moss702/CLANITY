@@ -21,6 +21,32 @@
 		<result property="maxParticipants" column="max_participants" />
 		<result property="status" column="status" />
 	</resultMap>
+	<!--sql  -->
+	<sql id="criteria">
+		<where>
+			<trim prefixOverrides="AND | OR">
+				<if test="categoryId != null and categoryId != 10003">
+					and category_id = #{categoryId}
+				</if>
+
+				<if test="types != null">
+					<foreach collection="types" item="t" open="and (" close=")" separator="or">
+						<choose>
+							<when test="t eq 'T'.toString()">
+								title like concat('%', #{keyword}, '%')
+							</when>
+							<when test="t eq 'C'.toString()">
+								description like concat('%', #{keyword}, '%')
+							</when>
+							<when test="t eq 'I'.toString()">
+								instructor_name like concat('%', #{keyword}, '%')
+							</when>
+						</choose>
+					</foreach>
+				</if>
+			</trim>
+		</where>
+	</sql>
 
 	<!--나중에 조회할 때 사용 <resultMap type="insertClassInfo" id="c"> <id column="classId" 
 		property="classId"/> <id column="classId" property="classId"/> </resultMap> -->
@@ -106,15 +132,18 @@
 		left join (select max(open_id) open_id, master_id
 		from class_open group by
 		master_id) o on c.class_id = o.master_id
+		<include refid="criteria" />
 		ORDER
 		BY class_id DESC
 		LIMIT #{amount}
 		OFFSET #{offset}
-	</select>
-	<!-- 클래스 카테고리 별 정보 조회 조인 필요? 1000개 나옴 조심 -->
+	</select>	
+	
+	<!-- 클래스 카테고리 별 정보 조회 조인 필요 -->
 
 	<select id="listClassInfoOne" parameterType="long"
 		resultType="domain.onedayClass.OnedayClass">
+		select
 		   c.class_id, c.title, c.description, c.price
     FROM
         class c
@@ -124,15 +153,22 @@
         ccm.category_id = #{categoryId}
 
 	</select>
-
-	<!-- 클래스 카테고리 별 정보 조회 - 게시글 갯수(long) 되는거 맞음 -->
+	
+<!-- 클래스 카테고리 별 정보 조회 조인 필요? 1000개 나옴 조심 -->
 
 	<select id="getCount" parameterType="long">
-		SELECT count(*) from class
+		SELECT
+		count(*)
+		FROM class c
+		left join (select max(open_id) open_id, master_id
+		from class_open group by
+		master_id) o on c.class_id = o.master_id
+		<include refid="criteria" />
 	</select>
 
 
 	<!-- 클래스 정보 변경 -->
+	
 
 
 	<!-- 클래스 삭제 -->
