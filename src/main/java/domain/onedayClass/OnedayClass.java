@@ -51,6 +51,11 @@ public class OnedayClass {
 
 	private String region;
 	private int classType;
+	
+//	enroll 
+	private Long enrollId;
+	private Long  memberId;
+	private Date enrolledAt;
 
 	// open 생성자
 
@@ -112,7 +117,17 @@ public class OnedayClass {
 				.isAvailable(true)
 				.build();
 	}
-
+	public ClassEnroll getClassEnroll() {
+		return ClassEnroll 
+				.builder()
+				.openId(openId)
+				.memberId(memberId)
+				.enrolledAt(Date.valueOf(LocalDate.now()))
+				.status(true)
+				.build();
+	}
+	
+	
 }
 
 

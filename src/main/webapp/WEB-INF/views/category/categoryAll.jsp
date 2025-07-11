@@ -16,39 +16,37 @@
 
 <main class="container px-4 py-5">
 	<div class="row justify-content-center">
-
+${category.categoryId}
 		<!-- 사이드바 나중에 카테고리 참고하기 아코디언이나 그런 형식 이용해서 1,2 로 나누기-->
 	<aside class="col-md-3 col-lg-2 mb-4">
-		<h6 class="fw-bold mb-3">카테고리 전체</h6>
-		<ul class="list-group list-group-flush">
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">전체</a></li>
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">핸드메이드</a></li>
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">내향인파티</a></li>
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">뮤직파티</a></li>
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">푸드파티</a></li>
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">와인파티</a></li>
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">생일파티</a></li>
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">포틀럭파티</a></li>
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">푸드·드링크</a></li>
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">자기계발</a></li>
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">N잡·재테크</a></li>
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">외국어</a></li>
-			<li class="list-group-item ps-0 border-0"><a href="#"
-				class="text-decoration-none text-dark">소셜게임</a></li>
-		</ul>
-	</aside>
+    <h6 class="fw-bold mb-3">카테고리</h6>
+    <ul class="list-group list-group-flush">
+        <!-- 전체 카테고리 링크 -->
+        <li class="list-group-item ps-0 border-0">
+        </li>
+<!-- 일단 하드코딩 형태로 값을 불러올 수 있나 확인하기 -->
+<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10003" class="text-decoration-none text-dark">전체</a></li>
+<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10008" class="text-decoration-none text-dark">핸드메이드</a></li>
+<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10019" class="text-decoration-none text-dark">쿠킹</a></li>
+<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10027" class="text-decoration-none text-dark">플라워가드닝</a></li>
+<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10028" class="text-decoration-none text-dark">드로잉</a></li>
+<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10042" class="text-decoration-none text-dark">음악</a></li>
+<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10050" class="text-decoration-none text-dark">레저·스포츠</a></li>
+<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10058" class="text-decoration-none text-dark">뷰티</a></li>
+<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10065" class="text-decoration-none text-dark">반려동물</a></li>
+<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10072" class="text-decoration-none text-dark">체험</a></li>
+<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10073" class="text-decoration-none text-dark">자기계발</a></li>
+<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10074" class="text-decoration-none text-dark">로컬여행</a></li>
+        
+        <%-- <c:forEach var="category" items="${categoryList}">
+            <li class="list-group-item ps-0 border-0">
+                <a href="${cp}/categoryAll?categoryId=${category.categoryId}" class="text-decoration-none text-dark">
+                    ${category.categoryId} 
+                </a>
+            </li>
+        </c:forEach> --%>
+    </ul>
+</aside>
 
 <!--  카드 목록 추가-->
 
@@ -56,61 +54,68 @@
 	<div class="col-md-9 col-lg-10">
 		<div class="row row-cols-1 row-cols-md-4 g-4">
 			<c:forEach items="${cards}" var="c">
-				<div class="col">
-				<a href="${cp}/classDetailedPage?classId=${c.classId}&openId=${c.openId}"  class="text-decoration-none text-dark w-100 h-100"
-				style="display: block;">
-					<div class="card h-100 border border-2 rounded-4 shadow-sm mx-auto" style="width: 250px; border-color: #E63946;">
-						<!-- 이미지 영역 -->
-						<div class="position-relative">
-							<c:if test="${empty c.thumbnailImages}">
-								<c:set var="src" value="https://placehold.co/500x300?text=No+Image" />
-							</c:if>
-							<c:if test="${not empty c.thumbnailImages}">
-								<c:set var="src" value="${c.thumbnailImages}" />
-							</c:if>
-							<img src="${src}" class="card-img-top" alt="썸네일" style="width: 100%; height: 170px; object-fit: cover;">
-							<span class="badge bg-light text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 rounded-pill">원데이클래스</span> <i
-								class="bi bi-heart-fill position-absolute top-0 end-0 m-2 text-warning"></i>
-						</div>
-						<!-- 본문 -->
-						<div class="card-body px-3 py-3">
-							<!-- 카테고리 태그 -->
-							<span class="badge bg-light text-dark mb-2 rounded-pill px-2 py-1">${c.categoryId}</span>
-							<!-- 클래스 제목 -->
-							<div class="fw-bold mb-2 text-truncate"><i class="bi bi-calendar-heart text-danger me-1"></i>${c.title}</div>
-							<!-- 강사 정보 -->
-							<div class="d-flex align-items-center mb-2">
-								<c:if test="${empty c.instructorImageUrl}">
-									<c:set var="instSrc"
-										value="https://placehold.co/24x24?text=No+Image" />
-								</c:if>
-								<c:if test="${not empty c.instructorImageUrl}">
-									<c:set var="instSrc" value="${c.instructorImageUrl}" />
-								</c:if>
-								<img src="${instSrc}" class="rounded-circle me-2" width="24" height="24" alt="강사"> <span class="fw-medium small">${c.instructorName}</span></div>
-							<!-- 장소 -->
-							<div class="small mb-2">
-								<span class="badge bg-light text-dark rounded-pill px-2 py-1">
-									<i class="bi bi-geo-alt me-1"></i> ${c.region}
-								</span>
-							</div>
-						</div>
+		<div class="col">
+			<a href="${cp}/classDetailedPage?classId=${c.classId}&openId=${c.openId}"  class="text-decoration-none text-dark w-100 h-100"style="display: block;">
+				<div class="card h-100 w-100 border border-2 rounded-4 shadow-sm"
+					style="border-color: #E63946; cursor: pointer;">
 
-						<!-- 하단 가격 -->
-						<div class="card-footer bg-white border-0 px-3 pb-3 small">
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="text-danger fw-bold">${c.discount}%</div>
-								<div>
-									<span class="fw-bold" style="color: #E63946;">${c.discountPrice}원</span>
-									<span class="text-muted text-decoration-line-through me-2 small">${c.price}원</span>
-								</div>
-							</div>
+					<!-- 이미지 영역 -->
+					<div class="position-relative">
+						<c:if test="${empty c.thumbnailImages}">
+							<c:set var="src"
+								value="https://placehold.co/500x300?text=No+Image" />
+						</c:if>
+						<c:if test="${not empty c.thumbnailImages}">
+							<c:set var="src" value="${c.thumbnailImages}" />
+						</c:if>
+						<img src="${src}" class="card-img-top" alt="썸네일"
+							style="width: 100%; height: 170px; object-fit: cover;"> <span
+							class="badge bg-light text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 rounded-pill">
+							원데이 클래스 </span> <i
+							class="bi bi-heart-fill position-absolute top-0 end-0 m-2 text-warning"></i>
+					</div>
+
+					<!-- 본문 -->
+					<div class="card-body px-3 py-3">
+						<span class="badge bg-light text-dark mb-2 rounded-pill px-2 py-1">${c.categoryId}</span>
+						<span class="badge bg-light text-dark mb-2 rounded-pill px-2 py-1">${c.difficulty}</span>
+						<div class="fw-bold mb-2 text-truncate">
+							<i class="bi bi-calendar-heart text-danger me-1"></i> ${c.title}
+						</div>
+						<div class="d-flex align-items-center mb-2">
+							<c:if test="${empty c.instructorImageUrl}">
+								<c:set var="instSrc"
+									value="https://placehold.co/24x24?text=No+Image" />
+							</c:if>
+							<c:if test="${not empty c.instructorImageUrl}">
+								<c:set var="instSrc" value="${c.instructorImageUrl}" />
+							</c:if>
+							<img src="${instSrc}" class="rounded-circle me-2" width="24"
+								height="24" alt="강사"> <span class="fw-medium small">${c.instructorName}</span>
+						</div>
+						<div class="small mb-2">
+							 <span class="badge bg-light text-dark rounded-pill px-2 py-1">
+								<i class="bi bi-geo-alt me-1"></i> ${c.duration}
+							</span> 
 						</div>
 					</div>
-					</a>
-				</div>
 
-			</c:forEach>
+					<!-- 하단 가격 -->
+					<div class="card-footer bg-white border-0 px-3 pb-3 small">
+					<i class="bi bi-calendar-heart text-danger me-1"></i> ${c.description2}
+						<%-- <div class="d-flex justify-content-between align-items-center">
+							<div class="text-danger fw-bold">${c.discount}%</div>
+							<div> --%>
+							<%-- 	<span class="fw-bold" style="color: #E63946;">${c.discountPrice}원</span> --%>
+								<span class="fw-bold" style="color: #E63946;">${c.price}원</span>
+							<%-- 	<span class="text-muted text-decoration-line-through me-2 small">${c.price}원</span> --%>
+							</div>
+						</div>
+					</a>
+					</div>
+
+				<!-- </div> -->
+	</c:forEach>
 				<!-- 페이지 번호 -->
 			<div class="container">
 		  <div class="d-flex justify-content-center mt-4">
@@ -165,7 +170,7 @@
 		    </ul>
 		  </div>
 		</div>
-				<p>현재 페이지: ${pageDto.cri.page}</p>
+
 			
 		</div>
 		</div>

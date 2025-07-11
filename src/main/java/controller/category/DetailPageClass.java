@@ -25,8 +25,8 @@ public class DetailPageClass extends HttpServlet {
 		req.setAttribute("onedayClass", onedayClass);
 //		Long classId= onedayClass.getClassId();
 		Long openId= onedayClass.getOpenId();
-		log.info("req.getParameter(classId): {}", req.getParameter("classId"));
-		log.info("req.getParameter(openId): {}", req.getParameter("openId"));
+//		log.info("req.getParameter(classId): {}", req.getParameter("classId"));
+//		log.info("req.getParameter(openId): {}", req.getParameter("openId"));
 		ClassService service = new ClassService();
 		OnedayClass detailInfo = service.detailPageInfo(classId, openId);
 //		

@@ -13,35 +13,38 @@ import domain.dto.Criteria;
 import domain.dto.PageDto;
 import domain.onedayClass.OnedayClass;
 import lombok.extern.slf4j.Slf4j;
-import service.BoardService;
 import service.ClassService;
 import util.ParamUtil;
 
 @Slf4j
 @WebServlet("/categoryList")
-public class PageList extends HttpServlet {
+public class categoryListPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //		현재 필요없
-//		Long categoryId = Long.parseLong(req.getParameter("categoryId"));
-		
+//		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
+		Long categoryId = Long.parseLong(req.getParameter("categoryId"));
+		log.info("Received categoryId: {}", categoryId);  // categoryId 값 로그 출력
 //		서비스 호출
 		ClassService service = new ClassService();
-//		불러오기
-		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
-
 		Criteria cri = Criteria.init(req);
+
 //		log.info("{}", cri);
-//		리스트가 필요한가?
-	
-//		List<OnedayClass> cards = service.cardByCategory(onedayClass);
+//		service.cardByCategory(categoryId);
+		 List<OnedayClass> categoryList = service.cardByCategory(categoryId);
+//		req.setAttribute("categoryList", service.cardByCategory(categoryId));
+		req.setAttribute("categoryList", categoryList);
+		
+//		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
+//
+//		
+		req.setAttribute("pageDto", new PageDto(cri, service.getCount(cri)));
+		req.setAttribute("cards", service.classList(cri));
 
 		// 페이지 불러오기 및 카드 불러오기		
 		req.setAttribute("pageDto", new PageDto(cri, service.getCount(cri)));
-		req.setAttribute("cards", service.classList(cri));
-//		
-		log.info("pageDto: {}", new PageDto(cri, service.getCount(cri)));
+//		log.info("pageDto: {}", new PageDto(cri, service.getCount(cri)));
 		req.getRequestDispatcher("/WEB-INF/views/class/categoryList.jsp").forward(req, resp);
 	}
 
