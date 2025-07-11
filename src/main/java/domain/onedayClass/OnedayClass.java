@@ -11,7 +11,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
@@ -125,6 +124,16 @@ public class OnedayClass {
 				.enrolledAt(Date.valueOf(LocalDate.now()))
 				.status(true)
 				.build();
+	}
+	public void  setClassEnroll(ClassEnroll enroll) {
+		if (enrollId == null) return;
+		
+
+		this.enrollId = enroll.getEnrollId();
+		this.openId = enroll.getOpenId();
+		this.memberId = enroll.getMemberId();
+		this.enrolledAt = enroll.getEnrolledAt();
+		this.status = enroll.isStatus();
 	}
 	
 	
