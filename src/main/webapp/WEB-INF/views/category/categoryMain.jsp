@@ -29,10 +29,9 @@ body {
 <%@ include file="../common/header.jsp"%>
 
 <main class="container py-5 flex-grow-1">
-	<h3 class="mb-4 text-center">추천 클래스</h3>
 
-	<!-- 추천 배너 -->
-	<div id="mainCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+	 <!-- 추천 배너 -->
+	<!-- <div id="mainCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
 				<img src="https://www.munto.kr/_next/image?url=https%3A%2F%2Fimages.munto.kr%2Fproduction-banner%2F1749630156_pc_main_banner_summersweet.png&w=1920&q=75" class="d-block w-100" alt="...">
@@ -44,49 +43,11 @@ body {
 				<img src="https://www.munto.kr/_next/image?url=https%3A%2F%2Fimages.munto.kr%2Fproduction-banner%2F17440769269_pc_main_banner_club.png&w=1920&q=75" class="d-block w-100" alt="...">
 			</div>
 		</div>
-	</div>
+	</div> -->
 
-	<!-- 카테고리 아이콘 -->
-<%-- 	<div class="d-flex justify-content-center flex-wrap gap-4 mb-4">
-		<c:forEach var="icon" items="${categoryIcons}">
-			<div class="text-center category-icon">
-				<a href="#" class="text-decoration-none text-dark">
-					<img src="${icon.imageUrl}" class="rounded mb-2">
-					<div>${icon.label}</div>
-				</a>
-			</div>
-		</c:forEach>
-	</div>
- --%>
-	<!-- 추천 태그 -->
-	<div class="mb-4 text-center">
-		<div class="d-inline-flex flex-wrap gap-2 justify-content-center">
-			<c:forEach var="tag" items="${recommendTags}">
-				<a href="#" class="btn btn-outline-danger btn-sm rounded-pill">${tag}</a>
-			</c:forEach>
-		</div>
-	</div>
-
-	<!-- 클래스 카드 목록 -->
-	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-		<c:forEach var="c" items="${cards}">
-			<div class="col">
-				<div class="card h-100 shadow-sm">
-					<img src="${c.thumbnailImages}" class="card-img-top" alt="${c.title}">
-					<div class="card-body">
-						<h5 class="card-title text-truncate">${c.title}</h5>
-						<p class="card-text text-muted">${c.description}</p>
-					</div>
-					<div class="card-footer bg-transparent border-top-0">
-						<a href="${cp}/class/detail?classId=${c.classId}" class="btn btn-danger w-100">자세히 보기</a>
-					</div>
-				</div>
-			</div>
-		</c:forEach>
-	</div>
+	 
 </main>
 
 <%@ include file="../common/footer.jsp"%>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

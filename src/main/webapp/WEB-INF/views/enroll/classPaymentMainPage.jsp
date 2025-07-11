@@ -30,8 +30,8 @@
         <div class="border rounded p-4 bg-white">
           <h5 class="fw-semibold mb-3 text-body">연락처 입력 <span class="text-muted fs-6">(문자/이메일 알림 발송)</span></h5>
           <p><strong class="text-dark">계정 ID</strong><br>kysy0000@naver.com</p>
-          <p><strong class="text-dark">이름 (닉네임)</strong><br>사랑</p>
-          <p><strong class="text-dark">전화번호</strong><br>01031441760</p>
+          <p><strong class="text-dark">이름 (닉네임)</strong><br>ttsf</p>
+          <p><strong class="text-dark">전화번호</strong><br>0100000000</p>
           <button class="btn btn-outline-secondary btn-sm">연락처 수정</button>
         </div>
       </div>
