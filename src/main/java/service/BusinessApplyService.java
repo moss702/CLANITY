@@ -1,7 +1,10 @@
 package service;
 
+import domain.AttachLink;
 import domain.BusinessApply;
 import domain.dto.Criteria;
+import mapper.AttachLinkMapper;
+import mapper.AttachMapper;
 import mapper.BusinessApplyMapper;
 import org.apache.ibatis.session.SqlSession;
 import util.MybatisUtil;
@@ -12,10 +15,29 @@ public class BusinessApplyService {
     
     //신청등록
     public int insert(BusinessApply apply){
-        try (SqlSession session = MybatisUtil.getSqlSession()) {
+        SqlSession session = MybatisUtil.getSqlSession(false);
+        try {
             BusinessApplyMapper mapper = session.getMapper(BusinessApplyMapper.class);
+
+            mapper.insert(apply);
+            AttachMapper attachMapper = session.getMapper(AttachMapper.class);
+            AttachLinkMapper attachLinkMapper = session.getMapper(AttachLinkMapper.class);
+            apply.getAttachs().stream()
+                    .peek(attachMapper::insert)
+                    .map(a -> AttachLink.builder()
+                            .uuid(a.getUuid())
+                            .linkType("businessApply")
+                            .lno(apply.getApplyId()).build())
+                    .forEach(attachLinkMapper::insert);
             session.commit();
-            return mapper.insert(apply);
+            return 1;
+        } catch (Exception e){
+            session.rollback();
+            e.printStackTrace();
+            return 0;
+        }
+        finally {
+            session.close();
         }
     }
     

@@ -31,7 +31,7 @@
 
   <!-- 오른쪽 중앙 정렬된 콘텐츠 영역 -->
   <div class="centered-form">
-    <form action="/mypage/application" method="post" id="writeForm" class="business-form">
+    <form action="${cp}/mypage/application" method="post" id="writeForm" class="business-form">
       <h4 class="text-center mb-4">CLANITY 사업자 신청 안내</h4>
 
       <div class="mb-3">
@@ -135,20 +135,20 @@
 
           for(let a of data){
             str += `<li class="list-group-item d-flex align-items-center justify-content-between"
-              data-uuid="${a.uuid}"
-              data-origin="${a.origin}"
-              data-image="${a.image}"
-              data-path="${a.path}"
-              data-odr="${a.odr}"
-              data-size="${a.size}">
-              <a href="${cp}/download?uuid=${a.uuid}&origin=${a.origin}&path=${a.path}">${a.origin}</a>
+              data-uuid="\${a.uuid}"
+              data-origin="\${a.origin}"
+              data-image="\${a.image}"
+              data-path="\${a.path}"
+              data-odr="\${a.odr}"
+              data-size="\${a.size}">
+              <a href="${cp}/download?uuid=\${a.uuid}&origin=\${a.origin}&path=\${a.path}">\${a.origin}</a>
               <i class="fa-solid fa-xmark float-end text-danger"></i>
             </li>`;
 
             if(a.image){
-              thumbStr += `<div class="my-2 col-12 col-sm-4 col-lg-2" data-uuid="${a.uuid}">
+              thumbStr += `<div class="my-2 col-12 col-sm-4 col-lg-2" data-uuid="\${a.uuid}">
                 <div class="my-2 bg-primary" style="height: 150px; background-size: cover;
-                background-image:url('${cp}/display?uuid=t_${a.uuid}&path=${a.path}')">
+                background-image:url('${cp}/display?uuid=t_\${a.uuid}&path=\${a.path}')">
                   <i class="fa-solid fa-xmark float-end text-danger m-2"></i>
                 </div>
               </div>`;
