@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 
 
-<footer class="bg-light border-end mt-auto py-5">
+<footer class="border-end mt-auto py-5" style="background-color: #d3d3d3;">
+
     <div class="container">
       <div class="row text-muted small">
          
