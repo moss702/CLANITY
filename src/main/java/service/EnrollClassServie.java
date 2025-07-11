@@ -28,7 +28,6 @@ public class EnrollClassServie {
 			onedayClass.setMasterId(onedayClass.getOpenId());
 			onedayClass.setMasterId(onedayClass.getMemberId());
 
-			mapper.insertEnroll(onedayClass);
 			session.commit();
 
 		} catch (Exception e) {
