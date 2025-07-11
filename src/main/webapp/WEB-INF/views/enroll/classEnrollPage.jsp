@@ -6,6 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>클래니티 - 결제</title>
+  
 </head>
 
 <body class="bg-light">

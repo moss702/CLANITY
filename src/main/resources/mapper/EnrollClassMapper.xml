@@ -5,6 +5,18 @@
 
 <!-- 파일: EnrollClassMapper.xml -->
 <mapper namespace="mapper.EnrollClassMapper">
+	<!-- 클래스, 오픈아이디, 클래스신청 세개 같이 묶기 -->
+	<resultMap id="enrollMap"
+		type="domain.onedayClass.OnedayClass">
+		<id property="classId" column="class_id" />
+		<result property="title" column="title" />
+		<result property="openId" column="open_id" />
+		<result property="enrollId" column="enroll_id" />
+		<result property="memberId" column="member_id" />
+		<result property="enrolledAt" column="enrolled_at" />
+		<result property="status" column="status" />
+
+	</resultMap>
 	<!-- 신청 인서트 클래스 아이디랑 오픈아이디 같아야 가능하게 -->
 	<insert id="insertEnroll" parameterType="map">
 		INSERT INTO class_enroll
@@ -24,32 +36,32 @@
 		o.master_id
 		WHERE c.class_id = #{classId}
 		AND o.open_id = #{openId}
-		
+
 
 	</insert>
 
 	<!-- 신청 단일 조회 -->
-	<select id="enrollListOne" parameterType="long" resultType="domain.onedayClass.OnedayClass">
+	<select id="enrollList" parameterType="long"
+		resultMap="enrollMap">
 		SELECT
-		enroll_id,
-		open_id,
-		member_id,
-		enrolled_at,
-		status
-		FROM class_enroll
-		WHERE enroll_id = #{enrollId}
+		e.enroll_id, e.open_id, e.member_id, e.enrolled_at, e.status,
+		o.master_id, c.class_id, c.title
+		FROM class_enroll e
+		JOIN class_open o ON e.open_id = o.open_id
+		JOIN class c ON o.master_id = c.class_id
+		WHERE e.enroll_id = #{enrollId}
+		AND e.open_id = #{openId};
 	</select>
 
 	<!-- 전체 신청 목록 -->
-	<select id="listEnroll" resultType="domain.onedayClass.OnedayClass" >
-		SELECT enroll_id,
-		open_id,
-		member_id,
-		enrolled_at,
-		status
-		FROM class_enroll
-		 WHERE open_id = #{openId}
-		ORDER BY enrolled_at DESC
+	<select id="listEnroll" resultMap="enrollMap">
+		select c.class_id, c.title,
+		o.open_id, e.enroll_id, e.member_id, e.enrolled_at, e.status
+		FROM
+		class_enroll e
+		JOIN class_open o ON e.open_id = o.open_id
+		JOIN class c
+		ON o.master_id = c.class_id
 	</select>
 
 	<!-- 신청 상태 변경 -->

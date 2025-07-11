@@ -8,122 +8,85 @@
 <head>
 <meta charset="UTF-8">
 <title>클래니티 - 클래스 목록</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
 body {
 	font-family: 'Noto Sans KR', sans-serif;
 	background-color: #f8f9fa;
 }
-
-.category-icon img {
-	width: 60px;
-	height: 60px;
-}
-
 .card-img-top {
 	object-fit: cover;
 	height: 180px;
 }
+.category-icon img {
+	width: 60px;
+	height: 60px;
+}
 </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
-	<%@ include file="../common/header.jsp"%>
+<%@ include file="../common/header.jsp"%>
 
-	<main class="container py-5 flex-grow-1">
-		<!-- 추천 이미지 배너 -->
-		<div id="mainCarousel" class="carousel slide mb-5"
-			data-bs-ride="carousel">
-			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<img
-						src="https://www.munto.kr/_next/image?url=https%3A%2F%2Fimages.munto.kr%2Fproduction-banner%2F1749630156_pc_main_banner_summersweet.png&w=1920&q=75"
-						class="d-block w-100" alt="...">
-				</div>
-				<div class="carousel-item">
-					<img
-						src="https://www.munto.kr/_next/image?url=https%3A%2F%2Fimages.munto.kr%2Fproduction-banner%2F1749629821_pc_main_banner_summersea.png&w=1920&q=75"
-						class="d-block w-100" alt="...">
-				</div>
-				<div class="carousel-item">
-					<img
-						src="https://www.munto.kr/_next/image?url=https%3A%2F%2Fimages.munto.kr%2Fproduction-banner%2F17440769269_pc_main_banner_club.png&w=1920&q=75"
-						class="d-block w-100" alt="...">
-				</div>
+<main class="container py-5 flex-grow-1">
+	<h3 class="mb-4 text-center">추천 클래스</h3>
+
+	<!-- 추천 배너 -->
+	<div id="mainCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img src="https://www.munto.kr/_next/image?url=https%3A%2F%2Fimages.munto.kr%2Fproduction-banner%2F1749630156_pc_main_banner_summersweet.png&w=1920&q=75" class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item">
+				<img src="https://www.munto.kr/_next/image?url=https%3A%2F%2Fimages.munto.kr%2Fproduction-banner%2F1749629821_pc_main_banner_summersea.png&w=1920&q=75" class="d-block w-100" alt="...">
+			</div>
+			<div class="carousel-item">
+				<img src="https://www.munto.kr/_next/image?url=https%3A%2F%2Fimages.munto.kr%2Fproduction-banner%2F17440769269_pc_main_banner_club.png&w=1920&q=75" class="d-block w-100" alt="...">
 			</div>
 		</div>
+	</div>
 
-		<!-- 카테고리 아이콘 -->
-		<div class="d-flex justify-content-center flex-wrap gap-4 mb-4">
+	<!-- 카테고리 아이콘 -->
+	<div class="d-flex justify-content-center flex-wrap gap-4 mb-4">
+		<c:forEach var="icon" items="${categoryIcons}">
 			<div class="text-center category-icon">
-				<a href="#" class="text-decoration-none text-secondary"> <img
-					src="https://images.munto.kr/meta/angle_weekend.svg"
-					class="rounded mb-2">
-					<div>추천 클래스</div>
+				<a href="#" class="text-decoration-none text-dark">
+					<img src="${icon.imageUrl}" class="rounded mb-2">
+					<div>${icon.label}</div>
 				</a>
 			</div>
-			<div class="text-center category-icon">
-				<a href="#" class="text-decoration-none text-secondary"> <img
-					src="https://images.munto.kr/meta/angle_recommendhost.svg"
-					class="rounded mb-2">
-					<div>추천 소셜링</div>
-				</a>
-			</div>
-			<div class="text-center category-icon">
-				<a href="#" class="text-decoration-none text-secondary"> <img
-					src="https://images.munto.kr/meta/1738802826_ic_angle_bigband_40px.svg"
-					class="rounded mb-2">
-					<div>커뮤니티</div>
-				</a>
-			</div>
-			<div class="text-center category-icon">
-				<a href="#" class="text-decoration-none text-secondary"> <img
-					src="https://images.munto.kr/meta/angle_space.svg?1"
-					class="rounded mb-2">
-					<div>내근처활동</div>
-				</a>
-			</div>
-			<div class="text-center category-icon">
-				<a href="#" class="text-decoration-none text-secondary"> <img
-					src="https://images.munto.kr/meta/1750388625_VOD_angle.svg"
-					class="rounded mb-2">
-					<div>카테고리</div>
-				</a>
-			</div>
-		</div>
+		</c:forEach>
+	</div>
 
-		<!-- 추천 키워드 태그 -->
-		<div class="mb-4 text-center">
-			<div class="d-inline-flex flex-wrap gap-2 justify-content-center">
-				<a href="#" class="btn btn-sm rounded-pill"
-					style="border: 1px solid #E63946; color: #E63946;">#단체</a> <a
-					href="#" class="btn btn-sm rounded-pill"
-					style="border: 1px solid #E63946; color: #E63946;">#혼자참여</a> <a
-					href="#" class="btn btn-sm rounded-pill"
-					style="border: 1px solid #E63946; color: #E63946;">#실내활동</a> <a
-					href="#" class="btn btn-sm rounded-pill"
-					style="border: 1px solid #E63946; color: #E63946;">#야외클래스</a> <a
-					href="#" class="btn btn-sm rounded-pill"
-					style="border: 1px solid #E63946; color: #E63946;">#주말추천</a> <a
-					href="#" class="btn btn-sm rounded-pill"
-					style="border: 1px solid #E63946; color: #E63946;">#소셜모임</a>
-			</div>
-		</div>
-
-		<!-- 카드 이미지  -->
-		<div
-			class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-			<c:forEach var="c" items="${cards}">
+	<!-- 추천 태그 -->
+	<div class="mb-4 text-center">
+		<div class="d-inline-flex flex-wrap gap-2 justify-content-center">
+			<c:forEach var="tag" items="${recommendTags}">
+				<a href="#" class="btn btn-outline-danger btn-sm rounded-pill">${tag}</a>
 			</c:forEach>
 		</div>
-	</main>
+	</div>
 
-	<%@ include file="../common/footer.jsp"%>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- 클래스 카드 목록 -->
+	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+		<c:forEach var="c" items="${cards}">
+			<div class="col">
+				<div class="card h-100 shadow-sm">
+					<img src="${c.thumbnailImages}" class="card-img-top" alt="${c.title}">
+					<div class="card-body">
+						<h5 class="card-title text-truncate">${c.title}</h5>
+						<p class="card-text text-muted">${c.description}</p>
+					</div>
+					<div class="card-footer bg-transparent border-top-0">
+						<a href="${cp}/class/detail?classId=${c.classId}" class="btn btn-danger w-100">자세히 보기</a>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
+</main>
+
+<%@ include file="../common/footer.jsp"%>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

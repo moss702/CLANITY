@@ -22,7 +22,7 @@ public interface EnrollClassMapper {
 	
 	
 	// 신청 정보 단일 조회
-	OnedayClass enrollListOne(@Param("enrollId") Long enrollId, @Param("openId") Long openId, @Param("memberId") Long memberId);
+	OnedayClass enrollList(@Param("enrollId") Long enrollId, @Param("openId") Long openId);
 	
 	// 신청 정보 삭제
 	void delete(Long enrollId);

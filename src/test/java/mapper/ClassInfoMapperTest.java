@@ -57,11 +57,11 @@ public class ClassInfoMapperTest {
 	}
 
 	@Test
-	@DisplayName("클래스 전체 목록 조회")
+	@DisplayName("클래스  목록 조회")
 	public void classListTest() {
 
-		Long classId = 13090L;
-		Long openId = 10020L;
+		Long classId = 13091L;
+		Long openId = 10021L;
 
 		OnedayClass result = classInfoMapper.listClassDetailPage(classId, openId);
 		log.info("{}", result);
