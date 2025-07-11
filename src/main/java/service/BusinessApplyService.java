@@ -2,10 +2,12 @@ package service;
 
 import domain.AttachLink;
 import domain.BusinessApply;
+import domain.Member;
 import domain.dto.Criteria;
 import mapper.AttachLinkMapper;
 import mapper.AttachMapper;
 import mapper.BusinessApplyMapper;
+import mapper.MemberMapper;
 import org.apache.ibatis.session.SqlSession;
 import util.MybatisUtil;
 
@@ -42,10 +44,10 @@ public class BusinessApplyService {
     }
     
     //전체 목록 조회
-    public List<BusinessApply> list(){
+    public List<BusinessApply> list(String status){
         try(SqlSession session = MybatisUtil.getSqlSession()) {
             BusinessApplyMapper mapper = session.getMapper(BusinessApplyMapper.class);
-            return mapper.list();
+            return mapper.selectWithAttach(status);
         }
     }
     
@@ -81,12 +83,29 @@ public class BusinessApplyService {
     }
 
     // 관리자 승인/거절 처리
-    public int updateStatus(BusinessApply apply) {
-        try (SqlSession session = MybatisUtil.getSqlSession()) {
-            BusinessApplyMapper mapper = session.getMapper(BusinessApplyMapper.class);
-            int result = mapper.update(apply);
+    public int updateStatus(BusinessApply apply, Member member) {
+        SqlSession session = MybatisUtil.getSqlSession(false);
+        try{
+            BusinessApplyMapper baMapper = session.getMapper(BusinessApplyMapper.class);
+            MemberMapper memberMapper = session.getMapper(MemberMapper.class);
+
+            // 1. BusinessApply 승인 or 거절 처리
+            baMapper.update(apply); // apply 객체 필요
+
+            // 2. Member 권한 업데이트 (예: MEMBER → BUSINESS)
+            if (member != null) {
+                memberMapper.update(member); // 또는 role 전용 update
+            }
+
+
             session.commit(); // 트랜잭션 커밋
-            return result;
+            return 1;
+        } catch (Exception e) {
+            session.rollback();
+            e.printStackTrace();
+            return 0;
+        } finally {
+            session.close();
         }
     }
 }

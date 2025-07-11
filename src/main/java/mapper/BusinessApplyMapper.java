@@ -1,10 +1,15 @@
 package mapper;
 
 import domain.BusinessApply;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface BusinessApplyMapper {
+
+
+    // 상태별 신청 목록 + 첨부파일 포함
+    List<BusinessApply> selectWithAttach(@Param("status") String status);
 
     // 신청 등록
     int insert(BusinessApply apply);

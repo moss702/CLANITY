@@ -53,8 +53,8 @@ public class BusinessApplyMapperTest {
     @DisplayName("신청 상태를 승인으로 변경")
     void update() {
         BusinessApply apply = BusinessApply.builder()
-                .applyId(1L)
-                .status(ApplyStatus.APPROVED)
+                .applyId(10L)
+                .status(ApplyStatus.PENDING)
                 .adminId(1L)
                 .build();
 
@@ -67,5 +67,59 @@ public class BusinessApplyMapperTest {
     void listPending() {
         List<BusinessApply> results = businessApplyMapper.listPending();
         log.info("{}",results);
+    }
+
+    @Test
+    @DisplayName("✅ [PENDING] 상태의 신청 목록과 첨부파일 확인")
+    public void testSelectWithAttach_pending() {
+
+        List<BusinessApply> list = businessApplyMapper.selectWithAttach("PENDING");
+        System.out.println("=== [PENDING] 목록 ===");
+        for (BusinessApply apply : list) {
+            System.out.println(apply.getApplyId() + " | " + apply.getNickname() + " | " + apply.getStatus());
+            if (apply.getAttachs() != null) {
+                apply.getAttachs().forEach(a ->
+                        System.out.println("   - " + a.getOrigin() + " (" + a.getUuid() + ")")
+                );
+            }
+        }
+
+    }
+
+    @Test
+    @DisplayName("✅ 전체 신청 목록 조회")
+    public void testSelectWithAttach_all() {
+        List<BusinessApply> list = businessApplyMapper.selectWithAttach(null);
+
+        System.out.println("=== 전체 목록 ===");
+        for (BusinessApply apply : list) {
+            System.out.println(apply.getApplyId() + " | " + apply.getNickname() + " | " + apply.getStatus());
+        }
+
+    }
+
+    @Test
+    @DisplayName("✅ [APPROVED] 승인된 신청 목록 확인")
+    public void testSelectWithAttach_approved() {
+
+        List<BusinessApply> list = businessApplyMapper.selectWithAttach("APPROVED");
+
+        System.out.println("=== [APPROVED] 목록 ===");
+        for (BusinessApply apply : list) {
+            System.out.println(apply.getApplyId() + " | " + apply.getNickname() + " | " + apply.getStatus());
+        }
+
+    }
+
+    @Test
+    @DisplayName("✅ [REJECTED] 거절된 신청 목록 확인")
+    public void testSelectWithAttach_rejected() {
+
+        List<BusinessApply> list = businessApplyMapper.selectWithAttach("REJECTED");
+        System.out.println("=== [REJECTED] 목록 ===");
+        for (BusinessApply apply : list) {
+            System.out.println(apply.getApplyId() + " | " + apply.getNickname() + " | " + apply.getStatus());
+        }
+
     }
 }

@@ -20,12 +20,18 @@ public class Adminbusiness extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String status = req.getParameter("status");
 		BusinessApplyService service = new BusinessApplyService();
 
-		List<BusinessApply> apply = service.list();
+		List<BusinessApply> applyList = service.list(null); //전체 조회
 
-		req.setAttribute("applyList", apply);
+		if (status == null || status.equals("all")) {
+			applyList = service.list(null); // 전체 조회
+		} else {
+			applyList = service.list(status); // 상태별 조회
+		}
 
+		req.setAttribute("applyList", applyList);
 		req.getRequestDispatcher("/WEB-INF/views/admin/admin_business.jsp").forward(req, resp);
 	}
 
