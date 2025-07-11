@@ -33,176 +33,128 @@
 
 	<%-- FAQ 시작 --%>
 	<c:if test="${c.categoryId == 1}">
-	<div class="flex-grow-1">
-	<!-- 헤더와 버튼 -->
-	<div class="bg-white rounded shadow-sm p-4 mb-4">
-		<div class="top-group">
-			<div>
-				<h2 class="fw-bold mb-1">${c.name}</h2>
-				<p class="text-muted mb-0">${c.desc}</p>
-			</div>
-		</div>
-	</div>
-	<!-- 검색창 -->
-	<div class="input-group search-bar mx-auto mb-3">
-		<input type="text" class="form-control" id="faqSearchInput" placeholder="검색어를 입력하세요">
-		<button class="btn btn-danger" id="faqSearchBtn">검색</button>
-	</div>
-
-	<!-- 카테고리 탭 -->
-	<div class="d-flex flex-wrap gap-2 justify-content-center mb-4">
-		<button type="button" class="round-filter-btn active filter-btn" data-filter="all">전체</button>
-		<button type="button" class="round-filter-btn filter-btn" data-filter="class">클래스</button>
-		<button type="button" class="round-filter-btn filter-btn" data-filter="community">커뮤니티</button>
-		<button type="button" class="round-filter-btn filter-btn" data-filter="payment">결제 및 환불</button>
-		<button type="button" class="round-filter-btn filter-btn" data-filter="etc">기타</button>
-	</div>
-
-	<!-- 질문 추가 버튼 (관리자용) -->
-	<c:if test="${loginMember != null and loginMember.role == 'ADMIN'}">
-		<div class="mb-3 text-end">
-			<button class="btn btn-danger btn-sm" onclick="toggleFaqForm()">+ 질문 등록</button>
-		</div>
-	</c:if>
-
-	<div id="faqFormAnchor"></div>
-	<!-- 등록 폼 -->
-	<form id="faqForm" class="faq-form" action="${cp}/board/write" method="post">
-		<input type="hidden" id="faqId" name="id" value="${b.boardId}"/> <!-- 수정용정보 -->
-		<input type="hidden" id="faqMode" name="mode" value="write"/>
-
-		<div class="mb-2">
-			<label class="form-label fw-semibold">카테고리 선택</label>
-			<select class="form-select" id="faqCategory">
-				<option value="class">클래스</option>
-				<option value="community">커뮤니티</option>
-				<option value="payment">결제 및 환불</option>
-				<option value="etc">기타</option>
-			</select>
-		</div>
-		<div class="mb-2">
-			<label class="form-label fw-semibold">질문</label>
-			<input type="text" class="form-control" id="faqQuestion" name="title" placeholder="질문 제목을 입력하세요">
-		</div>
-
-		<div class="mb-2">
-			<label class="form-label fw-semibold">답변</label>
-			<textarea class="form-control" id="faqAnswer" name="content" rows="3"
-					  placeholder="답변 내용을 입력하세요"></textarea>
-		</div>
-		<input type="hidden" name="memberId" value="${member.memberId}"/>
-		<input type="hidden" name="categoryId" value="1"/>
-		<input type="hidden" name="isBlind" value="0"/>
-		<input type="hidden" name="visibleLevel" value="ALL"/>
-		<button type="submit" class="btn btn-danger btn-sm">등록하기</button>
-	</form>
-
-
-	<!-- FAQ 목록 -->
-	<div class="accordion" id="boardAccordion">
-		<c:forEach items="${boards}" var="b" varStatus="status">
-			<div class="card faq-card mt-3 mb-3">
-				<div class="card-header">
-					<button class="btn w-100 text-start d-flex justify-content-between align-items-center fw-semibold"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#faq${status.index}"
-							aria-expanded="false"
-							aria-controls="faq${status.index}"
-							style="background: none; border: none; padding: 0;">
-						<div><strong class="text-danger">[FAQ]</strong> ${b.title}</div>
-						<small class="text-muted">
-							<fmt:parseDate value="${b.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate"/>
-							<fmt:formatDate value="${parsedDate}" pattern="yy.MM.dd"/>
-						</small>
-					</button>
-				</div>
-
-				<div id="faq${status.index}" class="collapse"
-					 data-bs-parent="#boardAccordion"
-					 aria-labelledby="faq${status.index}">
-					<div class="faq-answer p-3">
-						<p>${b.content.replaceAll("\\n", "<br/>")}</p>
-						<c:if test="${member != null and member.role == 'ADMIN'}">
-							<div class="faq-buttons d-flex gap-2 mt-2">
-
-								<!-- 수정 버튼 -->
-								<button
-										class="btn btn-outline-secondary btn-sm btn-edit"
-										data-id="${b.boardId}"
-										data-title="${fn:escapeXml(b.title)}"
-										data-content="${fn:escapeXml(b.content)}"
-										data-index="${status.index}">
-									수정하기
-								</button>
-
-								<!-- 삭제 버튼 -->
-								<form method="post" action="${cp}/board/remove" onsubmit="return confirm('삭제할까요?')">
-									<input type="hidden" name="boardId" value="${b.boardId}"/>
-									<input type="hidden" name="mode" value="delete"/>
-									<button class="btn btn-outline-danger btn-sm">삭제</button>
-								</form>
-							</div>
-						</c:if>
+		<div class="flex-grow-1">
+			<!-- 헤더와 버튼 -->
+			<div class="bg-white rounded shadow-sm p-4 mb-4">
+				<div class="top-group">
+					<div>
+						<h2 class="fw-bold mb-1">${c.name}</h2>
+						<p class="text-muted mb-0">${c.desc}</p>
 					</div>
 				</div>
 			</div>
-		</c:forEach>
-	</div>
-	</div>
+			<!-- 검색창 -->
+			<div class="input-group search-bar mx-auto mb-3">
+				<input type="text" class="form-control" id="faqSearchInput" placeholder="검색어를 입력하세요">
+				<button class="btn btn-danger" id="faqSearchBtn">검색</button>
+			</div>
+
+			<!-- 카테고리 탭 -->
+			<div class="d-flex flex-wrap gap-2 justify-content-center mb-4">
+				<button type="button" class="round-filter-btn active filter-btn" data-filter="all">전체</button>
+				<button type="button" class="round-filter-btn filter-btn" data-filter="class">클래스</button>
+				<button type="button" class="round-filter-btn filter-btn" data-filter="community">커뮤니티</button>
+				<button type="button" class="round-filter-btn filter-btn" data-filter="payment">결제 및 환불</button>
+				<button type="button" class="round-filter-btn filter-btn" data-filter="etc">기타</button>
+			</div>
+
+			<!-- 질문 추가 버튼 (관리자용) -->
+			<c:if test="${loginMember != null and loginMember.role == 'ADMIN'}">
+				<div class="mb-3 text-end">
+					<button class="btn btn-danger btn-sm" onclick="toggleFaqForm()">+ 질문 등록</button>
+				</div>
+			</c:if>
+
+			<div id="faqFormAnchor"></div>
+			<!-- 등록 폼 -->
+			<form id="faqForm" class="faq-form" action="${cp}/board/write" method="post">
+				<input type="hidden" id="faqId" name="id" value="${b.boardId}"/> <!-- 수정용정보 -->
+				<input type="hidden" id="faqMode" name="mode" value="write"/>
+
+				<div class="mb-2">
+					<label class="form-label fw-semibold">카테고리 선택</label>
+					<select class="form-select" id="faqCategory">
+						<option value="class">클래스</option>
+						<option value="community">커뮤니티</option>
+						<option value="payment">결제 및 환불</option>
+						<option value="etc">기타</option>
+					</select>
+				</div>
+				<div class="mb-2">
+					<label class="form-label fw-semibold">질문</label>
+					<input type="text" class="form-control" id="faqQuestion" name="title" placeholder="질문 제목을 입력하세요">
+				</div>
+
+				<div class="mb-2">
+					<label class="form-label fw-semibold">답변</label>
+					<textarea class="form-control" id="faqAnswer" name="content" rows="3"
+							  placeholder="답변 내용을 입력하세요"></textarea>
+				</div>
+				<input type="hidden" name="memberId" value="${member.memberId}"/>
+				<input type="hidden" name="categoryId" value="1"/>
+				<input type="hidden" name="isBlind" value="0"/>
+				<input type="hidden" name="visibleLevel" value="ALL"/>
+				<button type="submit" class="btn btn-danger btn-sm">등록하기</button>
+			</form>
+
+
+			<!-- FAQ 목록 -->
+			<div class="accordion" id="boardAccordion">
+				<c:forEach items="${boards}" var="b" varStatus="status">
+					<div class="card faq-card mt-3 mb-3">
+						<div class="card-header">
+							<button class="btn w-100 text-start d-flex justify-content-between align-items-center fw-semibold"
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#faq${status.index}"
+									aria-expanded="false"
+									aria-controls="faq${status.index}"
+									style="background: none; border: none; padding: 0;">
+								<div><strong class="text-danger">[FAQ]</strong> ${b.title}</div>
+								<small class="text-muted">
+									<fmt:parseDate value="${b.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate"/>
+									<fmt:formatDate value="${parsedDate}" pattern="yy.MM.dd"/>
+								</small>
+							</button>
+						</div>
+
+						<div id="faq${status.index}" class="collapse"
+							 data-bs-parent="#boardAccordion"
+							 aria-labelledby="faq${status.index}">
+							<div class="faq-answer p-3">
+								<p>${b.content.replaceAll("\\n", "<br/>")}</p>
+								<c:if test="${member != null and member.role == 'ADMIN'}">
+									<div class="faq-buttons d-flex gap-2 mt-2">
+
+										<!-- 수정 버튼 -->
+										<button
+												class="btn btn-outline-secondary btn-sm btn-edit"
+												data-id="${b.boardId}"
+												data-title="${fn:escapeXml(b.title)}"
+												data-content="${fn:escapeXml(b.content)}"
+												data-index="${status.index}">
+											수정하기
+										</button>
+
+										<!-- 삭제 버튼 -->
+										<form method="post" action="${cp}/board/remove" onsubmit="return confirm('삭제할까요?')">
+											<input type="hidden" name="boardId" value="${b.boardId}"/>
+											<input type="hidden" name="mode" value="delete"/>
+											<button class="btn btn-outline-danger btn-sm">삭제</button>
+										</form>
+									</div>
+								</c:if>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
 	</c:if>
 	<%-- FAQ 끝 --%>
 
 
 	<c:if test="${c.categoryId == 2}">
-	<%-- 문의 하기 시작 --%>
-	<%--<div class="flex-grow-1">
-		<div class="section-title">
-			<h2>1:1 문의하기
-			</h2>
-			<p>궁금한 점이 있다면 언제든 문의해주세요.</p>
-		</div>
-
-		<div class="form-box">
-			<form>
-				<!-- 문의 유형 -->
-				<div class="mb-3">
-					<label for="typeSelect" class="form-label fw-semibold">문의 유형</label>
-					<select class="form-select" id="typeSelect" required="">
-						<option selected="" disabled="">문의 유형 선택</option>
-						<option>결제/환불</option>
-						<option>클래스 정보</option>
-						<option>회원/계정</option>
-						<option>기타</option>
-					</select>
-				</div>
-
-				<!-- 제목 -->
-				<div class="mb-3">
-					<label for="titleInput" class="form-label fw-semibold">문의 제목</label>
-					<input type="text" class="form-control" id="titleInput" placeholder="예) 환불 요청 관련 문의드립니다." required="">
-				</div>
-
-				<!-- 내용 -->
-				<div class="mb-3">
-					<label for="contentTextarea" class="form-label fw-semibold">문의 내용</label>
-					<textarea class="form-control" id="contentTextarea" rows="5" placeholder="내용을 자세히 작성해주세요." required=""></textarea>
-				</div>
-
-				<!-- 첨부파일 -->
-				<div class="mb-4">
-					<label for="fileInput" class="form-label fw-semibold">첨부파일</label>
-					<input type="file" class="form-control" id="fileInput">
-					<div class="form-text">첨부파일은 최대 10MB까지 업로드 가능합니다.</div>
-				</div>
-
-				<!-- 전송 버튼 -->
-				<div class="d-grid">
-					<button type="submit" class="btn btn-danger fw-bold">문의 전송하기</button>
-				</div>
-			</form>
-		</div>
-	</div>--%>
 		<div class="flex-grow-1">
 			<!-- 타이틀 영역 -->
 			<!-- 문의내역.html (수강생용) -->
@@ -230,132 +182,117 @@
 					<button class="btn btn-outline-dark btn-sm rounded-pill px-3">강사</button>
 				</div>
 
-		<!-- 문의 리스트 -->
+				<!-- 문의 리스트 -->
 				<div class="accordion" id="inquiryAccordion">
 					<!-- 답변대기 카드 -->
-			<c:forEach items="${boards}" var="b" varStatus="status">
-					<div class="card border-0 shadow-sm mb-3 inquiry-card" data-status="waiting">
-						<div class="card-header bg-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#inquiry${status.index}">
-							<div>
-								<span class="badge bg-danger me-2">답변대기</span>
-								<span class="text-muted">[고객센터]</span>
-								<span class="fw-semibold ms-2">${b.title}</span>
+					<c:forEach items="${boards}" var="b" varStatus="status">
+
+						<div class="card border-0 shadow-sm mb-3 inquiry-card" data-status="waiting" data-groupid="${b.boardId}">
+
+							<div class="card-header bg-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#inquiry${status.index}">
+								<div>
+									<span class="badge bg-danger me-2">답변대기</span>
+									<span class="text-muted">[고객센터]</span>
+									<span class="fw-semibold ms-2">${b.title}</span>
+								</div>
+								<small class="text-muted">
+									<fmt:parseDate value="${b.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate"/>
+									<fmt:formatDate value="${parsedDate}" pattern="yy.MM.dd"/>
+								</small>
 							</div>
-							<small class="text-muted">
-								<fmt:parseDate value="${b.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate"/>
-								<fmt:formatDate value="${parsedDate}" pattern="yy.MM.dd"/>
-							</small>
-						</div>
-						<div id="inquiry${status.index}" class="collapse" data-bs-parent="#inquiryAccordion">
-							<div class="card-body bg-white">
-								<p class="mb-3">${b.content.replaceAll("\\n", "<br/>")}</p>
+							<div id="inquiry${status.index}" class="collapse" data-bs-parent="#inquiryAccordion">
+								<div class="card-body bg-white">
+									<p class="mb-3">${b.content.replaceAll("\\n", "<br/>")}</p>
 
-								<!-- 첨부파일 유무 -->
-							<c:forEach items="${attachs}" var="a" varStatus="status">
-								<c:if test="${fn:length(b.attachs) > 0}">
-									<div class="d-grid my-2 attach-area">
-										<div class="small my-1 border-bottom border-1 border-muted p-0 pb-2"><i class="fa-solid fa-paperclip"></i> 첨부파일</div>
-										<!-- <label class="btn btn-info">파일 첨부<input type="file" multiple="" class="d-none" id="f1"></label> -->
-										<ul class="list-group my-2 attach-list">
-											<c:forEach items="${b.attachs}" var="a">
-												<li class="list-group-item d-flex align-items-center justify-content-between"
-													data-uuid="${a.uuid}"
-													data-origin="${a.origin}"
-													data-image="${a.image}"
-													data-path="${a.path}"
-													data-size="${a.size}"
-													data-odr="${a.odr}">
-													<a href="'${cp}'/download?uuid=${a.uuid}&origin=${a.origin}&path=${a.path}">${a.origin}</a>
-													<!-- <i class="fa-solid fa-xmark float-end text-danger"></i> -->
-												</li>
-											</c:forEach>
-										</ul>
-										<!-- 첨부파일 유무 + 이미지 여부 -->
-										<div class="row justify-content-around w-75 mx-auto attach-thumb">
-											<c:forEach items="${b.attachs}" var="a">
-												<c:if test="${a.image == 'Y'}">
-													<div class="my-2 col-12 col-sm-4 col-lg-2"
-														 data-uuid="${a.uuid}">
-														<div class="my-2 bg-primary" style="height: 150px; background-size: cover;
-																background-image:url('${s3url}${a.path}/t_${a.uuid}')">
-															<!-- <i class="fa-solid fa-xmark float-end text-danger m-2"></i> -->
-														</div>
-													</div>
-												</c:if>
-											</c:forEach>
-										</div>
+
+
+									<!-- 답변/수정/삭제 버튼 -->
+									<div class="d-flex gap-2">
+
+									<p>답글 개수: ${fn:length(b.replies)}</p>
+									<c:if test="${empty b.replies}">
+										<!-- Adimin Only 답변하기 버튼 -->
+										<c:if test="${member != null and member.role == 'ADMIN'}">
+											<a href="${cp}/board/write?boardId=${b.boardId}&${pageDto.cri.qs2}"
+											   class="btn btn-outline-secondary btn-sm btn-edit"
+											   data-id="${b.boardId}"
+											   data-title="${fn:escapeXml(b.title)}"
+											   data-content="${fn:escapeXml(b.content)}"
+											   data-index="${status.index}">
+												답변하기
+											</a>
+										</c:if>
+									<%--	<c:if test="${member != null and member.role != 'ADMIN'}">--%>
+										<!-- 수정 버튼 -->
+										<a href="${cp}/board/modify?boardId=${b.boardId}&${pageDto.cri.qs2}"
+										   class="btn btn-outline-secondary btn-sm btn-edit"
+										   data-id="${b.boardId}"
+										   data-title="${fn:escapeXml(b.title)}"
+										   data-content="${fn:escapeXml(b.content)}"
+										   data-index="${status.index}">
+											수정하기
+										</a>
+										<!-- 삭제 버튼 -->
+										<form method="post" action="${cp}/board/remove">
+											<input type="hidden" name="boardId" value="${b.boardId}"/>
+											<input type="hidden" name="mode" value="delete"/>
+											<form method="post" action="${cp}/board/remove">
+												<input type="hidden" name="boardId" value="${b.boardId}"/>
+												<input type="hidden" name="mode" value="delete"/>
+												<button class="btn btn-outline-danger btn-sm">삭제</button>
+											</form>
+										</form>
+									<%--	</c:if>--%>
+									</c:if>
+
 									</div>
-								</c:if>
-							</c:forEach>
-
-								<!-- 답변/수정/삭제 버튼 -->
-								<div class="d-flex gap-2">
-
-									<!-- Adimin Only 답변하기 버튼 -->
-								<c:if test="${member != null and member.role == 'ADMIN'}">
-									<a href="${cp}/board/write?boardId=${b.boardId}&${pageDto.cri.qs2}"
-									   class="btn btn-outline-secondary btn-sm btn-edit"
-									   data-id="${b.boardId}"
-									   data-title="${fn:escapeXml(b.title)}"
-									   data-content="${fn:escapeXml(b.content)}"
-									   data-index="${status.index}">
-										답변하기
-									</a>
-								</c:if>
-								<%--<c:if test="${member != null and member.role != 'ADMIN'}">--%>
-									<!-- 수정 버튼 -->
-									<a href="${cp}/board/modify?boardId=${b.boardId}&${pageDto.cri.qs2}"
-											class="btn btn-outline-secondary btn-sm btn-edit"
-											data-id="${b.boardId}"
-											data-title="${fn:escapeXml(b.title)}"
-											data-content="${fn:escapeXml(b.content)}"
-											data-index="${status.index}">
-										수정하기
-									</a>
-								<%--</c:if>--%>
-
-									<!-- 삭제 버튼 -->
-									<form method="post" action="${cp}/board/remove">
-										<input type="hidden" name="boardId" value="${b.boardId}"/>
-										<input type="hidden" name="mode" value="delete"/>
-										<button class="btn btn-outline-danger btn-sm">삭제</button>
-									</form>
+								</div>
+								<div class="answer-area">
 
 								</div>
 							</div>
-						</div>
-					</div>
-			</c:forEach>
-			</div>
-		</div>
 
-	<!-- 답변완료 카드 -->
-	<%--				<div class="card border-0 shadow-sm mb-3 inquiry-card" data-status="done">
-						<div class="card-header bg-white d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#inquiry2">
-							<div>
-								<span class="badge bg-secondary me-2">답변완료</span>
-								<span class="text-muted">[강사]</span>
-								<span class="fw-semibold ms-2">수업 준비물 질문</span>
-							</div>
-							<small class="text-muted">2025.06.20</small>
 						</div>
-						<div id="inquiry2" class="collapse" data-bs-parent="#inquiryAccordion">
-							<div class="card-body bg-white">
-								<p class="mb-2">재료를 따로 준비해야 하나요?</p>
-								<hr>
-								<div class="answer-section">
-									<div class="d-flex align-items-center mb-2">
-										<img src="https://i.pravatar.cc/32?u=admin" class="rounded-circle me-2">
-										<strong>강사</strong>
-									</div>
-									<p class="mb-0">모든 재료는 현장에서 제공됩니다 :)</p>
-								</div>
-							</div>
-						</div>
-					</div>
+
+					</c:forEach>
 				</div>
 			</div>
---%>
+
+			<script>
+                const isAdmin = ${member != null && member.role == 'ADMIN' ? 'true' : 'false'};
+			</script>
+			<script>
+                $(function () {
+                    $('.inquiry-card').each(function() {
+                        const $question = $(this);
+                        const groupId = $question.data('groupid');
+
+                        $.get(`${cp}/board/api/listByGroup?groupId=\${groupId}`, function(replies) {
+                            const $container = $question.find('.answer-area');
+                            if(replies.length > 0) {
+                                $question.find(".badge").removeClass("bg-danger").addClass("bg-secondary").text("답변완료")
+
+                                replies.forEach(r => {
+                                    const adminBtnHtml = isAdmin ? `<div class="d-flex gap-2">
+									<button class="btn btn-outline-secondary btn-sm">수정</button>
+									<form method="post" action="${cp}/board/remove">
+										<input type="hidden" name="boardId" value="\${r.boardId}"/>
+										<input type="hidden" name="mode" value="delete"/>
+										<button class="btn btn-outline-danger btn-sm">삭제</button>
+									</form>` : '';
+                                    
+                                    const html = `<div class="card-footer bg-white">
+									<div><span class="badge bg-danger me-2">CLANITY의 답변</span>\${r.title}</div>
+									<div class="my-3">\${r.content}</div>
+									\${adminBtnHtml}
+							</div>`;
+                                    $container.append(html);
+                                });
+                            }
+                        });
+                    });
+                });
+			</script>
 
 			<!-- 스크립트 -->
 			<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -465,7 +402,7 @@
 
 
 		</div>
-	<%-- 문의 하기 종료 --%>
+		<%-- 문의 하기 종료 --%>
 	</c:if>
 
 	<%-- 공지사항 시작 --%>
@@ -503,6 +440,7 @@
 			<div id="faqFormAnchor"></div>
 			<!-- 등록 폼 -->
 			<form id="faqForm" class="faq-form" action="${cp}/board/write" method="post">
+
 				<input type="hidden" id="faqId" name="id" value="${b.boardId}"/> <!-- 수정용정보 -->
 				<input type="hidden" id="faqMode" name="mode" value="write"/>
 
@@ -539,7 +477,7 @@
 			</form>
 
 
-			<!-- FAQ 목록 -->
+			<!-- 공지글 목록 -->
 			<div class="accordion" id="boardAccordion">
 				<c:forEach items="${boards}" var="b" varStatus="status">
 					<div class="card faq-card mt-3 mb-3">
@@ -564,6 +502,14 @@
 							 aria-labelledby="faq${status.index}">
 							<div class="faq-answer p-3">
 								<p>${b.content.replaceAll("\\n", "<br/>")}</p>
+								<p>attachList size: ${fn:length(boards)}</p>
+								<c:forEach items="${attachList}" var="file">
+									<c:if test="${file.image == 'Y'}">
+										<img src="${cp}/display?uuid=t_${file.uuid}&path=${file.path}" style="max-width: 200px;" />
+									</c:if>
+								</c:forEach>
+
+
 								<c:if test="${member != null and member.role == 'ADMIN'}">
 									<div class="faq-buttons d-flex gap-2 mt-2">
 
@@ -597,63 +543,64 @@
 
 
 </div>
-	<%@ include file="../common/footer.jsp" %>
-	<script>
+<%@ include file="../common/footer.jsp" %>
+<script>
 
 
-        $('.filter-btn').on('click', function () {
-            const filter = $(this).data('filter'); // ex) 'class', 'community'
-            $('.filter-btn').removeClass('active');
-            $(this).addClass('active');
 
-            $('.faq-card').each(function () {
-                const category = $(this).data('category');
-                $(this).toggle(filter === 'all' || category === filter);
-            });
+    $('.filter-btn').on('click', function () {
+        const filter = $(this).data('filter'); // ex) 'class', 'community'
+        $('.filter-btn').removeClass('active');
+        $(this).addClass('active');
 
-            //$("#faqCategory").val($(this).text());
+        $('.faq-card').each(function () {
+            const category = $(this).data('category');
+            $(this).toggle(filter === 'all' || category === filter);
         });
 
-        $('#faqSearchBtn').on('click', function () {
-            const keyword = $('#faqSearchInput').val().toLowerCase();
-            $('.faq-card').each(function () {
-                const text = $(this).text().toLowerCase();
-                $(this).toggle(text.includes(keyword));
-            });
+        //$("#faqCategory").val($(this).text());
+    });
+
+    $('#faqSearchBtn').on('click', function () {
+        const keyword = $('#faqSearchInput').val().toLowerCase();
+        $('.faq-card').each(function () {
+            const text = $(this).text().toLowerCase();
+            $(this).toggle(text.includes(keyword));
         });
+    });
 
 
-        $(document).on('click', '.btn-delete', function () {
-            if (confirm('정말 삭제하시겠습니까?')) {
-                $(this).closest('.faq-card').remove();
-            }
-        });
-
-        function toggleFaqForm() {
-
-            const faqForm = $('#faqForm');
-
-            $('#faqForm').detach().insertAfter('#faqFormAnchor');
-
-            faqForm.slideToggle();
-
-            $('#faqId').val('boardId');
-            $('#faqMode').val('write');
-            $('#faqQuestion').val('');
-            $('#faqAnswer').val('');
-
-            $('#faqForm').attr("action", "${cp}/board/write").find("button[type='submit']").text('등록하기');
-
+    $(document).on('click', '.btn-delete', function () {
+        if (confirm('정말 삭제하시겠습니까?')) {
+            $(this).closest('.faq-card').remove();
         }
+    });
 
-        function submitFaq() {
-            const category = $('#faqCategory').val();
-            const categoryText = $('#faqCategory option:selected').text();
-            const question = $('#faqQuestion').val().trim();
-            const answer = $('#faqAnswer').val().trim();
-            if (!question || !answer) return alert('질문과 답변을 모두 입력하세요.');
-            const timestamp = Date.now();
-            const newCard = `
+    function toggleFaqForm() {
+
+        const faqForm = $('#faqForm');
+
+        $('#faqForm').detach().insertAfter('#faqFormAnchor');
+
+        faqForm.slideToggle();
+
+        $('#faqId').val('boardId');
+        $('#faqMode').val('write');
+        $('#faqQuestion').val('');
+        $('#faqAnswer').val('');
+
+        $('#faqForm').attr("action", "${cp}/board/write").find("button[type='submit']").text('등록하기');
+
+    }
+
+    function submitFaq() {
+        const category = $('#faqCategory').val();
+        const categoryText = $('#faqCategory option:selected').text();
+        const question = $('#faqQuestion').val().trim();
+        const answer = $('#faqAnswer').val().trim();
+        if (!question || !answer) return alert('질문과 답변을 모두 입력하세요.');
+        const timestamp = Date.now();
+        const newCard = `
     	  <div class="card faq-card mb-3" data-category="${category}">
         <div class="card-header d-flex justify-content-between align-items-center">
           <div><strong class="text-danger">[${categoryText}]</strong> ${question}</div>
@@ -669,37 +616,37 @@
         </div>
       </div>`;
 
-            $('#faqAccordion').prepend(newCard);
-            $('#faqForm').slideUp();
-            $('#faqQuestion').val('');
-            $('#faqAnswer').val('');
+        $('#faqAccordion').prepend(newCard);
+        $('#faqForm').slideUp();
+        $('#faqQuestion').val('');
+        $('#faqAnswer').val('');
+    }
+
+    function editFaq(id, title, content, index) {
+        console.log(id);
+        $('#faqId').val(id);
+        $('#faqMode').val('modify');
+        $('#faqQuestion').val(title);
+        $('#faqAnswer').val(content);
+
+        const targetCard = $('#faq' + index).closest('.faq-card');
+        if (targetCard.length > 0) {
+            $('#faqForm').hide(); // reset
+            $('#faqForm').detach().appendTo(targetCard);
+            $('#faqForm').slideDown();
+            $("#faqForm").attr("action", `${cp}/board/modify?boardId=\${id}&${pageDto.cri.qs2}`).find("button[type='submit']").text('수정하기')
         }
+    }
 
-        function editFaq(id, title, content, index) {
-            console.log(id);
-            $('#faqId').val(id);
-            $('#faqMode').val('modify');
-            $('#faqQuestion').val(title);
-            $('#faqAnswer').val(content);
+    $(document).on('click', '.btn-edit', function () {
+        const id = $(this).data('id');
+        const title = $(this).data('title');
+        const content = $(this).data('content');
+        const index = $(this).data('index');
 
-            const targetCard = $('#faq' + index).closest('.faq-card');
-            if (targetCard.length > 0) {
-                $('#faqForm').hide(); // reset
-                $('#faqForm').detach().appendTo(targetCard);
-                $('#faqForm').slideDown();
-                $("#faqForm").attr("action", `${cp}/board/modify?boardId=\${id}&${pageDto.cri.qs2}`).find("button[type='submit']").text('수정하기')
-            }
-        }
+        editFaq(id, title, content, index);
+    });
 
-        $(document).on('click', '.btn-edit', function () {
-            const id = $(this).data('id');
-            const title = $(this).data('title');
-            const content = $(this).data('content');
-            const index = $(this).data('index');
-
-            editFaq(id, title, content, index);
-        });
-
-	</script>
+</script>
 </body>
 </html>

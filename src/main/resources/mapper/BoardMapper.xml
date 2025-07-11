@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="mapper.BoardMapper">
-  	<resultMap type="board" id="b">
-		<id column="board_id" property="boardId"></id>		
+	<resultMap type="board" id="b">
+		<id column="board_id" property="boardId"></id>
 		<result column="category_id" property="categoryId"></result>
 		<result column="member_id" property="memberId"></result>
 		<result column="group_id" property="groupId"></result>
@@ -22,7 +22,7 @@
 		<result column="receiver_id" property="receiverId"></result>
 		<result column="attachCnt" property="attachCnt"></result>
 		<result column="replyCnt" property="commentCount"></result>
-		
+
 		<collection property="attachs" ofType="attach">
 			<result column="uuid" property="uuid" />
 			<result column="origin" property="origin" />
@@ -33,89 +33,98 @@
 			<result column="odr" property="odr" />
 		</collection>
 	</resultMap>
-	
-	
+
+
 	<sql id="criteria">
-	<where>
-		<trim prefixOverrides="AND | OR">
-			<if test="categoryId != null">
-				and category_id = #{categoryId}
-			</if>
-			
-			<if test="types != null">
-				<foreach collection="types" item="t" open="and (" close=")" separator="or">
-					<choose>
-						<when test="t eq 'T'.toString()">
-							title like concat('%', #{keyword}, '%')
-						</when>
-						<when test="t eq 'C'.toString()">
-							content like concat('%', #{keyword}, '%')
-						</when>
-						<when test="t eq 'I'.toString()">
-							id like concat('%', #{keyword}, '%')
-						</when>
-					</choose>
-				</foreach>
-			</if>
-		</trim>
-	</where>
-</sql>
+		<where>
+			<trim prefixOverrides="AND | OR">
+				<if test="categoryId != null">
+					and category_id = #{categoryId}
+				</if>
+
+				<if test="types != null">
+					<foreach collection="types" item="t" open="and (" close=")" separator="or">
+						<choose>
+							<when test="t eq 'T'.toString()">
+								title like concat('%', #{keyword}, '%')
+							</when>
+							<when test="t eq 'C'.toString()">
+								content like concat('%', #{keyword}, '%')
+							</when>
+							<when test="t eq 'I'.toString()">
+								id like concat('%', #{keyword}, '%')
+							</when>
+						</choose>
+					</foreach>
+				</if>
+			</trim>
+		</where>
+	</sql>
 
 
-	
-<!-- 목록조회 -->
+
+	<!-- 목록조회 -->
 	<select id="list" resultMap="b">
-	select board_id, title, content, member_id, created_at, updated_at, view_count, category_id, 
+		select board_id, title, content, member_id, created_at, updated_at, view_count, category_id,
 		(select count(*) from reply r where r.board_id = b.board_id) replyCnt,
 		(select count(*) from attach_link a WHERE lno = b.board_id and link_type='BOARD') attachCnt,
 		(select uuid from attach natural join attach_link WHERE lno = board_id and image = 1 order by odr limit 1) uuid,
 		(select path from attach natural join attach_link WHERE lno = board_id and image = 1 order by odr limit 1) path,
 		group_id, depth
-	from board b
-	<include refid="criteria" />
+		from board b
+		<include refid="criteria" />
+		and depth = 0
 		order by board_id desc
 		limit #{amount} offset #{offset}
-	</select>  
-	
-<!-- 단일조회 -->
-	<select id="selectOne" resultMap="b">
-			select *, (select count(*) from reply r where r.board_id = b.board_id) replyCnt
-			from board b
-			left join attach_link al on b.board_id = al.lno and link_type = 'BOARD'
-			left join attach a using(uuid)
-			where board_id = #{boardId}
-			order by odr
 	</select>
-	
-<!-- QnA 내 문의내역 조회 -->
-<select id="selectQnaListByMember" resultMap="b">
-  SELECT * FROM board 
-  WHERE member_id = #{memberId}
-    AND category_id = 2
-  ORDER BY created_at DESC
-</select>
 
-	
-<!-- 글 등록 
-	<insert id="insert" parameterType="board" keyProperty="boardId" useGeneratedKeys="true" >
-	  INSERT INTO board (category_id, member_id, title, content, visible_level,
-	    	is_blind, like_count, comment_count, view_count, created_at, updated_at ) 
-    	VALUES (
-		    #{categoryId}, #{memberId}, #{title}, #{content}, #{visibleLevel}, 
-		    0, 0, 0, 0, NOW(), NOW()
-	  )
-	</insert> -->
-	
-<!-- 글 등록 -->
+	<select id="listByGroup">
+		select board_id, title, content, member_id, created_at, updated_at, view_count, category_id,
+		group_id, depth
+		from board b
+		where group_id = #{groupId}
+		and board_id != group_id
+		order by board_id asc
+	</select>
+	<!-- 단일조회 -->
+	<select id="selectOne" resultMap="b">
+		select *, (select count(*) from reply r where r.board_id = b.board_id) replyCnt
+		from board b
+		left join attach_link al on b.board_id = al.lno and link_type = 'BOARD'
+		left join attach a using(uuid)
+		where board_id = #{boardId}
+		order by odr
+	</select>
+
+	<!-- QnA 내 문의내역 조회 -->
+	<select id="selectQnaListByMember" resultMap="b">
+		SELECT * FROM board
+		WHERE member_id = #{memberId}
+		AND category_id = 2
+		ORDER BY created_at DESC
+	</select>
+
+
+	<!-- 글 등록
+        <insert id="insert" parameterType="board" keyProperty="boardId" useGeneratedKeys="true" >
+          INSERT INTO board (category_id, member_id, title, content, visible_level,
+                is_blind, like_count, comment_count, view_count, created_at, updated_at )
+            VALUES (
+                #{categoryId}, #{memberId}, #{title}, #{content}, #{visibleLevel},
+                0, 0, 0, 0, NOW(), NOW()
+          )
+        </insert> -->
+
+	<!-- 글 등록 -->
 	<insert id="insert">
-			insert into board (category_id, member_id, title, content) values (#{categoryId}, #{memberId}, #{title}, #{content})
+		insert into board (category_id, member_id, title, content) values (#{categoryId}, #{memberId}, #{title}, #{content})
 		<selectKey keyProperty="boardId" resultType="long" order="AFTER">
 			select max(board_id) from board
 		</selectKey>
-	</insert> 
-	
-	
-<!-- 글 수정 -->
+	</insert>
+
+
+	<!-- 글 수정 -->
 	<update id="update" parameterType="board">
 		update board set
 		title = #{title},
@@ -124,25 +133,34 @@
 		category_id = #{categoryId}
 		where board_id = #{boardId}
 	</update>
-	
-<!-- 글 삭제 -->
+
+	<!-- 글 삭제 -->
 	<delete id="delete">
 		delete from board
 		where board_id = #{boardId}
-		
-		
+
+
 	</delete>
-	
-<!-- 조회수 증가 -->
+
+	<!-- 조회수 증가 -->
 	<update id="increaseCnt">
 		update board
 		set view_count = view_count + 1
 		where board_id = #{boardId}
 	</update>
-<!-- 게시글 갯수 -->
+	<!-- 게시글 갯수 -->
 	<select id="getCount" resultType="long">
-			select count(*) from board
-	<include refid="criteria"></include>
+		select count(*) from board
+		<include refid="criteria"></include>
 	</select>
+	<update id="updateGrpMyself">
+		update board set group_id = #{boardId} where board_id = #{boardId}
+	</update>
+	<insert id="insertChild">
+		insert into board (title, content, member_id, category_id, group_id, depth) values (#{title}, #{content}, #{memberId}, #{categoryId}, #{groupId}, #{depth})
+		<selectKey keyProperty="boardId" resultType="long" order="AFTER">
+			select max(board_id) from board
+		</selectKey>
+	</insert>
 
 </mapper>
