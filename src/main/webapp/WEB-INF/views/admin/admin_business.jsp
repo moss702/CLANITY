@@ -85,7 +85,19 @@
         </div>
       </div>
     </div>
-  </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        // 첨부파일 토글 버튼
+        $(".btn-files").on("click", function () {
+            const $row = $(this).closest("tr"); // 현재 버튼이 포함된 신청자 row
+            const $next = $row.next(".attach-row"); // 바로 다음 .attach-row를 찾음
+
+            // toggle 효과
+            $next.stop().slideToggle(200);
+        });
+    });
+</script>
 </body>
 </html>

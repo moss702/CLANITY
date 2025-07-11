@@ -1,27 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-  <%@ include file="../common/head.jsp" %>
-  <style>
-    .centered-form {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 90vh;
-      flex: 1;
-    }
+    <%@ include file="../common/head.jsp" %>
+    <style>
+        .centered-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+            flex: 1;
+        }
 
-    .business-form {
-      width: 100%;
-      max-width: 720px;
-      padding: 2rem;
-      background-color: #f8f9fa;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.1);
-    }
-  </style>
+        .business-form {
+            width: 100%;
+            max-width: 720px;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
 <%@ include file="../common/header.jsp" %>
@@ -79,38 +79,26 @@
 
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 <script>
-  $(function() {
-    $(".attach-list").sortable();
+    $(function () {
+        $(".attach-list").sortable();
 
-    function validateFiles(files) {
-      const MAX_COUNT = 5;
-      const MAX_FILE_SIZE = 10 * 1024 * 1024;
-      const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
-      const BLOCK_EXT = ['exe', 'sh', 'jsp', 'java', 'class', 'html', 'js'];
+        function validateFiles(files) {
+            const MAX_COUNT = 5;
+            const MAX_FILE_SIZE = 10 * 1024 * 1024;
+            const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
+            const BLOCK_EXT = ['exe', 'sh', 'jsp', 'java', 'class', 'html', 'js'];
 
-      if(files.length > MAX_COUNT){
-        alert('파일은 최대 5개만 업로드 가능합니다');
-        return false;
-      }
+            if (files.length > MAX_COUNT) {
+                alert('파일은 최대 5개만 업로드 가능합니다');
+                return false;
+            }
 
-      let totalSize = 0;
-      const isValid = files.every(f => {
-        const ext = f.name.split(".").pop().toLowerCase();
-        totalSize += f.size;
-        return !BLOCK_EXT.includes(ext) && f.size <= MAX_FILE_SIZE;
-      }) && totalSize <= MAX_TOTAL_SIZE;
-
-      if(!isValid) {
-        alert('다음 파일 확장자는 업로드가 불가합니다.\n - [exe, sh, jsp, java, class, html, js] \n또한 각 파일은 10MB 이하, 전체 합계는 50MB 이하여야 합니다.');
-      }
-
-      return isValid;
-    }
-
-    $(".attach-area").on("click", "i", function(){
-      const uuid = $(this).closest("[data-uuid]").data("uuid");
-      $('[data-uuid="' + uuid + '"]').remove();
-    });
+            let totalSize = 0;
+            const isValid = files.every(f => {
+                const ext = f.name.split(".").pop().toLowerCase();
+                totalSize += f.size;
+                return !BLOCK_EXT.includes(ext) && f.size <= MAX_FILE_SIZE;
+            }) && totalSize <= MAX_TOTAL_SIZE;
 
     $("#f1").change(function(event) {
       event.preventDefault();
@@ -152,28 +140,28 @@
                   <i class="fa-solid fa-xmark float-end text-danger m-2"></i>
                 </div>
               </div>`;
-            }
-          }
+                        }
+                    }
 
-          $(".attach-list").html(str);
-          $(".attach-thumb").html(thumbStr);
-        }
-      });
+                    $(".attach-list").html(str);
+                    $(".attach-thumb").html(thumbStr);
+                }
+            });
+        });
+
+        $("#writeForm").submit(function (event) {
+            event.preventDefault();
+            const data = [];
+            $(".attach-list li").each(function () {
+                const file = {...this.dataset};
+                data.push(file);
+            });
+
+            data.forEach((item, idx) => item.odr = idx);
+            $("[name='encodedStr']").val(JSON.stringify(data));
+            this.submit();
+        });
     });
-
-    $("#writeForm").submit(function(event){
-      event.preventDefault();
-      const data = [];
-      $(".attach-list li").each(function() {
-        const file = { ...this.dataset };
-        data.push(file);
-      });
-
-      data.forEach((item, idx) => item.odr = idx);
-      $("[name='encodedStr']").val(JSON.stringify(data));
-      this.submit();
-    });
-  });
 </script>
 
 <%@ include file="../common/footer.jsp" %>
