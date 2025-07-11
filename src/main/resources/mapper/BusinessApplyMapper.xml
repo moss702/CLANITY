@@ -12,7 +12,30 @@
         <result property="status" column="status"/>
         <result property="adminId" column="admin_id"/>
         <result property="applytime" column="applytime"/>
+
+        <collection property="attachs" ofType="attach" resultMap="mapper.AttachMapper.attachMap"/>
     </resultMap>
+
+    <!-- 신청 목록 + 첨부파일 select -->
+    <select id="selectWithAttach" parameterType="map" resultMap="ba">
+        SELECT
+            ba.*,
+            at.*
+        FROM
+            businessapply ba
+        JOIN
+            attach_link al ON ba.apply_id = al.lno
+        LEFT JOIN
+            attach at ON al.uuid = at.uuid
+        WHERE
+            al.link_type = 'businessApply'
+        <if test="status != null">
+            AND ba.status = #{status}
+        </if>
+            ORDER BY ba.reqtime DESC
+    </select>
+
+
     
     <!--  사업자 신청  -->
     <insert id="insert" useGeneratedKeys="true" keyProperty="applyId">

@@ -4,6 +4,15 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.AttachMapper">
 
+  <resultMap id="attachMap" type="attach">
+    <id property="uuid" column="uuid"/>
+    <result property="origin" column="origin"/>
+    <result property="path" column="path"/>
+    <result property="image" column="image"/>
+    <result property="size" column="size"/>
+    <result property="odr" column="odr"/>
+  </resultMap>
+
   <!-- attach DB 저장 -->
   <insert id="insert" useGeneratedKeys="true" keyProperty="attachId">
 	INSERT INTO attach (uuid, origin, mime_type, image, size, path) 

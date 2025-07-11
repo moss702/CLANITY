@@ -47,7 +47,7 @@ body {
 	</div>
 
 	<!-- 카테고리 아이콘 -->
-	<div class="d-flex justify-content-center flex-wrap gap-4 mb-4">
+<%-- 	<div class="d-flex justify-content-center flex-wrap gap-4 mb-4">
 		<c:forEach var="icon" items="${categoryIcons}">
 			<div class="text-center category-icon">
 				<a href="#" class="text-decoration-none text-dark">
@@ -57,7 +57,7 @@ body {
 			</div>
 		</c:forEach>
 	</div>
-
+ --%>
 	<!-- 추천 태그 -->
 	<div class="mb-4 text-center">
 		<div class="d-inline-flex flex-wrap gap-2 justify-content-center">
