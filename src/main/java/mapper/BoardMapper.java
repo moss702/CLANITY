@@ -22,6 +22,7 @@ public interface BoardMapper {
 	void insertChild(Board board);			// 답글 등록됨
 	List<Board> selectQnaListByMember(Long memberId);	// QnA용 내 문의내역
 
+	List<Board> listByGroup(Long groupId);
 	//	int selectMaxSeq(Board parent);			// 답글 작성 위치 확인
 	
 }

@@ -45,4 +45,7 @@ public class Board {
 
 	@Builder.Default
 	private List<Attach> attachs = new ArrayList<>();
+
+	@Builder.Default
+	private List<Board> replies = new ArrayList<>();
 }
