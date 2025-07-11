@@ -15,8 +15,9 @@
     </resultMap>
     
     <!--  사업자 신청  -->
-    <insert id="insert">
-        insert into businessapply(member_id,email, nickname) values (#{memberId}, #{email}, #{nickname})
+    <insert id="insert" useGeneratedKeys="true" keyProperty="applyId">
+        INSERT INTO businessapply (member_id, email, nickname)
+        VALUES (#{memberId}, #{email}, #{nickname})
     </insert>
 
     <!-- 전체조회  -->
