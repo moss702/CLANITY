@@ -638,6 +638,7 @@
         }
     }
 
+
     $(document).on('click', '.btn-edit', function () {
         const id = $(this).data('id');
         const title = $(this).data('title');
