@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<header class="px-4 py-3 bg-white border-bottom sticky-top">
+<header class="px-4 py-3 bg-white border-bottom sticky-top" style="z-index: 10000">
 	<div
 		class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
 		<div class="flex-shrink-0">

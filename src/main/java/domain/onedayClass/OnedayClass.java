@@ -3,6 +3,7 @@ package domain.onedayClass;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,12 +62,13 @@ public class OnedayClass {
 
 	private Long openId;
 	private Long masterId;
-	private String minParticipants;
-	private String maxParticipants;
+	private int minParticipants;
+	private int maxParticipants;
+	private int currentParticipants;
 	private boolean isAvailable;
-	private Date scheduleDate;
-	private String startTime;
-	private String endTime;
+	private LocalDate scheduleDate;
+	private LocalTime startTime;
+	private LocalTime endTime;
 	private boolean status;
 
 	@Builder.Default

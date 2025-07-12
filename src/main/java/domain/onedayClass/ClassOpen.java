@@ -24,6 +24,7 @@ public class ClassOpen {
 	private LocalTime endTime;
 	private int minParticipants;
 	private int maxParticipants;
+	private int currentParticipants;
 	private int price;
 	private boolean isAvailable;
 	private boolean status;

@@ -18,19 +18,16 @@
       <div class="col-md-6">
         <div class="border rounded p-4 bg-white mb-4">
           <h5 class="fw-semibold mb-3 text-body">클래스  정보</h5>
-          <!-- <img src="#" alt="클래스 이미지" class="img-fluid rounded mb-3"> -->
+            <img src="https://ssr0116.s3.ap-northeast-2.amazonaws.com/clanity/${detailInfo.attachs[0].path}/${detailInfo.attachs[0].origin}" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%" alt="상세 이미지">
           <ul class="list-unstyled text-secondary">
-          <%--   <li><strong class="text-dark">클래스 유형</strong><br>"${detailInfo.difficulty}"</li>
-            <li class="mt-3"><strong class="text-dark">클래스 명</strong><br>"${detail.Infotitle}"</li>
-            <li class="mt-3"><strong class="text-dark">장소</strong><br>"${detailInfo.address}"</li> --%>
+            <li class="mt-3"><strong class="text-dark">클래스 명</strong><br>${detailInfo.title}</li>
           </ul>
         </div>
 
         <div class="border rounded p-4 bg-white">
-        <!--   <h5 class="fw-semibold mb-3 text-body">연락처 입력 <span class="text-muted fs-6">(문자/이메일 알림 발송)</span></h5> -->
-       <%--    <p><strong class="text-dark">계정 ID</strong><br>"${meber.memberId}"</p>
-          <p><strong class="text-dark">이름 (닉네임)</strong><br>"${meber.memberId}"</p> --%>
-       <%--    <p><strong class="text-dark">전화번호</strong><br>"${memberId}"</p> --%>
+          <p><strong class="text-dark">계정 ID</strong><br>${member.email}</p>
+          <p><strong class="text-dark">이름 (닉네임)</strong><br>${member.nickname}</p>
+
         </div>
       </div>
 

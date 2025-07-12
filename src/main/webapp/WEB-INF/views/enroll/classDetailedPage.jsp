@@ -126,7 +126,7 @@
           <h5 class="fw-bold">위치</h5>
           <p>${detailInfo.address}</p>
         </section>
-        <section id="review" class="mb-5">
+ <%--       <section id="review" class="mb-5">
           <h5 class="fw-bold">후기</h5>
           <p>나중에 넣기</p>
         </section>
@@ -141,32 +141,45 @@
         <section id="notice">
           <h5 class="fw-bold">유의사항</h5>
           <p>나중에 넣기</p>
-        </section>
+        </section>--%>
       </div>
     </div>
-
     <!-- 우측 결제 박스 -->
-    <div class="col-lg-4">
-      <div class="sticky-top" style="top: 120px;">
+    <div class="col-lg-4 sticky-top" style="top: 90px;">
+      <div >
         <div class="border rounded p-4 bg-white shadow-sm">
           <div class="border p-3 mb-3 bg-light rounded">
             <div class="fw-semibold mb-1">개설된 클래스</div>
-            <div class="small text-muted mb-2">구매 후 문의를 통해 일정 조율이 필요해요</div>
-            <button type="button" class="btn btn-outline-secondary w-100">신청 후 일정 조율</button>
+            <div class="schedule-card p-3 rounded shadow-sm border bg-light-subtle">
+              <div class="d-flex justify-content-between text-secondary fw-bold small mb-2 px-1">
+                <div class="text-center">날짜</div>
+                <span>신청 현황</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center px-1">
+                <span class="small text-dark">
+                  ${detailInfo.scheduleDate} <br class="d-sm-none" />
+                  ${detailInfo.startTime} ~ ${detailInfo.endTime}
+                </span>
+                <hr>
+                <span class="small text-dark">
+                  <span class="fw-semibold">${detailInfo.currentParticipants}</span> / ${detailInfo.maxParticipants}
+                </span>
+              </div>
+            </div>
           </div>
 
           <div class="mb-3">
             <label class="form-label fw-semibold mb-1">인원 선택</label>
-            <div class="input-group w-75">
+            <div class="input-group">
               <button class="btn btn-outline-secondary" type="button" onclick="decreaseQuantity()">-</button>
               <input type="number" class="form-control text-center" min="1" max="100" id="quantityInput" value="1">
               <button class="btn btn-outline-secondary" type="button" onclick="increaseQuantity()">+</button>
             </div>
           </div>
 
-          <div class="mb-3">
-            <span class="fw-bold fs-5 text-danger">${detailInfo.discountPrice}</span>
-            <span class="small text-muted">원/1인</span>
+          <div class="mb-3 text-end">
+            <%--<span class="fw-bold fs-5 text-danger">${detailInfo.discountPrice}</span>--%>
+            <span class="text-black fw-bold"><span class="price-result">${detailInfo.price}</span> <span class="small text-muted"> 원/<span class="part-result">1</span>인</span></span>
           </div>
 
           <div class="d-flex gap-2 mb-3">
@@ -178,16 +191,23 @@
             </button>
           </div>
 
-          <form action="${cp}/classEnrollPage" method="post">
+          <form action="${cp}/classEnrollPage" method="get" id="enrollForm">
             <input type="hidden" name="classId" value="${detailInfo.classId}" />
             <input type="hidden" name="openId" value="${detailInfo.openId}" />
-            <input type="hidden" name="memberId" value="${member.memberId}" />
+            <input type="hidden" name="part" value=""/>
             <button type="submit" class="btn w-100 fw-bold text-white" style="background-color:#E63946; border-color:#E63946;">클래스 신청하기</button>
           </form>
         </div>
       </div>
     </div>
-
+    <script>
+      $("#enrollForm").submit(function (e) {
+          e.preventDefault();
+          $(this).find("[name=part]").val($(".part-result").text());
+          console.log($(this).find("[name=part]").val());
+          this.submit();
+      });
+    </script>
   </div>
 </main>
 
@@ -208,12 +228,27 @@
 
   function decreaseQuantity() {
     const input = document.getElementById("quantityInput");
-    if (input.value > 1) input.value--;
+    const price = '${detailInfo.price}'
+    if (input.value > 1) {
+      input.value--;
+      $(".price-result").text(input.value * price);
+      $(".part-result").text(input.value);
+    }
   }
 
   function increaseQuantity() {
+    const max = '${detailInfo.maxParticipants}' / 1;
+    const curr = '${detailInfo.currentParticipants}' / 1;
+    const price = '${detailInfo.price}'
+    console.log(max)
     const input = document.getElementById("quantityInput");
-    if (input.value < 100) input.value++;
+    console.log(input.value);
+    if (input.value < max-curr) {
+      input.value++;
+      $(".price-result").text(input.value * price);
+      $(".part-result").text(input.value);
+
+    }
   }
 </script>
 </body>
