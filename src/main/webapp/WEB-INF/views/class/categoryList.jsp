@@ -75,7 +75,7 @@
 								<c:set var="src" value="${c.thumbnailImages}" />
 							</c:if>
 							<img src="${src}" class="card-img-top" alt="썸네일" style="width: 100%; height: 170px; object-fit: cover;">
-							<span class="badge bg-light text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 rounded-pill">원데이클래스</span> <i
+							<span class="badge bg-light text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 rounded-pill">${c.classType}</span> <i
 								class="bi bi-heart-fill position-absolute top-0 end-0 m-2 text-warning"></i>
 						</div>
 						<!-- 본문 -->
