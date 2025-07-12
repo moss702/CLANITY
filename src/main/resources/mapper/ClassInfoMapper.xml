@@ -20,13 +20,23 @@
 		<result property="minParticipants" column="min_participants" />
 		<result property="maxParticipants" column="max_participants" />
 		<result property="status" column="status" />
+
+		<collection property="attachs" ofType="attach">
+			<result column="uuid" property="uuid" />
+			<result column="origin" property="origin" />
+			<result column="mime_type" property="mimeType" />
+			<result column="image" property="image" />
+			<result column="size" property="size" />
+			<result column="path" property="path" />
+			<result column="odr" property="odr" />
+		</collection>
 	</resultMap>
 	<!--sql  -->
 	<sql id="criteria">
 		<where>
 			<trim prefixOverrides="AND | OR">
 				<if test="categoryId != null and categoryId != 10003">
-					and category_id = #{categoryId}
+					and c.category_id IN ( SELECT category_id FROM category_tree )
 				</if>
 
 				<if test="types != null">
@@ -123,11 +133,35 @@
 	<!-- 클래스 카테고리별 단일 조회 -->
 
 	<select id="listClass" resultMap="OnedayClassMap">
+		WITH RECURSIVE category_tree AS (
+		SELECT category_id
+		FROM class_socialing_category
+		WHERE category_id = ${categoryId}
+
+		UNION ALL
+
+		SELECT c.category_id
+		FROM class_socialing_category c
+		JOIN category_tree ct ON c.parent_id = ct.category_id
+		)
+
 		SELECT
 		class_id, business_id,
 		category_id, title, thumbnail_image, c.price,
 		discount_price, region,
-		open_id
+		open_id,
+		(select path
+		from class c_in
+		join attach_link al on c_in.class_id = al.lno and al.link_type like '%class%'
+		join attach a on al.uuid = a.uuid and path like '%thumbnail%'
+		where class_id=c.class_id
+		limit 1) path,
+		(select origin
+		from class c_in
+		join attach_link al on c_in.class_id = al.lno and al.link_type like '%class%'
+		join attach a on al.uuid = a.uuid and path like '%thumbnail%'
+		where class_id=c.class_id
+		limit 1) uuid
 		FROM class c
 		left join (select max(open_id) open_id, master_id
 		from class_open group by
@@ -157,6 +191,17 @@
 <!-- 클래스 카테고리 별 정보 조회 조인 필요? 1000개 나옴 조심 -->
 
 	<select id="getCount" parameterType="long">
+		WITH RECURSIVE category_tree AS (
+		SELECT category_id
+		FROM class_socialing_category
+		WHERE category_id = ${categoryId}
+
+		UNION ALL
+
+		SELECT c.category_id
+		FROM class_socialing_category c
+		JOIN category_tree ct ON c.parent_id = ct.category_id
+		)
 		SELECT
 		count(*)
 		FROM class c
@@ -201,23 +246,41 @@
 		OFFSET #{offset}
 	</select>
 	<!-- 신청 상세 정보 에 필요한거 -->
-	<select id="listClassDetailPage" resultMap="OnedayClassMap"
-		resultType="domain.onedayClass.OnedayClass">
+	<select id="listClassDetailPage" resultMap="OnedayClassMap" >
 		SELECT c.class_id, c.business_id, c.category_id, c.title,
 		c.description,
 		c.duration, c.curriculum,
 		c.price, c.discount_price,
 		c.thumbnail_image, c.address,
 		o.open_id, o.min_participants,
-		o.max_participants, o.status
+		o.max_participants, o.status,
+		a.*
 		FROM class c
-		JOIN class_open o ON
-		c.class_id = o.master_id
-		WHERE c.class_id = #{classId} AND o.open_id =
-		#{openId}
+		JOIN class_open o ON c.class_id = o.master_id
+		left join attach_link al on c.class_id = al.lno and link_type = 'class_crawling'
+		left join attach a using(uuid)
+		WHERE c.class_id = #{classId} AND o.open_id = #{openId}
 	</select>
 
 
+	<select id="findClassId" resultType="long">
+		select class_id from class where origin_code = #{originCode}
+	</select>
 
 
+	<!-- class_open의 batch 처리 -->
+	<insert id="batchInsert">
+		INSERT INTO class_open (
+		master_id, schedule_date, start_time, end_time,
+		max_participants, min_participants, status, price, is_available
+		)
+		VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.masterId}, #{item.scheduleDate}, #{item.startTime}, #{item.endTime},
+			#{item.maxParticipants}, #{item.minParticipants}, #{item.status},
+			#{item.price}, #{item.isAvailable}
+			)
+		</foreach>
+	</insert>
 </mapper>

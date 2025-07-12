@@ -6,11 +6,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>클래니티 - 결제</title>
-  
+  <%@ include file="../common/head.jsp"%>
 </head>
 
 <body class="bg-light">
-
+<%@ include file="../common/header.jsp"%>
   <main class="container py-5">
     <h3 class="mb-4 fw-bold text-body">🧾 클래스 결제 페이지</h3>
     <div class="row g-4">
@@ -99,6 +99,6 @@
       </div>
     </div>
   </main>
-
+<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

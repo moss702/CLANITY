@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,6 +8,12 @@
   <title>CLANITY 클래스 상세페이지</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%@ include file="../common/head.jsp" %>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
+  <style>
+    .bx-wrapper {margin-bottom: 0;}
+
+  </style>
 </head>
 
 <body class="bg-light">
@@ -14,24 +21,70 @@
 
 <main class="container" style="padding-top: 100px;">
   <div class="row g-4 align-items-start">
-    
     <!-- 좌측 콘텐츠 -->
     <div class="col-lg-8">
       <div class="mb-3">
-        <c:if test="${empty c.thumbnailImages}">
-          <c:set var="src" value="https://placehold.co/500x500?text=No+Image" />
+        <c:if test="${empty detailInfo.attachs}">
+          <img src="https://placehold.co/500x500?text=No+Image" class="img-fluid rounded w-100" alt="썸네일" style="height: 500px; object-fit: cover;">
         </c:if>
-        <c:if test="${not empty c.thumbnailImages}">
-          <c:set var="src" value="${c.thumbnailImages}" />
+        <c:if test="${not empty detailInfo.attachs}">
+          <div >
+            <ul class="bxslider-main d-flex mb-0" >
+          <c:forEach var="img" items="${detailInfo.attachs}">
+          <c:if test="${fn:contains(img.path, 'thumb')}">
+            <li>
+            <img src="https://ssr0116.s3.ap-northeast-2.amazonaws.com/clanity/${img.path}/${img.origin}" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%" alt="상세 이미지">
+            </li>
+          </c:if>
+          </c:forEach>
+            </ul>
+          </div>
         </c:if>
-        <img src="${src}" class="img-fluid rounded w-100" alt="썸네일" style="height: 500px; object-fit: cover;">
+
       </div>
 
-      <div class="d-flex gap-2 overflow-auto mb-3">
-        <c:forEach items="${detailInfo.detailImages}" var="img">
-          <img src="${img}" class="img-thumbnail" style="width:100px;height:100px;object-fit:cover;" alt="상세 이미지">
+      <div class="d-flex gap-2 overflow-auto mb-3 bxslider-thumb-wrapper">
+        <ul class="bxslider-thumb">
+        <c:forEach var="img" items="${detailInfo.attachs}">
+          <c:if test="${fn:contains(img.path, 'thumb')}">
+            <li>
+              <img src="https://ssr0116.s3.ap-northeast-2.amazonaws.com/clanity/${img.path}/${img.origin}" class="img-thumbnail" style="width:100px;height:100px;object-fit:cover;" alt="상세 이미지">
+            </li>
+          </c:if>
         </c:forEach>
+        </ul>
       </div>
+
+      <script>
+        $(function() {
+          var mainSlider = $('.bxslider-main').bxSlider({
+            pager: false,
+            controls: true,
+            adaptiveHeight: false
+          });
+
+          var thumbSlider = $('.bxslider-thumb').bxSlider({
+            minSlides: 3,
+            maxSlides: 8,
+            slideWidth: 100,
+            slideMargin: 10,
+            pager: false,
+            controls: true,
+            infiniteLoop: false
+          });
+
+          // 썸네일 클릭 → 메인 슬라이더 이동
+          $('.bxslider-thumb li').on('click', function() {
+            var index = $(this).index();
+            $('.bxslider-thumb li').removeClass('active');
+            $(this).addClass('active');
+            mainSlider.goToSlide(index);
+          });
+
+          // 초기 active 표시
+          $('.bxslider-thumb li').first().addClass('active');
+        });
+      </script>
 
       <div class="mb-3 d-flex flex-wrap gap-2">
         <span class="badge bg-secondary text-light">${detailInfo.categoryId}</span>

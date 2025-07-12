@@ -1,4 +1,4 @@
-package controller.enroll;
+package controller.onedayclass.enroll;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -19,8 +19,8 @@ import service.EnrollClassServie;
 import util.AlertUtil;
 import util.ParamUtil;
 
-@WebServlet("/classEnrollCard")
-public class EnrollCard extends HttpServlet {
+@WebServlet("/enrollList")
+public class EnrollClassInfo extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,7 +40,7 @@ public class EnrollCard extends HttpServlet {
 		
 		
 		ClassService service = new ClassService();
-		OnedayClass detailInfo = service.detailPageInfo(classId, openId);
+		OnedayClass detailInfo = service.detailPageInfo(OnedayClass.builder().build());
 		req.setAttribute("detailInfo", detailInfo);
 		
 		
@@ -48,7 +48,7 @@ public class EnrollCard extends HttpServlet {
 		enrollClassServie.enrollList(enrollId);
 		 req.setAttribute("enroll", enrollId);
 		
-			req.getRequestDispatcher("/WEB-INF/views/enroll/classEnrollCard.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/class/enrollList.jsp").forward(req, resp);
 
 	}
 
