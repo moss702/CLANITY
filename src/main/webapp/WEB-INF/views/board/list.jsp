@@ -209,7 +209,6 @@
 									<!-- 답변/수정/삭제 버튼 -->
 									<div class="d-flex gap-2">
 
-									<p>답글 개수: ${fn:length(b.replies)}</p>
 									<c:if test="${empty b.replies}">
 										<!-- Adimin Only 답변하기 버튼 -->
 										<c:if test="${member != null and member.role == 'ADMIN'}">
@@ -222,7 +221,7 @@
 												답변하기
 											</a>
 										</c:if>
-									<%--	<c:if test="${member != null and member.role != 'ADMIN'}">--%>
+									<c:if test="${member != null and member.role != 'ADMIN'}">
 										<!-- 수정 버튼 -->
 										<a href="${cp}/board/modify?boardId=${b.boardId}&${pageDto.cri.qs2}"
 										   class="btn btn-outline-secondary btn-sm btn-edit"
@@ -242,7 +241,7 @@
 												<button class="btn btn-outline-danger btn-sm">삭제</button>
 											</form>
 										</form>
-									<%--	</c:if>--%>
+									</c:if>
 									</c:if>
 
 									</div>
@@ -270,7 +269,8 @@
                         $.get(`${cp}/board/api/listByGroup?groupId=\${groupId}`, function(replies) {
                             const $container = $question.find('.answer-area');
                             if(replies.length > 0) {
-                                $question.find(".badge").removeClass("bg-danger").addClass("bg-secondary").text("답변완료")
+                                $question.find(".badge").removeClass("bg-danger").addClass("bg-secondary").text("답변완료").attr("data-filter", "done");
+
 
                                 replies.forEach(r => {
                                     const adminBtnHtml = isAdmin ? `<div class="d-flex gap-2">
@@ -280,7 +280,7 @@
 										<input type="hidden" name="mode" value="delete"/>
 										<button class="btn btn-outline-danger btn-sm">삭제</button>
 									</form>` : '';
-                                    
+
                                     const html = `<div class="card-footer bg-white">
 									<div><span class="badge bg-danger me-2">CLANITY의 답변</span>\${r.title}</div>
 									<div class="my-3">\${r.content}</div>
@@ -637,6 +637,7 @@
             $("#faqForm").attr("action", `${cp}/board/modify?boardId=\${id}&${pageDto.cri.qs2}`).find("button[type='submit']").text('수정하기')
         }
     }
+
 
     $(document).on('click', '.btn-edit', function () {
         const id = $(this).data('id');
