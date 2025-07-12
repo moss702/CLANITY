@@ -20,15 +20,19 @@ public class Criteria { // 페이징 처리 + 검색 조건 전달
 	private Long categoryId = 1L; // 카테고리 번호
 	private String type = ""; // 검색조건 (Title, Content)
 	private String keyword = ""; // 검색어
-	
+
 //	추가하기(클래스아이디랑 오픈 아이디)
 	private Long classId;
 	private Long openId;
 
+	public Criteria(int page, int amount, Long categoryId, String type, String keyword) {
+		this.categoryId = categoryId;
+		this.page = page;
+		this.amount = amount;
+		this.type = type;
+		this.keyword = keyword;
+	}
 
-
-
-	
 	// 페이지, 게시글 개수, 카테고리 번호로 Cri 재설정
 	public Criteria(int page, int amount, Long categoryId) {
 		this.page = page;
@@ -63,6 +67,7 @@ public class Criteria { // 페이징 처리 + 검색 조건 전달
 		}
 		return cri;
 	}
+
 	// 카테고리 뺀 버전(카테고리 목록에서 사용 중)
 	public static Criteria initList(HttpServletRequest req) {
 		Criteria cri = new Criteria();
@@ -75,7 +80,6 @@ public class Criteria { // 페이징 처리 + 검색 조건 전달
 		}
 		return cri;
 	}
-
 
 	// 검색어 쿼리스트링으로 url에 담아서 가져가기
 	public String getQs() {
@@ -97,19 +101,21 @@ public class Criteria { // 페이징 처리 + 검색 조건 전달
 		String str = String.join("&", strs);
 		return str;
 	}
+
 	// 상세페이지 아이디 조회 QS임시로 만들어 두었습니다! (나중에 수정 예정)
 	public String getQsClass() {
-		String[] strs = { "classId=" + classId,  "openId=" + openId };
+		String[] strs = { "classId=" + classId, "openId=" + openId };
 
 		String str = String.join("&", strs);
 		return str;
 	}
-	//  클래스 상세 페이지 url
+
+	// 클래스 상세 페이지 url
 	public static Criteria initUrl(HttpServletRequest req) {
 		Criteria cri = new Criteria();
 		try {
-			cri.classId =  Long.parseLong(req.getParameter("classId"));
-			cri.openId =  Long.parseLong(req.getParameter("openId"));
+			cri.classId = Long.parseLong(req.getParameter("classId"));
+			cri.openId = Long.parseLong(req.getParameter("openId"));
 
 		} catch (Exception e) {
 		}

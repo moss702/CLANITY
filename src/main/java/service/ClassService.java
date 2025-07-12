@@ -5,10 +5,12 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import domain.dto.Criteria;
+import domain.onedayClass.ClassSocialingCategory;
 import domain.onedayClass.OnedayClass;
 import util.MybatisUtil;
 import lombok.extern.slf4j.Slf4j;
 import mapper.ClassInfoMapper;
+import mapper.ClassSocialingCategoryMapper;
 
 @Slf4j
 public class ClassService {
@@ -109,7 +111,19 @@ public void updateUrlLink(OnedayClass onedayClass) {
 		return 0;
 		
 	}
-	//
+	// 카테고리 리스트 목록 조회 서비스
 	
+	public List<ClassSocialingCategory> getCategories() {
+		try (SqlSession session = MybatisUtil.getSqlSession()) {
+			ClassSocialingCategoryMapper mapper = session.getMapper(ClassSocialingCategoryMapper.class);
+			return mapper.list();
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		return null;
+		}
+	   		
 	
 }	

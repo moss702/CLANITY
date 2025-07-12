@@ -26,20 +26,37 @@
                 </a></li> --%>
 <%--         </c:forEach> --%>
                 <!-- 일단 하드코딩 형태로 값을 불러올 수 있나 확인하기 -->
-				<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10003" class="text-decoration-none text-dark">전체</a></li>
-				<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10008" class="text-decoration-none text-dark">핸드메이드</a></li>
-				<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10019" class="text-decoration-none text-dark">쿠킹</a></li>
-				<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10027" class="text-decoration-none text-dark">플라워가드닝</a></li>
-				<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10028" class="text-decoration-none text-dark">드로잉</a></li>
-				<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10042" class="text-decoration-none text-dark">음악</a></li>
-				<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10050" class="text-decoration-none text-dark">레저·스포츠</a></li>
-				<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10058" class="text-decoration-none text-dark">뷰티</a></li>
-				<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10065" class="text-decoration-none text-dark">반려동물</a></li>
-				<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10072" class="text-decoration-none text-dark">체험</a></li>
-				<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10073" class="text-decoration-none text-dark">자기계발</a></li>
-				<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10074" class="text-decoration-none text-dark">로컬여행</a></li>
-				        
+		<%--<c:forEach items="${categoryList}" var="cate">
+			<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=${cate.categoryId}" class="text-decoration-none text-dark">${cate.parentCategory} / ${cate.childCategory}</a></li>
+		</c:forEach>--%>
     </ul>
+	<div class="accordion" id="categoryAccordion">
+		<c:forEach var="parent" items="${parentCategories}">
+			<c:set var="groupId" value="cat${parent.categoryId}" />
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="heading${groupId}">
+					<button class="accordion-button collapsed fw-bold" type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapse${groupId}"
+							aria-expanded="false"
+							aria-controls="collapse${groupId}">
+							${parent.parentCategory}
+					</button>
+				</h2>
+				<div id="collapse${groupId}" class="accordion-collapse collapse"
+					 aria-labelledby="heading${groupId}" data-bs-parent="#categoryAccordion">
+					<div class="accordion-body p-0">
+						<ul class="list-group list-group-flush">
+							<c:forEach var="child" items="${categoryMap[parent.parentCategory]}">
+								<li class="list-group-item text-secondary small"><a href="${cp}/categoryList?categoryId=${child.categoryId}" class="text-decoration-none text-dark">${child.childCategory}</a></li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
+
 </aside>
 <!-- 카드 리스트 -->
 	<div class="col-md-9 col-lg-10">
@@ -64,7 +81,19 @@
 						<!-- 본문 -->
 						<div class="card-body px-3 py-3">
 							<!-- 카테고리 태그 -->
-							<span class="badge bg-light text-dark mb-2 rounded-pill px-2 py-1">${c.categoryId}</span>
+							<span class="badge bg-light text-dark mb-2 px-2 py-1">${c.categoryId}</span>
+							<c:set var="category" value="${categoryById[c.categoryId]}" />
+
+							<div class="category-badges mb-2">
+							  	<span class="badge bg-light text-dark rounded-pill border me-1">
+									  ${category.parentCategory}
+							  	</span>
+								<c:if test="${not empty category.childCategory}">
+								<span class="badge bg-secondary text-white rounded-pill">
+										${category.childCategory}
+								</span>
+								</c:if>
+							</div>
 							<!-- 클래스 제목 -->
 							<div class="fw-bold mb-2 text-truncate"><i class="bi bi-calendar-heart text-danger me-1"></i>${c.title}</div>
 							<!-- 강사 정보 -->
@@ -79,7 +108,7 @@
 								<img src="${instSrc}" class="rounded-circle me-2" width="24" height="24" alt="강사"> <span class="fw-medium small">${c.instructorName}</span></div>
 							<!-- 장소 -->
 							<div class="small mb-2">
-								<span class="badge bg-light text-dark rounded-pill px-2 py-1">
+								<span class="badge bg-light text-dark px-2 py-1">
 									<i class="bi bi-geo-alt me-1"></i> ${c.region}
 								</span>
 							</div>
@@ -98,10 +127,12 @@
 					</div>
 					</a>
 				</div>
+				
 
 			</c:forEach>
 				<!-- 페이지 번호 -->
 			<div class="container">
+			
 		  <div class="d-flex justify-content-center mt-4">
 		    <ul class="pagination pt-4">
 		    
@@ -154,8 +185,7 @@
 		    </ul>
 		  </div>
 		</div>
-				<p>현재 페이지: ${pageDto.cri.page}</p>
-			
+		
 		</div>
 		</div>
 	</div>
