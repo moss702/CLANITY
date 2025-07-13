@@ -54,10 +54,10 @@ public class OnedayClassServlet extends HttpServlet {
 		}
 
 		// 1. encodedStr 파라미터 수집
-		String encodedStr = req.getParameter("encodedStr");
-		Type type = new TypeToken<List<Attach>>() {
-		}.getType();
-		List<Attach> list = new Gson().fromJson(encodedStr, type);
+//		String encodedStr = req.getParameter("encodedStr");
+//		Type type = new TypeToken<List<Attach>>() {
+//		}.getType();
+//		List<Attach> list = new Gson().fromJson(encodedStr, type);
 
 //		글번호나 qetQs사용시 필요 이거 어떻게 사용할지 보기
 		Criteria cri = Criteria.initUrl(req);
@@ -70,9 +70,9 @@ public class OnedayClassServlet extends HttpServlet {
 		// 상태 기본값 트루로 진행(이거 나중에 바꾸기)
 		onedayClass.setStatus(true);
 
-		onedayClass.setAttachs(list);
+//		onedayClass.setAttachs(list);
 		
-		log.info("첨부파일 리스트: {}", list);
+//		log.info("첨부파일 리스트: {}", list);
 		log.info("OnedayClass: {}", onedayClass);
 //	      등록
 		classService.register(onedayClass);
@@ -85,7 +85,7 @@ public class OnedayClassServlet extends HttpServlet {
 //		 log.info("URl : {}", url );
 		
 //		 추가하기
-		AlertUtil.alert("클래스 개설 신청이 완료되었습니다.", url, req, resp);
+		AlertUtil.alert("클래스 개설 신청이 완료되었습니다.","/index", req, resp);
 	}
 
 }

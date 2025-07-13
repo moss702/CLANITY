@@ -7,9 +7,9 @@
 <%@ include file="../common/head.jsp"%>
 <style>
 body {
-      font-family: 'Noto Sans KR', sans-serif;
-      background-color: #f8f9fa;
-    }
+	font-family: 'Noto Sans KR', sans-serif;
+	background-color: #f8f9fa;
+}
 </style>
 </head>
 <body>
@@ -17,33 +17,34 @@ body {
 	<%@ include file="../common/header.jsp"%>
 
 	<main class="container p-2">
+
 		<form id="frmClass1" action="${cp}/openClassRegister/open"
 			method="post" enctype="multipart/form-data">
-			<div class="container " style="max-width: 1000px;">
-				<h3 class=" mb-4 fw-bold ">클래스 등록</h3>
+			<div class="container" style="max-width: 1000px;">
+				<h3 class="mb-4 fw-bold">클래스 등록</h3>
 				<div class="accordion" id="accordionExample">
+
 					<!-- STEP 1 -->
-					<div class="accordion-item border-0 mb-3 shadow-sm">
+					<div
+						class="accordion-item border-0 mb-3 shadow-sm bg-white rounded-3">
 						<h2 class="accordion-header">
 							<button class="accordion-button bg-light text-dark fw-bold"
 								type="button" data-bs-toggle="collapse" data-bs-target="#step1">
 								STEP 1 - 제목 및 카테고리</button>
 						</h2>
 						<div id="step1" class="accordion-collapse collapse show">
-							<div class="accordion-body">
+							<div class="accordion-body px-4 py-4">
 								<label class="form-label fw-bold">클래스 제목</label> <input
 									type="text" class="form-control mb-2" name="title"
 									placeholder="클래스 제목을 입력하세요"> <label
-									class="form-label fw-bold">클래스 유형</label>
-								<input type="hidden" name="classType" id="classTypeInput" value="">
-
-								  <!-- 버튼 그룹 -->
-								  <div class="btn-group w-100" role="group" aria-label="classType select">
-								    <button type="button" class="btn btn-outline-danger" onclick="selectClassType('원데이 클래스')">원데이 클래스</button>
-								    <button type="button" class="btn btn-outline-secondary" onclick="selectClassType('정기 클래스')">정기 클래스</button>
-								  </div>
+									class="form-label fw-bold">클래스 유형</label> <input type="hidden"
+									name="classType" id="classTypeInput" value="">
+								<div class="btn-group w-100 mb-3" role="group">
+									<button type="button" class="btn btn-outline-danger"
+										value="0">원데이 클래스</button>
+									<button type="button" class="btn btn-outline-secondary"
+										value="1">정기 클래스</button>
 								</div>
-
 
 								<label class="form-label fw-bold">1차 카테고리</label> <select
 									id="pCategory" name="pCategory" class="form-select mb-2">
@@ -80,43 +81,16 @@ body {
 					</div>
 
 					<!-- STEP 2 -->
-					<div class="accordion-item border-0 mb-3 shadow-sm">
-					  <h2 class="accordion-header">
-					    <button class="accordion-button bg-light text-dark collapsed fw-bold"
-					      type="button" data-bs-toggle="collapse" data-bs-target="#step2">
-					      STEP 2 - 이미지 등록
-					    </button>
-					  </h2>
-					  <div id="step2" class="accordion-collapse collapse show">
-					    <div class="accordion-body d-grid my-2 attach-area">
-					      <div class="small my-1 border-bottom border-1 border-muted p-0 pb-2">
-					        <i class="fa-solid fa-paperclip"></i> 썸네일 이미지 첨부
-					      </div>
-					
-					      <!-- 썸네일 파일 목록 -->
-					      <ul class="list-group my-2 attach-list" data-role="thumb"></ul>
-					
-					      <!-- 썸네일 첨부 input -->
-					      <label class="btn btn-danger">
-					        이미지 첨부
-					        <input type="file" multiple class="d-none" id="classFileThumb" name="thumbnail_image" data-role="thumb">
-					      </label>
-					
-					      <!-- 썸네일 이미지 미리보기 -->
-					      <div class="row mt-2 attach-thumb" data-role="thumb"></div>
-					    </div>
-					  </div>
-</div>
-					<!-- STEP 3 -->
-					<div class="accordion-item border-0 mb-3 shadow-sm">
+					<div
+						class="accordion-item border-0 mb-3 shadow-sm bg-white rounded-3">
 						<h2 class="accordion-header">
 							<button
 								class="accordion-button bg-light text-dark collapsed fw-bold"
-								type="button" data-bs-toggle="collapse" data-bs-target="#step3">
-								STEP 3 - 커리큘럼</button>
+								type="button" data-bs-toggle="collapse" data-bs-target="#step2">
+								STEP 2 - 커리큘럼</button>
 						</h2>
-						<div id="step3" class="accordion-collapse collapse show">
-							<div class="accordion-body">
+						<div id="step2" class="accordion-collapse collapse show">
+							<div class="accordion-body px-4 py-4">
 								<label class="form-label fw-bold">난이도</label>
 								<div class="btn-group w-100 mb-3" role="group">
 									<input type="radio" class="btn-check" name="difficulty"
@@ -125,23 +99,18 @@ body {
 										type="radio" class="btn-check" name="difficulty"
 										id="intermediate" value="1"> <label
 										class="btn btn-outline-secondary" for="intermediate">중급</label>
-
 									<input type="radio" class="btn-check" name="difficulty"
 										id="advanced" value="2"> <label
 										class="btn btn-outline-secondary" for="advanced">고급</label>
 								</div>
-								<div id="dateContainer" class="mb-3">
-									<label class="form-label fw-bold">일정 선택</label>
-									<div class="input-group mb-2">
-										<input type="date" class="form-control date-input"
-											name="scheduleDate" placeholder="날짜 선택"> <input
-											type="time" class="form-control date-input"
-											name="startTime" placeholder="시작시간"> <input
-											type="time" class="form-control date-input" name="endTime"
-											placeholder="종료시간">
-										
-									</div>
+
+								<label class="form-label fw-bold">일정 선택</label>
+								<div class="input-group mb-3">
+									<input type="date" class="form-control" name="scheduleDate">
+									<input type="time" class="form-control" name="startTime">
+									<input type="time" class="form-control" name="endTime">
 								</div>
+
 								<label class="form-label fw-bold">소요시간</label> <input
 									type="text" class="form-control mb-3" name="duration"
 									placeholder="예: 120분 / 2시간"> <label
@@ -152,8 +121,6 @@ body {
 								<label class="form-label fw-bold">클래스 상세 설명</label>
 								<textarea class="form-control mb-2" name="description"
 									placeholder="클래스 상세 설명을 작성해 주세요"></textarea>
-								
-
 
 								<label class="form-label fw-bold">이런 분들이 들으면 좋아요!</label>
 								<textarea class="form-control" name="description2"></textarea>
@@ -161,74 +128,56 @@ body {
 						</div>
 					</div>
 
-					<!-- STEP 4 -->
-				<div class="accordion-item border-0 mb-3 shadow-sm">
-				  <h2 class="accordion-header">
-				    <button class="accordion-button bg-light text-dark collapsed fw-bold"
-				      type="button" data-bs-toggle="collapse" data-bs-target="#step4">
-				      STEP 4 - 강사 소개
-				    </button>
-				  </h2>
-				  <div id="step4" class="accordion-collapse collapse show">
-				    <div class="accordion-body attach-area">
-				
-				      <label class="form-label fw-bold">호스트 이름</label>
-				      <input type="text" class="form-control mb-3" name="instructorName" maxlength="15">
-				
-				      <label class="form-label fw-bold">호스트 사진</label>
-				      <label class="btn btn-danger">
-				        강사 이미지 첨부
-				        <input type="file" multiple class="d-none" id="classFileInstructor" name="instructor_image_url" data-role="instructor">
-				      </label>
-				
-				      <!-- 강사 이미지 파일 목록 -->
-				      <ul class="list-group my-2 attach-list" data-role="instructor"></ul>
-				
-				      <!-- 강사 이미지 미리보기 -->
-				      <div class="row mt-2 attach-thumb" data-role="instructor"></div>
-				
-				      <label class="form-label fw-bold">호스트 소개</label>
-				      <textarea class="form-control" name="hostIntroduction" rows="4" placeholder="소개 문구를 적어주세요"></textarea>
-				    </div>
-				  </div>
-					</div>
-
-					<!-- STEP 5 - 금액 설정 -->
-					<div class="accordion-item border-0 mb-3 shadow-sm">
+					<!-- STEP 3 -->
+					<div
+						class="accordion-item border-0 mb-3 shadow-sm bg-white rounded-3">
 						<h2 class="accordion-header">
 							<button
 								class="accordion-button bg-light text-dark collapsed fw-bold"
-								type="button" data-bs-toggle="collapse" data-bs-target="#step5"
-								aria-expanded="false" aria-controls="step5">STEP 5 - 금액
-								설정</button>
+								type="button" data-bs-toggle="collapse" data-bs-target="#step3">
+								STEP 3 - 강사 소개</button>
 						</h2>
-						<div id="step5" class="accordion-collapse collapse show">
-							<div class="accordion-body">
-								<div class="mb-3">
-									<label class="form-label fw-bold">1인 수강 금액</label> <input
-										type="text" class="form-control price" name="price"
-										placeholder="가격을 숫자로 입력해 주세요">
-								</div>
-
-								<div class="mb-3">
-									<label class="form-label fw-bold">할인가</label> <input
-										type="text" class="form-control price" name="discountPrice"
-										placeholder="가격을 숫자로 입력해 주세요">
-								</div>
+						<div id="step3" class="accordion-collapse collapse show">
+							<div class="accordion-body px-4 py-4">
+								<label class="form-label fw-bold">호스트 이름</label> <input
+									type="text" class="form-control mb-3" name="instructorName"
+									maxlength="15"> <label class="form-label fw-bold">호스트
+									소개</label>
+								<textarea class="form-control" name="hostIntroduction" rows="4"
+									placeholder="소개 문구를 적어주세요"></textarea>
 							</div>
 						</div>
 					</div>
 
-					<!-- STEP 6 -->
-					<div class="accordion-item border-0 mb-3 shadow-sm">
+					<!-- STEP 4 -->
+					<div
+						class="accordion-item border-0 mb-3 shadow-sm bg-white rounded-3">
 						<h2 class="accordion-header">
 							<button
 								class="accordion-button bg-light text-dark collapsed fw-bold"
-								type="button" data-bs-toggle="collapse" data-bs-target="#step6">
-								STEP 6 - 인원 설정</button>
+								type="button" data-bs-toggle="collapse" data-bs-target="#step4">
+								STEP 4 - 금액 설정</button>
 						</h2>
-						<div id="step6" class="accordion-collapse collapse show">
-							<div class="accordion-body">
+						<div id="step4" class="accordion-collapse collapse show">
+							<div class="accordion-body px-4 py-4">
+								<label class="form-label fw-bold">1인 수강 금액</label> <input
+									type="text" class="form-control price" name="price"
+									placeholder="가격을 숫자로 입력해 주세요">
+							</div>
+						</div>
+					</div>
+
+					<!-- STEP 5 -->
+					<div
+						class="accordion-item border-0 mb-3 shadow-sm bg-white rounded-3">
+						<h2 class="accordion-header">
+							<button
+								class="accordion-button bg-light text-dark collapsed fw-bold"
+								type="button" data-bs-toggle="collapse" data-bs-target="#step5">
+								STEP 5 - 인원 설정</button>
+						</h2>
+						<div id="step5" class="accordion-collapse collapse show">
+							<div class="accordion-body px-4 py-4">
 								<label class="form-label fw-bold">최소 인원</label>
 								<div class="input-group mb-3">
 									<input type="number" class="form-control"
@@ -244,16 +193,18 @@ body {
 						</div>
 					</div>
 
+				</div>
+
+				<!-- 제출 버튼 -->
 				<div class="text-center mt-4">
-													<input type="hidden" name="encodedStr">
+					<input type="hidden" name="encodedStr">
 					<button type="submit" class="btn"
-					
 						style="background-color: #E63946; color: white;">클래스 등록하기</button>
 				</div>
-			
-
+			</div>
 		</form>
 	</main>
+
 
 	<%@ include file="../common/footer.jsp"%>
 

@@ -71,9 +71,10 @@ body {
 								<c:set var="src" value="https://ssr0116.s3.ap-northeast-2.amazonaws.com/clanity/${c.attachs[0].path}/${c.attachs[0].uuid}" />
 							</c:if>
 							<img src="${src}" class="card-img-top" alt="썸네일" style="width: 100%; height: 170px; object-fit: cover;">
-							<%-- <span class="badge bg-light text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 rounded-pill">${c.classType}</span> --%> 
-							<span class="badge bg-warning text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 ">원데이클래스</span> 
-							<i
+							<%-- <span class="badge bg-light text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 rounded-pill">${c.classType}</span> --%>
+										<span
+											class="badge bg-warning border-secondary me-2 text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 ">원데이클래스</span>
+										<i
 								class="bi bi-heart-fill position-absolute top-0 end-0 m-2 text-warning"></i>
 						</div>
 						<!-- 본문 -->
@@ -82,11 +83,11 @@ body {
 							<c:set var="category" value="${categoryById[c.categoryId]}" />
 
 							<div class="category-badges mb-2">
-							  	<span class="badge bg-light text-dark  border me-1">
+							<span class="badge text-danger border border-danger bg-white">
 									  ${category.parentCategory}
 							  	</span>
 								<c:if test="${not empty category.childCategory}">
-								<span class="badge bg-secondary text-white ">
+								<span class="badge bg-danger text-white  border me-2">
 										${category.childCategory}
 								</span>
 								</c:if>
@@ -119,9 +120,9 @@ body {
 								</div>
 				<!-- 장소 -->
 				<div class="small mb-2">
-					<span class="badge bg-light text-dark px-3 py-2">
-						<i class="bi bi-geo-alt me-1"></i> ${c.difficulty} </span>
-						<span class="badge bg-light text-dark px-3 py-2">
+					<span class="badge bg-light text-dark px-3 py-2 border-secondary">
+						<i class="bi bi-geo-alt me-1 "></i> ${c.difficulty} </span>
+						<span class="badge bg-light text-dark px-3 py-2 border-secondary">
 						<c:set var="firstRegion" value="${fn:split(c.address, ' ')[0]}" />
 						<i class="bi bi-geo-alt me-1"></i> ${firstRegion}
 					</span>

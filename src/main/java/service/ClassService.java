@@ -29,27 +29,9 @@ public class ClassService {
 	        AttachMapper attachMapper = session.getMapper(AttachMapper.class);
 	        AttachLinkMapper attachLinkMapper = session.getMapper(AttachLinkMapper.class);
 
-	        // 1. class_info 등록 → class_id 채번
+	        // 1. class_info 등록 → class_id 
 	        mapper.insertClassInfo(onedayClass);  // 이 시점에 onedayClass.classId가 생성됨
 	        onedayClass.setMasterId(onedayClass.getClassId());
-
-	        // 2. 첨부파일이 있을 경우
-	        if (onedayClass.getAttachs() != null && !onedayClass.getAttachs().isEmpty()) {
-	            for (int i = 0; i < onedayClass.getAttachs().size(); i++) {
-	                Attach a = onedayClass.getAttachs().get(i);
-
-	                // 2-1. attach 테이블에 insert
-	                attachMapper.insert(a);
-
-	                // 2-2. attach_link 테이블에 insert
-	                AttachLink link = AttachLink.builder()
-	                        .uuid(a.getUuid())
-	                        .linkType("class") // 또는 "onedayClass"
-	                        .lno(onedayClass.getClassId())
-	                        .build();
-	                attachLinkMapper.insert(link);
-	            }
-	        }
 
 	        // 3. class_open 등록
 	        mapper.insertClassOpen(onedayClass);

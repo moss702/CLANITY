@@ -16,21 +16,18 @@
 
 			
 		</nav>
-		<form action="/search" method="post" class="flex-grow-1"
-			style="max-width: 600px; min-width: 200px;">
-			<div
-				class="d-flex align-items-center gap-2 px-4 py-2 rounded-pill border"
-				style="border-color: #E63946;">
-				<input type="text" name="query" id="searchInput"
-					class="form-control border-0 p-0 bg-transparent fw-semibold text-danger"
-					placeholder="#취미시작은클래니티 #클래니티라이프"
-					style="font-size: 14px; outline: none;">
-				<button type="button" class="bg-transparent border-0"
-					id="toggleSearchFilter">
-					<i class="fa-solid fa-magnifying-glass text-danger"></i>
-				</button>
-			</div>
-		</form>
+		<form onsubmit="return false;" class="flex-grow-1"
+	style="max-width: 600px; min-width: 200px;">
+	<div
+		class="d-flex align-items-center gap-2 px-4 py-2 rounded-pill border"
+		style="border-color: #E63946; background-color: #f8f9fa;">
+		<input type="text" name="query" id="searchInput"
+			class="form-control border-0 p-0 bg-transparent fw-semibold text-muted"
+			placeholder="#취미시작은클래니티 #클래니티라이프"
+			style="font-size: 14px; outline: none;" disabled>
+	</div>
+</form>
+
 		<nav class="d-flex gap-3 align-items-center flex-shrink-0 text-danger">
 			<i class="fa-solid fa-list fs-5"></i> <i
 				class="fa-solid fa-heart fs-5"></i> <i class="fa-solid fa-bell fs-5"></i>

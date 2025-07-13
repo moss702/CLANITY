@@ -106,18 +106,16 @@
         <li class="nav-item"><a class="nav-link text-dark" href="#curriculum">커리큘럼</a></li>
         <li class="nav-item"><a class="nav-link text-dark" href="#host">호스트 소개</a></li>
         <li class="nav-item"><a class="nav-link text-dark" href="#location">위치</a></li>
-        <li class="nav-item"><a class="nav-link text-dark" href="#review">후기</a></li>
-        <li class="nav-item"><a class="nav-link text-dark" href="#qna">문의</a></li>
-        <li class="nav-item"><a class="nav-link text-dark" href="#faq">FAQ</a></li>
-        <li class="nav-item"><a class="nav-link text-dark" href="#notice">유의사항</a></li>
       </ul>
 
       <div class="pt-4">
         <section id="intro" class="mb-5">
           <h5 class="fw-bold">클래스 소개</h5>
           <p>${detailInfo.description}</p>
-          <h5 class="fw-bold">추천해요!</h5>
+          <h5 class="fw-bold">이런 분들에게 추천해요!</h5>
           <p>${detailInfo.description2}</p>
+          <p>처음 하시는 분도 어렵지 않아요</p>
+          <p>새로운 체험을 하고 싶은 분들께 추천합니다.</p>
         </section>
         <section id="curriculum" class="mb-5">
           <h5 class="fw-bold">커리큘럼</h5>
@@ -125,7 +123,9 @@
         </section>
         <section id="host" class="mb-5">
           <h5 class="fw-bold">호스트 소개</h5>
+          <p>${detailInfo.instructorName}</p>
           <p>${detailInfo.hostIntroduction}</p>
+          <p>항상 열심히 하는 강사가 될게요! 믿고 따라와 주세요😊</p>
         </section>
         <section id="location" class="mb-5">
           <h5 class="fw-bold">위치</h5>
@@ -155,6 +155,7 @@
                   <span class="fw-semibold">${detailInfo.currentParticipants}</span> / ${detailInfo.maxParticipants}
                 </span>
               </div>
+              
             </div>
           </div>
 
@@ -185,7 +186,6 @@
             <input type="hidden" name="classId" value="${detailInfo.classId}" />
             <input type="hidden" name="openId" value="${detailInfo.openId}" />
              <%-- <input type="hidden" name="part" value="${detailInfo.currentParticipants}"/>  --%>
-            <button type="submit" class="btn w-100 fw-bold text-white" style="background-color:#E63946; border-color:#E63946;">클래스 신청하기</button>
           </form>
         </div>
       </div>

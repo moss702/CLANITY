@@ -27,17 +27,57 @@ public class indexController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+//		OnedayClass onedayClass = ParamUtil.get(req, OnedayClass.class);
+//		Long categoryId = Long.parseLong(req.getParameter("categoryId"));
+//			서비스 호출
 		ClassService service = new ClassService();
 		Criteria cri = Criteria.init(req);
+		log.info("Received categoryId: {}", cri.getCategoryId());  // categoryId 값 로그 출력
 
-	
-//req.setAttribute("categoryMap", categoryMap);
-	
-		req.setAttribute("pageDto", new PageDto(cri, service.getCount(cri)));
-		List<OnedayClass> cards = service.classList(cri);
-		Collections.shuffle(cards); // 리스트를 실제로 섞고(랜덤 배정)
+		List<ClassSocialingCategory> categories = service.getCategories();
+		List<ClassSocialingCategory> parentCategories = categories.stream()
+				.filter(ClassSocialingCategory::isType)
+				.toList();
+		log.info("categories: {}", categories);
+		log.info("parentCategories: {}", parentCategories);
+		// 소분류 리스트를 parentCategory 기준으로 그룹핑
+		Map<String, List<ClassSocialingCategory>> categoryMap = categories.stream()
+				.filter(c -> !c.isType())
+				.collect(Collectors.groupingBy(ClassSocialingCategory::getParentCategory));
+
+		for (ClassSocialingCategory parent : parentCategories) {
+			String parentName = parent.getParentCategory();
+			List<ClassSocialingCategory> children = categoryMap.getOrDefault(parentName, new ArrayList<>());
+
+			// "전체" 항목 추가
+			ClassSocialingCategory all = ClassSocialingCategory.builder()
+					.categoryId(parent.getCategoryId())
+					.parentCategory(parentName)
+					.childCategory("전체")
+					.type(false)
+					.build();
+
+			children.add(0, all); // 맨 앞에 삽입
+
+			// 없던 항목이면 새로 넣어줌
+			categoryMap.put(parentName, children);
+		}
 		
-		req.setAttribute("cards", cards);
+		Map<Long, ClassSocialingCategory> categoryById =
+				categoryMap.values().stream()
+						.flatMap(List::stream)
+						.collect(Collectors.toMap(
+								ClassSocialingCategory::getCategoryId,
+								Function.identity()
+						));
+		log.info("categoryMap: {}", categoryMap);
+		req.setAttribute("parentCategories", parentCategories);
+//
+		req.setAttribute("categoryMap", categoryMap);
+		req.setAttribute("categoryById", categoryById);
+		req.setAttribute("pageDto", new PageDto(cri, service.getCount(cri)));
+		
+		
 		req.getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
 	}
 }
