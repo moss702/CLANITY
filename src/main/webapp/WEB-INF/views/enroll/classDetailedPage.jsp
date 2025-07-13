@@ -126,22 +126,7 @@
           <h5 class="fw-bold">위치</h5>
           <p>${detailInfo.address}</p>
         </section>
- <%--       <section id="review" class="mb-5">
-          <h5 class="fw-bold">후기</h5>
-          <p>나중에 넣기</p>
-        </section>
-        <section id="qna" class="mb-5">
-          <h5 class="fw-bold">문의</h5>
-          <p>나중에 넣기</p>
-        </section>
-        <section id="faq" class="mb-5">
-          <h5 class="fw-bold">FAQ</h5>
-          <p>나중에 넣기</p>
-        </section>
-        <section id="notice">
-          <h5 class="fw-bold">유의사항</h5>
-          <p>나중에 넣기</p>
-        </section>--%>
+     
       </div>
     </div>
     <!-- 우측 결제 박스 -->

@@ -68,7 +68,6 @@
 						<!-- 본문 -->
 						<div class="card-body px-3 py-3">
 							<!-- 카테고리 태그 -->
-							<span class="badge bg-light text-dark mb-2 px-2 py-1">${c.categoryId}</span>
 							<c:set var="category" value="${categoryById[c.categoryId]}" />
 
 							<div class="category-badges mb-2">
@@ -96,20 +95,18 @@
 							<!-- 장소 -->
 							<div class="small mb-2">
 								<span class="badge bg-light text-dark px-2 py-1">
-									<i class="bi bi-geo-alt me-1"></i> ${c.region}
+									<i class="bi bi-geo-alt me-1"></i> ${c.address}
 								</span>
 							</div>
 						</div>
 
 						<!-- 하단 가격 -->
 						<div class="card-footer bg-white border-0 px-3 pb-3 small">
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="text-danger fw-bold">${c.discount}%</div>
-								<div>
-									<span class="fw-bold" style="color: #E63946;">${c.discountPrice}원</span>
-									<span class="text-muted text-decoration-line-through me-2 small">${c.price}원</span>
-								</div>
-							</div>
+						  <div class="d-flex">
+						    <div class="ms-auto">
+						      <span class="fw-bold fs-5" style="color: #E63946;">${c.price}원</span>
+						    </div>
+						  </div>
 						</div>
 					</div>
 					</a>
