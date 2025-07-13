@@ -34,7 +34,6 @@
       <p><strong>제목:</strong> ${detailInfo.title}</p>
       <p><strong>주소:</strong> ${detailInfo.address}</p>
       <p><strong>가격:</strong> <fmt:formatNumber value="${detailInfo.price}"  />원</p>
-     <%--  <p><strong>할인가:</strong> <fmt:formatNumber value="${detailInfo.discountPrice}"  />원</p>
       <p><strong>날짜:</strong> ${detailInfo.scheduleDate}</p> --%>
       <p><strong>시간:</strong> ${detailInfo.duration} </p>
       <strong>일시:</strong> ${enroll.scheduleDate} ${enroll.startTime} ~ ${enroll.endTime}<br/>

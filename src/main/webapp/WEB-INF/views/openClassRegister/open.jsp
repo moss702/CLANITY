@@ -103,24 +103,26 @@
               <input type="radio" class="btn-check" name="difficulty" id="advanced" value="2">
               <label class="btn btn-outline-secondary" for="advanced">고급</label>
             </div>
-			<!-- <div id="dateContainer" class="mb-3">
+			<div id="dateContainer" class="mb-3">
 			  <label class="form-label fw-bold">일정 날짜 추가</label>
 			  <div class="input-group mb-2">
 			    <input type="date" class="form-control date-input" name="scheduleDate" placeholder="날짜 선택">
+			    <input type="number" class="form-control date-input" name="startTime" placeholder="시작시간">
+			    <input type="number" class="form-control date-input" name="endTime" placeholder="종료시간">
 			    <button type="button" class="btn btn-outline-secondary" id="addDateBtn">추가</button>
 			  </div>
-			</div> -->
+			</div> 
             <label class="form-label fw-bold">소요시간</label>
             <input type="text" class="form-control mb-3" name="duration" placeholder="예: 120분 / 2시간">
 
             <label class="form-label fw-bold">커리큘럼</label>
-            <textarea class="form-control mb-2" name="curriculum" rows="5" placeholder="최소 40자 이상 작성해 주세요"></textarea>
+            <textarea class="form-control mb-2" name="curriculum"  placeholder="커리큘럼을 작성해 주세요"></textarea>
 
             <label class="form-label fw-bold">클래스 상세 설명</label>
-            <textarea class="form-control mb-2" name="description" rows="4" placeholder="최소 40자 이상 작성해 주세요"></textarea>
+            <textarea class="form-control mb-2" name="description"  placeholder="클래스 상세 설명을 작성해 주세요"></textarea>
             <div class="d-grid my-2 attach-area">
 					<div class="small my-1 border-bottom border-1 border-muted p-0 pb-2"><i class="fa-solid fa-paperclip"></i> 첨부파일</div>
-					<label class="btn btn-info">파일 첨부<input type="file" multiple class="d-none" id="f1" name="f1"></label>
+					<label class="btn btn-danger">파일 첨부<input type="file" multiple class="d-none" id="f1" name="f1"></label>
 					<ul class="list-group my-2 attach-list">
 					</ul>  
 					<div class="row justify-content-around w-75 mx-auto attach-thumb">
@@ -128,7 +130,7 @@
 				</div>
 
             <label class="form-label fw-bold">이런 분들이 들으면 좋아요!</label>
-            <textarea class="form-control" name="description2" rows="4" placeholder="최소 40자 이상 작성해 주세요"></textarea>
+            <textarea class="form-control" name="description2"  ></textarea>
           </div>
         </div>
       </div>
@@ -146,7 +148,14 @@
             <input type="text" class="form-control mb-3" name="instructorName" maxlength="15">
             <label class="form-label fw-bold">호스트 사진</label>
 			<div>
-            <img id="preview" src="https://placehold.co/200x200" class="img-thumbnail mb-2">
+           <div class="d-grid my-2 attach-area">
+					<div class="small my-1 border-bottom border-1 border-muted p-0 pb-2"><i class="fa-solid fa-paperclip"></i> 첨부파일</div>
+					<label class="btn btn-danger ">파일 첨부<input type="file" multiple class="d-none" id="f1" name="f1"></label>
+					<ul class="list-group my-2 attach-list">
+					</ul>  
+					<div class="row justify-content-around w-75 mx-auto attach-thumb">
+					</div> 
+				</div>
 			</div>
             <label class="form-label fw-bold">호스트 소개</label>
             <textarea class="form-control" name="hostIntroduction" rows="4"  placeholder="소개 문구를 적어주세요"></textarea>
@@ -205,7 +214,7 @@
     </div>
 
     <div class="text-center mt-4">
-      <button type="submit" class="btn" style="background-color: #E63946; color: white;">제출</button>
+      <button type="submit" class="btn" style="background-color: #E63946; color: white;">클래스 등록하기</button>
     </div>
 </div>
 
