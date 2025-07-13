@@ -5,7 +5,7 @@
 <mapper namespace="mapper.AttachLinkMapper">
 
   <!-- 등록 : attach_link DB 저장 -->
-  <insert id="insert">
+  <insert id="insert" parameterType="attachLink">
     INSERT INTO attach_link (uuid, link_type, lno) 
     VALUES (#{uuid}, #{linkType}, #{lno})
   </insert>

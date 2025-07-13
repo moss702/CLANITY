@@ -18,63 +18,95 @@
 			</c:if>
 		</c:forEach>
 	</div>
+<c:choose>
+  <c:when test="${mode == 'answer'}">
+    <!-- 답변 모드 -->
+    <div class="flex-grow-1">
+      <div class="section-title">
+        <h2>문의 답변하기</h2>
+        <p>고객님의 문의에 답변하면 고객님께 알람이 전송됩니다.</p>
+      </div>
 
-	<%-- 문의 하기 시작 --%>
-	<div class="flex-grow-1">
-		<div class="section-title">
-			<h2>1:1 문의하기
-			</h2>
-			<p>궁금한 점이 있다면 언제든 문의해주세요.</p>
-		</div>
+      <div class="form-box">
+        <form method="post" action="write">
+          <!-- 제목 -->
+          <div class="mb-3">
+            <label for="titleInput" class="form-label fw-semibold">답변 제목</label>
+            <input type="text" name="title" class="form-control" id="titleInput" placeholder="예) 문의 답변드립니다" required="">
+          </div>
 
-		<div class="form-box">
-			<form method="post" action="write">
-				<!-- 문의 유형 -->
-				<div class="mb-3">
-					<label for="typeSelect" class="form-label fw-semibold">문의 유형</label>
-					<select class="form-select" id="typeSelect" required="">
-						<option selected="" disabled="">문의 유형 선택</option>
-						<option>결제/환불</option>
-						<option>클래스 정보</option>
-						<option>회원/계정</option>
-						<option>기타</option>
-					</select>
-				</div>
+          <!-- 답변 내용 -->
+          <div class="mb-3">
+            <label for="contentTextarea" class="form-label fw-semibold">답변 내용</label>
+            <textarea class="form-control" name="content" id="contentTextarea" rows="5" placeholder="답변을 작성해주세요." required=""></textarea>
+          </div>
 
-				<!-- 제목 -->
-				<div class="mb-3">
-					<label for="titleInput" class="form-label fw-semibold">문의 제목</label>
-					<input type="text" name="title" class="form-control" id="titleInput" placeholder="예) 환불 요청 관련 문의드립니다." required="">
-				</div>
+          <!-- 전송 버튼 -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-danger fw-bold">답변 등록하기</button>
+          </div>
+          <input type="hidden" name="mode" value="answer"/>
+          <input type="hidden" name="memberId" value="${member.memberId}">
+          <input type="hidden" name="categoryId" value="${cri.categoryId}">
+          <input type="hidden" name="boardId" value="${param.boardId}">
+        </form>
+      </div>
+    </div>
+  </c:when>
 
-				<!-- 내용 -->
-				<div class="mb-3">
-					<label for="contentTextarea" class="form-label fw-semibold">문의 내용</label>
-					<textarea class="form-control" name="content" id="contentTextarea" rows="5" placeholder="내용을 자세히 작성해주세요." required=""></textarea>
-				</div>
+  <c:otherwise>
+    <!-- 기본 문의 모드 -->
+    <div class="flex-grow-1">
+      <div class="section-title">
+        <h2>1:1 문의하기</h2>
+        <p>궁금한 점이 있다면 언제든 문의해주세요.</p>
+      </div>
 
-				<!-- 첨부파일 -->
-				<div class="mb-4">
-					<label for="fileInput" class="form-label fw-semibold">첨부파일</label>
-					<input type="file" class="form-control" id="fileInput">
-					<div class="form-text">첨부파일은 최대 10MB까지 업로드 가능합니다.</div>
-				</div>
+      <div class="form-box">
+        <form method="post" action="write">
+          <!-- 문의 유형 -->
+          <div class="mb-3">
+            <label for="typeSelect" class="form-label fw-semibold">문의 유형</label>
+            <select class="form-select" id="typeSelect" required="">
+              <option selected disabled>문의 유형 선택</option>
+              <option>결제/환불</option>
+              <option>클래스 정보</option>
+              <option>회원/계정</option>
+              <option>기타</option>
+            </select>
+          </div>
 
-				<!-- 전송 버튼 -->
-				<div class="d-grid">
-					<button type="submit" class="btn btn-danger fw-bold">문의 전송하기</button>
-				</div>
-				<input type="hidden" name="memberId" value="${member.memberId}">
-				<input type="hidden" name="categoryId" value="${cri.categoryId}">
-				<input type="hidden" name="page" value="1" />
-				<input type="hidden" name="amount" value="${cri.amount}" />
-				<input type="hidden" name="encodedStr" value="">
-				<c:if test="${param.boardId != null}">
-					<input type="hidden" name="boardId" value="${param.boardId}">
-				</c:if>
-			</form>
-		</div>
-	</div>
+          <!-- 제목 -->
+          <div class="mb-3">
+            <label for="titleInput" class="form-label fw-semibold">문의 제목</label>
+            <input type="text" name="title" class="form-control" id="titleInput" placeholder="예) 환불 요청 관련 문의드립니다." required="">
+          </div>
+
+          <!-- 문의 내용 -->
+          <div class="mb-3">
+            <label for="contentTextarea" class="form-label fw-semibold">문의 내용</label>
+            <textarea class="form-control" name="content" id="contentTextarea" rows="5" placeholder="내용을 자세히 작성해주세요." required=""></textarea>
+          </div>
+
+          <!-- 첨부파일 -->
+          <div class="mb-4">
+            <label for="fileInput" class="form-label fw-semibold">첨부파일</label>
+            <input type="file" class="form-control" id="fileInput">
+            <div class="form-text">첨부파일은 최대 10MB까지 업로드 가능합니다.</div>
+          </div>
+
+          <!-- 전송 버튼 -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-danger fw-bold">문의 전송하기</button>
+          </div>
+          <input type="hidden" name="memberId" value="${member.memberId}">
+          <input type="hidden" name="categoryId" value="${cri.categoryId}">
+        </form>
+      </div>
+    </div>
+  </c:otherwise>
+</c:choose>
+
 	<%-- 문의 하기 종료 --%>
 </div>
 

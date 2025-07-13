@@ -40,14 +40,14 @@
 		</div>
 
 		<!-- FAQ 안내 -->
-		<a href="#" class="faq-box mb-4">
+		<a href="${cp}/board/list?categoryId=1" class="faq-box mb-4">
 			<strong>FAQ 바로가기</strong> 문의 전 자주 묻는 질문을 확인해보세요.
 		</a>
 
 		<!-- 버튼 섹션 -->
 		<div class="row g-3 mb-4">
 			<div class="col-md-6">
-				<a href="qna_toTeach.html" class="big-button btn btn-outline-secondary w-100">클래스 강사에게 문의하기</a>
+				<a href="${cp}/qna/toBusiness" class="big-button btn btn-outline-secondary w-100">클래스 강사에게 문의하기</a>
 			</div>
 			<div class="col-md-6">
 				<a href="${cp}/board/write?${cri.qs2}" class="big-button btn btn-danger w-100">고객센터 문의하기</a>

@@ -18,8 +18,9 @@ import util.AlertUtil;
 public class Remove extends HttpServlet{
 
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		if(req.getParameter("boardId") == null) {
+		String boardIdStr = req.getParameter("boardId");
+		if(boardIdStr == null || boardIdStr.trim().isEmpty()) {
+		//if(req.getParameter("boardId") == null) {
 			AlertUtil.alert("잘못된 접근입니다", "/board/list", req, resp);
 			return;
 		}
@@ -28,8 +29,14 @@ public class Remove extends HttpServlet{
 		service.remove(Long.parseLong(req.getParameter("boardId")));
 
 		Criteria cri = Criteria.init(req);
-		
-		AlertUtil.alert("글이 삭제되었습니다", "/board/list?" + cri.getQs2(), req, resp);
+		String categoryId = req.getParameter("categoryId");
+		String referer = req.getHeader("Referer");
+		if (referer != null) {
+		    resp.sendRedirect(referer);
+		} else {
+		    AlertUtil.alert("글이 삭제되었습니다", "/board/list?" + cri.getQs2(), req, resp);
+		}
+
 		
 	}	
 }
