@@ -78,7 +78,7 @@
 		limit #{amount} offset #{offset}
 	</select>
 
-	<select id="listByGroup">
+	<select id="listByGroup" resultMap="b">
 		select board_id, title, content, member_id, created_at, updated_at, view_count, category_id,
 		group_id, depth
 		from board b
@@ -104,19 +104,8 @@
 		ORDER BY created_at DESC
 	</select>
 
-
-	<!-- 글 등록
-        <insert id="insert" parameterType="board" keyProperty="boardId" useGeneratedKeys="true" >
-          INSERT INTO board (category_id, member_id, title, content, visible_level,
-                is_blind, like_count, comment_count, view_count, created_at, updated_at )
-            VALUES (
-                #{categoryId}, #{memberId}, #{title}, #{content}, #{visibleLevel},
-                0, 0, 0, 0, NOW(), NOW()
-          )
-        </insert> -->
-
 	<!-- 글 등록 -->
-	<insert id="insert">
+	<insert id="insert" parameterType="board" useGeneratedKeys="true" keyProperty="boardId">
 		insert into board (category_id, member_id, title, content) values (#{categoryId}, #{memberId}, #{title}, #{content})
 		<selectKey keyProperty="boardId" resultType="long" order="AFTER">
 			select max(board_id) from board
@@ -138,8 +127,6 @@
 	<delete id="delete">
 		delete from board
 		where board_id = #{boardId}
-
-
 	</delete>
 
 	<!-- 조회수 증가 -->

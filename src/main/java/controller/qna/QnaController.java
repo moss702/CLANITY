@@ -63,7 +63,7 @@ public class QnaController extends HttpServlet{
 	    log.info("loginMember: {}", loginMember);
 	    
 	    
-	    String inqType = req.getParameter("typeSelect");		   // 문의 타입
+	    String inqType = req.getParameter("typeSelect");	   // 문의 타입
 	    String title = req.getParameter("title");			   // 문의 제목
 	    String content = req.getParameter("content");		   // 문의 내용
 	    String receiverIdStr = req.getParameter("receiverId"); // 문의 수신자 : 강사 ID
@@ -96,6 +96,6 @@ public class QnaController extends HttpServlet{
 	        return;
 	    }
 	    log.info("문의 작성 완료! boardId: {}, memberId: {}", board.getBoardId(), loginId);
-	    resp.sendRedirect(req.getContextPath() + "/qna/mylist");
+	    resp.sendRedirect(req.getContextPath() + "/board/list?categoryId=2");
 	}
 }

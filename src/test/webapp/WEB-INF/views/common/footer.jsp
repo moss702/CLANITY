@@ -12,10 +12,10 @@
         <div class="col-md-4 mb-4">
           <h6 class="fw-semibold text-dark">클래니티 정보</h6> 
           <ul class="list-unstyled mt-3">
-            <li><a href="${cp}/board/list?categoryId=3" class="text-decoration-none text-dark">공지사항</a></li>
-            <li><a href="${cp}/board/list?categoryId=3" class="text-decoration-none text-dark">이벤트</a></li>
-            <li><a href="${cp}/board/list" class="text-decoration-none text-dark">자주 묻는 질문</a></li>
-            <li><a href="${cp}/board/qna?categoryId=2" class="text-decoration-none text-dark">고객센터 문의하기</a></li>
+            <li><a href="#" class="text-decoration-none text-dark">공지사항</a></li>
+            <li><a href="#" class="text-decoration-none text-dark">이벤트</a></li>
+            <li><a href="${cp}/faq" class="text-decoration-none text-dark">자주 묻는 질문</a></li>
+            <li><a href="${cp}/qna" class="text-decoration-none text-dark">고객센터 문의하기</a></li>
           </ul>
         </div>
 
@@ -23,8 +23,8 @@
         <div class="col-md-4 mb-4">
           <h6 class="fw-semibold text-dark">소셜 미디어</h6>
           <ul class="list-unstyled mt-3">
-            <li><a href="https://www.instagram.com/statisticskorea/?hl=ko" class="text-decoration-none text-dark"><i class="fa-brands fa-instagram"></i></a></li>
-            <li><a href="https://www.naver.com/" class="text-decoration-none text-dark">네이버 블로그</a></li>
+            <li><a href="${cp}/board/list" class="text-decoration-none text-dark"><i class="fa-brands fa-instagram"></i></a></li>
+            <li><a href="${cp}/board/write" class="text-decoration-none text-dark">네이버 블로그</a></li>
           </ul>
         </div>
 

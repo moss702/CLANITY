@@ -8,14 +8,23 @@
 </head>
 
 <body>
+<c:set var="loginMember" value="${member}"/>
 <%@ include file="../common/header.jsp" %>
 
-<div class="settings-wrapper">
-  <!-- 좌측 사이드바 -->
-  <div class="category-menu">
-    <button class="pill-btn mb-2">문의하기</button>
-    <button class="pill-btn">문의 내역</button>
-  </div>
+<c:forEach items="${boardCategories}" var="cat">
+	<c:if test="${cat.categoryId == pageDto.cri.categoryId}">
+		<c:set value="${cat}" var="c" />
+	</c:if>
+</c:forEach>
+
+<div class="settings-wrapper container">
+	<div class="category-menu">
+		<c:forEach items="${boardCategories}" var="cat">
+			<c:if test="${cat.type == 'LIST'}">
+				<a class="btn pill-btn w-100 my-3" href="${cp}/board/list?categoryId=${cat.categoryId}">${cat.name}</a>
+			</c:if>
+		</c:forEach>
+	</div>
 
   <!-- 우측 클래스 목록 -->
   <div class="flex-grow-1">

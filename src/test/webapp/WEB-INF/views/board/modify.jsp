@@ -5,84 +5,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file="../common/head.jsp" %>
-	<link rel="stylesheet" href="${cp}/css/qna_style.css"/>
+<%@ include file="../common/head.jsp" %>
 </head>
 <body>
-<%@ include file="../common/header.jsp" %>
-<div class="settings-wrapper container">
-	<div class="category-menu">
-		<c:forEach items="${boardCategories}" var="cat">
-			<c:if test="${cat.type == 'LIST'}">
-				<a class="btn pill-btn w-100 my-3" href="${cp}/board/list?categoryId=${cat.categoryId}">${cat.name}</a>
-			</c:if>
-		</c:forEach>
-	</div>
 
-	<div class="flex-grow-1">
-		<div class="section-title">
-			<h2>
-			  <c:choose>
-			    <c:when test="${mode == 'answer'}">답변 수정하기</c:when>
-			    <c:otherwise>문의글 수정하기</c:otherwise>
-			  </c:choose>
-			</h2>
-			<p>수정중 페이지 이동시 변경내용이 저장되지 않습니다.</p>
-		</div>
-
-		<div class="form-box">
+    <div class="container p-0">
+        <main>
             <form method="post" action="modify" id="modifyForm">
-
-				<!-- 제목 -->
-			<div class="mb-3">
-			  <label for="titleInput" class="form-label fw-semibold">
-			    <c:choose>
-			      <c:when test="${mode == 'answer'}">답변 제목</c:when>
-			      <c:otherwise>문의 제목</c:otherwise>
-			    </c:choose>
-			  </label>
-			  <input placeholder="글 제목 입력" class="form-control" name="title" id="title" value="${board.title}">
-			</div>
-			
-			<!-- 내용 -->
-			<div class="mb-3">
-			  <label for="contentTextarea" class="form-label fw-semibold">
-			    <c:choose>
-			      <c:when test="${mode == 'answer'}">답변 내용</c:when>
-			      <c:otherwise>문의 내용</c:otherwise>
-			    </c:choose>
-			  </label>
-			  <textarea name="content" id="editor1" class="form-control resize-none">${board.content}</textarea>
-			</div>
-
-                
-                <!-- 첨부파일 -->
-				<div class="mb-4">
-					<label for="fileInput" class="form-label fw-semibold">첨부파일</label>
-					<input type="file" class="form-control" id="fileInput">
-					<div class="form-text">첨부파일은 최대 10MB까지 업로드 가능합니다.</div>
-				</div>
-                
-                <!-- 전송 버튼 -->
-				<div class="d-grid">
-					<button type="submit" class="btn btn-danger fw-bold">문의 수정하기</button>
-					<a href="${cp}/board/list?${cri.qs2}" class="btn fw-bold">수정 취소</a>
-				</div>
-				<input type="hidden" name="memberId" value="${member.memberId}">
-				<input type="hidden" name="categoryId" value="${cri.categoryId}">
-				<input type="hidden" name="page" value="1" />
-				<input type="hidden" name="amount" value="${cri.amount}" />
-				<input type="hidden" name="encodedStr" value="">
-				<c:if test="${param.boardId != null}">
-					<input type="hidden" name="boardId" value="${param.boardId}">
-				</c:if>
-			</form>
-
-	<%-- 문의 하기 종료 --%>
-               
+                <div class="small border-bottom border-3 border-secondary p-0 pb-2">
+                	<a href="#" class="small">
+	                	<span class="text-primary">
+	                		<c:forEach items="${cate}" var="c">
+	                			<c:if test="${c.categoryId == cri.categoryId}">
+	                				${c.cname}
+	                			</c:if>
+	                		</c:forEach>
+	                	</span> 
+                		카테고리
+                	</a>
+               	</div>
+                <div class="small p-0 py-2">
+                    <input placeholder="글 제목 입력" class="form-control" name="title" id="title" value="${board.title}">
+                </div>
+                <div class="p-0 py-2 ps-1 border-top border-1 border-muted">
+                    <textarea name="content" id="editor1" class="form-control resize-none">${board.content}</textarea>
+                </div>
+                <div>
+                    <a href="${cp}/board/list?${cri.qs2}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-list-ul"></i> 목록</a>
+                    <div class="float-end">
+                        <button class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-pen"></i>  글 수정</button>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="${member.memberId}" />
+                <input type="hidden" name="boardId" value="${board.boardId}" />
+                <input type="hidden" name="categoryId" value="${cri.categoryId}" />
+                <input type="hidden" name="page" value="${cri.page}" />
+                <input type="hidden" name="amount" value="${cri.amount}" />
+                <input type="hidden" name="type" value="${cri.type}" />
+                <input type="hidden" name="keyword" value="${cri.keyword}" />
+                <input type="hidden" name="encodedStr" value="">
+            </form>
+            
 <!-- 첨부파일 유무 -->
 			<div class="d-grid my-2 attach-area">
 				<div class="small my-1 border-bottom border-1 border-muted p-0 pb-2"><i class="fa-solid fa-paperclip"></i> 첨부파일</div>
+				<label class="btn btn-info">파일 첨부<input type="file" multiple="" class="d-none" id="f1"></label>
 				<ul class="list-group my-2 attach-list">
 					<c:forEach items="${board.attachs}" var="a">
 					<li class="list-group-item d-flex align-items-center justify-content-between" 
@@ -113,9 +80,7 @@
 				</div> 
 			</div>
 			
-		</div>
-	</div>
-			
+        </main>
     </div>
     <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
     <script>

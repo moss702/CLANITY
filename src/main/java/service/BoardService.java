@@ -87,10 +87,13 @@ public class BoardService {
                             .lno(board.getBoardId()).build())
                     .forEach(attachLinkMapper::insert);
 
-//            System.out.println("now category: " + board.getCategoryId());
-//            if(board.getCategoryId() == 3){ //공지글에 게시글 올라왔을경우
+            System.out.println("now category: " + board.getCategoryId());
+            if(board.getCategoryId() == 3){ //공지글에 게시글 올라왔을경우
                 NotificationSocket.broadcast( "지금 CLANITY의 새로운 소식이 올라왔어요!<br>" + board.getTitle());
-//            }
+            }
+            else if(board.getCategoryId() == 2){ //공지글에 게시글 올라왔을경우
+            	NotificationSocket.broadcast( "고객님의 문의에 답변이 달렸어요!<br>" + board.getTitle());
+            }
 
             session.commit();
         } catch (Exception e) { //중간에 문제 있으면 롤백
