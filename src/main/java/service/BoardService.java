@@ -42,7 +42,7 @@ public class BoardService {
         return null;
     }
 
-    public Board findBy(Long bno) {
+    public Board selectOne(Long bno) {
         try (SqlSession session = MybatisUtil.getSqlSession()) {
             BoardMapper mapper = session.getMapper(BoardMapper.class);
             mapper.increaseCnt(bno);

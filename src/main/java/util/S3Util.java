@@ -14,6 +14,8 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 public class S3Util {
@@ -31,22 +33,6 @@ public class S3Util {
 					)
 			.build();
 	
-	
-	public static void main(String[] args) {
-		System.out.println(s3);
-		
-		PutObjectRequest por = PutObjectRequest.builder()
-				.bucket(props.getProperty("bucket-name"))
-				.key("pom.xml")
-				.contentType("text/xml")
-				.build();
-//		s3.putObject(por, RequestBody.fromString("upload test"));
-		s3.putObject(por, RequestBody.fromFile(new File("C:\\Users\\tj\\workspaces_phj\\workspace_jsp\\pbl\\pom.xml")));
-		
-		
-	}
-
-
 	public static void upload(Part part, String key) {
 		try {
 			uploadInternal(part.getInputStream(), key, part.getSize(), part.getContentType());
@@ -76,4 +62,34 @@ public class S3Util {
 		}
 	}
 	
+	
+	public static InputStream download(String key) {
+	    try {
+	        GetObjectRequest getReq = GetObjectRequest.builder()
+	                .bucket(props.getProperty("bucket-name"))
+	                .key(key)
+	                .build();
+
+	        return s3.getObject(getReq); // InputStream 반환됨
+	    } catch (NoSuchKeyException e) {
+	        throw new RuntimeException("S3에서 해당 key를 찾을 수 없습니다: " + key, e);
+	    } catch (Exception e) {
+	        throw new RuntimeException("S3 다운로드 실패", e);
+	    }
+	}
+
+	
+//	public static void main(String[] args) {
+//		System.out.println(s3);
+//		
+//		PutObjectRequest por = PutObjectRequest.builder()
+//				.bucket(props.getProperty("bucket-name"))
+//				.key("pom.xml")
+//				.contentType("text/xml")
+//				.build();
+////		s3.putObject(por, RequestBody.fromString("upload test"));
+//		s3.putObject(por, RequestBody.fromFile(new File("C:\\Users\\tj\\workspaces_phj\\workspace_jsp\\pbl\\pom.xml")));
+//		
+//		
+//	}
 }

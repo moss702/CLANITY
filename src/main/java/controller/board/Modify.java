@@ -46,7 +46,7 @@ public class Modify extends HttpServlet{
 		}
 		
 		BoardService service = new BoardService();
-		Board board = service.findBy(Long.parseLong(req.getParameter("boardId")));
+		Board board = service.selectOne(Long.parseLong(req.getParameter("boardId")));
 		req.setAttribute("cri", cri);
 		req.setAttribute("board", board);
 		String mode = req.getParameter("mode");

@@ -27,13 +27,13 @@ import net.coobird.thumbnailator.Thumbnails;
 import util.S3Util;
 
 @WebServlet("/upload")
-@MultipartConfig(location = "d:/upload/tmp",
+@MultipartConfig(location = "c:/upload/tmp",
 	maxRequestSize = 50 * 1024 * 1024, //한번의 요청당 최대 파일 크기 
 	maxFileSize = 10 * 1024 * 1024, //파일 하나당 최대 크기
 	fileSizeThreshold = 10 * 1024 * 1024) // 이 크기를 넘어가면 location위치에 buffer를 기록함
 @Slf4j
 public class UploadFile extends HttpServlet {
-	public final static String UPLOAD_PATH = "d:/upload/files";
+	public final static String UPLOAD_PATH = "c:/upload/files";
 	//전역함수로 올렷음. 다른곳에서 호출할때 UploadFile.UPLOAD_PATH 하면됨
 
 	@Override
@@ -43,7 +43,13 @@ public class UploadFile extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	//업로드된 파일 처리
+		//tmp 디렉토리 생성
+		File uploadDir = new File(UPLOAD_PATH);
+		if (!uploadDir.exists()) {
+		    uploadDir.mkdirs();
+		}
+		
+		//업로드된 파일 처리
 		Collection<Part> parts = req.getParts();
 
 		
@@ -112,7 +118,7 @@ public class UploadFile extends HttpServlet {
 			attachs.add(Attach.builder()
 					.uuid(fileName)
 					.origin(origin)
-					.image(image)
+					.image(image ? 1 : 0)
 					.path(path)
 					.odr(odr++)
 					.size(fileSize)

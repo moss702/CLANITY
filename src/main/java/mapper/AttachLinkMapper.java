@@ -12,6 +12,6 @@ import domain.AttachLink;
 public interface AttachLinkMapper {
     void insert(AttachLink link);			// attach_link 정보 DB저장
     void delete(AttachLink link);	// 게시글 삭제시 attachLink 삭제
-    List<AttachLink> list (AttachLink link); //
-    
+    List<AttachLink> list (AttachLink link); 
+    List<AttachLink> list(@Param("linkType") String linkType, @Param("lno") Long lno);  
 }

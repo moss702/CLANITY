@@ -20,7 +20,7 @@ public class QnaUpdateController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Long boardId = Long.parseLong(req.getParameter("boardId"));
-        Board board = boardService.findBy(boardId);
+        Board board = boardService.selectOne(boardId);
 
         resp.setContentType("application/json; charset=UTF-8");
         String json = String.format("{\"title\": \"%s\", \"content\": \"%s\"}",
