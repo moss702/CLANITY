@@ -38,13 +38,7 @@ ${category.categoryId}
 <li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10073" class="text-decoration-none text-dark">자기계발</a></li>
 <li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=10074" class="text-decoration-none text-dark">로컬여행</a></li>
         
-        <%-- <c:forEach var="category" items="${categoryList}">
-            <li class="list-group-item ps-0 border-0">
-                <a href="${cp}/categoryAll?categoryId=${category.categoryId}" class="text-decoration-none text-dark">
-                    ${category.categoryId} 
-                </a>
-            </li>
-        </c:forEach> --%>
+      
     </ul>
 </aside>
 

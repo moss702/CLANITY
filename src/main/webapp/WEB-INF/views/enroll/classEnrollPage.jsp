@@ -21,6 +21,7 @@
             <img src="https://ssr0116.s3.ap-northeast-2.amazonaws.com/clanity/${detailInfo.attachs[0].path}/${detailInfo.attachs[0].origin}" class="img-thumbnail" style="object-fit: cover; width: 100%; height: 100%" alt="상세 이미지">
           <ul class="list-unstyled text-secondary">
             <li class="mt-3"><strong class="text-dark">클래스 명</strong><br>${detailInfo.title}</li>
+            <li class="mt-3"><strong class="text-dark">클래스 소개</strong><br>${detailInfo.description}</li>
           </ul>
         </div>
 
@@ -82,7 +83,9 @@
           <p><strong>원데이 클래스 수강권 </strong> 
           <hr>
           <div class="d-flex justify-content-between fw-bold fs-5">
-            <span>총 결제 금액</span>
+          	<span>총 인원수</span> <span>${detailInfo.currentParticipants}</span>
+            <span>총 결제 금액</span>   <span>${detailInfo.price}</span>
+            
           </div>
           ${detailInfo.classId}
           ${detailInfo.openId}

@@ -6,13 +6,16 @@
 <!DOCTYPE html>
 <html>
 
-<%@ include file="../common/head.jsp" %>
+<%@ include file="../common/head.jsp"%>
 
 </head>
 <body>
 	<c:forEach items="${cards}" var="c">
 		<div class="col">
-			<a href="${cp}/classDetailedPage?classId=${c.classId}&openId=${c.openId}"  class="text-decoration-none text-dark w-100 h-100"style="display: block;">
+			<a
+				href="${cp}/classDetailedPage?classId=${c.classId}&openId=${c.openId}"
+				class="text-decoration-none text-dark w-100 h-100"
+				style="display: block;">
 				<div class="card h-100 w-100 border border-2 rounded-4 shadow-sm"
 					style="border-color: #E63946; cursor: pointer;">
 
@@ -51,29 +54,22 @@
 								height="24" alt="강사"> <span class="fw-medium small">${c.instructorName}</span>
 						</div>
 						<div class="small mb-2">
-							 <span class="badge bg-light text-dark rounded-pill px-2 py-1">
+							<span class="badge bg-light text-dark rounded-pill px-2 py-1">
 								<i class="bi bi-geo-alt me-1"></i> ${c.duration}
-							</span> 
+							</span>
 						</div>
 					</div>
 
 					<!-- 하단 가격 -->
 					<div class="card-footer bg-white border-0 px-3 pb-3 small">
-					<i class="bi bi-calendar-heart text-danger me-1"></i> ${c.description2}
-						<%-- <div class="d-flex justify-content-between align-items-center">
-							<div class="text-danger fw-bold">${c.discount}%</div>
-							<div> --%>
-							<%-- 	<span class="fw-bold" style="color: #E63946;">${c.discountPrice}원</span> --%>
-								<span class="fw-bold" style="color: #E63946;">${c.price}원</span>
-							<%-- 	<span class="text-muted text-decoration-line-through me-2 small">${c.price}원</span> --%>
-							</div>
-						</div>
-			</a>
+						<i class="bi bi-calendar-heart text-danger me-1"></i>
+						${c.description2} <span class="fw-bold" style="color: #E63946;">${c.price}원</span>
 					</div>
+				</div>
+			</a>
+		</div>
 
-				<!-- </div> -->
 	</c:forEach>
 
-	<!-- 필요 시 더 복사해서 추가 -->
 </body>
 </html>
