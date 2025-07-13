@@ -9,7 +9,7 @@
   <div class="mb-4">
     <div class="d-flex align-items-center">
       <img src="https://placehold.co/50?text=P" class="rounded-circle me-2" alt="profile">
-      <strong>포에틱/X</strong>
+      <strong>${member.nickname}</strong>
     </div>
     <button class="btn btn-outline-light btn-sm mt-2 w-100">관리자 프로필</button>
   </div>
