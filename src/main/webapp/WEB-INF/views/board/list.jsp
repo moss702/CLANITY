@@ -68,13 +68,11 @@
 			<div id="faqFormAnchor"></div>
 			<!-- 등록 폼 -->
 			<form id="faqForm" class="faq-form" action="${cp}/board/write" method="post">
-<<<<<<< HEAD
+
 			<c:if test="${not empty b}">
 			    <input type="hidden" id="faqId" name="boardId" value="${b.boardId}"/>
 			</c:if>
-=======
-				<input type="hidden" id="faqId" name="boardId" value="${b.boardId}"/> <!-- 수정용정보 -->
->>>>>>> branch 'phj' of https://github.com/luminous77777/CLANITY.git
+
 				<input type="hidden" id="faqMode" name="mode" value="write"/>
 
 				<div class="mb-2">
@@ -451,14 +449,10 @@
 			<div id="faqFormAnchor"></div>
 			<!-- 등록 폼 -->
 			<form id="faqForm" class="faq-form" action="${cp}/board/write" method="post">
-<<<<<<< HEAD
+
 			<c:if test="${not empty b}">
 			    <input type="hidden" id="faqId" name="boardId" value="${b.boardId}"/>
 			</c:if>
-=======
-
-				<input type="hidden" id="faqId" name="boardId" value="${b.boardId}"/> <!-- 수정용정보 -->
->>>>>>> branch 'phj' of https://github.com/luminous77777/CLANITY.git
 				<input type="hidden" id="faqMode" name="mode" value="write"/>
 
 				<div class="mb-2">
@@ -490,6 +484,7 @@
 				<input type="hidden" name="categoryId" value="3"/>
 				<input type="hidden" name="isBlind" value="0"/>
 				<input type="hidden" name="visibleLevel" value="ALL"/>
+				<input type="hidden" name="encodedStr" id="encodedStr">
 				<button type="submit" class="btn btn-danger btn-sm">등록하기</button>
 			</form>
 
@@ -519,12 +514,17 @@
 							 aria-labelledby="faq${status.index}">
 							<div class="faq-answer p-3">
 								<p>${b.content.replaceAll("\\n", "<br/>")}</p>
-								<%-- <p>attachList size: ${fn:length(boards)}</p>
-								<c:forEach items="${attachList}" var="file">
-									<c:if test="${file.image == 'Y'}">
-										<img src="${cp}/display?uuid=t_${file.uuid}&path=${file.path}" style="max-width: 200px;" />
-									</c:if>
-								</c:forEach> --%>
+							<p>게시글 ID: ${b.boardId}</p>
+								<c:forEach var="file" items="${attachList}">
+								  <p>파일 targetId: ${file.targetId}, 이미지 여부: ${file.image}</p>
+									
+								<c:forEach var="file" items="${attachMap[b.boardId]}">
+								    <c:if test="${file.image == 1}">
+								        <img src="${cp}/display?uuid=t_${file.uuid}&path=${file.path}" style="max-width: 200px;" />
+								    </c:if>
+								</c:forEach>
+									
+									</c:forEach>
 <%-- 								<c:set var="hasAttach" value="false" />
 								<c:forEach var="file" items="${attachList}">
 								  <c:if test="${file.targetId eq b.boardId}">
@@ -678,6 +678,30 @@
         const index = $(this).data('index');
 
         editFaq(id, title, content, index);
+    });
+    
+    $('#fileInput').on('change', function () {
+        const formData = new FormData();
+        const files = this.files;
+        for (let i = 0; i < files.length; i++) {
+            formData.append('files[]', files[i]);
+        }
+
+        $.ajax({
+            url: `${cp}/upload`,
+            method: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                console.log('업로드 성공:', res);
+                const jsonStr = JSON.stringify(res); // Attach 리스트
+                $('#encodedStr').val(jsonStr);
+            },
+            error: function () {
+                alert('파일 업로드 실패');
+            }
+        });
     });
 
 </script>
