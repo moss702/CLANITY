@@ -71,8 +71,8 @@ public class OnedayClass {
 	private LocalTime endTime;
 	private boolean status;
 
-	@Builder.Default
-	private List<Attach> attachs = new ArrayList<>();
+	
+	private List<Attach> attachs;
 
 	// 기본 생성자
 	public OnedayClass() {

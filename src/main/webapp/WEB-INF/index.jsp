@@ -6,6 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="views/common/head.jsp" %>
+<style >
+body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f8f9fa;
+    }
+</style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 

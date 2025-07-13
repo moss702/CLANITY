@@ -30,20 +30,6 @@ body {
 
 <main class="container py-5 flex-grow-1">
 
-	 <!-- 추천 배너 -->
-	<!-- <div id="mainCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
-		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<img src="https://www.munto.kr/_next/image?url=https%3A%2F%2Fimages.munto.kr%2Fproduction-banner%2F1749630156_pc_main_banner_summersweet.png&w=1920&q=75" class="d-block w-100" alt="...">
-			</div>
-			<div class="carousel-item">
-				<img src="https://www.munto.kr/_next/image?url=https%3A%2F%2Fimages.munto.kr%2Fproduction-banner%2F1749629821_pc_main_banner_summersea.png&w=1920&q=75" class="d-block w-100" alt="...">
-			</div>
-			<div class="carousel-item">
-				<img src="https://www.munto.kr/_next/image?url=https%3A%2F%2Fimages.munto.kr%2Fproduction-banner%2F17440769269_pc_main_banner_club.png&w=1920&q=75" class="d-block w-100" alt="...">
-			</div>
-		</div>
-	</div> -->
 
 	 
 </main>
