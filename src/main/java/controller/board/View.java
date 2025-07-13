@@ -26,7 +26,7 @@ public class View extends HttpServlet{
 		}
 		
 		BoardService service = new BoardService();
-		Board board = service.findBy(Long.parseLong(req.getParameter("boardId")));
+		Board board = service.selectOne(Long.parseLong(req.getParameter("boardId")));
 
 		Criteria cri = Criteria.init(req);
 		req.setAttribute("cri", cri);

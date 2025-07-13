@@ -10,7 +10,7 @@
 	      <c:forEach var="file" items="${attachList}">
 	        <li class="mb-1">
 	          <c:choose>
-	            <c:when test="${file.image == 'Y'}">
+	            <c:when test="${file.image == 1}">
 	              <img src="${cp}/display?no=${file.attachId}" style="max-width: 150px;" />
 	            </c:when>
 	            <c:otherwise>

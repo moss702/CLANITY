@@ -25,9 +25,18 @@
   </delete>
 
   <!-- 첨부파일 단일 조회 -->
-  <select id="findById" resultType="attach">
+  <select id="selectOne" resultType="attach">
     SELECT * FROM attach
     WHERE uuid = #{uuid}
   </select>
+   
+  <!-- 첨부파일 목록 조회 -->
+  <select id="list" resultType="domain.Attach">
+  SELECT a.*
+  FROM attach a
+  JOIN attach_link al ON a.uuid = al.uuid
+  WHERE al.lno = #{boardId}
+    AND al.link_type = 'BOARD'
+</select>
 </mapper>
 

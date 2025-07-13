@@ -18,12 +18,12 @@ public class Attach {
 	private String uuid;
 	private String origin;
 	private String mimeType;
-	private boolean image; 
+	private Integer image; 
 	private Long size;			  // 파일 크기
 	private String path;          // 파일 저장경로
 	private int odr;
 
-	public Attach(String uuid, String origin, String mimeType, boolean image, Long size, String path, int odr) {
+	public Attach(String uuid, String origin, String mimeType, Integer image, Long size, String path, int odr) {
 		super();
 		this.uuid = uuid;
 		this.origin = origin;
