@@ -38,6 +38,8 @@ public class Write extends HttpServlet{
 			AlertUtil.alert("로그인 후 글 작성해주세요", "/member/login?" + cri.getQs2(), req, resp, true);
 			return;
 		}
+		String mode = req.getParameter("mode"); //답변하기 폼 조건문을 위한 값 전달
+		req.setAttribute("mode", mode);
 		req.setAttribute("cri", cri);
 		req.getRequestDispatcher("/WEB-INF/views/board/write.jsp").forward(req, resp);
 	}

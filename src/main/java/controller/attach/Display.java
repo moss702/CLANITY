@@ -20,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 @WebServlet("/display")
 public class Display extends HttpServlet {
 
-	//깃허브 업로드 테스트용
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

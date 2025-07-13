@@ -5,7 +5,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
-
+<c:forEach items="${boardCategories}" var="cat">
+	<c:if test="${cat.categoryId == pageDto.cri.categoryId}">
+		<c:set value="${cat}" var="c" />
+	</c:if>
+</c:forEach>
 <head>
 	<%@ include file="../common/head.jsp" %>
 	<title>자주 묻는 질문</title>
@@ -17,11 +21,7 @@
 <c:set var="loginMember" value="${member}"/>
 <%@ include file="../common/header.jsp" %>
 
-<c:forEach items="${boardCategories}" var="cat">
-	<c:if test="${cat.categoryId == pageDto.cri.categoryId}">
-		<c:set value="${cat}" var="c" />
-	</c:if>
-</c:forEach>
+
 
 <div class="settings-wrapper container">
 	<div class="category-menu">
@@ -35,29 +35,49 @@
 	<%-- 문의 하기 시작 --%>
 	<div class="flex-grow-1">
 		<div class="section-title">
-			<h2>1:1 문의하기</h2>
+			<h2>1:1 문의하기
+			</h2>
 			<p>궁금한 점이 있다면 언제든 문의해주세요.</p>
 		</div>
 
-		<!-- FAQ 안내 -->
-		<a href="${cp}/board/list?categoryId=1" class="faq-box mb-4">
-			<strong>FAQ 바로가기</strong> 문의 전 자주 묻는 질문을 확인해보세요.
-		</a>
+		<div class="form-box">
+			<form>
+				<!-- 문의 유형 -->
+				<div class="mb-3">
+					<label for="typeSelect" class="form-label fw-semibold">문의 유형</label>
+					<select class="form-select" id="typeSelect" required="">
+						<option selected="" disabled="">문의 유형 선택</option>
+						<option>결제/환불</option>
+						<option>클래스 정보</option>
+						<option>회원/계정</option>
+						<option>기타</option>
+					</select>
+				</div>
 
-		<!-- 버튼 섹션 -->
-		<div class="row g-3 mb-4">
-			<div class="col-md-6">
-				<a href="${cp}/qna/toBusiness" class="big-button btn btn-outline-secondary w-100">클래스 강사에게 문의하기</a>
-			</div>
-			<div class="col-md-6">
-				<a href="${cp}/board/write?${cri.qs2}" class="big-button btn btn-danger w-100">고객센터 문의하기</a>
+				<!-- 제목 -->
+				<div class="mb-3">
+					<label for="titleInput" class="form-label fw-semibold">문의 제목</label>
+					<input type="text" class="form-control" id="titleInput" placeholder="예) 환불 요청 관련 문의드립니다." required="">
+				</div>
 
-			</div>
-		</div>
+				<!-- 내용 -->
+				<div class="mb-3">
+					<label for="contentTextarea" class="form-label fw-semibold">문의 내용</label>
+					<textarea class="form-control" id="contentTextarea" rows="5" placeholder="내용을 자세히 작성해주세요." required=""></textarea>
+				</div>
 
-		<!-- 내 문의내역 -->
-		<div class="text-center">
-			<a href="${cp}/board/list?${cri.qs2}" class="btn-outline-dark">내 문의내역 보기</a>
+				<!-- 첨부파일 -->
+				<div class="mb-4">
+					<label for="fileInput" class="form-label fw-semibold">첨부파일</label>
+					<input type="file" class="form-control" id="fileInput">
+					<div class="form-text">첨부파일은 최대 10MB까지 업로드 가능합니다.</div>
+				</div>
+
+				<!-- 전송 버튼 -->
+				<div class="d-grid">
+					<button type="submit" class="btn btn-danger fw-bold">문의 전송하기</button>
+				</div>
+			</form>
 		</div>
 	</div>
 	<%-- 문의 하기 종료 --%>

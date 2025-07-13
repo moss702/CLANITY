@@ -68,7 +68,7 @@
 			<div id="faqFormAnchor"></div>
 			<!-- 등록 폼 -->
 			<form id="faqForm" class="faq-form" action="${cp}/board/write" method="post">
-				<input type="hidden" id="faqId" name="boardId" value="${b.boardId}"/> <!-- 수정용정보 -->
+				<input type="hidden" id="faqId" name="id" value="${b.boardId}"/> <!-- 수정용정보 -->
 				<input type="hidden" id="faqMode" name="mode" value="write"/>
 
 				<div class="mb-2">
@@ -212,7 +212,7 @@
 									<c:if test="${empty b.replies}">
 										<!-- Adimin Only 답변하기 버튼 -->
 										<c:if test="${member != null and member.role == 'ADMIN'}">
-											<a href="${cp}/board/write?mode=answer&boardId=${b.boardId}&${pageDto.cri.qs2}"
+											<a href="${cp}/board/write?boardId=${b.boardId}&${pageDto.cri.qs2}"
 											   class="btn btn-outline-secondary btn-sm btn-edit"
 											   data-id="${b.boardId}"
 											   data-title="${fn:escapeXml(b.title)}"
@@ -232,12 +232,14 @@
 											수정하기
 										</a>
 										<!-- 삭제 버튼 -->
-								
 										<form method="post" action="${cp}/board/remove">
-											<input type="hidden" name="categoryId" value="${b.categoryId}"/>
 											<input type="hidden" name="boardId" value="${b.boardId}"/>
 											<input type="hidden" name="mode" value="delete"/>
-											<button class="btn btn-outline-danger btn-sm">삭제</button>
+											<form method="post" action="${cp}/board/remove">
+												<input type="hidden" name="boardId" value="${b.boardId}"/>
+												<input type="hidden" name="mode" value="delete"/>
+												<button class="btn btn-outline-danger btn-sm">삭제</button>
+											</form>
 										</form>
 									</c:if>
 									</c:if>
@@ -267,18 +269,12 @@
                         $.get(`${cp}/board/api/listByGroup?groupId=\${groupId}`, function(replies) {
                             const $container = $question.find('.answer-area');
                             if(replies.length > 0) {
-                            	console.log('📌 replies:', replies);
                                 $question.find(".badge").removeClass("bg-danger").addClass("bg-secondary").text("답변완료").attr("data-filter", "done");
 
 
                                 replies.forEach(r => {
-                                	
                                     const adminBtnHtml = isAdmin ? `<div class="d-flex gap-2">
-                               		
-                               		 <a href="${cp}/board/modify?mode=answer&boardId=\${r.boardId}&${pageDto.cri.qs2}" 
-                               	       class="btn btn-outline-secondary btn-sm">
-                               	       수정
-                               	    </a>
+									<button class="btn btn-outline-secondary btn-sm">수정</button>
 									<form method="post" action="${cp}/board/remove">
 										<input type="hidden" name="boardId" value="\${r.boardId}"/>
 										<input type="hidden" name="mode" value="delete"/>
@@ -287,8 +283,7 @@
 
                                     const html = `<div class="card-footer bg-white">
 									<div><span class="badge bg-danger me-2">CLANITY의 답변</span>\${r.title}</div>
-									<p class="mb-3 my-3">\${r.content.replace(/\n/g, "<br/>")}</p>	
-									
+									<div class="my-3">\${r.content}</div>
 									\${adminBtnHtml}
 							</div>`;
                                     $container.append(html);
@@ -446,7 +441,7 @@
 			<!-- 등록 폼 -->
 			<form id="faqForm" class="faq-form" action="${cp}/board/write" method="post">
 
-				<input type="hidden" id="faqId" name="boardId" value="${b.boardId}"/> <!-- 수정용정보 -->
+				<input type="hidden" id="faqId" name="id" value="${b.boardId}"/> <!-- 수정용정보 -->
 				<input type="hidden" id="faqMode" name="mode" value="write"/>
 
 				<div class="mb-2">

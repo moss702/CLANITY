@@ -31,9 +31,10 @@ public class Modify extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Criteria cri = Criteria.init(req);
-		
-		if(req.getParameter("boardId") == null) {
-			AlertUtil.alert("잘못된 접근입니다", "/board/list", req, resp);
+		String boardIdStr = req.getParameter("boardId");
+		System.out.println("🔍 [DEBUG] boardIdStr = " + boardIdStr);
+		if (boardIdStr == null || boardIdStr.isBlank()) {
+			AlertUtil.alert("잘못된 접근입니다.", "/board/list", req, resp);
 			return;
 		}
 		Long boardId = Long.valueOf(req.getParameter("boardId"));
@@ -48,6 +49,9 @@ public class Modify extends HttpServlet{
 		Board board = service.findBy(Long.parseLong(req.getParameter("boardId")));
 		req.setAttribute("cri", cri);
 		req.setAttribute("board", board);
+		String mode = req.getParameter("mode");
+		req.setAttribute("mode", mode);
+		
 		req.getRequestDispatcher("/WEB-INF/views/board/modify.jsp").forward(req, resp);	
 	}
 
@@ -84,11 +88,9 @@ public class Modify extends HttpServlet{
 		log.info("{}", cri);
 		
 		// 리디렉션
-		if(categoryId == 1) {
-			AlertUtil.alert("글이 수정되었습니다", "/board/list?" + cri.getQs2(), req, resp);
-			return;
-		}
-		AlertUtil.alert("글이 수정되었습니다", "/board/view?boardId=" + boardId + "&" + cri.getQs2(), req, resp);
+		AlertUtil.alert("글이 수정되었습니다", "/board/list?" + "categoryId=" + categoryId, req, resp);
+		
+		
 	}
 
 }
