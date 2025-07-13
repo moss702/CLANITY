@@ -525,21 +525,21 @@
 										<img src="${cp}/display?uuid=t_${file.uuid}&path=${file.path}" style="max-width: 200px;" />
 									</c:if>
 								</c:forEach> --%>
-<c:set var="hasAttach" value="false" />
-<c:forEach var="file" items="${attachList}">
-  <c:if test="${file.targetId eq b.boardId}">
-    <c:set var="hasAttach" value="true" />
-  </c:if>
-</c:forEach>
-
-<p>첨부파일 있음?: ${hasAttach}</p>
+<%-- 								<c:set var="hasAttach" value="false" />
+								<c:forEach var="file" items="${attachList}">
+								  <c:if test="${file.targetId eq b.boardId}">
+								    <c:set var="hasAttach" value="true" />
+								  </c:if>
+								</c:forEach> --%>
+								
+<%-- 								<p>첨부파일 있음?: ${hasAttach}</p>
 								 <p>디버그: targetId = ${file.targetId}, boardId = ${b.boardId}</p>
 								<c:forEach var="file" items="${attachList}">
 								 <p>디버그: targetId = ${file.targetId}, boardId = ${b.boardId}</p>
 								  <c:if test="${file.targetId == b.boardId and file.image == 'Y'}">
 								    <img src="${cp}/display?uuid=t_${file.uuid}&path=${file.path}" style="max-width: 200px;" />
 								  </c:if>
-								</c:forEach>
+								</c:forEach> --%>
 
 
 

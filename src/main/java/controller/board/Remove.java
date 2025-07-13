@@ -30,7 +30,7 @@ public class Remove extends HttpServlet{
 
 		Criteria cri = Criteria.init(req);
 		String categoryId = req.getParameter("categoryId");
-<<<<<<< HEAD
+		
 		String referer = req.getHeader("Referer");
 		if (referer != null) {
 		    resp.sendRedirect(referer);
@@ -38,10 +38,6 @@ public class Remove extends HttpServlet{
 		    AlertUtil.alert("글이 삭제되었습니다", "/board/list?" + cri.getQs2(), req, resp);
 		}
 
-=======
-		
-		AlertUtil.alert("글이 삭제되었습니다", "/board/list?" + cri.getQs2(), req, resp);
->>>>>>> branch 'phj' of https://github.com/luminous77777/CLANITY.git
 		
 	}	
 }
