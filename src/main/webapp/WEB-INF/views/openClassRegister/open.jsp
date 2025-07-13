@@ -5,6 +5,12 @@
 <html lang="ko">
 <head>
 <%@ include file="../common/head.jsp"%>
+<style>
+body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f8f9fa;
+    }
+</style>
 </head>
 <body>
 

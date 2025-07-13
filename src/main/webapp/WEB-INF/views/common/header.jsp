@@ -9,7 +9,11 @@
 				class="text-decoration-none fw-bold fs-2 text-danger">CLANITY</a>
 		</div>
 		<nav class="d-flex gap-3 align-items-center flex-shrink-0">
-			<a class="text-dark text-decoration-none fw-semibold " href="${cp}/categoryList?categoryId=10003">클래스</a>
+			<a href="${cp}/categoryList?categoryId=10003"
+   class="btn btn-outline-danger rounded-pill px-4 py-2 fw-semibold">
+  Join Class
+</a>
+
 			
 		</nav>
 		<form action="/search" method="post" class="flex-grow-1"
