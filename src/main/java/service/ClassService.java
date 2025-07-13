@@ -1,40 +1,68 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import domain.Attach;
+import domain.AttachLink;
 import domain.dto.Criteria;
 import domain.onedayClass.ClassSocialingCategory;
 import domain.onedayClass.OnedayClass;
-import util.MybatisUtil;
 import lombok.extern.slf4j.Slf4j;
+import mapper.AttachLinkMapper;
+import mapper.AttachMapper;
 import mapper.ClassInfoMapper;
 import mapper.ClassSocialingCategoryMapper;
+import util.MybatisUtil;
 
 @Slf4j
 public class ClassService {
 
 	public void register(OnedayClass onedayClass) {
-		SqlSession session = MybatisUtil.getSqlSession();
+	    SqlSession session = MybatisUtil.getSqlSession();
 
-		try {
-			ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
-			mapper.insertClassInfo(onedayClass);
+	    try {
+	        ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
+	        AttachMapper attachMapper = session.getMapper(AttachMapper.class);
+	        AttachLinkMapper attachLinkMapper = session.getMapper(AttachLinkMapper.class);
 
-			// 1 classId 가져고오 나서
-			// 2 open Insert
-			onedayClass.setMasterId(onedayClass.getClassId());
+	        // 1. class_info 등록 → class_id 채번
+	        mapper.insertClassInfo(onedayClass);  // 이 시점에 onedayClass.classId가 생성됨
+	        onedayClass.setMasterId(onedayClass.getClassId());
 
-			mapper.insertClassOpen(onedayClass);
-			session.commit();
+	        // 2. 첨부파일이 있을 경우
+	        if (onedayClass.getAttachs() != null && !onedayClass.getAttachs().isEmpty()) {
+	            for (int i = 0; i < onedayClass.getAttachs().size(); i++) {
+	                Attach a = onedayClass.getAttachs().get(i);
 
-		} catch (Exception e) {
-			log.error("클래스 등록 실패", e);
+	                // 2-1. attach 테이블에 insert
+	                attachMapper.insert(a);
 
-		} finally {
-			session.close();
-		}
+	                // 2-2. attach_link 테이블에 insert
+	                AttachLink link = AttachLink.builder()
+	                        .uuid(a.getUuid())
+	                        .linkType("class") // 또는 "onedayClass"
+	                        .lno(onedayClass.getClassId())
+	                        .build();
+	                attachLinkMapper.insert(link);
+	            }
+	        }
+
+	        // 3. class_open 등록
+	        mapper.insertClassOpen(onedayClass);
+
+	        // 4. 커밋
+	        session.commit();
+
+	    } catch (Exception e) {
+	        session.rollback();
+	        log.error("클래스 등록 실패", e);
+	    } finally {
+	        session.close();
+	    }
 	}
 //	url 추가
 public void updateUrlLink(OnedayClass onedayClass) {

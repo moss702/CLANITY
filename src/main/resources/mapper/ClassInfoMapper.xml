@@ -24,6 +24,8 @@
 		<result property="scheduleDate" column="schedule_date" />
 		<result property="startTime" column="start_time" />
 		<result property="endTime" column="end_time" />
+		<result property="difficulty" column="difficulty"/>
+		<result property="instructorName" column="instructor_name"/>
 
 		<collection property="attachs" ofType="attach">
 			<result column="uuid" property="uuid" />
@@ -34,6 +36,7 @@
 			<result column="path" property="path" />
 			<result column="odr" property="odr" />
 		</collection>
+		
 	</resultMap>
 	<!--sql  -->
 	<sql id="criteria">
@@ -152,7 +155,7 @@
 		SELECT
 		class_id, business_id,
 		category_id, title, thumbnail_image, c.price,
-		discount_price, region,
+		discount_price, region, difficulty,address,instructor_name,
 		open_id,
 		(select path
 		from class c_in
@@ -189,6 +192,8 @@
         class_category_map ccm ON c.class_id = ccm.class_id
     WHERE
         ccm.category_id = #{categoryId}
+        
+        
 
 	</select>
 	

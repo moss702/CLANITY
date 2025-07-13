@@ -2,6 +2,7 @@ package controller.onedayclass.category;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -78,7 +79,11 @@ public class categoryListPage extends HttpServlet {
 		req.setAttribute("categoryMap", categoryMap);
 		req.setAttribute("categoryById", categoryById);
 		req.setAttribute("pageDto", new PageDto(cri, service.getCount(cri)));
-		req.setAttribute("cards", service.classList(cri));
+		
+		// 랜덤 배정
+		List<OnedayClass> cards = service.classList(cri);
+		Collections.shuffle(cards); // 리스트를 실제로 섞고
+		req.setAttribute("cards", cards);
 
 		// 페이지 불러오기 및 카드 불러오기		
 		req.getRequestDispatcher("/WEB-INF/views/class/categoryList.jsp").forward(req, resp);
