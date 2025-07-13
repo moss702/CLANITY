@@ -4,11 +4,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
 <meta charset="UTF-8">
 <title>CLANITY 카테고리 목록</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <%@ include file="../common/head.jsp"%>
+<style>
+body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f8f9fa;
+    }
+</style>
 </head>
 <body style="font-family: 'Noto Sans', sans-serif;">
 <%@ include file="../common/header.jsp"%>
@@ -16,7 +23,7 @@
 <main class="container px-4 py-5">
 	<div class="row justify-content-center">
 <aside class="col-md-3 col-lg-2 mb-4">
-    <h6 class="fw-bold mb-3">카테고리 전체</h6>
+    <h3 class="fw-bold mb-3" >카테고리</h3>
 	<div class="accordion" id="categoryAccordion">
 		<c:forEach var="parent" items="${parentCategories}">
 			<c:set var="groupId" value="cat${parent.categoryId}" />
@@ -45,7 +52,9 @@
 	</div>
 
 </aside>
+
 <!-- 카드 리스트 -->
+
 			<div class="col-md-9 col-lg-10 ">
 				<div class="row row-cols-1 row-cols-md-4 g-4">
 			<c:forEach items="${cards}" var="c">
@@ -105,7 +114,7 @@
 							     alt="강사 이미지"
 							     style="width: 24px; height: 24px; object-fit: cover; border-radius: 50%;"
 							     onerror="this.onerror=null; this.src='https://ssr0116.s3.ap-northeast-2.amazonaws.com/clanity/1752410889518.jpg'" />
-								<span class=" fs-6 ms-2 fw-bold"> ${c.instructorName}</span>
+								<span class=" ms-2 fw-bold" style="font-size: 13px;"> ${c.instructorName}</span>
 								</div>
 								</div>
 				<!-- 장소 -->
@@ -123,7 +132,7 @@
 			<div class="card-footer bg-white border-0 px-3 pb-3 small">
 			  <div class="d-flex">
 			    <div class="ms-auto">
-			      <span class="fw-bold fs-5" style="color: #E63946;">${c.price}원</span>
+			      <span class="fw-bold fs-5" style="color: #E63946;"><fmt:formatNumber value="${c.price}" type="number" groupingUsed="true" />원</span>
 			    </div>
 			  </div>
 			</div>

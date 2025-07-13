@@ -7,6 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>클래니티 - 결제</title>
   <%@ include file="../common/head.jsp"%>
+  <style>
+body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f8f9fa;
+    }
+</style>
 </head>
 
 <body class="bg-light">

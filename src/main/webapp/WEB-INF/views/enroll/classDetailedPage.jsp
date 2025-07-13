@@ -13,6 +13,11 @@
   <style>
     .bx-wrapper {margin-bottom: 0;}
 
+	body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f8f9fa;
+    }
+
   </style>
 </head>
 
