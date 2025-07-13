@@ -62,21 +62,22 @@
 								<c:set var="src" value="https://ssr0116.s3.ap-northeast-2.amazonaws.com/clanity/${c.attachs[0].path}/${c.attachs[0].uuid}" />
 							</c:if>
 							<img src="${src}" class="card-img-top" alt="썸네일" style="width: 100%; height: 170px; object-fit: cover;">
-							<span class="badge bg-light text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 rounded-pill">${c.classType}</span> <i
+							<%-- <span class="badge bg-light text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 rounded-pill">${c.classType}</span> --%> 
+							<span class="badge bg-warning text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 ">원데이클래스</span> 
+							<i
 								class="bi bi-heart-fill position-absolute top-0 end-0 m-2 text-warning"></i>
 						</div>
 						<!-- 본문 -->
 						<div class="card-body px-3 py-3">
 							<!-- 카테고리 태그 -->
-							<span class="badge bg-light text-dark mb-2 px-2 py-1">${c.categoryId}</span>
 							<c:set var="category" value="${categoryById[c.categoryId]}" />
 
 							<div class="category-badges mb-2">
-							  	<span class="badge bg-light text-dark rounded-pill border me-1">
+							  	<span class="badge bg-light text-dark  border me-1">
 									  ${category.parentCategory}
 							  	</span>
 								<c:if test="${not empty category.childCategory}">
-								<span class="badge bg-secondary text-white rounded-pill">
+								<span class="badge bg-secondary text-white ">
 										${category.childCategory}
 								</span>
 								</c:if>
@@ -85,36 +86,51 @@
 							<div class="fw-bold mb-2 text-truncate" ><i class="bi bi-calendar-heart text-danger me-1"></i>${c.title}</div>
 							<!-- 강사 정보 -->
 							<div class="d-flex align-items-center mb-2">
-								<c:if test="${empty c.instructorImageUrl}">
-									<c:set var="instSrc"
-										value="https://placehold.co/24x24?text=No+Image" />
-								</c:if>
-								<c:if test="${not empty c.instructorImageUrl}">
-									<c:set var="instSrc" value="${c.instructorImageUrl}" />
-								</c:if>
-								<img src="${instSrc}" class="rounded-circle me-2" width="24" height="24" alt="강사"> <span class="fw-medium small">${c.instructorName}</span></div>
-							<!-- 장소 -->
-							<div class="small mb-2">
-								<span class="badge bg-light text-dark px-2 py-1">
-									<i class="bi bi-geo-alt me-1"></i> ${c.region}
-								</span>
-							</div>
-						</div>
-
-						<!-- 하단 가격 -->
-						<div class="card-footer bg-white border-0 px-3 pb-3 small">
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="text-danger fw-bold">${c.discount}%</div>
-								<div>
-									<span class="fw-bold" style="color: #E63946;">${c.discountPrice}원</span>
-									<span class="text-muted text-decoration-line-through me-2 small">${c.price}원</span>
+								<%-- <c:if test="${empty c.thumbnailImages}">
+								<c:set var="src" value="https://placehold.co/500x300?text=No+Image" />
+							</c:if> --%>
+							<%-- 강사 이미지 URL --%>
+							<div class="d-flex align-items-center">
+							<c:choose>
+							  <c:when test="${not empty c.attachs}">
+							    <c:set var="instructorPath" value="${fn:replace(c.attachs[0].path, 'thumbnail_image', 'instructor_image_url')}" />
+							    <c:set var="instructorImageUrl" value="https://ssr0116.s3.ap-northeast-2.amazonaws.com/clanity/${instructorPath}/1.jpg" />
+							  </c:when>
+							  <c:otherwise>
+							    <c:set var="instructorImageUrl" value="https://ssr0116.s3.ap-northeast-2.amazonaws.com/clanity/file_00000000ec7061f8946b6b8c8634c609.png" />
+							  </c:otherwise>
+							</c:choose>
+							
+							<img src="${instructorImageUrl}"
+							     alt="강사 이미지"
+							     style="width: 24px; height: 24px; object-fit: cover; border-radius: 50%;"
+							     onerror="this.onerror=null; this.src='https://ssr0116.s3.ap-northeast-2.amazonaws.com/clanity/1752410889518.jpg'" />
+								<span class=" fs-6 ms-2 fw-bold"> ${c.instructorName}</span>
 								</div>
-							</div>
-						</div>
-					</div>
-					</a>
+								</div>
+				<!-- 장소 -->
+				<div class="small mb-2">
+					<span class="badge bg-light text-dark px-3 py-2">
+						<i class="bi bi-geo-alt me-1"></i> ${c.difficulty} </span>
+						<span class="badge bg-light text-dark px-3 py-2">
+						<c:set var="firstRegion" value="${fn:split(c.address, ' ')[0]}" />
+						<i class="bi bi-geo-alt me-1"></i> ${firstRegion}
+					</span>
 				</div>
-			</c:forEach>
+			</div>
+
+			<!-- 하단 가격 -->
+			<div class="card-footer bg-white border-0 px-3 pb-3 small">
+			  <div class="d-flex">
+			    <div class="ms-auto">
+			      <span class="fw-bold fs-5" style="color: #E63946;">${c.price}원</span>
+			    </div>
+			  </div>
+			</div>
+		</div>
+		</a>
+	</div>
+</c:forEach>
 				<!-- 페이지 번호 -->
 		</div>
 				<div class="d-flex justify-content-center mt-4">
