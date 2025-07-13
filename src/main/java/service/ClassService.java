@@ -54,11 +54,11 @@ public void updateUrlLink(OnedayClass onedayClass) {
 }
 
 	// 상세페이지 필요한 정보
-	public OnedayClass detailPageInfo(Long classId, Long openId) {
+	public OnedayClass detailPageInfo(OnedayClass onedayClass) {
 		SqlSession session = MybatisUtil.getSqlSession();
 		try  {
 			ClassInfoMapper mapper = session.getMapper(ClassInfoMapper.class);
-			return  mapper.listClassDetailPage(classId, openId);
+			return  mapper.listClassDetailPage(onedayClass);
 			
 		} catch (Exception e) {
 			log.error(" 상세페이지 조회 실패", e);

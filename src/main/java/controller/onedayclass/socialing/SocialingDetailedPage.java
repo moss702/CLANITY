@@ -1,4 +1,4 @@
-package controller.socialing;
+package controller.onedayclass.socialing;
 
 import java.io.IOException;
 

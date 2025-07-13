@@ -17,19 +17,6 @@
 	<div class="row justify-content-center">
 <aside class="col-md-3 col-lg-2 mb-4">
     <h6 class="fw-bold mb-3">카테고리 전체</h6>
-    <ul class="list-group list-group-flush">
-        <!-- 전체 카테고리 링크, categoryId=0을 전달 -->
-           <%-- <c:forEach var="category" items="${categoryList}"> --%>
-           <%--  <li class="list-group-item ps-0 border-0">
-                <a href="${cp}/categoryList?categoryId=${category.categoryId}" class="text-decoration-none text-dark">
-                    ${category.categoryId} <!-- 카테고리 아이디 표시 -->
-                </a></li> --%>
-<%--         </c:forEach> --%>
-                <!-- 일단 하드코딩 형태로 값을 불러올 수 있나 확인하기 -->
-		<%--<c:forEach items="${categoryList}" var="cate">
-			<li class="list-group-item ps-0 border-0"> <a href="${cp}/categoryList?categoryId=${cate.categoryId}" class="text-decoration-none text-dark">${cate.parentCategory} / ${cate.childCategory}</a></li>
-		</c:forEach>--%>
-    </ul>
 	<div class="accordion" id="categoryAccordion">
 		<c:forEach var="parent" items="${parentCategories}">
 			<c:set var="groupId" value="cat${parent.categoryId}" />
@@ -59,10 +46,10 @@
 
 </aside>
 <!-- 카드 리스트 -->
-	<div class="col-md-9 col-lg-10">
-		<div class="row row-cols-1 row-cols-md-4 g-4">
+			<div class="col-md-9 col-lg-10 ">
+				<div class="row row-cols-1 row-cols-md-4 g-4">
 			<c:forEach items="${cards}" var="c">
-				<div class="col">
+				<div class="col" title="${c.title}">
 				<a href="${cp}/classDetailedPage?classId=${c.classId}&openId=${c.openId}"  class="text-decoration-none text-dark w-100 h-100"
 				style="display: block;">
 					<div class="card h-100 border border-2 rounded-4 shadow-sm mx-auto" style="width: 250px; border-color: #E63946;">
@@ -72,10 +59,10 @@
 								<c:set var="src" value="https://placehold.co/500x300?text=No+Image" />
 							</c:if>
 							<c:if test="${not empty c.thumbnailImages}">
-								<c:set var="src" value="${c.thumbnailImages}" />
+								<c:set var="src" value="https://ssr0116.s3.ap-northeast-2.amazonaws.com/clanity/${c.attachs[0].path}/${c.attachs[0].uuid}" />
 							</c:if>
 							<img src="${src}" class="card-img-top" alt="썸네일" style="width: 100%; height: 170px; object-fit: cover;">
-							<span class="badge bg-light text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 rounded-pill">원데이클래스</span> <i
+							<span class="badge bg-light text-dark position-absolute top-0 start-0 m-2 small fw-bold px-2 py-1 rounded-pill">${c.classType}</span> <i
 								class="bi bi-heart-fill position-absolute top-0 end-0 m-2 text-warning"></i>
 						</div>
 						<!-- 본문 -->
@@ -95,7 +82,7 @@
 								</c:if>
 							</div>
 							<!-- 클래스 제목 -->
-							<div class="fw-bold mb-2 text-truncate"><i class="bi bi-calendar-heart text-danger me-1"></i>${c.title}</div>
+							<div class="fw-bold mb-2 text-truncate" ><i class="bi bi-calendar-heart text-danger me-1"></i>${c.title}</div>
 							<!-- 강사 정보 -->
 							<div class="d-flex align-items-center mb-2">
 								<c:if test="${empty c.instructorImageUrl}">
@@ -127,69 +114,62 @@
 					</div>
 					</a>
 				</div>
-				
-
 			</c:forEach>
 				<!-- 페이지 번호 -->
-			<div class="container">
-			
-		  <div class="d-flex justify-content-center mt-4">
-		    <ul class="pagination pt-4">
-		    
-		      <c:if test="${pageDto.doubleLeft}">
-		        <li class="page-item">
-		          <a class="page-link border border-light text-danger"
-		              href="${cp}/categoryAll?page=1&${pageDto.cri.qs3}">
-		            <i class="fa-solid fa-angles-left"></i>
-		          </a>
-		        </li>
-		      </c:if>
-		
-		      <c:if test="${pageDto.left}">
-		        <li class="page-item">
-		          <a class="page-link border border-light text-danger"
-		            href="${cp}/categoryAll?page=${pageDto.start - 1}&${pageDto.cri.qs3}">
-		            <i class="fa-solid fa-angle-left"></i>
-		          </a>
-		        </li>
-		      </c:if>
-		
-		      <c:forEach begin="${pageDto.start}" end="${pageDto.end}" var="i">
-		        <li class="page-item ${pageDto.cri.page == i ? 'active' : ''}">
-		          <a class="page-link border border-light
-		            ${pageDto.cri.page == i ? 'bg-danger text-white' : 'text-danger'}"
-		            href="${cp}/categoryAll?page=${i}&${pageDto.cri.qs3}">
-		            ${i}
-		          </a>
-		        </li>
-		      </c:forEach>
-		
-		      <c:if test="${pageDto.right}">
-		        <li class="page-item">
-		          <a class="page-link border border-light text-danger"
-		              href="${cp}/categoryAll?page=${pageDto.end + 1}&${pageDto.cri.qs3}">
-		            <i class="fa-solid fa-angle-right"></i>
-		          </a>
-		        </li>
-		      </c:if>
-		
-		      <c:if test="${pageDto.doubleRight}">
-		        <li class="page-item">
-		          <a class="page-link border border-light text-danger"
-		            href="${cp}/categoryAll?page=${pageDto.realEnd}&${pageDto.cri.qs3}">
-		            <i class="fa-solid fa-angles-right"></i>
-		          </a>
-		        </li>
-		      </c:if>
-		      
-		    </ul>
-		  </div>
 		</div>
-		
-		</div>
-		</div>
-	</div>
+				<div class="d-flex justify-content-center mt-4">
+					<ul class="pagination pt-4">
 
+						<c:if test="${pageDto.doubleLeft}">
+							<li class="page-item">
+								<a class="page-link border border-light text-danger"
+								   href="${cp}/categoryList?page=1&${pageDto.cri.qs}">
+									<i class="fa-solid fa-angles-left"></i>
+								</a>
+							</li>
+						</c:if>
+
+						<c:if test="${pageDto.left}">
+							<li class="page-item">
+								<a class="page-link border border-light text-danger"
+								   href="${cp}/categoryList?page=${pageDto.start - 1}&${pageDto.cri.qs}">
+									<i class="fa-solid fa-angle-left"></i>
+								</a>
+							</li>
+						</c:if>
+
+						<c:forEach begin="${pageDto.start}" end="${pageDto.end}" var="i">
+							<li class="page-item ${pageDto.cri.page == i ? 'active' : ''}">
+								<a class="page-link border border-light
+		            ${pageDto.cri.page == i ? 'bg-danger text-white' : 'text-danger'}"
+								   href="${cp}/categoryList?page=${i}&${pageDto.cri.qs}">
+										${i}
+								</a>
+							</li>
+						</c:forEach>
+
+						<c:if test="${pageDto.right}">
+							<li class="page-item">
+								<a class="page-link border border-light text-danger"
+								   href="${cp}/categoryList?page=${pageDto.end + 1}&${pageDto.cri.qs}">
+									<i class="fa-solid fa-angle-right"></i>
+								</a>
+							</li>
+						</c:if>
+
+						<c:if test="${pageDto.doubleRight}">
+							<li class="page-item">
+								<a class="page-link border border-light text-danger"
+								   href="${cp}/categoryList?page=${pageDto.realEnd}&${pageDto.cri.qs}">
+									<i class="fa-solid fa-angles-right"></i>
+								</a>
+							</li>
+						</c:if>
+
+					</ul>
+				</div>
+			</div>
+	</div>
   </main>
 
 <%@ include file="../common/footer.jsp"%>

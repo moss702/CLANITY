@@ -1,4 +1,4 @@
-package controller.category;
+package controller.onedayclass.category;
 
 import java.io.IOException;
 import java.lang.reflect.Member;

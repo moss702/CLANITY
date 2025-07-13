@@ -1,4 +1,4 @@
-package controller.enroll;
+package controller.onedayclass.enroll;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -27,7 +27,24 @@ public class EnrollClassPage extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		Object obj = req.getSession().getAttribute("member");
+		if(obj == null || !(obj instanceof Member)) {
+			log.info("{멤버 상태}", obj);
+			// 비로그인상태(나중에 로그인이나 회원가입 창으로 주소 바꾸기)
+			AlertUtil.redirectAlert("로그인 후 이용해 주세요","/index","red",req,resp);
+
+			return ;
+		}
+		Member loginMember = (Member) obj;
+
+		ClassEnroll enroll = ParamUtil.get(req, ClassEnroll.class);
+		log.info("{}", enroll);
+		enroll.setMemberId(loginMember.getMemberId());
+
+		OnedayClass oc = new ClassService().detailPageInfo(OnedayClass.builder().classId(enroll.getClassId()).openId(enroll.getOpenId()).build());
+		req.setAttribute("detailInfo", oc);
+		req.setAttribute("enroll", enroll);
+		req.getRequestDispatcher("/WEB-INF/views/enroll/classEnrollPage.jsp").forward(req, resp);
 		
 	}
 
@@ -51,7 +68,7 @@ public class EnrollClassPage extends HttpServlet{
 		Long openId= onedayClass.getOpenId();
 		
 		ClassService service = new ClassService();
-		OnedayClass detailInfo = service.detailPageInfo(classId, openId);
+		OnedayClass detailInfo = service.detailPageInfo(OnedayClass.builder().classId(classId).openId(openId).build());
 		
 		req.setAttribute("detailInfo", detailInfo);
 		

@@ -1,15 +1,17 @@
 package domain.onedayClass;
 
 
-import java.lang.reflect.Member;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
+import domain.Attach;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Data
@@ -60,14 +62,17 @@ public class OnedayClass {
 
 	private Long openId;
 	private Long masterId;
-	private String minParticipants;
-	private String maxParticipants;
+	private int minParticipants;
+	private int maxParticipants;
+	private int currentParticipants;
 	private boolean isAvailable;
-	private Date scheduleDate;
-	private String startTime;
-	private String endTime;
+	private LocalDate scheduleDate;
+	private LocalTime startTime;
+	private LocalTime endTime;
 	private boolean status;
-	
+
+	@Builder.Default
+	private List<Attach> attachs = new ArrayList<>();
 
 	// 기본 생성자
 	public OnedayClass() {
@@ -110,8 +115,6 @@ public class OnedayClass {
 	public ClassOpen getClassOpen() {
 		return ClassOpen
 				.builder()
-				.maxParticipants("minParticipants")
-				.maxParticipants("maxParticipants")
 				.status(true)
 				.isAvailable(true)
 				.build();

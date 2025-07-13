@@ -8,6 +8,7 @@ import domain.dto.Criteria;
 import domain.onedayClass.ClassInfo;
 import domain.onedayClass.ClassOpen;
 import domain.onedayClass.OnedayClass;
+import org.apache.ibatis.annotations.Select;
 
 public interface ClassInfoMapper {
 	// 클래스 정보 매퍼
@@ -33,7 +34,7 @@ public interface ClassInfoMapper {
 	OnedayClass selectOneCategoryId(Long categoryId);
 	
 	// 클래스 상세페이지 조회(클래스 정보  세부 정보 가져올때 필요)
-	OnedayClass listClassDetailPage(@Param("classId")Long classId, @Param("openId") Long openId);
+	OnedayClass listClassDetailPage(OnedayClass onedayClass);
 	
 	
 	List<OnedayClass> listClass(Criteria cri);
@@ -50,7 +51,12 @@ public interface ClassInfoMapper {
 	
 //	// 생성시 자동 번호 + 나중에
 //	void increseCnt(Long classId);
-	
-	
 
+
+	Long findClassId(String originCode);
+
+	@Select("SELECT class_id FROM class")
+	List<Long> findAllClassIds();
+
+	void batchInsert(@Param("list") List<ClassOpen> list);
 }
