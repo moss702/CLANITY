@@ -29,10 +29,26 @@
 </form>
 
 		<nav class="d-flex gap-3 align-items-center flex-shrink-0 text-danger">
-			<i class="fa-solid fa-list fs-5"></i> <i
-				class="fa-solid fa-heart fs-5"></i> <i class="fa-solid fa-bell fs-5"></i>
-			<i class="fa-solid fa-circle-user fs-5"></i> <a
-				class="text-dark text-decoration-none"
+			<i class="fa-solid fa-list fs-5"></i>
+
+			<i class="fa-solid fa-heart fs-5"></i>
+
+			<i class="fa-solid fa-bell fs-5"></i>
+
+			<c:choose>
+				<c:when test="${member.role eq 'ADMIN'}">
+					<a href="${cp}/admin" style="text-decoration: none; color: inherit;">
+						<i class="fa-solid fa-circle-user fs-5"></i>
+					</a>
+				</c:when>
+				<c:otherwise>
+					<a href="${cp}/mypage" style="text-decoration: none; color: inherit;">
+						<i class="fa-solid fa-circle-user fs-5"></i>
+					</a>
+				</c:otherwise>
+			</c:choose>
+
+			<a class="text-dark text-decoration-none"
 				href="${cp}/openClassRegister/open">열기</a>
 			<c:if test="${empty member}">
 				<a class="text-dark text-decoration-none" href="${cp}/member/login">로그인</a>

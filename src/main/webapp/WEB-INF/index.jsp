@@ -166,6 +166,7 @@ body {
 					href="http://localhost:8080/CLANITY/classDetailedPage?classId=13051&openId=11482">
 					<div class="card h-100 border border-2 rounded-4 shadow-sm mx-auto"
 						style="width: 260px; border-color: #E63946;">
+
 						<div class="position-relative">
 							<img
 								src="https://ssr0116.s3.ap-northeast-2.amazonaws.com/clanity/class_images/5f51c67765c28a0d18e7354f/thumbnail_image/1.jpg"

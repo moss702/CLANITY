@@ -94,54 +94,54 @@ public class ClassInfoMapperTest {
 	}
 
 //	@Test 1회성 테스트 코드
-	public void testFileSystemInfo2Database() {
-		List<File> files = new ArrayList<>(Arrays.asList(new File("N:\\개인\\class_images\\class_images").listFiles()));
-		boolean flag = true;
-		for(File file : files) {
-			String originCode = file.getName();
-			if(originCode.equals("6764ebedec89ef2de1fe09da")) {
-				flag = false;
-			}
-			if(flag) {continue;}
-			log.info("origin_code: {}", originCode);
-			List<File> subDirs = Arrays.asList(file.listFiles());
-			for(File subDir : subDirs) {
-				if(subDir.isDirectory()) {
-					List<File> imageFiles = Arrays.asList(subDir.listFiles());
-					int count = 0;
-					for(File img : imageFiles) {
-						String ext = img.toString().substring(img.toString().lastIndexOf("."));
-						String uuid = UUID.randomUUID().toString() + ext;
-                        try {
-                            Attach attach = Attach.builder()
-                                    .uuid(uuid)
-                                    .origin(img.getName())
-                                    .mimeType(Files.probeContentType(img.toPath()))
-									.image(true)
-									.path(img.getAbsolutePath().replace("\\", "/").replace("N:/개인/class_images/", "").replace("/"+img.getName(), ""))
-									.odr(count++)
-                                    .build();
-							log.info("{}", attach);
-							// attachMapper에서 insert
-							attachMapper.insert(attach);
-
-							Long classId = classInfoMapper.findClassId(originCode);
-							AttachLink attachLink = AttachLink.builder()
-									.uuid(uuid)
-									.linkType("class_crawling")
-									.lno(classId)
-									.build();
-							attachLinkMapper.insert(attachLink);
-                        } catch (IOException e) {
-							log.error(e.getMessage() + "::" + originCode);
-                            throw new RuntimeException(e);
-
-                        }
-					}
-				}
-			}
-		};
-	}
+//	public void testFileSystemInfo2Database() {
+//		List<File> files = new ArrayList<>(Arrays.asList(new File("N:\\개인\\class_images\\class_images").listFiles()));
+//		boolean flag = true;
+//		for(File file : files) {
+//			String originCode = file.getName();
+//			if(originCode.equals("6764ebedec89ef2de1fe09da")) {
+//				flag = false;
+//			}
+//			if(flag) {continue;}
+//			log.info("origin_code: {}", originCode);
+//			List<File> subDirs = Arrays.asList(file.listFiles());
+//			for(File subDir : subDirs) {
+//				if(subDir.isDirectory()) {
+//					List<File> imageFiles = Arrays.asList(subDir.listFiles());
+//					int count = 0;
+//					for(File img : imageFiles) {
+//						String ext = img.toString().substring(img.toString().lastIndexOf("."));
+//						String uuid = UUID.randomUUID().toString() + ext;
+//                        try {
+//                            Attach attach = Attach.builder()
+//                                    .uuid(uuid)
+//                                    .origin(img.getName())
+//                                    .mimeType(Files.probeContentType(img.toPath()))
+//									.image(true)
+//									.path(img.getAbsolutePath().replace("\\", "/").replace("N:/개인/class_images/", "").replace("/"+img.getName(), ""))
+//									.odr(count++)
+//                                    .build();
+//							log.info("{}", attach);
+//							// attachMapper에서 insert
+//							attachMapper.insert(attach);
+//
+//							Long classId = classInfoMapper.findClassId(originCode);
+//							AttachLink attachLink = AttachLink.builder()
+//									.uuid(uuid)
+//									.linkType("class_crawling")
+//									.lno(classId)
+//									.build();
+//							attachLinkMapper.insert(attachLink);
+//                        } catch (IOException e) {
+//							log.error(e.getMessage() + "::" + originCode);
+//                            throw new RuntimeException(e);
+//
+//                        }
+//					}
+//				}
+//			}
+//		};
+//	}
 
 //	@Test 1회성
 	public void insertClassOpenBatch() {

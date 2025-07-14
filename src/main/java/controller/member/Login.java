@@ -51,7 +51,7 @@ public class Login extends HttpServlet{
 			
 			AlertUtil.redirectAlert("로그인 성공하였습니다", "/index", "green", req, resp);
 		}else {
-			resp.sendRedirect("login?msg=login_fail");
+			AlertUtil.alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해 주세요","/member/login","red",req,resp);
 		}
 		
 		
