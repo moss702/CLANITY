@@ -19,15 +19,6 @@ body {
 
 <main class="flex-grow-1 container">
 
-  <c:if test="${not empty member}">
-    <h1>로그인 테스트, 로그인 되었습니다</h1>
-    <span>${member.email} 님 환영합니다</span>
-    <a href="${cp}/member/logout">로그아웃</a>
-    <a href="${cp}/mypage">마이페이지</a>
-    <h3>${member}</h3>
-    <a href="${cp}/admin">관리자 페이지</a>
-  </c:if>
-
   <!-- ✅ 캐러셀 (main 영역 내 위치) -->
   <div id="mainCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
     <div class="carousel-inner">

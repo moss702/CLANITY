@@ -52,7 +52,7 @@ public class UploadFile extends HttpServlet {
 		//업로드된 파일 처리
 		Collection<Part> parts = req.getParts();
 
-		
+
 		//첨부파일 리스트 생성
 		List<Attach> attachs = new ArrayList<Attach>();
 		

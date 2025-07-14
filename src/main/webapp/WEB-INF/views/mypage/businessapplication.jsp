@@ -161,7 +161,8 @@
             $("[name='encodedStr']").val(JSON.stringify(data));
             this.submit();
         });
-    });
+        }
+        });
 </script>
 
 <%@ include file="../common/footer.jsp" %>

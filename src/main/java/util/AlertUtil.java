@@ -12,10 +12,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AlertUtil {
 	public static void alert(String msg, String url, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		alert(msg, url, "red", req, resp); // 정적 메서드 호출
+	}
+
+	public static void alert(String msg, String url,String color, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		req.setAttribute("msg", msg);
 		req.setAttribute("url", req.getContextPath() + url);
-		req.getRequestDispatcher("/WEB-INF/views/common/alert.jsp").forward(req, resp);	
+		req.setAttribute("toastColor", color);
+		req.getRequestDispatcher("/WEB-INF/views/common/alert.jsp").forward(req, resp);
 	}
+
 	public static void alert(String msg, String url, HttpServletRequest req, HttpServletResponse resp, boolean isUrl) throws IOException, ServletException {
 		if(isUrl) {
 			url = url + "&url=" + URLEncoder.encode(req.getRequestURL().toString(), "utf-8");
