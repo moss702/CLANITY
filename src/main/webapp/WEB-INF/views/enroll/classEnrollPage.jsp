@@ -18,7 +18,7 @@ body {
 <body class="bg-light">
 <%@ include file="../common/header.jsp"%>
   <main class="container py-5">
-    <h3 class="mb-4 fw-bold text-body">🧾 클래스 결제 페이지</h3>
+    <h3 class="mb-4 fw-bold text-body">🧾 클래스 신청 페이지</h3>
     <div class="row g-4">
       <!-- 왼쪽 영역 -->
       <div class="col-md-6">
@@ -89,17 +89,15 @@ body {
           <p><strong>원데이 클래스 수강권 </strong> 
           <hr>
           <div class="d-flex justify-content-between fw-bold fs-5">
-          	<span>총 인원수</span> <span>${detailInfo.currentParticipants}</span>
+          	<span>총 인원수</span> <span> 1 </span>
             <span>총 결제 금액</span>   <span>${detailInfo.price}</span>
             
           </div>
-          ${detailInfo.classId}
-          ${detailInfo.openId}
-          ${member.memberId}
+         
           <input type="hidden" name="classId" value="${detailInfo.classId}" />
           <input type="hidden" name="openId" value="${detailInfo.openId}" />
           <input type="hidden" name="memberId" value="${member.memberId}" />
-          <button class="btn w-100 mt-3 text-white" type="submit" style="background-color: #E63946; border-color: #E63946;">결제하기</button>
+          <button class="btn w-100 mt-3 text-white" type="submit" style="background-color: #E63946; border-color: #E63946;">클래스 신청하기</button>
         </div>
         </form>
       </div>

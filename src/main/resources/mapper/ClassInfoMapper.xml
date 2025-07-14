@@ -11,6 +11,7 @@
 		<result property="openId" column="open_id" />
 		<result property="title" column="title" />
 		<result property="description" column="description" />
+		<result property="description2" column="description2" />
 		<result property="duration" column="duration" />
 		<result property="curriculum" column="curriculum" />
 		<result property="price" column="price" />
@@ -26,6 +27,7 @@
 		<result property="endTime" column="end_time" />
 		<result property="difficulty" column="difficulty"/>
 		<result property="instructorName" column="instructor_name"/>
+		<result property="hostIntroduction" column="host_introduction"/>
 
 		<collection property="attachs" ofType="attach">
 			<result column="uuid" property="uuid" />
