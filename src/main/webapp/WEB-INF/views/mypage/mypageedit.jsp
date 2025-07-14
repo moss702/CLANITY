@@ -98,23 +98,25 @@
 </main>
 
 <script>
-  $(function() {
-    $("#sendVerifyBtn").on("click", function() {
-      const email = $("#email").val();
-      $.ajax({
-        type: "POST",
-        url: "/CLANITY/member/send-email-verify",
-        data: { email: email },
-        success: function() {
-          alert("메일이 성공적으로 전송되었습니다.");
-        },
-        error: function() {
-          alert("메일 전송에 실패했습니다.");
-        }
-      });
+    const cp = "${pageContext.request.contextPath}";
+    $(function() {
+        $("#sendVerifyBtn").on("click", function() {
+            const email = $("#email").val();
+            $.ajax({
+                type: "POST",
+                url: cp + "/member/send-email-verify",
+                data: { email: email },
+                success: function() {
+                    alert("메일이 성공적으로 전송되었습니다.");
+                },
+                error: function() {
+                    alert("메일 전송에 실패했습니다.");
+                }
+            });
+        });
     });
-  });
 </script>
+
 <%@ include file="../common/footer.jsp" %>
 </body>
 </html>

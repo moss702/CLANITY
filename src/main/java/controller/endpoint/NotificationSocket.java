@@ -17,7 +17,7 @@ import javax.websocket.server.ServerEndpoint;
 public class NotificationSocket {
 	// 모든 연결된 세션을 저장할 Set
 	private static final Set<Session> SESSIONS = new CopyOnWriteArraySet<Session>();
-	
+
 	// 최소 3개의 메서드 정의
 	// 연결
 	@OnOpen

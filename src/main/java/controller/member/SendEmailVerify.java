@@ -21,7 +21,7 @@ public class SendEmailVerify extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		log.info("왜 안되는건데");
 		String email = req.getParameter("email");
         System.out.println("전송 요청된 이메일: " + email);
 
