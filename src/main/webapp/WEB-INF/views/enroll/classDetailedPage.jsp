@@ -186,6 +186,7 @@
             <input type="hidden" name="classId" value="${detailInfo.classId}" />
             <input type="hidden" name="openId" value="${detailInfo.openId}" />
              <%-- <input type="hidden" name="part" value="${detailInfo.currentParticipants}"/>  --%>
+              <button type="submit" class="btn w-100 fw-bold text-white" style="background-color:#E63946; border-color:#E63946;">클래스 신청하기</button>
           </form>
         </div>
       </div>
